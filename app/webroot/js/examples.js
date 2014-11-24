@@ -5,7 +5,7 @@ $(function () {
         "iDisplayLength": 25,
         "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": "http://10.50.249.127/qaudzero/cities/getAjaxData",
+        "sAjaxSource": baseUrl + "/cities/getAjaxData",
         "sDom": 'frtip',
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             $('td:eq(4)', nRow).html('<a class="edit_row" data-rowid=' + aData[0] + '>Edit</a> <a class="delete_row" data-rowid=' + aData[0] + '>Delete</a>');
@@ -21,7 +21,7 @@ $(function () {
 
             $('.delete_row').click(function () {
                 $.ajax({
-                    url: 'http://10.50.249.127/qaudzero/cities/deleteCity',
+                    url: 'http://10.50.249.127/kvoadmin/cities/deleteCity',
                     dataType: 'json',
                     data: {id: $(this).data('rowid')},
                     type: "POST",

@@ -3,5 +3,5 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-    RewriteBase /qaudzero/app/webroot
+    RewriteBase /kvoadmin/app/webroot
 </IfModule>

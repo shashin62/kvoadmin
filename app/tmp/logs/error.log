@@ -6425,3 +6425,58 @@ Request URL: /qaudzero/qaudzero/
 Stack Trace:
 #0 /var/www/qaudzero/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2014-11-24 16:18:54 Error: [MissingControllerException] Controller class KvoadminController could not be found.
+Exception Attributes: array (
+  'class' => 'KvoadminController',
+  'plugin' => NULL,
+)
+Request URL: /kvoadmin/kvoadmin/
+Stack Trace:
+#0 /var/www/kvoadmin/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-11-24 16:32:34 Error: Fatal Error (4): syntax error, unexpected 'sds' (T_STRING), expecting function (T_FUNCTION) in [/var/www/kvoadmin/app/Controller/AppController.php, line 34]
+2014-11-24 16:32:34 Error: [FatalErrorException] syntax error, unexpected 'sds' (T_STRING), expecting function (T_FUNCTION)
+Request URL: /kvoadmin/
+Stack Trace:
+#0 /var/www/kvoadmin/lib/Cake/Error/ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/var/www/kvoadm...', 34)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/var/www/kvoadm...', 34, Array)
+#2 /var/www/kvoadmin/lib/Cake/Core/App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/var/www/kvoadm...', 34, Array)
+#3 /var/www/kvoadmin/lib/Cake/Core/App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-11-24 16:34:10 Error: [MissingControllerException] Controller class KvoadminController could not be found.
+Exception Attributes: array (
+  'class' => 'KvoadminController',
+  'plugin' => NULL,
+)
+Request URL: /kvoadmin/kvoadmin/
+Stack Trace:
+#0 /var/www/kvoadmin/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-11-24 16:34:14 Error: [MissingControllerException] Controller class KvoadminController could not be found.
+Exception Attributes: array (
+  'class' => 'KvoadminController',
+  'plugin' => NULL,
+)
+Request URL: /kvoadmin/kvoadmin/
+Stack Trace:
+#0 /var/www/kvoadmin/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-11-24 16:34:20 Error: [MissingControllerException] Controller class KvoadminController could not be found.
+Exception Attributes: array (
+  'class' => 'KvoadminController',
+  'plugin' => NULL,
+)
+Request URL: /kvoadmin/kvoadmin/
+Stack Trace:
+#0 /var/www/kvoadmin/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-11-24 16:34:24 Error: [MissingControllerException] Controller class KvoadminController could not be found.
+Exception Attributes: array (
+  'class' => 'KvoadminController',
+  'plugin' => NULL,
+)
+Request URL: /kvoadmin/kvoadmin/
+Stack Trace:
+#0 /var/www/kvoadmin/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

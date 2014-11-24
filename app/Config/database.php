@@ -70,7 +70,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'admin',
 		'password' => 'india@123',
-		'database' => 'quadzero',
+		'database' => 'kvoadmin',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
