@@ -24,6 +24,7 @@ class CitiesController extends AppController {
         }
     }
     
+    
     public function getAjaxData()
     {
         $this->autoRender = false;
