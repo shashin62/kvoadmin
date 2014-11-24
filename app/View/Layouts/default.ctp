@@ -71,6 +71,10 @@
 	</div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    var baseUrl = '<?php echo FULL_BASE_URL . $this->base; ?>';
+    </script>
+    
     <?php
     echo $this->Html->script(array('datatables/js/jquery.dataTables.min.js','examples.js'));
     ?>
