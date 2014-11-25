@@ -55,7 +55,7 @@ class User extends AppModel {
     public function getEmailUserData($email, $checkActive = true, $checkPass = '') {
         
          $this->recursive = -1;
-        $options['conditions']['User.username'] = $email;
+        $options['conditions']['User.email'] = $email;
        
             $options['conditions']['User.password'] = $checkPass;
       try {

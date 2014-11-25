@@ -28,39 +28,35 @@
     
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
+    <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="/">Kvo Admin</a>
-          <div class="nav-collapse collapse">
-<!--             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
-            </p> -->
-<!--            <ul class="nav">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Examples
-                    <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                      <li><a href="/cities/index">Basic (Linkable)</a></li>
-                      <li><a href="/cities/containable">Containable</a></li>
-                      <li><a href="/cities/concat">CONCAT</a></li>
-                      <li><a href="/cities/virtualFields">VirtualFields</a></li>
-                      <li><a href="/cities/noJsonHandler">No JSON Handler</a></li>
-                  </ul>
-                </li>
-                <li><a href="#README" data-toggle="modal">README</a></li>
-            </ul>-->
+          <div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+<!--			<a class="navbar-brand" href="#">Admin</a>-->
+		</div>
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav">
+                 <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Masters <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="new_form.php">Users</a></li>
+                                                <li><a href="new_form.php">Villages</a></li>
+                                                <li><a href="new_form.php">Educations</a></li>
+					</ul>
+				</li>
+             </ul>
+             <ul class="nav navbar-nav navbar-right">
+                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/register">Register<span class="sr-only">(current)</span></a></li>
+                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/login">Sign In<span class="sr-only">(current)</span></a></li>
+             </ul>
           </div><!--/.nav-collapse -->
         </div>
-      </div>
-    </div>
+    </nav>
 	<div class="container-fluid">
         <div class="row-fluid" style="margin-top:100px">
 			<?php echo $this->Session->flash(); ?>

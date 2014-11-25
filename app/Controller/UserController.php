@@ -53,7 +53,7 @@ Class UserController extends AppController {
     public function add() {
 
         $data = array();
-        $data['User']['username'] = 'sanil';
+        $data['User']['email'] = 'sanil@shet.com';
         $data['User']['password'] = $this->generatePassword();
         $data['User']['created'] = gmdate("Y-m-d H:i:s");
         $data['User']['modified'] = gmdate("Y-m-d H:i:s");
@@ -91,6 +91,11 @@ Class UserController extends AppController {
         list($usec, $sec) = explode(' ', microtime());
         return (float) $sec + ((float) $usec * 100000);
     }
+    
+    public function welcome()
+    {
+        
+    }
 
     public function login() {
 
@@ -98,16 +103,17 @@ Class UserController extends AppController {
 
             if ($this->User->validates()) {
 
-                $userAllData = $this->User->getEmailUserData($this->request->data['User']['username'], '', trim(Security::hash(Configure::read('Security.salt') . $this->request->data['User']['password'])));
+                $userAllData = $this->User->getEmailUserData($this->request->data['User']['email'], '', trim(Security::hash(Configure::read('Security.salt') . $this->request->data['User']['password'])));
 
                 if ($this->Auth->login($userAllData['User'])) {
-                    $cookie['username'] = $userAllData['User']['username'];
+                    $cookie['email'] = $userAllData['User']['email'];
                     $cookie['password'] = $userAllData['User']['password'];
 
                     $this->Cookie->write('Auth.User', $cookie, true, '+2 weeks');
                     $this->redirect($this->Auth->redirect());
                 }
-                $this->Session->setFlash(__('Invalid username or password, try again'));
+                
+                $this->Session->setFlash(__('Invalid username or password, try again'), 'default', array(), 'authlogin');
             }
         }
     }
