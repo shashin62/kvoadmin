@@ -36,6 +36,13 @@ class AppController extends Controller {
         'Acl',
         'Auth' => array(
             'userModel' => 'User',
+            'authenticate' => array('Form' => array( 'userModel' => 'User',
+                                    'fields' => array(
+                                                        'username' => 'email',
+                                                        'password' => 'password'
+                                                        )
+                                                )
+                            ),
             'authorize' => array('Actions' => array('actionPath' => 'controllers')),
             'loginAction' => array('controller' => 'user', 'action' => 'login'),
             'logoutRedirect' => array('controller' => 'user', 'action' => 'logout'), //logout
