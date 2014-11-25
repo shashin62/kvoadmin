@@ -28,3 +28,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+       alert('hii'); 
+    });
+</script>
+            

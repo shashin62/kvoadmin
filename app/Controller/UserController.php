@@ -96,6 +96,11 @@ Class UserController extends AppController {
     {
         
     }
+    
+    public function register()
+    {
+        
+    }
 
     public function login() {
 

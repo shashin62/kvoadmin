@@ -24,8 +24,14 @@
 	<title>
 		Kvo Admin
 	</title>
-    <?php echo $this->Html->css(array('/js/datatables/css/jquery.dataTables.css','bootstrap.min.css','bootstrap-responsive.min.css')); ?>
-    
+    <?php echo $this->Html->css(array('/font-awesome-4.1.0/css/font-awesome.min.css',
+                                    '/js/datatables/css/jquery.dataTables.css',
+                                    'bootstrap.min.css',
+                                    'bootstrap-responsive.min.css','dataTables.bootstrap.css',
+                                    'bootstrapValidator.min.css','datepicker.min.css','bootstrap-select.min.css')); ?>
+<?php
+  echo $this->Html->script(array('jquery','bootstrap.min','/datatables/js/jquery.dataTables.min'));      
+?>
 </head>
 <body>
     <nav class="navbar navbar-default" role="navigation">
@@ -65,15 +71,20 @@
         </div>
 <!--        <p><strong>Your are using CakePHP Version <?=Configure::version()?></strong></p>-->
 	</div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    
     <script type="text/javascript">
     var baseUrl = '<?php echo FULL_BASE_URL . $this->base; ?>';
     </script>
     
-    <?php
-    echo $this->Html->script(array('datatables/js/jquery.dataTables.min.js','examples.js'));
-    ?>
+    <!-- jQuery DataTables JavaScript -->
+
+<!-- Bootstrap validation JavaScript -->
+<script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+<!-- Bootstrap Datepicker JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap Select JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
     <div class="modal hide" id="README">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
