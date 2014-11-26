@@ -1,3 +1,6 @@
+ <div class="container-fluid">
+    <a href="<?php echo $this->base;?>" class="btn btn-primary btn-primary pull-left"><span class="glyphicon glyphicon-edit"></span>Add User</a>
+</div>
 <div class="container-fluid">   
 
 <table id="getUsers" class="display" cellspacing="0" width="100%">
@@ -17,5 +20,6 @@
 
     </tbody>
 </table>
+   
     </div>
 <?php echo $this->Html->script(array('User/user_lists')); ?>

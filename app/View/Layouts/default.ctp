@@ -45,15 +45,7 @@
 <body>
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-          <div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			</button>
-<!--			<a class="navbar-brand" href="#">Admin</a>-->
-		</div>
+         
             <?php if ($this->Session->read('Auth.User')) {?>
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
              <ul class="nav navbar-nav">
@@ -83,7 +75,7 @@
     </nav>
 	<div class="container-fluid">
             <div id="customFlash" class="jssuccessMessage top_success" style="display: none"></div>
-        <div class="row-fluid" style="margin-top:100px">
+        <div class="row-fluid">
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
