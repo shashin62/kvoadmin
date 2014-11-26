@@ -1,5 +1,8 @@
+<div class="container-fluid">
+    <a href="<?php echo $this->base;?>" class="btn btn-primary btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span>Add Education</a>
+</div>
 <div class="container-fluid">   
-
+<h2>Educations</h2>
 <table id="getEducation" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
