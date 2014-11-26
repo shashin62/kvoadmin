@@ -53,8 +53,11 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Masters <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/getUsers">Users</a></li>
-                                                <li><a href="new_form.php">Villages</a></li>
+                                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/bloodgroup/index">Blood Groups</a></li>
                                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/education/index">Educations</a></li>
+												<li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/state/index">States</a></li>
+												<li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/country/index">Countries</a></li>
+												<li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/village/index">Villages</a></li>
 					</ul>
 				</li>
              </ul>
