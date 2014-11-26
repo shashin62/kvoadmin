@@ -62,7 +62,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/getUsers">Users</a></li>
                                                 <li><a href="new_form.php">Villages</a></li>
-                                                <li><a href="new_form.php">Educations</a></li>
+                                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/education/index">Educations</a></li>
 					</ul>
 				</li>
              </ul>
