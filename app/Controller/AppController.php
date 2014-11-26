@@ -48,7 +48,7 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'user', 'action' => 'logout'), //logout
             'loginRedirect' => array('controller' => 'user', 'action' => 'welcome'),
             'authError' => 'You are not authorized to view this page',
-            'allowedActions' => array('welcome','register'),
+            'allowedActions' => array('logout','register','doRegisterUser','getUsers','getUserAjaxData'),
 //            'authenticate' => array(
 //                'all' => array('userModel' => 'User'),
 //                'Form' => array(),

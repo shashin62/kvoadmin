@@ -99,6 +99,45 @@ Class UserController extends AppController {
     
     public function register()
     {
+        if ($this->request->is('post')) {
+           
+        }
+    }
+    
+    public function getUsers()
+    {
+        
+    }
+    
+    public function getUserAjaxData()
+    {
+        $this->autoRender = false;
+        
+        
+        $data = $this->User->getAllUsers();
+        echo json_encode($data);
+    }
+    
+    public function doRegisterUser()
+    {
+        $this->layout = 'ajax';
+        $this->autoRender = false;
+        unset($this->request->data['User']['confirm_password']);
+        $this->request->data['User']['role_id'] = 1;
+        $data = $this->request->data;
+
+        $this->User->recursive = -1;
+        
+        if ($this->User->save($data) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'Your Information has been saved';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please trye again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
         
     }
 
@@ -124,10 +163,11 @@ Class UserController extends AppController {
     }
 
     public function logout() {
+      
         $this->Session->destroy();
         $this->Cookie->delete('Auth.User');
 
-        $this->redirect($this->Auth->logout());
+        $this->redirect('/user/login');
     }
 
 }
