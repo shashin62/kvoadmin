@@ -59,6 +59,7 @@
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/state/index">States</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/country/index">Countries</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/village/index">Villages</a></li>
+                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/translation/index">Translations</a></li>
                             </ul>
                         </li>
                     </ul>
