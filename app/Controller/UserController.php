@@ -131,11 +131,14 @@ Class UserController extends AppController {
         if ( !isset($this->request->data['User']['status'])) {
             $this->request->data['User']['status'] = 1;
         }
+        if (isset($this->request->data['User']['id']) && $this->request->data['User']['id'] != '') {
+            unset($this->request->data['User']['password']);
+        }
         $data = $this->request->data;
         $msg['status'] = 1;
         $result = $this->User->checkEmailExists($this->request->data['User']['email']);
        
-        if (!empty($result)) {
+        if (!empty($result) && $this->request->data['User']['id'] == '') {
             $msg['status'] = 0;
             $msg['error']['name'][] = "email";
             $msg['error']['errormsg'][] = __('This Email already exists.');
@@ -143,7 +146,7 @@ Class UserController extends AppController {
         
          $phoneData = $this->User->checkPhoneExists($this->request->data['User']['phone_number']);
        
-        if (!empty($phoneData)) {
+        if (!empty($phoneData) && $this->request->data['User']['id'] == '') {
             $msg['status'] = 0;
             $msg['error']['name'][] = "phone_number";
             $msg['error']['errormsg'][] = __('This Phone already exists.');
@@ -152,9 +155,12 @@ Class UserController extends AppController {
         $this->User->recursive = -1;
         if ($msg['status'] == 1) {
             if ($this->User->save($data)) {
-
+              
                 $msg['success'] = 1;
                 $msg['message'] = 'Your Information has been saved';
+                  if ($this->request->data['User']['id'] != '') {
+                $msg['message'] = 'user has been updated';
+            }
             } else {
 
                 $msg['success'] = 0;
