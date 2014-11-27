@@ -8,13 +8,13 @@
             <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name:</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('first_name', array('id' => 'first_name', 'placeholder' => 'Enter first name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control bname')); ?>
+                        <?php echo $this->Form->input('first_name', array('id' => 'first_name', 'placeholder' => 'Enter first name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control first_name')); ?>
                     </div>
                 </div>
             <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last name:</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control last_name')); ?>
                     </div>
                 </div>
             <div class="form-group">
@@ -43,7 +43,7 @@
                  <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="email">Email id:</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('email', array('id' => 'email', 'placeholder' => 'Enter email' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('email', array('id' => 'email', 'placeholder' => 'Enter email' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control email')); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -65,7 +65,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 't',
+                'class' => 't gender',
                 'style' => '',
                 'options' => $genderOptions
             ));

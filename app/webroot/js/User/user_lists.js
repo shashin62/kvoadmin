@@ -7,8 +7,9 @@ $(function () {
         "bServerSide": true,
         "sAjaxSource": baseUrl + "/user/getUserAjaxData",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
+            
             $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" \n\
-onclick="editUser(' + aData[0] + ', \'' + aData[1] + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
+onclick="editUser(' + aData[0] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
 <a class="delete_row btn btn-xs btn-danger" onclick="deleteBloodGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
 
         },
@@ -122,11 +123,20 @@ function deleteBloodGroup(id)
     });
 }
 
-function editUser(id, name)
+function editUser(id, adata)
 {
-    console.log(id);
-    return;
-    $.trim($('.bname').val(name));
-    $('.userid').val(id);
+    var aData = adata.split(',');
+   
+    $('.first_name').val(aData[1]);
+     $('.last_name').val(aData[2]);
+     $('.email').val(aData[3]);
+     if (aData[4] == 'Male') {
+         $('.gender').val('male');
+     }
+     if (aData[4] == 'Female') {
+         $('.gender').val('female');
+     }
+     
+    $('.userid').val(aData[0]);
    $('.addUserForm').show();
 }
