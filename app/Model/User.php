@@ -119,10 +119,12 @@ class User extends AppModel {
          * on very large tables, and MySQL's regex functionality is very limited
          */
         $sWhere = "";
+       
+        
         if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
             $sWhere = "WHERE (";
             for ($i = 0; $i < count($aColumns); $i++) {
-                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch']) . "%' OR ";
             }
             $sWhere = substr_replace($sWhere, "", -3);
             $sWhere .= ')';
@@ -135,10 +137,11 @@ class User extends AppModel {
                 } else {
                     $sWhere .= " AND ";
                 }
-                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
         }
-
+        
+       
         /*
          * SQL queries
          * Get data to display
