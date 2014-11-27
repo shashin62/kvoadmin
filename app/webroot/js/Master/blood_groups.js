@@ -4,7 +4,7 @@ $(function () {
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": baseUrl + "/bloodgroup/getAjaxData",
+        "sAjaxSource": baseUrl + "/BloodGroup/getAjaxData",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             $('td:eq(4)', nRow).html('<a class="edit_row btn btn-xs btn-success" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
 <a class="delete_row btn btn-xs btn-danger" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
@@ -20,7 +20,7 @@ $(function () {
 
             $('.delete_row').click(function () {
                 $.ajax({
-                    url: baseUrl + '/bloodgroup/delete',
+                    url: baseUrl + '/BloodGroup/delete',
                     dataType: 'json',
                     data: {id: $(this).data('rowid')},
                     type: "POST",
