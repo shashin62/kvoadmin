@@ -122,20 +122,46 @@ Class UserController extends AppController {
     {
         $this->layout = 'ajax';
         $this->autoRender = false;
-        unset($this->request->data['User']['confirm_password']);
-        $this->request->data['User']['role_id'] = 1;
+        if( !isset($this->request->data['User']['confirm_password'])) {
+            unset($this->request->data['User']['confirm_password']);
+        }
+        if( !isset($this->request->data['User']['role_id'])) {
+            $this->request->data['User']['role_id'] = 1;
+        }
+        if ( !isset($this->request->data['User']['status'])) {
+            $this->request->data['User']['status'] = 1;
+        }
         $data = $this->request->data;
-
-        $this->User->recursive = -1;
-        
-        if ($this->User->save($data) ) {
-            $msg['success'] = 1;
-            $msg['message'] = 'Your Information has been saved';
-        } else {
-            $msg['success'] = 0;
-            $msg['message'] = 'System Error, Please trye again';
+        $msg['status'] = 1;
+        $result = $this->User->checkEmailExists($this->request->data['User']['email']);
+       
+        if (!empty($result)) {
+            $msg['status'] = 0;
+            $msg['error']['name'][] = "email";
+            $msg['error']['errormsg'][] = __('This Email already exists.');
         }
         
+         $phoneData = $this->User->checkPhoneExists($this->request->data['User']['phone_number']);
+       
+        if (!empty($phoneData)) {
+            $msg['status'] = 0;
+            $msg['error']['name'][] = "phone_number";
+            $msg['error']['errormsg'][] = __('This Phone already exists.');
+        }
+
+        $this->User->recursive = -1;
+        if ($msg['status'] == 1) {
+            if ($this->User->save($data)) {
+
+                $msg['success'] = 1;
+                $msg['message'] = 'Your Information has been saved';
+            } else {
+
+                $msg['success'] = 0;
+                $msg['message'] = 'System Error, Please trye again';
+            }
+        }
+
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
         
@@ -169,7 +195,23 @@ Class UserController extends AppController {
 
         $this->redirect('/user/login');
     }
-
+    
+    public function delete()
+    {
+        $this->autoRender = false;
+        $id = $_REQUEST['id'];    
+        $this->User->recursive = -1;
+        if ($this->User->delete(array('id' =>$id)) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'User has been deleted';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
 }
 
 /* 

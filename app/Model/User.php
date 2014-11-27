@@ -210,6 +210,54 @@ class User extends AppModel {
         }
         return $output;
     }
+    
+     /**
+     * Function to check if email exists in table
+     * 
+     * @param type $email
+     * 
+     * @return boolean 
+     */
+    public function checkEmailExists($email) {
+        $this->recursive = -1;
+        $options['conditions'] = array('User.email' => $email);
+        $options['fields'] = array('User.id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0]['User']) && $userData[0]['User'] != "") {
+                return $userData[0]['User'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+       /**
+     * Function to check if phone exists in table
+     * 
+     * @param type $phone
+     * 
+     * @return boolean 
+     */
+    public function checkPhoneExists($phone) {
+        $this->recursive = -1;
+        $options['conditions'] = array('User.phone_number' => $phone);
+        $options['fields'] = array('User.id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0]['User']) && $userData[0]['User'] != "") {
+                return $userData[0]['User'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
 
 }
 

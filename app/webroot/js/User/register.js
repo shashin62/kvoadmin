@@ -64,13 +64,23 @@ $(document).ready(function () {
             var queryString = $('#registerUser').serialize();
 
             $.post(baseUrl + '/user/doRegisterUser', queryString, function (data) {
-                var displayMsg = data.message;
+                 if (0 == data.status) {
+                if (data.error.name.length > 0) {
+                    for (var i = 0; i < data.error.name.length; i++) {
+                        displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
+                    }
+                }
+            } else {
+                 var displayMsg = data.message;
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
                     window.location.href = baseUrl + "/user/login";
                 }, 2500);
+            }
+               
             }, "json");
+        
             return false;
         }
     });

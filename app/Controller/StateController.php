@@ -19,6 +19,33 @@ Class StateController extends AppController {
         
     }
     
+      public function add()
+    {
+       $this->layout = 'ajax';
+        $this->autoRender = false;
+       
+        $this->request->data['State']['created'] = date('Y-m-d H:i:s');
+        $this->request->data['State']['status'] = 1;
+        $this->request->data['State']['country_id'] = 1;
+        $this->request->data['State']['country_name'] = 'India';
+        $data = $this->request->data;
+         if ($this->State->save($data) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'State has been saved';
+            if ($this->request->data['State']['id'] != '') {
+                $msg['message'] = 'State has been updated';
+            }
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+        
+        
+    }
+    
     public function getAjaxData()
     {
         $this->autoRender = false;
@@ -30,7 +57,19 @@ Class StateController extends AppController {
     
     public function delete()
     {
+         $this->autoRender = false;
+        $id = $_REQUEST['id'];    
         
+        if ($this->State->delete(array('id' =>$id)) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'State has been deleted';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
     }
     
 }
