@@ -68,7 +68,7 @@ Class FamilyController extends AppController {
         
         if( $msg['status'] == 1) {
             $msg['success'] = 1;
-            $msg['message'] = 'User has been deleted';
+            $msg['message'] = 'Information has been updated';
         } else {
             $msg['success'] = 0;
             $msg['message'] = 'System Error, Please try again';
