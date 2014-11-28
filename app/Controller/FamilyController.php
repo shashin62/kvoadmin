@@ -40,6 +40,7 @@ Class FamilyController extends AppController {
         $this->set('surname_dob',$getPeopleData['People']['surname_dob']);
         $this->set('state',$getPeopleData['People']['state']);
         $this->set('education',$getPeopleData['People']['education']);
+        $this->set('village',$getPeopleData['People']['village']);
         $this->set('blood_group',$getPeopleData['People']['blood_group']);
         
     }

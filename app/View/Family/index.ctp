@@ -71,7 +71,8 @@
                 'legend' => false,
                 'class' => 't',
                 'style' => '',
-                'options' => $villages
+                'options' => $villages,
+                'value' => $village
             ));
             ?>
                     </div>
@@ -97,7 +98,8 @@
                 'legend' => false,
                 'class' => 't',
                 'style' => '',
-                'options' => $educations
+                'options' => $educations,
+                'value' => $education
             ));
             ?>
                     </div>
