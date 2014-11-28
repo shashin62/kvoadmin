@@ -2,7 +2,7 @@
     <a href="<?php echo $this->base;?>" class="btn btn-primary btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span>Add Country</a>
 </div>
 <div class="container-fluid">   
-<h2>Countries</h2>
+<h3 class="heading">Countries</h3>
 <table id="getCountry" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>

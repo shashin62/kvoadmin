@@ -12,3 +12,12 @@
 .notice a {color:#514721;}
 .success a {color:#264409;}
 .info a {color:#205791;}
+
+.navbar {background-color: #205791 }
+
+h1.heading , h2.heading , h3.heading {
+    border-bottom: 1px dotted #aeaeae;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    position: relative;
+}

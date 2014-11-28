@@ -31,7 +31,7 @@
         <?php echo $this->Form->end(); ?>
 </div>
 <div class="container-fluid">   
-<h2>Blood Groups</h2>
+<h3 class="heading">Blood Groups</h3>
 <table id="getBloodGroup" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>

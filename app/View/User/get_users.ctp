@@ -46,10 +46,10 @@
                         <?php echo $this->Form->input('email', array('id' => 'email', 'placeholder' => 'Enter email' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control email')); ?>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group passwordField">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="password">Password:</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
-                       <?php echo $this->Form->input('password', array('id' => 'password', 'placeholder' => 'Enter password' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                       <?php echo $this->Form->input('password', array('id' => 'password', 'placeholder' => 'Enter password' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control password')); ?>
                     </div>
                 </div>
             <div class="form-group">
@@ -88,7 +88,7 @@
         <?php echo $this->Form->end(); ?>
 </div>
 <div class="container-fluid">   
-<h2>Users</h2>
+<h3 class="heading">Users</h3>
 <table id="getUsers" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>

@@ -26,7 +26,7 @@
         <?php echo $this->Form->end(); ?>
 </div>
 <div class="container-fluid">   
-<h2>Educations</h2>
+<h3 class="heading">Educations</h3>
 <table id="getEducation" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>

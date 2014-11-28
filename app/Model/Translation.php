@@ -6,8 +6,34 @@ class Translation extends AppModel {
     
      var $name = 'Translation';
      
+     
+       /**
+     * Function to check if phone exists in table
+     * 
+     * @param type $phone
+     * 
+     * @return boolean 
+     */
+    public function checkTranslationExists($name) {
+        $this->recursive = -1;
+        $options['conditions'] = array('Translation.name' => $name);
+        $options['fields'] = array('Translation.id');
+        try {
+            $translationData = $this->find('all', $options);
+            if ($translationData && isset($translationData[0]['Translation']) && $translationData[0]['Translation'] != "") {
+                return $translationData[0]['Translation'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+     
      public function getAllTranslations() {
-       $aColumns = array('id', 'name','text_gujurathi','text_hindi', 'status', 'created');
+       $aColumns = array('id', 'name','gujurathi_text','hindi_text', 'status',);
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "id";

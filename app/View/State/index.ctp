@@ -24,7 +24,7 @@
         <?php echo $this->Form->end(); ?>
 </div>
 <div class="container-fluid">   
-<h2>States</h2>
+<h3 class="heading">States</h3>
 <table id="getStates" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>

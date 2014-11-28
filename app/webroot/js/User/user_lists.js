@@ -10,7 +10,7 @@ $(function () {
             
             $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" \n\
 onclick="editUser(' + aData[0] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
-<a class="delete_row btn btn-xs btn-danger" onclick="deleteBloodGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
+<a class="delete_row btn btn-xs btn-danger" onclick="deleteUser(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
 
         },
         "rowCallback": function (row, data) {
@@ -38,7 +38,7 @@ onclick="editUser(' + aData[0] + ', \'' + aData + '\')" data-rowid=' + aData[0] 
                 required: true,
                 email: true
             },
-            'data[User][password]': {
+            'data[Userd][password]': {
                 required: true,
                 minlength : 6
             },
@@ -98,11 +98,12 @@ $(".bgButton").click(function () {
 });
 
 $('.adduser').click(function() {
+    $('.passwordField').show();
     $('.userid').val('');
     $('.addUserForm').toggle('slow');
 });
 
-function deleteBloodGroup(id)
+function deleteUser(id)
 {
 
     $.ajax({
@@ -125,6 +126,8 @@ function deleteBloodGroup(id)
 
 function editUser(id, adata)
 {
+    $('.passwordField').hide();
+    $('.password').rules('remove', 'required');
     var aData = adata.split(',');
    
     $('.first_name').val(aData[1]);

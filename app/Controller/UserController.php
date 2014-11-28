@@ -122,6 +122,7 @@ Class UserController extends AppController {
     {
         $this->layout = 'ajax';
         $this->autoRender = false;
+       
         if( !isset($this->request->data['User']['confirm_password'])) {
             unset($this->request->data['User']['confirm_password']);
         }
@@ -144,20 +145,23 @@ Class UserController extends AppController {
             $msg['error']['errormsg'][] = __('This Email already exists.');
         }
         
-         $phoneData = $this->User->checkPhoneExists($this->request->data['User']['phone_number']);
-       
-        if (!empty($phoneData) && $this->request->data['User']['id'] == '') {
-            $msg['status'] = 0;
-            $msg['error']['name'][] = "phone_number";
-            $msg['error']['errormsg'][] = __('This Phone already exists.');
+        if (isset($this->request->data['User']['phone_number'])) {
+            $phoneData = $this->User->checkPhoneExists($this->request->data['User']['phone_number']);
+
+            if (!empty($phoneData) && $this->request->data['User']['id'] == '') {
+                $msg['status'] = 0;
+                $msg['error']['name'][] = "phone_number";
+                $msg['error']['errormsg'][] = __('This Phone already exists.');
+            }
         }
+
 
         $this->User->recursive = -1;
         if ($msg['status'] == 1) {
             if ($this->User->save($data)) {
               
                 $msg['success'] = 1;
-                $msg['message'] = 'Your Information has been saved';
+                $msg['message'] = 'User has been registered';
                   if ($this->request->data['User']['id'] != '') {
                 $msg['message'] = 'user has been updated';
             }
@@ -205,7 +209,7 @@ Class UserController extends AppController {
     public function delete()
     {
         $this->autoRender = false;
-        $id = $_REQUEST['id'];    
+        $id = $_REQUEST['id'];
         $this->User->recursive = -1;
         if ($this->User->delete(array('id' =>$id)) ) {
             $msg['success'] = 1;
