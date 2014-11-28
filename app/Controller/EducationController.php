@@ -26,18 +26,28 @@ Class EducationController extends AppController {
        
         $this->request->data['Education']['created'] = date('Y-m-d H:i:s');
         $this->request->data['Education']['status'] = 1;
-        $data = $this->request->data;
-         if ($this->Education->save($data) ) {
-            $msg['success'] = 1;
-            $msg['message'] = 'Your Information has been saved';
-            if ($this->request->data['Education']['id'] != '') {
-                $msg['message'] = 'Education has been updated';
-            }
-        } else {
-            $msg['success'] = 0;
-            $msg['message'] = 'System Error, Please try again';
+        
+        $result = $this->Education->checkEducationExists($this->request->data['Education']['name']);
+        $msg['status'] = 1;
+        if (!empty($result) && $this->request->data['Education']['id'] == '') {
+            $msg['status'] = 0;
+            $msg['error']['name'][] = "name";
+            $msg['error']['errormsg'][] = __('This name already exists.');
         }
         
+        $data = $this->request->data;
+         if ($msg['status'] == 1) {
+            if ($this->Education->save($data)) {
+                $msg['success'] = 1;
+                $msg['message'] = 'Education has been saved';
+                if ($this->request->data['Education']['id'] != '') {
+                    $msg['message'] = 'Education has been updated';
+                }
+            } else {
+                $msg['success'] = 0;
+                $msg['message'] = 'System Error, Please try again';
+            }
+        }
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
         

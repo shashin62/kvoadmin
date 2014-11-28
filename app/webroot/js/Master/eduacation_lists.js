@@ -1,4 +1,4 @@
-    var oTable;
+var oTable;
 $(function () {
 
     oTable = $('#getEducation').dataTable({
@@ -15,48 +15,56 @@ $(function () {
 
         },
         "fnInitComplete": function (oSettings, json) {
-           
+
         }
     });
     $('#getEducation').removeClass('display').addClass('table table-striped table-bordered');
 });
 
- $("#addEducation").validate({
-     errorElement: "span",
-      rules: {
-            'data[Education][name]': {
-                required: true,
-                maxlength: 25
-            }
-        },
-         messages: {
-            'data[Education][name]': {
-                required: 'Please enter education',
-                maxlength: 'Length exceeds 25 charaters'
-            }
-        },
-        submitHandler: function (form) {
-             var queryString = $('#addEducation').serialize();
+$("#addEducation").validate({
+    errorElement: "span",
+    rules: {
+        'data[Education][name]': {
+            required: true,
+            maxlength: 25
+        }
+    },
+    messages: {
+        'data[Education][name]': {
+            required: 'Please enter education',
+            maxlength: 'Length exceeds 25 charaters'
+        }
+    },
+    submitHandler: function (form) {
+        var queryString = $('#addEducation').serialize();
 
-            $.post(baseUrl + '/education/add', queryString, function (data) {
+        $.post(baseUrl + '/education/add', queryString, function (data) {
+            if (0 == data.status) {
+                if (data.error.name.length > 0) {
+                    for (var i = 0; i < data.error.name.length; i++) {
+                        displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
+                    }
+                }
+            } else {
                 var displayMsg = data.message;
                 showJsSuccessMessage(displayMsg);
                 $('.addEducationForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
-                   oTable.fnDraw(true);
+                    oTable.fnDraw(true);
                 }, 2500);
-            }, "json");
-            return false;
-        }
- });
+            }
+        }, "json");
+        return false;
+    }
+});
 $(".bgButton").click(function () {
     $("#addEducation").submit();
     return false;
 });
 
-$('.addeducation').click(function() {
-     $('.educationid').val('');
+$('.addeducation').click(function () {
+    $('.educationid').val('');
     $('.addEducationForm').toggle('slow');
 });
 
@@ -85,5 +93,5 @@ function editBloodGroup(id, name)
 {
     $.trim($('.bname').val(name));
     $('.educationid').val(id);
-   $('.addEducationForm').show();
+    $('.addEducationForm').show();
 }

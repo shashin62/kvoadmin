@@ -19,7 +19,7 @@ Class StateController extends AppController {
         
     }
     
-      public function add()
+    public function add()
     {
        $this->layout = 'ajax';
         $this->autoRender = false;
@@ -28,18 +28,28 @@ Class StateController extends AppController {
         $this->request->data['State']['status'] = 1;
         $this->request->data['State']['country_id'] = 1;
         $this->request->data['State']['country_name'] = 'India';
-        $data = $this->request->data;
-         if ($this->State->save($data) ) {
-            $msg['success'] = 1;
-            $msg['message'] = 'State has been saved';
-            if ($this->request->data['State']['id'] != '') {
-                $msg['message'] = 'State has been updated';
-            }
-        } else {
-            $msg['success'] = 0;
-            $msg['message'] = 'System Error, Please try again';
-        }
         
+        $result = $this->State->checkStateExists($this->request->data['State']['name']);
+        $msg['status'] = 1;
+        if (!empty($result) && $this->request->data['State']['id'] == '') {
+            $msg['status'] = 0;
+            $msg['error']['name'][] = "name";
+            $msg['error']['errormsg'][] = __('This state already exists.');
+        }
+        $data = $this->request->data;
+        if ($msg['status'] == 1) {
+            if ($this->State->save($data)) {
+                $msg['success'] = 1;
+                $msg['message'] = 'State has been saved';
+                if ($this->request->data['State']['id'] != '') {
+                    $msg['message'] = 'State has been updated';
+                }
+            } else {
+                $msg['success'] = 0;
+                $msg['message'] = 'System Error, Please try again';
+            }
+        }
+
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
         

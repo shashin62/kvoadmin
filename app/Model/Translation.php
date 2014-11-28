@@ -7,10 +7,10 @@ class Translation extends AppModel {
      var $name = 'Translation';
      
      
-       /**
-     * Function to check if phone exists in table
+    /**
+     * Function to check if name exists in table
      * 
-     * @param type $phone
+     * @param type $name
      * 
      * @return boolean 
      */

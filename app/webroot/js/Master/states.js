@@ -15,49 +15,57 @@ $(function () {
 
         },
         "fnInitComplete": function (oSettings, json) {
-           
+
         }
     });
     $('#getStates').removeClass('display').addClass('table table-striped table-bordered');
 });
 
 $("#addState").validate({
-     errorElement: "span",
-      rules: {
-            'data[State][name]': {
-                required: true,
-                maxlength: 25
-            }
-        },
-         messages: {
-            'data[State][name]': {
-                required: 'Please enter state',
-                maxlength: 'Length exceeds 25 charaters'
-            }
-        },
-        submitHandler: function (form) {
-             var queryString = $('#addState').serialize();
+    errorElement: "span",
+    rules: {
+        'data[State][name]': {
+            required: true,
+            maxlength: 25
+        }
+    },
+    messages: {
+        'data[State][name]': {
+            required: 'Please enter state',
+            maxlength: 'Length exceeds 25 charaters'
+        }
+    },
+    submitHandler: function (form) {
+        var queryString = $('#addState').serialize();
 
-            $.post(baseUrl + '/state/add', queryString, function (data) {
+        $.post(baseUrl + '/state/add', queryString, function (data) {
+            if (0 == data.status) {
+                if (data.error.name.length > 0) {
+                    for (var i = 0; i < data.error.name.length; i++) {
+                        displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
+                    }
+                }
+            } else {
                 var displayMsg = data.message;
                 showJsSuccessMessage(displayMsg);
                 $('.addStateForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
-                   oTable.fnDraw(true);
+                    oTable.fnDraw(true);
                 }, 2500);
-            }, "json");
-            return false;
-        }
- });
-$(".bgButton").click(function () {     
-     
+            }
+        }, "json");
+        return false;
+    }
+});
+$(".bgButton").click(function () {
+
     $("#addState").submit();
     return false;
 });
 
-$('.addstate').click(function() {
-     $('.stateid').val('');
+$('.addstate').click(function () {
+    $('.stateid').val('');
     $('.addStateForm').toggle('slow');
 });
 
@@ -86,5 +94,5 @@ function editBloodGroup(id, name)
 {
     $.trim($('.bname').val(name));
     $('.stateid').val(id);
-   $('.addStateForm').show();
+    $('.addStateForm').show();
 }

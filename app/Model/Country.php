@@ -6,6 +6,30 @@ class Country extends AppModel {
     
      var $name = 'Country';
      
+     /**
+     * Function to check if name exists in table
+     * 
+     * @param type $name
+     * 
+     * @return boolean 
+     */
+    public function checkCountryExists($name) {
+        $this->recursive = -1;
+        $options['conditions'] = array('Country.name' => $name);
+        $options['fields'] = array('Country.id');
+        try {
+            $data = $this->find('all', $options);
+            if ($data && isset($data[0]['Country']) && $data[0]['Country'] != "") {
+                return $data[0]['Country'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+     
      public function getAllCountries() {
        $aColumns = array('id', 'name', 'status', 'created');
 

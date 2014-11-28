@@ -33,6 +33,31 @@ App::uses('Model', 'Model');
  */
 class State extends Model {
     var $name = 'State';
+    
+    
+    /**
+     * Function to check if name exists in table
+     * 
+     * @param type $name
+     * 
+     * @return boolean 
+     */
+    public function checkStateExists($name) {
+        $this->recursive = -1;
+        $options['conditions'] = array('State.name' => $name);
+        $options['fields'] = array('State.id');
+        try {
+            $data = $this->find('all', $options);
+            if ($data && isset($data[0]['State']) && $data[0]['State'] != "") {
+                return $data[0]['State'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
      
      public function getAllStates() {
        $aColumns = array('id', 'name', 'country_name','status', 'created');

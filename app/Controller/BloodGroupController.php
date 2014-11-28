@@ -25,18 +25,28 @@ Class BloodGroupController extends AppController {
        
         $this->request->data['BloodGroup']['created'] = date('Y-m-d H:i:s');
         $this->request->data['BloodGroup']['status'] = 1;
-        $data = $this->request->data;
-         if ($this->BloodGroup->save($data) ) {
-            $msg['success'] = 1;
-            $msg['message'] = 'Your Information has been saved';
-            if ($this->request->data['BloodGroup']['id'] != '') {
-                $msg['message'] = 'Blood group has been updated';
-            }
-        } else {
-            $msg['success'] = 0;
-            $msg['message'] = 'System Error, Please try again';
+        
+        $result = $this->BloodGroup->checkBloodGroupExists($this->request->data['BloodGroup']['name']);
+        $msg['status'] = 1;
+        if (!empty($result) && $this->request->data['BloodGroup']['id'] == '') {
+            $msg['status'] = 0;
+            $msg['error']['name'][] = "name";
+            $msg['error']['errormsg'][] = __('This name already exists.');
         }
         
+        $data = $this->request->data;
+         if ($msg['status'] == 1) {
+            if ($this->BloodGroup->save($data)) {
+                $msg['success'] = 1;
+                $msg['message'] = 'Your Information has been saved';
+                if ($this->request->data['BloodGroup']['id'] != '') {
+                    $msg['message'] = 'Blood group has been updated';
+                }
+            } else {
+                $msg['success'] = 0;
+                $msg['message'] = 'System Error, Please try again';
+            }
+        }
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
         

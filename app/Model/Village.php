@@ -6,6 +6,30 @@ class Village extends AppModel {
     
      var $name = 'Village';
      
+     /**
+     * Function to check if name exists in table
+     * 
+     * @param type $name
+     * 
+     * @return boolean 
+     */
+    public function checkVillageExists($name) {
+        $this->recursive = -1;
+        $options['conditions'] = array('Village.name' => $name);
+        $options['fields'] = array('Village.id');
+        try {
+            $data = $this->find('all', $options);
+            if ($data && isset($data[0]['Village']) && $data[0]['Village'] != "") {
+                return $data[0]['Village'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+     
      public function getAllVillages() {
        $aColumns = array('id', 'name', 'status', 'created');
 

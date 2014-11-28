@@ -16,55 +16,59 @@ $(function () {
 
         },
         "fnInitComplete": function (oSettings, json) {
-           
 
-           
+
+
         }
     });
-    
- 
+
+
     $('#getBloodGroup').removeClass('display').addClass('table table-striped table-bordered');
 });
 
- $("#addBloodGroup").validate({
-     errorElement: "span",
-      rules: {
-            'data[BloodGroup][name]': {
-                required: true,
-                maxlength: 25
-            }
-        },
-         messages: {
-            'data[BloodGroup][name]': {
-                required: 'Please enter blood group',
-                maxlength: 'Length exceeds 25 charaters'
-            }
-        },
-        submitHandler: function (form) {
-             var queryString = $('#addBloodGroup').serialize();
+$("#addBloodGroup").validate({
+    errorElement: "span",
+    rules: {
+        'data[BloodGroup][name]': {
+            required: true,
+            maxlength: 25
+        }
+    },
+    messages: {
+        'data[BloodGroup][name]': {
+            required: 'Please enter blood group',
+            maxlength: 'Length exceeds 25 charaters'
+        }
+    },
+    submitHandler: function (form) {
+        var queryString = $('#addBloodGroup').serialize();
 
-            $.post(baseUrl + '/BloodGroup/add', queryString, function (data) {
-                
-         
-            
-        
+        $.post(baseUrl + '/BloodGroup/add', queryString, function (data) {
+            if (0 == data.status) {
+                if (data.error.name.length > 0) {
+                    for (var i = 0; i < data.error.name.length; i++) {
+                        displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
+                    }
+                }
+            } else {
                 var displayMsg = data.message;
                 showJsSuccessMessage(displayMsg);
                 $('.addBgroupForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
-                   oTable.fnDraw(true);
+                    oTable.fnDraw(true);
                 }, 2500);
-            }, "json");
-            return false;
-        }
- });
+            }
+        }, "json");
+        return false;
+    }
+});
 $(".bgButton").click(function () {
     $("#addBloodGroup").submit();
     return false;
 });
 
-$('.addbgroup').click(function() {
+$('.addbgroup').click(function () {
     $('.bloodgroupid').val('');
     $('.addBgroupForm').toggle('slow');
 });
@@ -94,5 +98,5 @@ function editBloodGroup(id, name)
 {
     $.trim($('.bname').val(name));
     $('.bloodgroupid').val(id);
-   $('.addBgroupForm').show();
+    $('.addBgroupForm').show();
 }

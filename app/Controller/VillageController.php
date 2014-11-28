@@ -26,18 +26,29 @@ Class VillageController extends AppController {
        
         $this->request->data['Village']['created'] = date('Y-m-d H:i:s');
         $this->request->data['Village']['status'] = 1;
-        $data = $this->request->data;
-         if ($this->Village->save($data) ) {
-            $msg['success'] = 1;
-            $msg['message'] = 'Village has been saved';
-            if ($this->request->data['Village']['id'] != '') {
-                $msg['message'] = 'Village has been updated';
-            }
-        } else {
-            $msg['success'] = 0;
-            $msg['message'] = 'System Error, Please try again';
+        
+        $result = $this->Village->checkVillageExists($this->request->data['Village']['name']);
+        $msg['status'] = 1;
+        if (!empty($result) && $this->request->data['Village']['id'] == '') {
+            $msg['status'] = 0;
+            $msg['error']['name'][] = "name";
+            $msg['error']['errormsg'][] = __('This village already exists.');
         }
         
+        $data = $this->request->data;
+        if ($msg['status'] == 1) {
+            if ($this->Village->save($data)) {
+                $msg['success'] = 1;
+                $msg['message'] = 'Village has been saved';
+                if ($this->request->data['Village']['id'] != '') {
+                    $msg['message'] = 'Village has been updated';
+                }
+            } else {
+                $msg['success'] = 0;
+                $msg['message'] = 'System Error, Please try again';
+            }
+        }
+
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
         

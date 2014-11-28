@@ -6,6 +6,31 @@ class BloodGroup extends AppModel {
     
      var $name = 'BloodGroup';
      
+     /**
+     * Function to check if name exists in table
+     * 
+     * @param type $name
+     * 
+     * @return boolean 
+     */
+    public function checkBloodGroupExists($name) {
+        $this->recursive = -1;
+        $options['conditions'] = array('BloodGroup.name' => $name);
+        $options['fields'] = array('BloodGroup.id');
+        try {
+            $data = $this->find('all', $options);
+            if ($data && isset($data[0]['BloodGroup']) && $data[0]['BloodGroup'] != "") {
+                return $data[0]['BloodGroup'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+     
+     
      public function getAllBloodGroups() {
        $aColumns = array('id', 'name', 'status', 'created');
 

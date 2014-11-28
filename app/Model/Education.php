@@ -6,6 +6,32 @@ class Education extends AppModel {
     
      var $name = 'Education';
      
+     
+      /**
+     * Function to check if name exists in table
+     * 
+     * @param type $name
+     * 
+     * @return boolean 
+     */
+    public function checkEducationExists($name) {
+        $this->recursive = -1;
+        $options['conditions'] = array('Education.name' => $name);
+        $options['fields'] = array('Education.id');
+        try {
+            $data = $this->find('all', $options);
+            if ($data && isset($data[0]['Education']) && $data[0]['Education'] != "") {
+                return $data[0]['Education'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+     
+     
      public function getAllEducations() {
        $aColumns = array('id', 'name', 'status', 'created');
 
