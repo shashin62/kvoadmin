@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
 Class UserController extends AppController {
 
     public $name = 'User';
-    public $uses = array('User','Aro','Role');
+    public $uses = array('User','Aro','Role','People');
     public $helpers = array('Session');
     public $components = array('Session');
 
@@ -160,6 +160,17 @@ Class UserController extends AppController {
         if ($msg['status'] == 1) {
             if ($this->User->save($data)) {
               
+                $peopleData = array();
+                $peopleData['People']['user_id'] = $this->User->id;
+                $peopleData['People']['first_name'] = $this->request->data['User']['first_name'];
+                $peopleData['People']['last_name'] = $this->request->data['User']['last_name'];
+                $peopleData['People']['email'] = $this->request->data['User']['email'];
+                $peopleData['People']['gender'] = $this->request->data['User']['gender'];
+                $peopleData['People']['status'] = 1;
+                $peopleData['People']['created'] = date('Y-m-d H:i:s');
+                
+                $this->People->save($peopleData);
+                
                 $msg['success'] = 1;
                 $msg['message'] = 'User has been registered';
                   if ($this->request->data['User']['id'] != '') {
@@ -183,12 +194,12 @@ Class UserController extends AppController {
 
             if ($this->User->validates()) {
 
-                $userAllData = $this->User->getEmailUserData($this->request->data['User']['email'], '', trim(Security::hash(Configure::read('Security.salt') . $this->request->data['User']['password'])));
+                $userAllData = $this->User->getUserData($this->request->data['User']['email'], '', trim(Security::hash(Configure::read('Security.salt') . $this->request->data['User']['password'])));
 
                 if ($this->Auth->login($userAllData['User'])) {
                     $cookie['email'] = $userAllData['User']['email'];
                     $cookie['password'] = $userAllData['User']['password'];
-
+                    $this->setCakeSession($userAllData);
                     $this->Cookie->write('Auth.User', $cookie, true, '+2 weeks');
                     $this->redirect($this->Auth->redirect());
                 }
@@ -221,6 +232,30 @@ Class UserController extends AppController {
         
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
+    }
+    
+    /**
+     * function to set session data
+     * 
+     * @param type $userAllData 
+     * 
+     * @return null
+     */
+    private function setCakeSession($userAllData = array()) {
+        $this->Session->write('User.user_id', $userAllData['User']['id']);
+         $this->Session->write('User.first_name', $userAllData['User']['first_name']);
+        $this->Session->write('User.last_name', $userAllData['User']['last_name']);
+        $this->Session->write('User.role_id', !empty($userAllData['User']['role_id']) ? $userAllData['User']['role_id'] : '');
+        $this->Session->write('User.email', !empty($userAllData['User']['email']) ? $userAllData['User']['email'] : '');
+        $this->Session->write('User.gender', !empty($userAllData['User']['gender']) ? $userAllData['User']['gender'] : '');
+         $this->Session->write('User.phone_number', !empty($userAllData['User']['phone_number']) ? $userAllData['User']['phone_number'] : '');
+         $this->Session->write('User.martial_status', !empty($userAllData['People']['martial_status']) ? $userAllData['People']['martial_status'] : '');
+         $this->Session->write('User.surname_now', !empty($userAllData['People']['surname_now']) ? $userAllData['People']['surname_now'] : '');
+         $this->Session->write('User.surname_dob', !empty($userAllData['People']['surname_dob']) ? $userAllData['People']['surname_dob'] : '');
+          $this->Session->write('User.state', !empty($userAllData['People']['state']) ? $userAllData['People']['state'] : '');
+           $this->Session->write('User.village', !empty($userAllData['People']['village']) ? $userAllData['People']['village'] : '');
+           $this->Session->write('User.education', !empty($userAllData['People']['education']) ? $userAllData['People']['education'] : '');
+           $this->Session->write('User.blood_group', !empty($userAllData['People']['blood_group']) ? $userAllData['People']['blood_group'] : '');
     }
 }
 

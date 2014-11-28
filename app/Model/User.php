@@ -52,12 +52,25 @@ class User extends AppModel {
         return array('model' => 'Role', 'foreign_key' => $user['User']['role_id']);
     }
 
-    public function getEmailUserData($email, $checkActive = true, $checkPass = '') {
+    public function getUserData($email, $checkActive = true, $checkPass = '') {
 
+        
+        
         $this->recursive = -1;
         $options['conditions']['User.email'] = $email;
 
         $options['conditions']['User.password'] = $checkPass;
+        
+         $options['joins'] = array(
+            array('table' => 'people',
+                'alias' => 'People',
+                'type' => 'Inner',
+                'conditions' => array(
+                    'User.id = People.user_id'
+                )
+            ),
+             );
+          $options['fields'] = array('User.*', 'People.*');
         try {
             $userData = $this->find('all', $options);
 

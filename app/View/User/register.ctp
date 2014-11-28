@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    <h3 class="heading">Register and Get Started</h3>
     <?php echo $this->Form->create('User', array('class' => 'form-horizontal registerForm', 'id' => 'registerUser', 'name' => 'register')); ?>
 
         <div class="row">

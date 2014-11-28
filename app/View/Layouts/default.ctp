@@ -69,6 +69,7 @@
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/translation/index">Translations</a></li>
                             </ul>
                         </li>
+                        <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/family/index">Add Family</a></li>
                     </ul>
               <?php } ?>
               <?php if (!$this->Session->read('Auth.User')) {?>
