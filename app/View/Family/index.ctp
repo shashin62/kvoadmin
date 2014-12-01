@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <h3 class="heading">Create your family - edit your Details</h3>
+    <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
 
         <div class="row">
@@ -182,4 +182,11 @@
 
     <?php echo $this->Form->end(); ?>
 </div>
+<script type="text/javascript">
+   var pid = '<?php echo $pid; ?>'; 
+ 
+   
+var userType = '<?php echo $userType; ?>';
+
+</script>
 <?php echo $this->Html->script(array('Family/family_self_edit')); ?>

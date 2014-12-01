@@ -1,3 +1,15 @@
+function doFormPost(url , data) {    
+    var data = $.parseJSON(data);   
+    var number = Math.ceil(Math.random() * 10) + 3;    
+    var form = '<form method="POST" action ='+ url+ ' id="form_'+ number +'">';   
+    for( var key in data) {       
+        form += '<input type ="hidden" name="'+ key +'" value="'+ data[key]+'">';
+    }
+    form += '</form>';    
+    $('body').append(form);
+    $('#form_'+number).submit();
+}
+
 function showJsSuccessMessage(message) {
     centerMessage('customFlash');
     $('.jssuccessMessage').show().html(message);

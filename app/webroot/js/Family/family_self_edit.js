@@ -46,8 +46,10 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             var queryString = $('#createFamily').serialize();
-
-            $.post(baseUrl + '/family/editOwnDetails', queryString, function (data) {
+            var type = userType;
+            var peopleid = pid;
+            
+            $.post(baseUrl + '/family/editOwnDetails?type=' + type + '&peopleid=' + peopleid, queryString, function (data) {
                  if (0 == data.status) {
                 if (data.error.name.length > 0) {
                     for (var i = 0; i < data.error.name.length; i++) {
@@ -59,7 +61,7 @@ $(document).ready(function () {
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
-                    //window.location.href = baseUrl + "/user/login";
+                    window.location.href = baseUrl + "/family/details/1";
                 }, 2500);
             }
                

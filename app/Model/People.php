@@ -6,11 +6,13 @@ Class People extends AppModel
 {
     public $name = 'People';
     
-    public function getPeopleData( $userId) {
+    public function getPeopleData( $userId , $type = false) {
         $this->recursive = -1;
-        
-
-        $options['conditions']['People.user_id'] = $userId;
+        if( $type) {
+            $options['conditions']['People.id'] = $userId;
+        } else {
+            $options['conditions']['People.user_id'] = $userId;
+        }
         
           $options['fields'] = array('People.*');
         try {
@@ -25,6 +27,92 @@ Class People extends AppModel
 
             return false;
         } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * 
+     * @param type $groupId
+     * @return boolean
+     */
+    public function getFamilyDetails($groupId)
+    {
+        $this->recursive = -1;
+        $options['conditions']['People.group_id'] = $groupId;
+        
+         $options['joins'] = array(
+            array('table' => 'groups',
+                'alias' => 'Group',
+                'type' => 'Inner',
+                'conditions' => array(
+                    'Group.id = People.group_id'
+                )
+            ),
+             );
+          $options['fields'] = array('People.*','Group.name');
+        try {
+            $familyData = $this->find('all', $options);
+
+
+            if (!empty($familyData) && isset($familyData[0])) {
+                $familyData = $familyData;
+
+                return $familyData;
+            }
+
+            return false;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function updateSpouseDetails($data) {
+        $this->recursive = -1;
+
+       $query = "UPDATE {$this->tablePrefix}people
+                  SET partner_id = '{$data['partner_id']}', partner_name = '{$data['partner_name']}'            
+                  WHERE id = {$data['id']}";
+        try {
+            $this->query($query);
+            return true;
+        } catch (ErrorException $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function updateFatherDetails($data)
+    {
+        $this->recursive = -1;
+
+      $query = "UPDATE {$this->tablePrefix}people
+                  SET f_id = '{$data['f_id']}' , father = '{$data['father']}'           
+                  WHERE id = {$data['id']}";
+                  
+        try {
+            $this->query($query);
+            return true;
+        } catch (ErrorException $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function updateMotherDetails($data)
+    {
+        $this->recursive = -1;
+
+      $query = "UPDATE {$this->tablePrefix}people
+                  SET m_id = '{$data['m_id']}' , mother = '{$data['mother']}'           
+                  WHERE id = {$data['id']}";
+                  
+        try {
+            $this->query($query);
+            return true;
+        } catch (ErrorException $e) {
             CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
             return false;
         }

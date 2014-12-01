@@ -8,9 +8,10 @@ $(function () {
         "sAjaxSource": baseUrl + "/user/getUserAjaxData",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             
+            $('td:eq(6)', nRow).html('<a href="#" class="btn btn-xs btn-succes" >' + aData[6] + '</a>');
             $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" \n\
 onclick="editUser(' + aData[0] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
-<a class="delete_row btn btn-xs btn-danger" onclick="deleteUser(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
+<a class="delete_row btn btn-xs btn-danger" onclick="deleteUser(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash"></span>Delete</a>');
 
         },
         "rowCallback": function (row, data) {
