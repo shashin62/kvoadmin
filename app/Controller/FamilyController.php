@@ -257,7 +257,8 @@ Class FamilyController extends AppController {
     }
 
     public function details() {
-        $getDetails = $this->People->getFamilyDetails(1);
+        $id = $_REQUEST['id'];
+        $getDetails = $this->People->getFamilyDetails($id);
         $userID = $this->Session->read('User.user_id');
         $this->set('userId', $userID);
         $this->set('data', $getDetails);
