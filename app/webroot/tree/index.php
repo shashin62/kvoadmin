@@ -1,11 +1,12 @@
 <?php
 
+$baseUrl = $_SERVER['SERVER_NAME'] .'/kvoadmin'.
 if (isset($_GET['full'])) {	
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/full_tree:1/?full_tree=1');
 } else if (isset($_GET['group_id'])){
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/group_id:' . $_GET['group_id']);
 } else {
-	$json_data = file_get_contents('http://10.50.249.127/kvoadmin/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
+	$json_data = file_get_contents('http://' . $baseUrl . ' /family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
 }
 
 ?>
