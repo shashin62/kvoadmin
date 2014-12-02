@@ -58,7 +58,7 @@ Class FamilyController extends AppController {
         $requestData = $this->request->data;
 
         if ($requestData['type'] == 'self') {
-            $userId = $this->Session->read('User.user_id');
+           $userId = $this->Session->read('User.user_id');
             $toFetchData = true;
             $peopleId = $requestData['fid'];
         } else {
@@ -105,7 +105,7 @@ Class FamilyController extends AppController {
         if ($requestData['type'] == 'self') {
            
             $getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
-
+            
             $this->set('first_name', $getPeopleData['People']['first_name']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('phone_number', $getPeopleData['People']['phone_number'] ? $getPeopleData['People']['phone_number'] : $sessionData['phone_number'] );
@@ -282,11 +282,10 @@ Class FamilyController extends AppController {
         $id = $this->request->params['pass'][0];
         $getDetails = $this->People->getFamilyDetails($id);
 
-        foreach ($getDetails as $key => $value) {
-            
-        }
+        
         $userID = $this->Session->read('User.user_id');
         $this->set('userId', $userID);
+        $this->set('groupId', $id);
         $this->set('data', $getDetails);
     }
 
@@ -298,7 +297,8 @@ Class FamilyController extends AppController {
 
     public function getAjaxGroups() {
         $this->autoRender = false;
-        $data = $this->Group->getAllFamilyGroups();
+        $userID = $this->Session->read('User.user_id');
+        $data = $this->Group->getAllFamilyGroups($userID);
         echo json_encode($data);
     }
 
@@ -330,7 +330,11 @@ Class FamilyController extends AppController {
                 
             }
             if ($peopleData['tree_level'] != '') {
-                $tree[$peopleData['id']]['^'] = $peopleData['tree_level'];
+                if ( $peopleData['tree_level'] == $rootId) {
+                    $tree[$peopleData['id']]['^'] = 'START';
+                } else {
+                    $tree[$peopleData['id']]['^'] = $peopleData['tree_level'];
+                }
             } else {
                 
             }
@@ -388,6 +392,7 @@ Class FamilyController extends AppController {
             
             // }
         }
+        
         echo json_encode($tree);
         exit;
     }

@@ -20,7 +20,7 @@
                         <div class="row">
 				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
 				<div class="col-md-2">
-                                    <a href="#">Edit Detail</a><br>
+                                    <a class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
                                     <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
                                     <a class="addspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Add Spouse</a><br>
                                     <?php } else  { ?> 
@@ -67,7 +67,7 @@
                                 <?php if($value['People']['user_id'] == $userId) { ?>
                                 
                                 <?php } else { ?>
-                                <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid=1';?>">Tree</a></div>
+                                <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">Tree</a></div>
                                 <?php } ?>
                         </div><br>
                         

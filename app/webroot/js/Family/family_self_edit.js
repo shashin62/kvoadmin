@@ -61,7 +61,7 @@ $(document).ready(function () {
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
-                    window.location.href = baseUrl + "/family/details/1";
+                    window.location.href = baseUrl + "/family/familiyGroups";
                 }, 2500);
             }
                

@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
 Class UserController extends AppController {
 
     public $name = 'User';
-    public $uses = array('User','Aro','Role','People');
+    public $uses = array('User','Aro','Role','People','Group');
     public $helpers = array('Session');
     public $components = array('Session');
 
@@ -159,9 +159,14 @@ Class UserController extends AppController {
         $this->User->recursive = -1;
         if ($msg['status'] == 1) {
             if ($this->User->save($data)) {
-              
+                $groupData = array();
+                $groupData['Group']['name'] = 'Family of ' . $this->request->data['User']['first_name'];
+                $groupData['Group']['user_id'] = $this->User->id;
+                $groupData['Group']['created'] = date('Y-m-d H:i:s');
+                $this->Group->save($groupData);                
                 $peopleData = array();
                 $peopleData['People']['user_id'] = $this->User->id;
+                $peopleData['People']['group_id'] = $this->Group->id;
                 $peopleData['People']['first_name'] = $this->request->data['User']['first_name'];
                 $peopleData['People']['last_name'] = $this->request->data['User']['last_name'];
                 $peopleData['People']['email'] = $this->request->data['User']['email'];
