@@ -72,7 +72,7 @@ class Group extends AppModel {
         }        
         
         if ($sWhere == "") {
-                    $sWhere = "WHERE user_id =  {$userId}";
+                    $sWhere = " WHERE user_id =  {$userId}";
                 } else {
                     $sWhere .= " AND ";
                 }
@@ -82,7 +82,7 @@ class Group extends AppModel {
          */
 
 
-       $sQuery = "
+      $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS `" . str_replace(" , ", " ", implode("`, `", $aColumns)) . "`
             FROM   $sTable
             $sWhere

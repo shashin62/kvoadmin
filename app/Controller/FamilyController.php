@@ -58,7 +58,7 @@ Class FamilyController extends AppController {
         $requestData = $this->request->data;
 
         if ($requestData['type'] == 'self') {
-           $userId = $this->Session->read('User.user_id');
+           $userId = $requestData['fid'];//$this->Session->read('User.user_id');
             $toFetchData = true;
             $peopleId = $requestData['fid'];
         } else {
@@ -260,6 +260,7 @@ Class FamilyController extends AppController {
                         $msg['status'] = 0;
                     }
                 }
+                $message = 'Information updated';
                 break;
         }
 
@@ -310,6 +311,7 @@ Class FamilyController extends AppController {
     public function getAjaxGroups() {
         $this->autoRender = false;
         $userID = $this->Session->read('User.user_id');
+        
         $data = $this->Group->getAllFamilyGroups($userID);
         echo json_encode($data);
     }

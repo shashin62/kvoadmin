@@ -74,26 +74,5 @@
                         
                         <?php } ?>
 			
-<!--			<br>
-doFormPost(baseUrl+"/success",'{ "type":"'+ type +'","created":"'+ created +'","email":"'+ data.email +'"}');
-			<div class="row">
-				<div class="col-md-2">Kalpana Sheth</div>
-				<div class="col-md-2"><a href="#">Edit Detail</a><br><a href="#">Add Spouse</a></div>
-				<div class="col-md-2"><a href="#">Add Home Address</a><br><a href="#">Add Father</a></div>
-				<div class="col-md-2"><a href="#">Add Business / Service</a><br><a href="#">Add Mother</a></div>
-				<div class="col-md-1"><a href="#" style="color: red">Delete</a></div>
-				<div class="col-md-1"></div>
-				<div class="col-md-2"><a href="#">Transfer of Family</a></div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-md-2">Sunil Sheth</div>
-				<div class="col-md-2"><a href="#">Edit Detail</a><br><a href="#">Add Spouse</a></div>
-				<div class="col-md-2"><a href="#">Edit Home Address</a><br><div>Father: Shashin</div></div>
-				<div class="col-md-2"><a href="#">Add Business / Service</a><br><div>Mother: Hemal</div></div>
-				<div class="col-md-1"><a href="#" style="color: red">Delete</a></div>
-				<div class="col-md-1"></div>
-				<div class="col-md-2"><a href="#">Transfer of Family</a></div>
-			</div>-->
 		</div>
 <?php echo $this->Html->script(array('Family/details')); ?>

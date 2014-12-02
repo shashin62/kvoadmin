@@ -2,7 +2,7 @@ $('.self').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
   
-   doFormPost(baseUrl+"/family/index?type=self",'{ "type":"self","fid":"'+ id +'"}');
+   doFormPost(baseUrl+"/family/index?type=self&id="+ id,'{ "type":"self","fid":"'+ id +'"}');
    
     
 });
