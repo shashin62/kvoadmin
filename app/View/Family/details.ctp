@@ -12,7 +12,9 @@
 			<br>
 			<u><h3>Primary Family</h3></u>
                         <?php
-                       
+                       App::import('Model', 'People');
+                        $People = new People();
+    
                         ?>
 			<?php foreach( $data as $key => $value ) { ?>
                         <div class="row">
@@ -42,21 +44,30 @@
                                     <div>Mother : <?php echo $value['People']['mother'];?></div>
                                     <?php } ?>
                                 </div>
+                                <div class="col-md-1">
                                  <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'male') { ?>
-				<div class="col-md-1">
-                                   
-                                    <a href="#">Add Children</a><br>
-                                    <div>Children: </div>
-                                </div>
-                                <?php }
-                                if($value['People']['user_id'] == "") { ?>
-                                <div class="col-md-1"><a data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a></div>
-                                    <?php } ?>
-                                <div class="col-md-1"></div>
-                                <?php if($value['People']['user_id'] == $userId) { ?>
-                                <div class="col-md-1"><a href="#">Tree</a></div>
-                                <?php } else { ?>
+                                    <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br>
+                                    <?php $children = $People->getChildren($value['People']['id']);
+                                    $childs = array();
+                                    foreach ( $children as $k => $v ) {
+                                        $childs[] = $v[0]['childname'];
+                                    }
+                                    
+                                    ?>
+                                    <div>Children: <?php echo implode(',',$childs); ?></div>
+                                <?php } ?>
+                                    <?php if($value['People']['user_id'] == "") { ?>
+                                    <a data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
+                                     <?php } ?>
+                                    </div>
+                                 <?php if($value['People']['user_id'] == $userId) { ?>
                                 <div class="col-md-2"><a href="#">Transfer of Family</a></div>
+                               
+                                 <?php } ?>
+                                <?php if($value['People']['user_id'] == $userId) { ?>
+                                
+                                <?php } else { ?>
+                                <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid=1';?>">Tree</a></div>
                                 <?php } ?>
                         </div><br>
                         

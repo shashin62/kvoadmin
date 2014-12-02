@@ -6,6 +6,28 @@ Class People extends AppModel
 {
     public $name = 'People';
     
+    public function getChildren($fatherId)
+    {
+        $this->recursive = -1;
+        $options['conditions']['People.f_id'] = $fatherId;
+        $options['fields'] = array('concat(People.first_name,People.last_name) as childname','People.id');
+        try {
+            $userData = $this->find('all', $options);
+
+            if (!empty($userData) && isset($userData[0])) {
+                $userData = $userData;
+
+                return $userData;
+            }
+
+            return false;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+
+
     public function getPeopleData( $userId , $type = false) {
         $this->recursive = -1;
         if( $type) {

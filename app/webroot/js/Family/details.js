@@ -18,9 +18,15 @@ $('.addfather').click(function(){
 
 $('.addmother').click(function(){
    var $this =  $(this);
+   var id = $this.data('id');  
+   doFormPost(baseUrl+"/family/index?type=addmother",'{ "type":"addmother","fid":"'+ id +'"}');
+    
+});
+$('.addchild').click(function(){
+   var $this =  $(this);
    var id = $this.data('id');
   
-   doFormPost(baseUrl+"/family/index?type=addmother",'{ "type":"addmother","fid":"'+ id +'"}');
+   doFormPost(baseUrl+"/family/index?type=addchilld",'{ "type":"addchilld","fid":"'+ id +'"}');
    
     
 });

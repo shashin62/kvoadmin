@@ -184,9 +184,6 @@
 </div>
 <script type="text/javascript">
    var pid = '<?php echo $pid; ?>'; 
- 
-   
 var userType = '<?php echo $userType; ?>';
-
 </script>
 <?php echo $this->Html->script(array('Family/family_self_edit')); ?>
