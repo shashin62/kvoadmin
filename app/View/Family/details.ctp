@@ -61,13 +61,14 @@
                                      <?php } ?>
                                     </div>
                                  <?php if($value['People']['user_id'] == $userId) { ?>
-                                <div class="col-md-2"><a href="#">Transfer of Family</a></div>
+                                 <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">Tree</a></div>
+    
                                
                                  <?php } ?>
                                 <?php if($value['People']['user_id'] == $userId) { ?>
                                 
                                 <?php } else { ?>
-                                <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">Tree</a></div>
+                                                           <div class="col-md-2"><a href="#">Transfer of Family</a></div>
                                 <?php } ?>
                         </div><br>
                         

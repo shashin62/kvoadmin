@@ -194,7 +194,8 @@ Class UserController extends AppController {
     }
 
     public function login() {
-
+        // Disabling the browser cache for this page so that user cannot go back to login page by clicking the back button.
+        $this->response->disableCache();
         if ($this->request->is('post')) {
 
             if ($this->User->validates()) {

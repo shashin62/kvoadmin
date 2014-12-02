@@ -279,14 +279,26 @@ Class FamilyController extends AppController {
 
     public function details() {
 
+        $userID = $this->Session->read('User.user_id');
+        
+        $groupData = $this->Group->find('all',array('fields' => array('Group.id'),
+            'conditions' => array('Group.user_id' => $userID)
+            ));
         $id = $this->request->params['pass'][0];
+        if( in_array($id,$groupData[0]['Group'])) {
+            
+        
+        
         $getDetails = $this->People->getFamilyDetails($id);
 
         
-        $userID = $this->Session->read('User.user_id');
+        
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('data', $getDetails);
+        } else {
+            $this->redirect('/');
+        }
     }
 
     public function familiyGroups() {
@@ -350,6 +362,9 @@ Class FamilyController extends AppController {
             }
 
             if (count($children)) {
+                if ( $peopleData['tree_level'] == $rootId) {
+                    
+                }
                 $tree[$peopleData['id']]['c'] = $childids;
                 $tree[$peopleData['id']]['cp'] = true;
             } else {
