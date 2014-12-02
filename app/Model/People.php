@@ -64,16 +64,16 @@ Class People extends AppModel
         $this->recursive = -1;
         $options['conditions']['People.group_id'] = $groupId;
         
-         $options['joins'] = array(
-            array('table' => 'groups',
-                'alias' => 'Group',
-                'type' => 'Inner',
-                'conditions' => array(
-                    'Group.id = People.group_id'
-                )
-            ),
-             );
-          $options['fields'] = array('People.*','Group.name');
+//         $options['joins'] = array(
+//            array('table' => 'groups',
+//                'alias' => 'Group',
+//                'type' => 'Inner',
+//                'conditions' => array(
+//                    'Group.id = People.group_id'
+//                )
+//            ),
+//             );
+          $options['fields'] = array('People.*');
         try {
             $familyData = $this->find('all', $options);
 
