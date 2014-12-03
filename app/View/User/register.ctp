@@ -80,6 +80,31 @@
             ?>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Martial Status:</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+              <div class="col-lg-8 col-md-8 col-xs-8">
+                         <?php
+                         $martialOptions = array(
+                    'Unmarried' => 'Unmarried',
+                    'Married' => 'Married',
+                    'Divorced' => 'Divorced',
+                    'Separated' => 'Separated',
+                     'Widow' => 'Widow',
+                    
+                );
+            echo $this->Form->input('martial_status', array('id' => 'martial_status',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'class' => 't',
+                'style' => '',
+                'options' => $martialOptions
+            ));
+            ?>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
 
