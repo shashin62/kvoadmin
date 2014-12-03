@@ -36,27 +36,25 @@ Class FamilyController extends AppController {
      * @var array 
      */
     public $uses = array('User', 'Aro', 'Role',
-        'People', 'Village', 'Education', 'State', 'BloodGroup', 'Group');
+        'People', 'Village', 'Education', 'State', 'BloodGroup', 'Group','Address');
 
     /**
      *
      * @var type 
      */
     public $helpers = array('Session');
-
     /**
      *
      * @var type 
      */
     public $components = array('Session');
-
     /**
      * index function - page landing
      */
-    public function index() {
-
+    public function index() 
+    {
         $requestData = $this->request->data;
-
+        
         if ($requestData['type'] == 'self') {
            $userId = $requestData['fid'];//$this->Session->read('User.user_id');
             $toFetchData = true;
@@ -66,7 +64,9 @@ Class FamilyController extends AppController {
             $toFetchData = false;
             $peopleId = $requestData['fid'];
         }
-        switch ($requestData['type']) {
+        
+        switch ($requestData['type']) 
+        {
             case 'addspouse':
                 $pageTitle = 'Add Spouse';
                 break;
@@ -84,10 +84,12 @@ Class FamilyController extends AppController {
                 $pageTitle = 'Create your family - edit your Details';
                 break;
         }
+        
         $this->set('gid', $requestData['group_id']);
         $this->set('pid', $peopleId);
         $this->set('pageTitle', $pageTitle);
         $this->set('userType', $requestData['type']);
+        
         $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
         $this->set(compact('villages'));
 
@@ -107,6 +109,7 @@ Class FamilyController extends AppController {
             $getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
             
             $this->set('first_name', $getPeopleData['People']['first_name']);
+            $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('phone_number', $getPeopleData['People']['phone_number'] ? $getPeopleData['People']['phone_number'] : $sessionData['phone_number'] );
             $this->set('email', $getPeopleData['People']['email']);
@@ -278,25 +281,19 @@ Class FamilyController extends AppController {
         $this->render("/Elements/json_messages");
     }
 
-    public function details() {
-
+    public function details() 
+    {
         $userID = $this->Session->read('User.user_id');
         
         $groupData = $this->Group->find('all',array('fields' => array('Group.id'),
             'conditions' => array('Group.user_id' => $userID)
             ));
         $id = $this->request->params['pass'][0];
-        if( in_array($id,$groupData[0]['Group'])) {
-            
-        
-        
-        $getDetails = $this->People->getFamilyDetails($id);
-
-        
-        
-        $this->set('userId', $userID);
-        $this->set('groupId', $id);
-        $this->set('data', $getDetails);
+        if (in_array($id, $groupData[0]['Group'])) {
+            $getDetails = $this->People->getFamilyDetails($id);
+            $this->set('userId', $userID);
+            $this->set('groupId', $id);
+            $this->set('data', $getDetails);
         } else {
             $this->redirect('/');
         }
@@ -412,6 +409,204 @@ Class FamilyController extends AppController {
         
         echo json_encode($tree);
         exit;
+    }
+    
+    public function addBusiness()
+    {
+        $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
+        $this->set(compact('states'));
+        $userName = $this->Session->read('User.first_name');
+        $this->set('name',$userName);
+        $pid = $_REQUEST['id'];
+        $this->set('peopleid',$pid);
+        $aid = $_REQUEST['aid'];
+        $getParentAddress = $this->Address->find('all',
+                                    array(
+                                            'conditions' => array(
+                                                'Address.people_id' => $pid,
+                                                'Address.id' => $aid
+                                            )
+                                        )
+                                    );
+        
+        if( isset($getParentAddress[0]) && count($getParentAddress)) {
+            $data = $getParentAddress[0]['Address'];
+            foreach ( $data as $key => $value ) {
+                $this->set($key,$value);
+            }
+        }
+         $this->set('aid',$aid ? $aid : '');
+        
+    }
+    
+    public function doProcessAddBusiness()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $userID = $this->Session->read('User.user_id');
+        $peopleId = $_REQUEST['peopleid'];
+        $aid = $_REQUEST['addressid'];
+        $same = $this->request->data['Address']['is_same'];
+        $updatePeopleBusniessDetails = array();
+        $updatePeopleBusniessDetails['id'] = $peopleId;
+        $updatePeopleBusniessDetails['occupation'] = $this->request->data['occupation'];
+        $updatePeopleBusniessDetails['business_name'] = $this->request->data['Address']['business_name'];
+
+        $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
+        if ($same == 1) {
+            //echo 'in';exit;
+            $getParentAddress = $this->Address->find('all', array('conditions' => array('Address.user_id' => $userID)));
+            unset($getParentAddress[0]['Address']['id']);
+            unset($getParentAddress[0]['Address']['people_id']);
+            $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
+            $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
+            $this->request->data = $getParentAddress[0];
+            if ($this->Address->save($this->request->data)) {
+                $msg['status'] = 1;
+                $addressId = $this->Address->id;
+                $updatePeople = array();
+                $updatePeople['People']['business_address_id'] = $addressId;
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                $this->People->save($updatePeople);
+                $message = 'Information has been saved';
+            }
+        } else {
+            $getParentAddress = $this->Address->find('all', array(
+                'conditions' => array(
+                    'Address.people_id' => $peopleId,
+                    'Address.id' => $aid
+                )
+                    )
+            );
+
+            if (isset($getParentAddress[0]) && count($getParentAddress)) {
+                $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];
+            }
+
+            
+
+            $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];
+            if ($this->Address->save($this->request->data)) {
+                $msg['status'] = 1;
+                $addressId = $this->Address->id;
+                $updatePeople = array();
+                $updatePeople['People']['business_address_id'] = $addressId;
+                $updatePeople['People']['id'] = $peopleId;
+
+                $this->People->save($updatePeople);
+                $message = 'Information has been saved';
+            }
+        }
+        if ($msg['status'] == 1) {
+            $msg['success'] = 1;
+            $msg['message'] = $message;
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
+    
+    public function addAddress() {
+         $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
+        $this->set(compact('states'));
+        $pid = $_REQUEST['id'];
+        $aid = $_REQUEST['aid'];
+        $getParentAddress = $this->Address->find('all',
+                                    array(
+                                            'conditions' => array(
+                                                'Address.people_id' => $pid
+                                            )
+                                        )
+                                    );
+        
+        if( isset($getParentAddress[0]) && count($getParentAddress)) {
+            $data = $getParentAddress[0]['Address'];
+            foreach ( $data as $key => $value ) {
+                $this->set($key,$value);
+            }
+        }
+        
+        $userName = $this->Session->read('User.first_name');
+        $this->set('peopleid',$pid);
+        $this->set('name',$userName);
+        $this->set('aid',$aid ? $aid : '');
+        
+    }
+    
+    public function doProcessAddress()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $userID = $this->Session->read('User.user_id');
+        $same = $this->request->data['Address']['is_same'];
+        if ($same == 1) {            
+            //echo 'in';exit;
+            $getParentAddress = $this->Address->find('all',array('conditions' => array('Address.user_id' => $userID)));
+            unset($getParentAddress[0]['Address']['id']);
+            unset($getParentAddress[0]['Address']['people_id']);
+            $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
+            $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
+            $this->request->data = $getParentAddress[0];
+            if ($this->Address->save($this->request->data)) {
+                $msg['status'] = 1;
+                $addressId = $this->Address->id;
+                $updatePeople = array();
+                $updatePeople['People']['address_id'] = $addressId;
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                $this->People->save($updatePeople);
+                $message = 'Information has been saved';
+            }            
+        } else {
+           
+            $peopleId = $_REQUEST['peopleid'];        
+            $getParentAddress = $this->Address->find('all',
+                                                array(
+                                                    'conditions' => array(
+                                                        'Address.people_id' => $peopleId)
+                                                    )
+                                                );
+//            echo '<pre>';
+//        print_r($getParentAddress);
+//        echo '</pre>';
+        
+            $this->request->data['Address']['user_id'] = $this->Session->read('User.user_id');
+            $this->request->data['Address']['ownership_type'] = $_REQUEST['ownership_type'];
+            $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];    
+            $this->request->data['Address']['created'] = date('Y-m-d H:i:s');
+            
+            if( isset($getParentAddress[0]) && count($getParentAddress)) {
+                 $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];
+            } 
+            
+            $this->request->data['Address']['user_id'] = $this->Session->read('User.user_id');
+            $this->request->data['Address']['ownership_type'] = $_REQUEST['ownership_type'];
+                
+            $this->request->data['Address']['created'] = date('Y-m-d H:i:s');
+             
+            if ($this->Address->save($this->request->data)) {
+                $msg['status'] = 1;
+                $addressId = $this->Address->id;
+                $updatePeople = array();
+                $updatePeople['People']['address_id'] = $addressId;
+                $updatePeople['People']['id'] = $peopleId;
+                $this->People->save($updatePeople);
+                $message = 'Information has been saved';
+            }
+        }
+
+        if ($msg['status'] == 1) {
+            $msg['success'] = 1;
+            $msg['message'] = $message;
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
     }
 
 }

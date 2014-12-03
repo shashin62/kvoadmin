@@ -29,7 +29,8 @@
                                         
                                 </div>
 				<div class="col-md-2">
-                                    <a href="#">Edit Home Address</a><br>
+                                    <a class="editaddress" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['address_id'];?>" href="javascript:void(0);">
+                                <?php echo $value['People']['address_id'] ? 'Edit Home Address' : 'Add Home Address';?></a><br>
                                     <?php if( empty($value['People']['f_id'])) { ?>
                                     <a class="addfather" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Add Father</a>
                                     <?php }  else { ?>
@@ -37,7 +38,8 @@
                                     <?php } ?>
                                 </div>
 				<div class="col-md-2">
-                                    <a href="#">Add Business / Service</a><br>
+                                    <a class="editbusiness" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['business_address_id'];?>" href="#">
+                            <?php echo $value['People']['business_address_id'] ? 'Edit Eduction Details' : 'Add Eduction Details';?></a><br>
                                     <?php if( empty($value['People']['m_id'])) { ?>
                                     <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Add Mother</a>
                                     <?php } else { ?>

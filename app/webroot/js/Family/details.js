@@ -1,11 +1,28 @@
 $('.self').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
-  
    doFormPost(baseUrl+"/family/index?type=self&id="+ id,'{ "type":"self","fid":"'+ id +'"}');
    
-    
 });
+
+$('.editaddress').click(function(){
+   var $this =  $(this);
+   var id = $this.data('id');
+  var aid = $this.data('aid');
+  
+   doFormPost(baseUrl+"/family/addAddress?type=self&id="+ id + "&aid="+ aid,'{ "type":"self","fid":"'+ id +'","aid":"'+ aid +'"}');
+   
+});
+
+$('.editbusiness').click(function(){
+   var $this =  $(this);
+   var id = $this.data('id');
+  var aid = $this.data('aid');
+  
+   doFormPost(baseUrl+"/family/addBusiness?type=self&id="+ id + "&aid="+ aid,'{ "type":"self","fid":"'+ id +'","aid":"'+ aid +'"}');
+   
+});
+
 
 $('.addspouse').click(function(){
    var $this =  $(this);
