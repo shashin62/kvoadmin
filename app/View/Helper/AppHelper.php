@@ -30,4 +30,15 @@ App::uses('Helper', 'View');
  * @package       app.View.Helper
  */
 class AppHelper extends Helper {
+    
+    static function __inArrayRecursive($needle, $haystack, $strict = false) {
+         
+        foreach ($haystack as $item) {
+            if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && self::__inArrayRecursive($needle, $item, $strict))) {
+                return $item;
+            }
+        }
+
+        return false;
+    }
 }
