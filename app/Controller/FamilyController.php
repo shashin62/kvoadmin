@@ -608,5 +608,23 @@ Class FamilyController extends AppController {
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
     }
+    
+    public function searchPeople()
+    {
+        $userID = $this->Session->read('User.user_id');
+    }
+    
+    public function getAjaxSearch()
+    { 
+        $this->autoRender = false;
+        
+        
+        $data = $this->People->getAllPeoples();
+        echo json_encode($data);
+        
+        
+    }
+    
+   
 
 }
