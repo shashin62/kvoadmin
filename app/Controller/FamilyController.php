@@ -147,19 +147,42 @@ Class FamilyController extends AppController {
                 $this->request->data['People']['partner_id'] = $_REQUEST['peopleid'];
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
                 $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
+                
+                $msg['status'] = 1;
+                $result = $this->People->checkEmailExists($this->request->data['People']['email']);
+
+                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                    $msg['status'] = 0;
+                    $msg['error']['name'][] = "email";
+                    $msg['error']['errormsg'][] = __('This Email already exists.');
+                }
+
+                if (isset($this->request->data['People']['phone_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+
+                    if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
+                        $msg['status'] = 0;
+                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['errormsg'][] = __('This Phone already exists.');
+                    }
+                }
 
                 $name = $getPeopleDetail[0]['People']['first_name'] . '' . $getPeopleDetail[0]['People']['lastname'];
                 $this->request->data['People']['partner_name'] = $name;
-
-                if ($this->People->save($this->request->data)) {
-                    $msg['status'] = 1;
-                    $partnerId = $this->People->id;
-                    $updateParentUser = array();
-                    $updateParentUser['partner_id'] = $partnerId;
-                    $updateParentUser['partner_name'] = $this->request->data['People']['first_name'];
-                    $updateParentUser['id'] = $_REQUEST['peopleid'];
-                    $this->People->updateSpouseDetails($updateParentUser);
-                    $message = 'Spouse has been added';
+                if ($msg['status'] == 1) {
+                    if ($this->People->save($this->request->data)) {
+                        $msg['status'] = 1;
+                        $partnerId = $this->People->id;
+                        $updateParentUser = array();
+                        $updateParentUser['partner_id'] = $partnerId;
+                        $updateParentUser['partner_name'] = $this->request->data['People']['first_name'];
+                        $updateParentUser['id'] = $_REQUEST['peopleid'];
+                        $this->People->updateSpouseDetails($updateParentUser);
+                        $message = 'Spouse has been added';
+                    }
+                } else {
+                    $msg['success'] = 0;
+                    $msg['message'] = 'System Error, Please trye again';
                 }
 
                 break;
@@ -167,35 +190,61 @@ Class FamilyController extends AppController {
 
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
                 $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
-                if ($this->People->save($this->request->data)) {
-                    $msg['status'] = 1;
-                    $fatherId = $this->People->id;
-                    $updateParentUser = array();
-                    $updateParentUser['f_id'] = $fatherId;
-                    $updateParentUser['father'] = $this->request->data['People']['first_name'];
-                    $updateParentUser['id'] = $_REQUEST['peopleid'];
-                    $this->People->updateFatherDetails($updateParentUser);
-                    //check if mother exists in table for child
-                    $getMotherDetails = $this->People->find('all', array('fields' => array('People.m_id', 'People.mother'),
-                        'conditions' => array('People.id' => $_REQUEST['peopleid']))
-                    );
+                
+                $msg['status'] = 1;
+                $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
-                    if (!empty($getMotherDetails[0]['People']['m_id'])) {
-                        $data = array();
-                        $data['partner_id'] = $getMotherDetails[0]['People']['m_id'];
-                        $data['partner_name'] = $getMotherDetails[0]['People']['mother'];
-                        $data['id'] = $fatherId;
-                        $this->People->updateSpouseDetails($data);
+                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                    $msg['status'] = 0;
+                    $msg['error']['name'][] = "email";
+                    $msg['error']['errormsg'][] = __('This Email already exists.');
+                }
 
-                        //back update father row for parter details
-                        $data = array();
-                        $data['partner_id'] = $fatherId;
-                        $data['partner_name'] = $this->request->data['People']['first_name'];
-                        $data['id'] = $getMotherDetails[0]['People']['m_id'];
-                        $this->People->updateSpouseDetails($data);
+                if (isset($this->request->data['People']['phone_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+
+                    if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
+                        $msg['status'] = 0;
+                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['errormsg'][] = __('This Phone already exists.');
                     }
+                }
+                if ($msg['status'] == 1) {
 
-                    $message = 'Father has been added';
+
+                    if ($this->People->save($this->request->data)) {
+                        $msg['status'] = 1;
+                        $fatherId = $this->People->id;
+                        $updateParentUser = array();
+                        $updateParentUser['f_id'] = $fatherId;
+                        $updateParentUser['father'] = $this->request->data['People']['first_name'];
+                        $updateParentUser['id'] = $_REQUEST['peopleid'];
+                        $this->People->updateFatherDetails($updateParentUser);
+                        //check if mother exists in table for child
+                        $getMotherDetails = $this->People->find('all', array('fields' => array('People.m_id', 'People.mother'),
+                            'conditions' => array('People.id' => $_REQUEST['peopleid']))
+                        );
+
+                        if (!empty($getMotherDetails[0]['People']['m_id'])) {
+                            $data = array();
+                            $data['partner_id'] = $getMotherDetails[0]['People']['m_id'];
+                            $data['partner_name'] = $getMotherDetails[0]['People']['mother'];
+                            $data['id'] = $fatherId;
+                            $this->People->updateSpouseDetails($data);
+
+                            //back update father row for parter details
+                            $data = array();
+                            $data['partner_id'] = $fatherId;
+                            $data['partner_name'] = $this->request->data['People']['first_name'];
+                            $data['id'] = $getMotherDetails[0]['People']['m_id'];
+                            $this->People->updateSpouseDetails($data);
+                        }
+
+                        $message = 'Father has been added';
+                    }
+                } else {
+                     $msg['success'] = 0;
+                    $msg['message'] = 'System Error, Please trye again';
                 }
 
                 break;
@@ -207,11 +256,32 @@ Class FamilyController extends AppController {
                 $this->request->data['People']['m_id'] = $getPeopleDetail[0]['People']['partner_id'];
                 $this->request->data['People']['father']  = $getPeopleDetail[0]['People']['first_name'];
                 $this->request->data['People']['mother']  = $getPeopleDetail[0]['People']['partner_name'];
-                if ($this->People->save($this->request->data)) {
-                    $msg['status'] = 1;
-                    
-                   
-                    $message = 'Child has been added';
+                 $msg['status'] = 1;
+                $result = $this->People->checkEmailExists($this->request->data['People']['email']);
+
+                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                    $msg['status'] = 0;
+                    $msg['error']['name'][] = "email";
+                    $msg['error']['errormsg'][] = __('This Email already exists.');
+                }
+
+                if (isset($this->request->data['People']['phone_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+
+                    if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
+                        $msg['status'] = 0;
+                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['errormsg'][] = __('This Phone already exists.');
+                    }
+                }
+                if ($msg['status'] == 1) {
+                    if ($this->People->save($this->request->data)) {
+                        $msg['status'] = 1;
+                        $message = 'Child has been added';
+                    }
+                } else {
+                    $msg['success'] = 0;
+                    $msg['message'] = 'System Error, Please trye again';
                 }
 
                 break;
@@ -219,6 +289,26 @@ Class FamilyController extends AppController {
 
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
                 $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
+                
+                $msg['status'] = 1;
+                $result = $this->People->checkEmailExists($this->request->data['People']['email']);
+
+                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                    $msg['status'] = 0;
+                    $msg['error']['name'][] = "email";
+                    $msg['error']['errormsg'][] = __('This Email already exists.');
+                }
+
+                if (isset($this->request->data['People']['phone_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+
+                    if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
+                        $msg['status'] = 0;
+                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['errormsg'][] = __('This Phone already exists.');
+                    }
+                }
+                 if ($msg['status'] == 1) {
                 if ($this->People->save($this->request->data)) {
                     $msg['status'] = 1;
                     $motherId = $this->People->id;
@@ -248,6 +338,10 @@ Class FamilyController extends AppController {
 
                     $message = 'Mother has been added';
                 }
+                 }else {
+                    $msg['success'] = 0;
+                    $msg['message'] = 'System Error, Please trye again';
+                }
 
                 break;
             default:
@@ -256,7 +350,7 @@ Class FamilyController extends AppController {
                 );
 
                 if (count($checkExistingUser)) {
-                    $this->request->data['People']['id'] = $checkExistingUser[0]['People']['id'];
+                    $this->request->data['People']['id'] = $_REQUEST['peopleid'];
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                     } else {
@@ -568,9 +662,7 @@ Class FamilyController extends AppController {
                                                         'Address.people_id' => $peopleId)
                                                     )
                                                 );
-//            echo '<pre>';
-//        print_r($getParentAddress);
-//        echo '</pre>';
+
         
             $this->request->data['Address']['user_id'] = $this->Session->read('User.user_id');
             $this->request->data['Address']['ownership_type'] = $_REQUEST['ownership_type'];
@@ -585,7 +677,8 @@ Class FamilyController extends AppController {
             $this->request->data['Address']['ownership_type'] = $_REQUEST['ownership_type'];
                 
             $this->request->data['Address']['created'] = date('Y-m-d H:i:s');
-             
+            
+            
             if ($this->Address->save($this->request->data)) {
                 $msg['status'] = 1;
                 $addressId = $this->Address->id;

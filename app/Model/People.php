@@ -298,6 +298,57 @@ LEFT JOIN people as parent2 ON (parent2.id = p.m_id) ";
             return false;
         }
     }
+    
+     /**
+     * Function to check if email exists in People table
+     * 
+     * @param type $email
+     * 
+     * @return boolean 
+     */
+    public function checkEmailExists($email) {
+        $this->recursive = -1;
+        $options['conditions'] = array('People.email' => $email);
+        $options['fields'] = array('People.id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0]['People']) && $userData[0]['People'] != "") {
+                return $userData[0]['People'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+      /**
+     * Function to check if phone exists in table
+     * 
+     * @param type $phone
+     * 
+     * @return boolean 
+     */
+    public function checkPhoneExists($phone) {
+        $this->recursive = -1;
+        $options['conditions'] = array('People.phone_number' => $phone);
+        $options['fields'] = array('People.id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0]['People']) && $userData[0]['People'] != "") {
+                return $userData[0]['People'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+
+    
 }
 /* 
  * To change this license header, choose License Headers in Project Properties.
