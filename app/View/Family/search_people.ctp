@@ -1,3 +1,6 @@
+<style type="text/css">
+   
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-md-6">	
@@ -26,6 +29,7 @@
             <table id="all_users" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Id</th>
                         <th>First Name</th>
                         <th>Last Name</th>

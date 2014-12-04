@@ -131,7 +131,7 @@ LEFT JOIN people as parent2 ON (parent2.id = p.m_id) ";
             $row = array();
             //for ($i = 0; $i < count($aColumns); $i++) {
                 /* General output */
-            
+            $row[] = '';
             foreach ( $value['p'] as $k => $v) {
                 $row[] = $v;
             }

@@ -21,3 +21,11 @@ h1.heading , h2.heading , h3.heading {
     padding-bottom: 20px;
     position: relative;
 }
+
+ td.details-control {
+    background: url('../img/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../img/details_close.png') no-repeat center center;
+}

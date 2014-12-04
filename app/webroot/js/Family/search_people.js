@@ -1,15 +1,41 @@
 var oTable;
+function format ( d ) {
+    
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>Father:</td>'+
+            '<td>'+d['7'] +'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Mother:</td>'+
+            '<td>'+d['8']+'</td>'+
+        '</tr>'+
+    '</table>';
+}
 
 $(function () {
 
-    oTable = $('#all_users').dataTable({
+    oTable = $('#all_users').DataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": baseUrl + "/family/getAjaxSearch",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "aaData": 1 },
+            { "aaData":2 },
+            { "aaData": 3 },
+            {"aaData" : 4},
+            {"aaData" : 5}
+            
+        ],
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            $('td:eq(1)',nRow).html('<span title="Father: ' + aData[6]+ ',Mother : ' + aData[7] +'">' + aData[1] + '</span>');
-            $('td:eq(4)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editBloodGroup(' + aData[0] + ', \'' + aData[1] + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
+            $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editBloodGroup(' + aData[0] + ', \'' + aData[1] + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
         },
         "rowCallback": function (row, data) {
 
@@ -18,7 +44,22 @@ $(function () {
 
         }
     });
-
+ $('#all_users tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        
+        var row = oTable.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
 
     $('#all_users').removeClass('display').addClass('table table-striped table-bordered');
     
@@ -31,4 +72,5 @@ $(function () {
 	
 	
 	});
+       
 });
