@@ -35,7 +35,8 @@ $(function () {
             
         ],
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editBloodGroup(' + aData[0] + ', \'' + aData[1] + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
+          
+            $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="insertUser(' + aData[1] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
         },
         "rowCallback": function (row, data) {
 
@@ -74,3 +75,24 @@ $(function () {
 	});
        
 });
+
+
+function insertUser(id, data)
+{
+    var peopleId = id;
+    
+     $.ajax({
+        url: baseUrl + '/family/insertUser',
+        dataType: 'json',
+        data: {peopleid: peopleId,type: actiontype,id:user_id,gid: group_id},
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                window.location = baseUrl + 'family/details/4';
+            }, 2500);
+        }
+    });
+}

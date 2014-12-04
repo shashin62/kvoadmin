@@ -24,6 +24,9 @@
                     </div>
                 </div>
             </form>
+            <div>
+                <a class ="addnew" href="javascript:void(0);">Add new </a>
+            </div>
         </div>
         <div class="col-xs-12 col-md-6">
             <table id="all_users" class="display" cellspacing="0" width="100%">
@@ -46,6 +49,18 @@
     </div>
 </div>
 <?php echo $this->Html->script(array('Family/search_people')); ?>
+<script type="text/javascript">
+    var actiontype = '<?php echo $type;?>';
+    var user_id = '<?php echo $fid;?>';
+    var group_id = '<?php echo $gid;?>';
+    
+    $('.addnew').click(function(){
+   
+   var id = user_id;
+   var gid = group_id;
+   doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'","fid":"'+ id +'","gid":"'+ gid +'"}');
+});
+</script>
 <!--<script type="text/javascript">
 $(document).ready(function() {
 

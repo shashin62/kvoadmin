@@ -83,10 +83,10 @@ Class People extends AppModel
         $sJoin = " LEFT JOIN people as parent ON (parent.id = p.f_id)
 LEFT JOIN people as parent2 ON (parent2.id = p.m_id) ";
         
-        $sGroup = " group by p.id ";
+        $sGroup = " group by p.phone_number";
 
        $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name, p.phone_number, p.m_id, p.f_id, 
+    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.phone_number,  p.m_id, p.f_id, 
     IF( p.f_id = parent.id ,parent.first_name, '') as father
               , IF( p.m_id = parent2.id, parent2.first_name, '') as mother
             FROM   $sTable
@@ -204,15 +204,15 @@ LEFT JOIN people as parent2 ON (parent2.id = p.m_id) ";
         $this->recursive = -1;
         $options['conditions']['People.group_id'] = $groupId;
         
-//         $options['joins'] = array(
-//            array('table' => 'groups',
-//                'alias' => 'Group',
-//                'type' => 'Inner',
-//                'conditions' => array(
-//                    'Group.id = People.group_id'
-//                )
-//            ),
-//             );
+         $options['joins'] = array(
+            array('table' => 'groups',
+                'alias' => 'Group',
+                'type' => 'Inner',
+                'conditions' => array(
+                    'Group.id = People.group_id'
+                )
+            ),
+             );
           $options['fields'] = array('People.*');
         try {
             $familyData = $this->find('all', $options);

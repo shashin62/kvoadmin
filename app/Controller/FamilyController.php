@@ -124,6 +124,69 @@ Class FamilyController extends AppController {
             $this->set('blood_group', $getPeopleData['People']['blood_group']);
         }
     }
+    
+    public function insertUser()
+    {
+        $this->layout = 'ajax';
+        $this->autoRender = false;
+        
+        $type = $_REQUEST['type'];
+        $idToBeUpdated = $_REQUEST['id'];
+        $gid = $_REQUEST['gid'];
+        
+        $getPeopleDetail = $this->People->find('all', array(
+            'conditions' => array('People.id' => $_REQUEST['peopleid']))
+            );
+        $updatePeople = array();
+        switch ($type) {
+            case 'addfather':
+                
+                $this->request->data = $getPeopleDetail[0];
+                unset($this->request->data['People']['id']);
+                unset($this->request->data['People']['tree_level']);
+                unset($this->request->data['People']['group_id']);
+                $this->request->data['People']['tree_level'] = $idToBeUpdated;
+                $this->request->data['People']['group_id'] = $gid;
+                
+                $this->People->create();
+                if ( $this->People->save($this->request->data) ) {
+                    $fatherId = $this->People->id;
+                
+                $updatePeople['People']['f_id'] = $fatherId;
+                $updatePeople['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
+                $updatePeople['People']['id'] = $idToBeUpdated;
+                $message  = 'Father has been added';
+                }
+                
+                break;
+            case 'addmother':
+                $updatePeople['People']['m_id'] = $peopleId;
+                $updatePeople['People']['id'] = $idToBeUpdated;
+                $message  = 'Mother has been added';
+                break;
+            default:
+                break;
+        }
+        
+        if ( $this->People->save($updatePeople) ) {
+            $msg['status'] = 1;
+            
+        } else {
+            $msg['status'] = 0;
+            $message = 'System Error';
+        }
+        
+        if ($msg['status'] == 1) {
+            $msg['success'] = 1;
+            $msg['message'] = $message;
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
 
     /**
      *  AJAX Callback - function to edit own details for creating tree
@@ -706,6 +769,10 @@ Class FamilyController extends AppController {
     public function searchPeople()
     {
         $userID = $this->Session->read('User.user_id');
+        
+        $this->set('type',$_REQUEST['type']);
+        $this->set('fid',$_REQUEST['fid']);
+        $this->set('gid',$_REQUEST['gid']);
     }
     
     public function getAjaxSearch()

@@ -36,10 +36,8 @@ $('.addspouse').click(function(){
 $('.addfather').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
-  
-   doFormPost(baseUrl+"/family/index?type=addfather",'{ "type":"addfather","fid":"'+ id +'"}');
-   
-    
+   var gid = $this.data('gid');
+   doFormPost(baseUrl+"/family/searchPeople?type=addfather",'{ "type":"addfather","fid":"'+ id +'","gid":"'+ gid +'"}');
 });
 
 $('.addmother').click(function(){
