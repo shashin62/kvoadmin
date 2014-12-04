@@ -109,6 +109,7 @@ Class FamilyController extends AppController {
             $getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
             
             $this->set('first_name', $getPeopleData['People']['first_name']);
+             $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('phone_number', $getPeopleData['People']['phone_number'] ? $getPeopleData['People']['phone_number'] : $sessionData['phone_number'] );

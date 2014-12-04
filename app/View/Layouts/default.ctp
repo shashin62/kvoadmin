@@ -26,11 +26,12 @@
             Kvo Admin
         </title>
     <?php echo $this->Html->css(array('common', 'bootstrap.min','/font-awesome-4.1.0/css/font-awesome.min',
-       
                                     'dataTables.bootstrap',
-                                    'bootstrapValidator.min','datepicker.min','bootstrap-select.min')); ?>
+                                    'bootstrapValidator.min',
+                                    'datepicker.min',
+                                    'bootstrap-select.min','jquery-ui.min','jquery-ui.theme.min')); ?>
 <?php
-  echo $this->Html->script(array('jquery','common','bootstrap.min','jquery.validate'));      
+  echo $this->Html->script(array('jquery','common','bootstrap.min','jquery.validate','jquery-ui.min'));      
 ?>
         <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
         <!-- Bootstrap DataTables JavaScript -->

@@ -30,6 +30,10 @@ $(document).ready(function () {
             'data[User][gender]': {
                 required: true
             },
+            'data[User][date_of_birth]': {
+                required: true
+            }
+            
         },
         messages: {
             'data[User][first_name]': {
@@ -59,6 +63,9 @@ $(document).ready(function () {
             'data[User][gender]': {
                 required: 'Please select gender'
             },
+            'data[User][date_of_birth]': {
+                required: 'Please select DOB'
+            }
         },
         submitHandler: function (form) {
             var queryString = $('#registerUser').serialize();

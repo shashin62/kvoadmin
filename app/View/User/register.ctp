@@ -83,7 +83,7 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Martial Status:</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-              <div class="col-lg-8 col-md-8 col-xs-8">
+              
                          <?php
                          $martialOptions = array(
                     'Unmarried' => 'Unmarried',
@@ -102,9 +102,15 @@
                 'options' => $martialOptions
             ));
             ?>
-                    </div>
+                    
                     </div>
                 </div>
+                <div class="form-group"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">DOB</label>   
+                <div class="col-lg-6 col-md-6 col-xs-6">
+               <?php echo $this->Form->input('date_of_birth', 
+                       array('id' => 'date_of_birth', 'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
+                </div>
+            </div>
             </div>
         </div>
 
@@ -121,4 +127,15 @@
 
     <?php echo $this->Form->end(); ?>
 </div>
+<script>
+    $(function () {
+        $("#date_of_birth").datepicker({
+            format: "yyyy-mm-dd",
+        });
+        $('.dp').on('change', function () {
+            $('.datepicker').hide();
+        });
+       
+    });
+</script>
 <?php echo $this->Html->script(array('User/register')); ?>

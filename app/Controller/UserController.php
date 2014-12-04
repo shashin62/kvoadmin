@@ -171,7 +171,8 @@ Class UserController extends AppController {
                 $peopleData['People']['last_name'] = $this->request->data['User']['last_name'];
                 $peopleData['People']['email'] = $this->request->data['User']['email'];
                 $peopleData['People']['gender'] = $this->request->data['User']['gender'];
-                 $peopleData['People']['martial_status'] = $this->request->data['User']['martial_status'];
+                $peopleData['People']['martial_status'] = $this->request->data['User']['martial_status'];
+                $peopleData['People']['date_of_birth'] = $this->request->data['User']['date_of_birth'];
                 $peopleData['People']['status'] = 1;
                 $peopleData['People']['created'] = date('Y-m-d H:i:s');
                 
