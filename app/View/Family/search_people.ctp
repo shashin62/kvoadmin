@@ -30,9 +30,17 @@
                     </div>
                 </div>
             </form>
-            <div>
-                <a class ="addnew" href="javascript:void(0);">Add new </a>
+<div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="form-actions">
+                    <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <button type="button" class="btn btn-primary addnew">Add new <?php echo ucfirst(str_replace('add', ' ', $type));?></button>
+                    </div>
+                </div>
             </div>
+        </div>
+            
         </div>
         <div class="col-xs-12 col-md-6">
             <table id="all_users" class="display" cellspacing="0" width="100%">

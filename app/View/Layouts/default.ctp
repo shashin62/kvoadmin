@@ -80,7 +80,7 @@
                     </ul>
               <?php } else { ?>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/logout">Logout<span class="sr-only">(current)</span></a></li>
+                        <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/logout"><img title="logout" src="<?php echo $this->base.'/img/logout.png';?>"><span class="sr-only">(current)</span></a></li>
                     </ul>
              <?php } ?>
                 </div><!--/.nav-collapse -->
@@ -96,7 +96,7 @@
             </div>
     <!--        <p><strong>Your are using CakePHP Version <?=Configure::version()?></strong></p>-->
         </div>
-
+        
         <script type="text/javascript">
             var baseUrl = '<?php echo FULL_BASE_URL . $this->base; ?>';
         </script>
