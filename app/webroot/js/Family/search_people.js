@@ -1,5 +1,6 @@
 var oTable;
 function format(d) {
+    console.log(d);
     return '<table cellpadding="2" cellspacing="0" border="0" style="">' +
             '<tr>' +
             '<td>&nbsp<b>Father</b>:' +
@@ -7,8 +8,6 @@ function format(d) {
             '<td>&nbsp<b>Mother</b>: ' +
             '' + d['11'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Village</b>: ' +
-            '' + d['7'] + '</td>&nbsp;' +
-            '<td>&nbsp<b>DOB</b>: ' +
             '' + d['8'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Email</b>: ' +
             '' + d['9'] + '</td>' +
@@ -33,11 +32,12 @@ $(function () {
             {"aaData": 2},
             {"aaData": 3},
             {"aaData": 4},
-            {"aaData": 5}
+            {"aaData": 5},
+            {"aaData": 6}
 
         ],
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="insertUser(' + aData[1] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
+            $('td:eq(6)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="insertUser(' + aData[1] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
         },
         "rowCallback": function (row, data) {
         },
@@ -70,6 +70,14 @@ $(function () {
                 .search(this.value)
                 .draw();
     });
+    $(".search_DOB").bind("change", function () {
+        var table = $('#all_users').DataTable();
+        table
+                .column($(this).attr('custom'))
+                .search(this.value)
+                .draw();
+    });
+    
 });
 
 

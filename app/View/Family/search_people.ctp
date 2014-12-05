@@ -7,20 +7,26 @@
             <form class="form-horizontal addUser">
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name:</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
+                    <div class="col-lg-4 col-md-4 col-xs-4">
                         <input type="text" class="form-control search_username" name="first_name" placeholder="Firstname" custom="1" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name:</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
+                    <div class="col-lg-4 col-md-4 col-xs-4">
                         <input type="text" class="form-control search_username" name="last_name" placeholder="Lastname" custom="2" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Contact number:</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
+                    <div class="col-lg-4 col-md-4 col-xs-4">
                         <input type="text" class="form-control search" name="phone_number" placeholder="Contact number" custom="3"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_birth">DOB:</label>
+                    <div class="col-lg-4 col-md-4 col-xs-4">
+                        <input id = "date_of_birth" type="text" class="form-control dp search_DOB" name="date_of_birth" placeholder="DOB" custom="4"/>
                     </div>
                 </div>
             </form>
@@ -37,6 +43,7 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Phone</th>
+                        <th>DOB</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -50,6 +57,15 @@
 </div>
 <?php echo $this->Html->script(array('Family/search_people')); ?>
 <script type="text/javascript">
+ $(function () {
+        $("#date_of_birth").datepicker({
+            format: "yyyy-mm-dd",
+        });
+        $('.dp').on('change', function () {
+            $('.datepicker').hide();
+        });
+       
+    });
     var actiontype = '<?php echo $type;?>';
     var user_id = '<?php echo $fid;?>';
     var group_id = '<?php echo $gid;?>';
@@ -80,5 +96,6 @@ var table = $('#all_users').DataTable();
 
 });
 });
+
 
 </script>-->

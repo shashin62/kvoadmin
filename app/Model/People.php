@@ -48,7 +48,7 @@ Class People extends AppModel
             }
         }
         
-        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.phone_number');
+        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.phone_number','p.date_of_birth');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -87,10 +87,10 @@ Class People extends AppModel
         $sGroup = " group by p.phone_number";
 
        $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.phone_number,  p.m_id, p.f_id, 
+    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.phone_number, p.date_of_birth, p.m_id, p.f_id, 
     IF( p.f_id = parent.id ,parent.first_name, '') as father
               , IF( p.m_id = parent2.id, parent2.first_name, '') as mother,
-              p.village, p.date_of_birth,p.email
+              p.village,p.email
             FROM   $sTable
                 $sJoin
             $sWhere
