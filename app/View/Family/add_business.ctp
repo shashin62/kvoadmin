@@ -52,7 +52,7 @@
                 </div>
     </div>
     <div>
-        <?php if ( $aid == '') { ?>
+        <?php if ( $show & $aid == '') { ?>
     <div class="row-fuild">
         <?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
     </div>

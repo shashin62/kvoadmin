@@ -586,6 +586,7 @@ Class FamilyController extends AppController {
     
     public function addBusiness()
     {
+        $userID = $this->Session->read('User.user_id');
         $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
         $userName = $this->Session->read('User.first_name');
@@ -593,6 +594,12 @@ Class FamilyController extends AppController {
         $pid = $_REQUEST['id'];
         $this->set('peopleid',$pid);
         $aid = $_REQUEST['aid'];
+        
+         $data = $this->People->find('all',array('fields' => array('People.user_id')
+            ,'conditions'=> array('People.id' => $pid)));
+        
+        $peopleData = $data[0]['People'];
+        $this->set('show',$peopleData['user_id'] == $userID ? false : true);
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
@@ -683,6 +690,8 @@ Class FamilyController extends AppController {
     }
     
     public function addAddress() {
+        $userID = $this->Session->read('User.user_id');
+        
          $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
         $pid = $_REQUEST['id'];
@@ -694,7 +703,11 @@ Class FamilyController extends AppController {
                                             )
                                         )
                                     );
+        $data = $this->People->find('all',array('fields' => array('People.user_id')
+            ,'conditions'=> array('People.id' => $pid)));
         
+        $peopleData = $data[0]['People'];
+        $this->set('show',$peopleData['user_id'] == $userID ? false : true);
         if( isset($getParentAddress[0]) && count($getParentAddress)) {
             $data = $getParentAddress[0]['Address'];
             foreach ( $data as $key => $value ) {
