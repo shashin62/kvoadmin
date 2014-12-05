@@ -127,7 +127,7 @@ Class UserController extends AppController {
             unset($this->request->data['User']['confirm_password']);
         }
         if( !isset($this->request->data['User']['role_id'])) {
-            $this->request->data['User']['role_id'] = 1;
+            $this->request->data['User']['role_id'] = 2;
         }
         if ( !isset($this->request->data['User']['status'])) {
             $this->request->data['User']['status'] = 1;
@@ -154,7 +154,6 @@ Class UserController extends AppController {
                 $msg['error']['errormsg'][] = __('This Phone already exists.');
             }
         }
-
 
         $this->User->recursive = -1;
         if ($msg['status'] == 1) {
@@ -209,13 +208,17 @@ Class UserController extends AppController {
             if ($this->User->validates()) {
 
                 $userAllData = $this->User->getUserData($this->request->data['User']['email'], '', trim(Security::hash(Configure::read('Security.salt') . $this->request->data['User']['password'])));
-
+               
                 if ($this->Auth->login($userAllData['User'])) {
                     $cookie['email'] = $userAllData['User']['email'];
                     $cookie['password'] = $userAllData['User']['password'];
                     $this->setCakeSession($userAllData);
                     $this->Cookie->write('Auth.User', $cookie, true, '+2 weeks');
-                    $this->redirect($this->Auth->redirect());
+                    if ( $this->Session->read('User.role_id') == 2) {
+                        $this->redirect($this->Auth->redirect('/family/familiyGroups'));
+                    } else {
+                        $this->redirect($this->Auth->redirect());
+                    }
                 }
                 
                 $this->Session->setFlash(__('Invalid username or password, try again'), 'default', array(), 'authlogin');

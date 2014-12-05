@@ -60,17 +60,17 @@ class User extends AppModel {
         $options['conditions']['User.email'] = $email;
 
         $options['conditions']['User.password'] = $checkPass;
-        
-         $options['joins'] = array(
-            array('table' => 'people',
-                'alias' => 'People',
-                'type' => 'Inner',
-                'conditions' => array(
-                    'User.id = People.user_id'
-                )
-            ),
-             );
-          $options['fields'] = array('User.*', 'People.*');
+//        
+//         $options['joins'] = array(
+//            array('table' => 'people',
+//                'alias' => 'People',
+//                'type' => 'Inner',
+//                'conditions' => array(
+//                    'User.id = People.user_id'
+//                )
+//            ),
+//             );
+          $options['fields'] = array('User.*');
         try {
             $userData = $this->find('all', $options);
 

@@ -6,7 +6,7 @@ class Group extends AppModel {
     
      var $name = 'Group';
      
-     public function getAllFamilyGroups($userId) {
+     public function getAllFamilyGroups($userId, $roleId) {
          
        $aColumns = array('id', 'name');
 
@@ -70,12 +70,14 @@ class Group extends AppModel {
                 $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
         }        
-        
-        if ($sWhere == "") {
+        if( $roleId  == 1){
+            if ($sWhere == "") {
                     $sWhere = " WHERE user_id =  {$userId}";
                 } else {
                     $sWhere .= " AND ";
                 }
+        }
+        
         /*
          * SQL queries
          * Get data to display

@@ -31,3 +31,9 @@ function editFamilyGroup(id)
 {
     window.location = baseUrl + '/family/details/' + id;
 }
+
+$('.addfamily').click(function(){
+   var $this =  $(this);
+   doFormPost(baseUrl+"/family/index?type=addnew",'{ "type":"addnew"}');
+   
+});

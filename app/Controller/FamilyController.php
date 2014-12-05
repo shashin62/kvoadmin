@@ -79,6 +79,10 @@ Class FamilyController extends AppController {
             case 'addchilld':
                 $pageTitle = 'Add Child';
                 break;
+            case 'addnew':
+                $pageTitle = 'Add New Family';
+                
+                break;
             default:
                 $requestData['type'] = 'self';
                 $pageTitle = 'Create your family - edit your Details';
@@ -222,6 +226,46 @@ Class FamilyController extends AppController {
          $this->request->data['People']['gender'] = $this->request->data['gender'];
         $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
         switch ($_REQUEST['type']) {
+            
+            case 'addnew':
+                
+               
+                
+                $msg['status'] = 1;
+                $result = $this->People->checkEmailExists($this->request->data['People']['email']);
+
+                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                    $msg['status'] = 0;
+                    $msg['error']['name'][] = "email";
+                    $msg['error']['errormsg'][] = __('This Email already exists.');
+                }
+
+                if (isset($this->request->data['People']['phone_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+
+                    if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
+                        $msg['status'] = 0;
+                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['errormsg'][] = __('This Phone already exists.');
+                    }
+                }
+                if ($msg['status'] == 1) {
+                     $groupData = array();
+                $groupData['Group']['name'] = 'Family of ' . $this->request->data['People']['first_name'];
+                $groupData['Group']['created'] = date('Y-m-d H:i:s');
+                $this->Group->save($groupData);
+                    $this->request->data['People']['group_id'] = $this->Group->id;
+                    if ($this->People->save($this->request->data)) {
+
+                        $msg['status'] = 1;
+                        $message = 'Family has been created';
+                    } else {
+                    $msg['success'] = 0;
+                    $msg['message'] = 'System Error, Please trye again';
+                }
+                }
+                
+                break;
             case 'addspouse':
                 $this->request->data['People']['partner_id'] = $_REQUEST['peopleid'];
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
@@ -457,14 +501,19 @@ Class FamilyController extends AppController {
     public function details() 
     {
         $userID = $this->Session->read('User.user_id');
-        
+        $roleId = $this->Session->read('User.role_id');
         $groupData = $this->Group->find('all',array('fields' => array('Group.id'),
             'conditions' => array('Group.user_id' => $userID)
             ));
         $id = $this->request->params['pass'][0];
-        if (in_array($id, $groupData[0]['Group'])) {
-            $getDetails = $this->People->getFamilyDetails($id);
-            $this->set('userId', $userID);
+        $getDetails = $this->People->getFamilyDetails($id);
+        if ( $roleId  ==2 ) {
+              $this->set('userId', $userID);
+            $this->set('groupId', $id);
+            $this->set('data', $getDetails);
+            
+        } else if( $roleId != 2 && in_array($id, $groupData[0]['Group'])) {
+                     $this->set('userId', $userID);
             $this->set('groupId', $id);
             $this->set('data', $getDetails);
         } else {
@@ -481,8 +530,8 @@ Class FamilyController extends AppController {
     public function getAjaxGroups() {
         $this->autoRender = false;
         $userID = $this->Session->read('User.user_id');
-        
-        $data = $this->Group->getAllFamilyGroups($userID);
+        $roleId = $this->Session->read('User.role_id');
+        $data = $this->Group->getAllFamilyGroups($userID, $roleId);
         echo json_encode($data);
     }
 
