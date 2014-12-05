@@ -12,7 +12,6 @@ $(document).ready(function () {
             var queryString = $('#addressForm').serialize();
             var peopleid = pid;
             var addressid = aid;
-            console.log(addressid);
             
             $.post(baseUrl + '/family/doProcessAddress?peopleid=' + peopleid + '&addressid=' + addressid, queryString, function (data) {
                  if (0 == data.status) {
@@ -29,9 +28,7 @@ $(document).ready(function () {
                     window.location.href = baseUrl + "/family/familiyGroups";
                 }, 2500);
             }
-               
             }, "json");
-        
             return false;
         }
     });

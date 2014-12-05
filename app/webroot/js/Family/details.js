@@ -43,7 +43,8 @@ $('.addfather').click(function(){
 $('.addmother').click(function(){
    var $this =  $(this);
    var id = $this.data('id');  
-   doFormPost(baseUrl+"/family/index?type=addmother",'{ "type":"addmother","fid":"'+ id +'"}');
+   var gid = $this.data('gid');
+   doFormPost(baseUrl+"/family/searchPeople?type=addmother",'{ "type":"addmother","fid":"'+ id +'","gid":"'+ gid +'"}');
     
 });
 $('.addchild').click(function(){

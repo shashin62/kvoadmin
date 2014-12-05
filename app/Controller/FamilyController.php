@@ -110,14 +110,16 @@ Class FamilyController extends AppController {
             
             $this->set('first_name', $getPeopleData['People']['first_name']);
              $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
+              $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('phone_number', $getPeopleData['People']['phone_number'] ? $getPeopleData['People']['phone_number'] : $sessionData['phone_number'] );
             $this->set('email', $getPeopleData['People']['email']);
-            $this->set('gender', $sessionData['gender']);
+            $this->set('gender', $getPeopleData['People']['gender']);
             $this->set('martial_status', $getPeopleData['People']['martial_status']);
             $this->set('surname_now', $getPeopleData['People']['surname_now']);
             $this->set('surname_dob', $getPeopleData['People']['surname_dob']);
+             $this->set('title', $getPeopleData['People']['title']);
             $this->set('state', $getPeopleData['People']['state']);
             $this->set('education', $getPeopleData['People']['education']);
             $this->set('village', $getPeopleData['People']['village']);
@@ -137,11 +139,10 @@ Class FamilyController extends AppController {
         $getPeopleDetail = $this->People->find('all', array(
             'conditions' => array('People.id' => $_REQUEST['peopleid']))
             );
+        $this->request->data = $getPeopleDetail[0];
         $updatePeople = array();
         switch ($type) {
             case 'addfather':
-                
-                $this->request->data = $getPeopleDetail[0];
                 unset($this->request->data['People']['id']);
                 unset($this->request->data['People']['tree_level']);
                 unset($this->request->data['People']['group_id']);
@@ -160,9 +161,20 @@ Class FamilyController extends AppController {
                 
                 break;
             case 'addmother':
-                $updatePeople['People']['m_id'] = $peopleId;
-                $updatePeople['People']['id'] = $idToBeUpdated;
-                $message  = 'Mother has been added';
+                unset($this->request->data['People']['id']);
+                unset($this->request->data['People']['tree_level']);
+                unset($this->request->data['People']['group_id']);
+                $this->request->data['People']['tree_level'] = $idToBeUpdated;
+                $this->request->data['People']['group_id'] = $gid;
+                $this->People->create();
+                if ( $this->People->save($this->request->data) ) {
+                    $motherId = $this->People->id;
+                    $updatePeople['People']['m_id'] = $motherId;
+                    $updatePeople['People']['mother'] = $getPeopleDetail[0]['People']['first_name'];
+                    $updatePeople['People']['id'] = $idToBeUpdated;
+                    $message  = 'Mother has been added';
+                }
+                
                 break;
             default:
                 break;
@@ -206,6 +218,9 @@ Class FamilyController extends AppController {
             );
         }
         
+         $this->request->data['People']['title'] = $this->request->data['title'];
+         $this->request->data['People']['gender'] = $this->request->data['gender'];
+        $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
         switch ($_REQUEST['type']) {
             case 'addspouse':
                 $this->request->data['People']['partner_id'] = $_REQUEST['peopleid'];
@@ -410,7 +425,7 @@ Class FamilyController extends AppController {
                 break;
             default:
                 $checkExistingUser = $this->People->find('all', array('fields' => array('People.id'),
-                    'conditions' => array('People.user_id' => $userID))
+                    'conditions' => array('People.id' => $_REQUEST['peopleid']))
                 );
 
                 if (count($checkExistingUser)) {
