@@ -79,8 +79,10 @@
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/login">Sign In<span class="sr-only">(current)</span></a></li>
                     </ul>
               <?php } else { ?>
+                    
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/logout"><img title="logout" src="<?php echo $this->base.'/img/logout.png';?>"><span class="sr-only">(current)</span></a></li>
+                        <li><a href="javascript:void(0);">Welcome <?php echo $this->Session->read('User.first_name');?></a></li>
+                        <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/user/logout"><img width="50%" height="50%" title="logout" src="<?php echo $this->base.'/img/logout.png';?>"><span class="sr-only">(current)</span></a></li>
                     </ul>
              <?php } ?>
                 </div><!--/.nav-collapse -->
