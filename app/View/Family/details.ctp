@@ -63,8 +63,7 @@
                                     <?php if($value['People']['user_id'] == "") { ?>
                                     <a data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
                                      <?php } ?>
-                                    </div>
-                                 
+                                    </div>                                 
                                 <?php if($value['People']['tree_level'] != '') { ?>
                                   <div class="col-md-2"><a href="#">Transfer of Family</a></div>
                                 <?php } else { ?>
