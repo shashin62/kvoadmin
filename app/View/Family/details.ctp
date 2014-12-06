@@ -10,7 +10,9 @@
 				</div>
 			</div>
 			<br>
+
 			<u><h3>Primary Family</h3></u>
+
                         <?php
                        App::import('Model', 'People');
                         $People = new People();
@@ -62,15 +64,11 @@
                                     <a data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
                                      <?php } ?>
                                     </div>
-                                 <?php if($value['People']['user_id'] == $userId) { ?>
-                                 <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">Tree</a></div>
-    
-                               
-                                 <?php } ?>
-                                <?php if($value['People']['user_id'] == $userId) { ?>
-                                
+                                 
+                                <?php if($value['People']['tree_level'] != '') { ?>
+                                  <div class="col-md-2"><a href="#">Transfer of Family</a></div>
                                 <?php } else { ?>
-                                                           <div class="col-md-2"><a href="#">Transfer of Family</a></div>
+                                             <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
                         </div><br>
                         
