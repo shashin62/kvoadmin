@@ -76,3 +76,16 @@ $(".editOwnButton").click(function () {
     $("#createFamily").submit();
     return false;
 });
+
+$(".male").click(function () {
+    $(".maidenvillage").hide();
+    $(".widower").val('widower');
+    
+    return false;
+});
+
+$(".female").click(function () {
+    $(".maidenvillage").show();
+     $(".widower").val('widow');
+    return false;
+});
