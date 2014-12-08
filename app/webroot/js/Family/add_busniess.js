@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-showoccupation('Retired');
+showoccupation(occupation);
     $("#addressForm").validate({
         errorElement: "span",
         rules: {

@@ -181,6 +181,7 @@
     var aid = '<?php echo $aid; ?>';
     var prntid = '<?php echo $parentid; ?>';
     var paddressid = '<?php echo $parentaddressid;?>';
+    var occupation = '<?php echo $occupation;?>';
 
 </script>
 <?php echo $this->Html->script(array('Family/add_busniess')); ?>
