@@ -372,6 +372,32 @@ Class People extends AppModel
         }
     }
     
+    /**
+     * 
+     * @param type $pid
+     */
+    public function getParentPeopleDetails($data = array())
+    {
+        $this->recursive = -1;
+        if ( isset($data['gid'])) {
+            $options['conditions'] = array('People.group_id' => $data['gid']);
+            $options['conditions']['AND'] = array('People.tree_level' => '');
+        }
+        
+        $options['fields'] = array('People.id','People.first_name','People.business_address_id','People.address_id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0]['People']) && $userData[0]['People'] != "") {
+                return $userData[0]['People'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
 
     
 }

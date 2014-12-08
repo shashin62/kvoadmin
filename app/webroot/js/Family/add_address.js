@@ -13,7 +13,7 @@ $(document).ready(function () {
             var peopleid = pid;
             var addressid = aid;
             
-            $.post(baseUrl + '/family/doProcessAddress?peopleid=' + peopleid + '&addressid=' + addressid, queryString, function (data) {
+            $.post(baseUrl + '/family/doProcessAddress?peopleid=' + peopleid + '&addressid=' + addressid + '&parentid=' + prntid, queryString, function (data) {
                  if (0 == data.status) {
                 if (data.error.name.length > 0) {
                     for (var i = 0; i < data.error.name.length; i++) {

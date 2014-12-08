@@ -12,8 +12,8 @@ $(document).ready(function () {
             var queryString = $('#addressForm').serialize();
             var peopleid = pid;
              var addressid = aid;
-            console.log(addressid);
-            $.post(baseUrl + '/family/doProcessAddBusiness?peopleid=' + peopleid + '&addressid=' + addressid, queryString, function (data) {
+           
+            $.post(baseUrl + '/family/doProcessAddBusiness?peopleid=' + peopleid + '&addressid=' + addressid + '&parentid=' + prntid+ '&paddressid=' + paddressid, queryString, function (data) {
                  if (0 == data.status) {
                 if (data.error.name.length > 0) {
                     for (var i = 0; i < data.error.name.length; i++) {

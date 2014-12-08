@@ -9,8 +9,10 @@ $('.editaddress').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
   var aid = $this.data('aid');
+  var gid = $this.data('gid');
   
-   doFormPost(baseUrl+"/family/addAddress?type=self&id="+ id + "&aid="+ aid,'{ "type":"self","fid":"'+ id +'","aid":"'+ aid +'"}');
+   doFormPost(baseUrl+"/family/addAddress?type=self&id="+ id + "&aid="+ aid + "&gid=" + gid,
+   '{ "type":"self","fid":"'+ id +'","aid":"'+ aid +'","gid":"'+ gid +'"}');
    
 });
 
@@ -18,8 +20,10 @@ $('.editbusiness').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
   var aid = $this.data('aid');
+  var gid = $this.data('gid');
   
-   doFormPost(baseUrl+"/family/addBusiness?type=self&id="+ id + "&aid="+ aid,'{ "type":"self","fid":"'+ id +'","aid":"'+ aid +'"}');
+   doFormPost(baseUrl+"/family/addBusiness?type=self&id="+ id + "&aid="+ aid + "&gid=" + gid,
+   '{ "type":"self","fid":"'+ id +'","aid":"'+ aid +'","gid":"'+ gid +'"}');
    
 });
 

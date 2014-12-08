@@ -638,17 +638,27 @@ Class FamilyController extends AppController {
         $userID = $this->Session->read('User.user_id');
         $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
-        $userName = $this->Session->read('User.first_name');
-        $this->set('name',$userName);
+       
         $pid = $_REQUEST['id'];
         $this->set('peopleid',$pid);
         $aid = $_REQUEST['aid'];
         
-         $data = $this->People->find('all',array('fields' => array('People.user_id')
-            ,'conditions'=> array('People.id' => $pid)));
+        $gid = $_REQUEST['gid'];
         
+         $data = $this->People->find('all',array('fields' => array(
+            'People.user_id','People.first_name','People.tree_level')
+            ,'conditions'=> array(
+                'People.group_id' => $gid,
+                'People.id' => $pid,
+                )));
+         
+         $array = array();
+        $array['gid'] = $gid;
+        
+        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+      
         $peopleData = $data[0]['People'];
-        $this->set('show',$peopleData['user_id'] == $userID ? false : true);
+        $this->set('show',$peopleData['tree_level'] == "" ? false : true);
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
@@ -664,7 +674,11 @@ Class FamilyController extends AppController {
                 $this->set($key,$value);
             }
         }
+         $this->set('peopleid',$pid);
          $this->set('aid',$aid ? $aid : '');
+         $this->set('name',$getOwnerDetails['first_name']);
+          $this->set('parentid',$getOwnerDetails['id']);
+          $this->set('parentaddressid',$getOwnerDetails['business_address_id']);
         
     }
     
@@ -672,6 +686,7 @@ Class FamilyController extends AppController {
     {
         $this->autoRender = false;
         $this->layout = 'ajax';
+        
         $userID = $this->Session->read('User.user_id');
         $peopleId = $_REQUEST['peopleid'];
         $aid = $_REQUEST['addressid'];
@@ -680,11 +695,19 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['id'] = $peopleId;
         $updatePeopleBusniessDetails['occupation'] = $this->request->data['occupation'];
         $updatePeopleBusniessDetails['business_name'] = $this->request->data['Address']['business_name'];
-
+        
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
+        $parentId = $_REQUEST['parentid'];
+        $paddressid = $_REQUEST['paddressid'];
         if ($same == 1) {
-            //echo 'in';exit;
-            $getParentAddress = $this->Address->find('all', array('conditions' => array('Address.user_id' => $userID)));
+            if ( $this->Session->read('User.role_id') == 2) {
+                $conditions = array('Address.id' => $paddressid);
+            } else {
+                 $conditions = array('Address.user_id' => $userID);
+            }
+            
+            $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
+            
             unset($getParentAddress[0]['Address']['id']);
             unset($getParentAddress[0]['Address']['people_id']);
             $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
@@ -744,19 +767,33 @@ Class FamilyController extends AppController {
          $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
         $pid = $_REQUEST['id'];
-        $aid = $_REQUEST['aid'];
+        $aid = $_REQUEST['aid'];        
+        $gid = $_REQUEST['gid'];
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
                                                 'Address.people_id' => $pid
                                             )
                                         )
-                                    );
-        $data = $this->People->find('all',array('fields' => array('People.user_id')
-            ,'conditions'=> array('People.id' => $pid)));
+                                   );
+        
+        $array = array();
+        $array['gid'] = $gid;
+        
+        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+        
+        $array['pid'] = $pid;
+        $data = $this->People->find('all',array('fields' => array(
+            'People.user_id','People.first_name','People.tree_level')
+            ,'conditions'=> array(
+                'People.group_id' => $gid,
+                'People.id' => $pid,
+                )));
+        
         
         $peopleData = $data[0]['People'];
-        $this->set('show',$peopleData['user_id'] == $userID ? false : true);
+        
+        $this->set('show',$peopleData['tree_level'] == "" ? false : true);
         if( isset($getParentAddress[0]) && count($getParentAddress)) {
             $data = $getParentAddress[0]['Address'];
             foreach ( $data as $key => $value ) {
@@ -764,9 +801,9 @@ Class FamilyController extends AppController {
             }
         }
         
-        $userName = $this->Session->read('User.first_name');
         $this->set('peopleid',$pid);
-        $this->set('name',$userName);
+        $this->set('name',$getOwnerDetails['first_name']);
+        $this->set('parentid',$getOwnerDetails['id']);
         $this->set('aid',$aid ? $aid : '');
         
     }
@@ -777,9 +814,16 @@ Class FamilyController extends AppController {
         $this->layout = 'ajax';
         $userID = $this->Session->read('User.user_id');
         $same = $this->request->data['Address']['is_same'];
+        $parentId = $_REQUEST['parentid'];
         if ($same == 1) {            
-            //echo 'in';exit;
-            $getParentAddress = $this->Address->find('all',array('conditions' => array('Address.user_id' => $userID)));
+            if ( $this->Session->read('User.role_id') == 2) {
+                $conditions = array('Address.people_id' => $parentId);
+            } else {
+                 $conditions = array('Address.user_id' => $userID);
+            }
+            
+            $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
+            
             unset($getParentAddress[0]['Address']['id']);
             unset($getParentAddress[0]['Address']['people_id']);
             $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');

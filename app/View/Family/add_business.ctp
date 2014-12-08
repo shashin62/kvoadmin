@@ -179,5 +179,8 @@
 <script type="text/javascript">
     var pid = '<?php echo $peopleid; ?>';  
     var aid = '<?php echo $aid; ?>';  
+    var prntid = '<?php echo $parentid; ?>';
+    var paddressid = '<?php echo $parentaddressid;?>';
+    
 </script>
 <?php echo $this->Html->script(array('Family/add_busniess')); ?>

@@ -7,22 +7,21 @@
     </div>
     <?php } ?>
     <br>
-    <div class="addresscontainer">
-        
+    <div class="addresscontainer">       
     
 <div class="row-fuild">
         <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default">
-                <input type="radio" name="ownership_type" value="1">Ownership
+            <label class="btn btn-default <?php echo $ownership_type == 1 ? 'active' : '';?>">
+                <input type="radio" name="ownership_type" <?php echo $ownership_type == 1 ? 'checked=checked' : '';?> value="1">Ownership
             </label>
-            <label class="btn btn-default">
-                <input type="radio" name="ownership_type" value="2">Leave & License
+            <label class="btn btn-default <?php echo $ownership_type == 2 ? 'active' : '';?>">
+                <input type="radio" name="ownership_type" <?php echo $ownership_type == 2 ? 'checked=checked' : '';?> value="2">Leave & License
             </label>
-            <label class="btn btn-default">
-                <input type="radio" name="ownership_type" value="3">Pagadi
+            <label class="btn btn-default <?php echo $ownership_type == 3 ? 'active' : '';?>">
+                <input type="radio" name="ownership_type" <?php echo $ownership_type == 3 ? 'checked=checked' : '';?> value="3">Pagadi
             </label>
-            <label class="btn btn-default">
-                <input type="radio" name="ownership_type" value="4">Other
+            <label class="btn btn-default <?php echo $ownership_type == 4 ? 'active' : '';?>">
+                <input type="radio" name="ownership_type" <?php echo $ownership_type == 4 ? 'checked=checked' : '';?> value="4">Other
             </label>
         </div>
     </div>
@@ -151,5 +150,6 @@
    
     var aid = '<?php echo $addressid; ?>';   
      var pid = '<?php echo $peopleid; ?>';
+     var prntid = '<?php echo $parentid; ?>';
 </script>
 <?php echo $this->Html->script(array('Family/add_address')); ?>
