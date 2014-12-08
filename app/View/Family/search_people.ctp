@@ -1,5 +1,4 @@
 <style type="text/css">
-   
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -30,7 +29,7 @@
                     </div>
                 </div>
             </form>
-<div class="row">
+        <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="form-actions">
                     <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
@@ -40,7 +39,6 @@
                 </div>
             </div>
         </div>
-            
         </div>
         <div class="col-xs-12 col-md-6">
             <table id="all_users" class="display" cellspacing="0" width="100%">
@@ -56,10 +54,8 @@
                     </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
@@ -105,6 +101,4 @@ var table = $('#all_users').DataTable();
 
 });
 });
-
-
 </script>-->

@@ -12,6 +12,7 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Created On</th>
         <th>Action</th>
     </tr>
     </thead>

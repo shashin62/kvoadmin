@@ -8,7 +8,7 @@ class Group extends AppModel {
      
      public function getAllFamilyGroups($userId, $roleId) {
          
-       $aColumns = array('id', 'name');
+       $aColumns = array('id', 'name','created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "id";
