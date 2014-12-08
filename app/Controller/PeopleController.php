@@ -24,11 +24,33 @@ App::uses('AppController', 'Controller');
  * @since     1.0
  */
 Class PeopleController extends AppController {
-    
+    /**
+     *
+     * @var type 
+     */
+    public $name = 'People';
+
+    /**
+     *
+     * @var array 
+     */
+    public $uses = array('User','People', 'Village', 'Education', 'State', 'BloodGroup', 'Group','Address');
+
+    /**
+     *
+     * @var type 
+     */
+    public $helpers = array('Session');
+    /**
+     *
+     * @var type 
+     */
+    public $components = array('Session');
     
     public function search()
     {
-        
+        $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
+        $this->set(compact('villages'));
     }
 }
 
