@@ -29,11 +29,11 @@ $('.editbusiness').click(function(){
 
 
 $('.addspouse').click(function(){
-   var $this =  $(this);
-   var id = $this.data('id');
-  
-   doFormPost(baseUrl+"/family/index?type=addspouse",'{ "type":"addspouse","fid":"'+ id +'"}');
-   
+    var $this =  $(this);
+    var id = $this.data('id');
+    var first_name = $this.data('first_name');
+    
+   doFormPost(baseUrl+"/family/index?type=addspouse",'{ "type":"addspouse","fid":"'+ id +'","name_parent":"'+ first_name +'"}');
     
 });
 
@@ -41,21 +41,27 @@ $('.addfather').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
    var gid = $this.data('gid');
-   doFormPost(baseUrl+"/family/searchPeople?type=addfather",'{ "type":"addfather","fid":"'+ id +'","gid":"'+ gid +'"}');
+   var first_name = $this.data('first_name');
+   
+   doFormPost(baseUrl+"/family/searchPeople?type=addfather",
+   '{ "type":"addfather","fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'"}');
 });
 
 $('.addmother').click(function(){
    var $this =  $(this);
    var id = $this.data('id');  
    var gid = $this.data('gid');
-   doFormPost(baseUrl+"/family/searchPeople?type=addmother",'{ "type":"addmother","fid":"'+ id +'","gid":"'+ gid +'"}');
+   var first_name = $this.data('first_name');
+   doFormPost(baseUrl+"/family/searchPeople?type=addmother",
+   '{ "type":"addmother","fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'"}');
     
 });
 $('.addchild').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
+  var first_name = $this.data('first_name');
   
-   doFormPost(baseUrl+"/family/index?type=addchilld",'{ "type":"addchilld","fid":"'+ id +'"}');
+   doFormPost(baseUrl+"/family/index?type=addchilld",'{ "type":"addchilld","fid":"'+ id +'","name_parent":"'+ first_name +'"}');
    
     
 });

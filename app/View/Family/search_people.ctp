@@ -35,7 +35,7 @@
                 <div class="form-actions">
                     <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <button type="button" class="btn btn-primary addnew">Add new <?php echo ucfirst(str_replace('add', ' ', $type));?></button>
+                        <button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>">Add new <?php echo ucfirst(str_replace('add', ' ', $type));?></button>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,8 @@
    
    var id = user_id;
    var gid = group_id;
-   doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'","fid":"'+ id +'","gid":"'+ gid +'"}');
+ var first_name = $(this).data('first_name');
+   doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'","fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'"}');
 });
 </script>
 <!--<script type="text/javascript">

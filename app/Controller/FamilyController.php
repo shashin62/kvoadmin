@@ -54,7 +54,7 @@ Class FamilyController extends AppController {
     public function index() 
     {
         $requestData = $this->request->data;
-        
+       
         if ($requestData['type'] == 'self') {
            $userId = $requestData['fid'];//$this->Session->read('User.user_id');
             $toFetchData = true;
@@ -68,20 +68,27 @@ Class FamilyController extends AppController {
         switch ($requestData['type']) 
         {
             case 'addspouse':
-                $pageTitle = 'Add Spouse';
+                $pageTitle = 'Add Spouse of ' . $_REQUEST['name_parent'];
+                $this->set('gender', 'female');
+                $this->set('martial_status', 'Married');
+                $this->set('parent_name',$_REQUEST['first_name']);
                 break;
             case 'addfather':
-                $pageTitle = 'Add Father';
+                $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
+                $this->set('gender', 'male');
+                $this->set('martial_status', 'Married');
                 break;
             case 'addmother':
-                $pageTitle = 'Add Mother';
+                $pageTitle = 'Add Mother of ' . $_REQUEST['name_parent'];
+                
+                $this->set('gender', 'female');
+                $this->set('martial_status', 'Married');
                 break;
             case 'addchilld':
-                $pageTitle = 'Add Child';
+                $pageTitle = 'Add Child of ' . $_REQUEST['name_parent'];
                 break;
             case 'addnew':
                 $pageTitle = 'Add New Family';
-                
                 break;
             default:
                 $requestData['type'] = 'self';
@@ -899,6 +906,7 @@ Class FamilyController extends AppController {
         $this->set('type',$_REQUEST['type']);
         $this->set('fid',$_REQUEST['fid']);
         $this->set('gid',$_REQUEST['gid']);
+        $this->set('name_parent',$_REQUEST['name_parent']);
     }
     
     public function getAjaxSearch()
