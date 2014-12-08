@@ -909,7 +909,24 @@ Class FamilyController extends AppController {
         
         $data = $this->People->getAllPeoples($type);
         echo json_encode($data);
+    }
+    
+    public function deleteFamily()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $groupId = $_REQUEST['gid'];
+        if ($this->People->deleteAll(array('group_id' =>$groupId)) ) {
+            $this->Group->deleteAll(array('id' => $groupId));
+            $msg['success'] = 1;
+            $msg['message'] = 'Family has been deleted';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
         
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
         
     }
     

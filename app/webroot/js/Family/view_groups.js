@@ -37,3 +37,23 @@ $('.addfamily').click(function(){
    doFormPost(baseUrl+"/family/index?type=addnew",'{ "type":"addnew"}');
    
 });
+
+function deleteFamilyGroup(id)
+{
+    $.ajax({
+        url: baseUrl + '/family/deleteFamily',
+        dataType: 'json',
+        data: {gid: id},
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                oTable.fnDraw(true);
+            }, 2500);
+
+
+        }
+    });
+}

@@ -49,7 +49,7 @@ class AppController extends Controller {
             'loginRedirect' => array('controller' => 'user', 'action' => 'welcome'),
             'authError' => 'You are not authorized to view this page',
             'allowedActions' => array('logout','register','doRegisterUser','buildTreeJson',
-                'insertUser','search'),
+                'insertUser','search','deleteFamily'),
 //            'authenticate' => array(
 //                'all' => array('userModel' => 'User'),
 //                'Form' => array(),
