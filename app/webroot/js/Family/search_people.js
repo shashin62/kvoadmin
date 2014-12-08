@@ -20,7 +20,7 @@ $(function () {
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": baseUrl + "/family/getAjaxSearch",
+        "sAjaxSource": baseUrl + "/family/getAjaxSearch?type=" + actiontype,
         "columns": [
             {
                 "className": 'details-control',

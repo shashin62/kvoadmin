@@ -856,8 +856,9 @@ Class FamilyController extends AppController {
     { 
         $this->autoRender = false;
         
+        $type = $_REQUEST['type'];
         
-        $data = $this->People->getAllPeoples();
+        $data = $this->People->getAllPeoples($type);
         echo json_encode($data);
         
         
