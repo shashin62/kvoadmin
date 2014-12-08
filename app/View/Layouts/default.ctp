@@ -76,7 +76,7 @@
                         <?php } ?>
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/family/familiyGroups">Family Groups</a></li>
                         <li><a href="javascript:void(0);">Reports</a></li>
-                        <li><a href="javascript:void(0);">People Search</a></li>
+                        <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/people/search">People Search</a></li>
                     </ul>
               <?php } ?>
               <?php if (!$this->Session->read('Auth.User')) {?>
