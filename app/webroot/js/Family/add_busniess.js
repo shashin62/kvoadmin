@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+showoccupation('Retired');
     $("#addressForm").validate({
         errorElement: "span",
         rules: {
@@ -48,3 +49,25 @@ $('.same_as').click(function(){
         $('.addresscontainer').show();
     }
 });
+function showoccupation(occupation)
+{
+    var occp ;
+   
+    if( typeof occupation != 'undefined') {
+       occp = occupation;
+    } else {
+        occp = $('.occupation:checked').val();
+    }
+   
+    var occupation = ['House Wife','Retired','Studying','Other'];
+   if ( $.inArray(occp,occupation) == -1) {
+       $('.tohidecontainer').show();
+   } else {
+       $('.tohidecontainer').hide();
+   }
+    
+}
+$('.occupation').click(function(){
+    showoccupation();
+});
+

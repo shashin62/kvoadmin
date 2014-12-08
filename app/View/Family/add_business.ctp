@@ -1,37 +1,35 @@
 <div class="container-fluid">
     <h3 class="heading">Add/Edit Business</h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
-  
-    
-        
-    
-<div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
+    <div class="row-fuild">
+        <div class="btn-group" data-toggle="">
             <label class="btn btn-default">
-                <input type="radio" name="occupation" value="Business">Business
+                <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Business' ? 'checked=checked' : '';?> value="Business">Business
             </label>
             <label class="btn btn-default">
-                <input type="radio" name="occupation" value="Service">Service
+                <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Service' ? 'checked=checked' : '';?> value="Service">Service
             </label>
             <label class="btn btn-default">
-                <input type="radio" name="occupation" value="House Wife">House Wife
+                <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'House Wife' ? 'checked=checked' : '';?> value="House Wife">House Wife
             </label>
             <label class="btn btn-default">
-                <input type="radio" name="occupation" value="Retired">Retired
+                <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Retired' ? 'checked=checked' : '';?> value="Retired">Retired
             </label>
             <label class="btn btn-default">
-                <input type="radio" name="occupation" value="Studying">Studying
+                <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Studying' ? 'checked=checked' : '';?> value="Studying">Studying
             </label>
-             <label class="btn btn-default">
-                <input type="radio" name="occupation" value="Other">Other
+            <label class="btn btn-default">
+                <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Other' ? 'checked=checked' : '';?> value="Other">Other
             </label>
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Type of Business/Service:</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
+    <div class="tohidecontainer">
+    <div class="row-fuild">
+        <div class="btn-group" data-toggle="buttons">
+            <div class="form-group">
+                <label class="col-lg-6 col-md-6 col-xs-6 control-label" for="first_name">Business/Service:</label>
+                <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php
                         $busniessOptions = array(
                             'Enginner' => 'Enginner',
@@ -48,21 +46,22 @@
                 'value' => $business_name
             ));
             ?>
-                    </div>
                 </div>
+            </div>
+        </div>
     </div>
     <div>
         <?php if ( $show & $aid == '') { ?>
-    <div class="row-fuild">
+        <div class="row-fuild">
         <?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
-    </div>
+        </div>
     <?php } ?> 
     </div>
     <div class="addresscontainer">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
-                
-                
+
+
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Wing:</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
@@ -71,7 +70,7 @@
                 </div>                
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">	
-                 <div class="form-group">
+                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="room_number">Apartment No.:</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('room_number', array('id' => 'room_number','value'=> $room_number,'type' => 'text','placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
@@ -119,9 +118,9 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">
-               <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">State</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">State</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
             echo $this->Form->input('state', array('id' => 'state',
                 'label' => false,
@@ -133,8 +132,8 @@
                 'value' => $state
             ));
             ?>
+                    </div>
                 </div>
-            </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip Code:</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
@@ -163,24 +162,25 @@
         </div>
     </div>
     </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-xs-12">
-                <div class="form-actions">
-                    <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <button type="button" class="btn btn-primary addressButton">Submit</button>
-                    </div>
-                </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <div class="form-actions">
+            <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
+            <div class="col-lg-8 col-md-8 col-xs-8">
+                <button type="button" class="btn btn-primary addressButton">Submit</button>
             </div>
         </div>
-    
+    </div>
+</div>
+
     <?php echo $this->Form->end(); ?>
 </div>
 <script type="text/javascript">
-    var pid = '<?php echo $peopleid; ?>';  
-    var aid = '<?php echo $aid; ?>';  
+    var pid = '<?php echo $peopleid; ?>';
+    var aid = '<?php echo $aid; ?>';
     var prntid = '<?php echo $parentid; ?>';
     var paddressid = '<?php echo $parentaddressid;?>';
-    
+
 </script>
 <?php echo $this->Html->script(array('Family/add_busniess')); ?>

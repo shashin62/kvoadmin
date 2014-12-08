@@ -646,7 +646,7 @@ Class FamilyController extends AppController {
         $gid = $_REQUEST['gid'];
         
          $data = $this->People->find('all',array('fields' => array(
-            'People.user_id','People.first_name','People.tree_level')
+            'People.user_id','People.first_name','People.tree_level','People.occupation')
             ,'conditions'=> array(
                 'People.group_id' => $gid,
                 'People.id' => $pid,
@@ -659,6 +659,7 @@ Class FamilyController extends AppController {
       
         $peopleData = $data[0]['People'];
         $this->set('show',$peopleData['tree_level'] == "" ? false : true);
+        $this->set('occupation',$peopleData['occupation']);
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
@@ -697,57 +698,61 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['business_name'] = $this->request->data['Address']['business_name'];
         
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
-        $parentId = $_REQUEST['parentid'];
-        $paddressid = $_REQUEST['paddressid'];
-        if ($same == 1) {
-            if ( $this->Session->read('User.role_id') == 2) {
-                $conditions = array('Address.id' => $paddressid);
+        $occupation = array('House Wife','Retired','Studying','Other');
+        if (!in_array($this->request->data['occupation'], $occupation)) {
+            $parentId = $_REQUEST['parentid'];
+            $paddressid = $_REQUEST['paddressid'];
+            if ($same == 1) {
+                if ($this->Session->read('User.role_id') == 2) {
+                    $conditions = array('Address.id' => $paddressid);
+                } else {
+                    $conditions = array('Address.user_id' => $userID);
+                }
+
+                $getParentAddress = $this->Address->find('all', array('conditions' => $conditions));
+
+                unset($getParentAddress[0]['Address']['id']);
+                unset($getParentAddress[0]['Address']['people_id']);
+                $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
+                $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
+                $this->request->data = $getParentAddress[0];
+                if ($this->Address->save($this->request->data)) {
+                    $msg['status'] = 1;
+                    $addressId = $this->Address->id;
+                    $updatePeople = array();
+                    $updatePeople['People']['business_address_id'] = $addressId;
+                    $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                    $this->People->save($updatePeople);
+                    $message = 'Information has been saved';
+                }
             } else {
-                 $conditions = array('Address.user_id' => $userID);
-            }
-            
-            $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
-            
-            unset($getParentAddress[0]['Address']['id']);
-            unset($getParentAddress[0]['Address']['people_id']);
-            $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
-            $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
-            $this->request->data = $getParentAddress[0];
-            if ($this->Address->save($this->request->data)) {
-                $msg['status'] = 1;
-                $addressId = $this->Address->id;
-                $updatePeople = array();
-                $updatePeople['People']['business_address_id'] = $addressId;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
-                $this->People->save($updatePeople);
-                $message = 'Information has been saved';
+                $getParentAddress = $this->Address->find('all', array(
+                    'conditions' => array(
+                        'Address.people_id' => $peopleId,
+                        'Address.id' => $aid
+                    )
+                        )
+                );
+
+                if (isset($getParentAddress[0]) && count($getParentAddress)) {
+                    $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];
+                }
+
+                $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];
+                if ($this->Address->save($this->request->data)) {
+                    $msg['status'] = 1;
+                    $addressId = $this->Address->id;
+                    $updatePeople = array();
+                    $updatePeople['People']['business_address_id'] = $addressId;
+                    $updatePeople['People']['id'] = $peopleId;
+
+                    $this->People->save($updatePeople);
+                    $message = 'Information has been saved';
+                }
             }
         } else {
-            $getParentAddress = $this->Address->find('all', array(
-                'conditions' => array(
-                    'Address.people_id' => $peopleId,
-                    'Address.id' => $aid
-                )
-                    )
-            );
-
-            if (isset($getParentAddress[0]) && count($getParentAddress)) {
-                $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];
-            }
-
-            
-
-            $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];
-            if ($this->Address->save($this->request->data)) {
-                $msg['status'] = 1;
-                $addressId = $this->Address->id;
-                $updatePeople = array();
-                $updatePeople['People']['business_address_id'] = $addressId;
-                $updatePeople['People']['id'] = $peopleId;
-
-                $this->People->save($updatePeople);
-                $message = 'Information has been saved';
-            }
+            $msg['status'] = 1;
+            $message = 'Information has been saved';
         }
         if ($msg['status'] == 1) {
             $msg['success'] = 1;
