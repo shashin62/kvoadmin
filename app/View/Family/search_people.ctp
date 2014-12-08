@@ -1,6 +1,7 @@
 <style type="text/css">
 </style>
 <div class="container-fluid">
+<h3 class="heading">Search and add  <?php echo ucfirst(str_replace('add', ' ', $type));?> of <?php echo $name_parent;?></h3>
     <div class="row">
         <div class="col-xs-12 col-md-6">	
             <form class="form-horizontal addUser">
@@ -34,7 +35,7 @@
                 <div class="form-actions">
                     <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>">Add new <?php echo ucfirst(str_replace('add', ' ', $type));?></button>
+                        <button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>">Add new <?php echo ucfirst(str_replace('add', ' ', $type));?> of <?php echo $name_parent;?></button>
                     </div>
                 </div>
             </div>
