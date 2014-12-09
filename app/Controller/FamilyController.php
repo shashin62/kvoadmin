@@ -204,20 +204,21 @@ Class FamilyController extends AppController {
                 $this->People->save($updateFatherDetails);
                 break;
             case 'addmother':
-                unset($this->request->data['People']['id']);
-                unset($this->request->data['People']['tree_level']);
-                unset($this->request->data['People']['group_id']);
-                $this->request->data['People']['tree_level'] = $idToBeUpdated;
-                $this->request->data['People']['group_id'] = $gid;
-                $this->request->data['People']['tree_level'] = $_REQUEST['peopleid'];
-                $this->People->create();
-                if ( $this->People->save($this->request->data) ) {
-                    $motherId = $this->People->id;
-                    $updatePeople['People']['m_id'] = $motherId;
-                    $updatePeople['People']['mother'] = $getPeopleDetail[0]['People']['first_name'];
-                    $updatePeople['People']['id'] = $idToBeUpdated;
-                    $message  = 'Mother has been added';
-                }
+                $peopleGroup = array();
+                $peopleGroup['PeopleGroup']['group_id'] = $gid;
+                $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
+                $this->PeopleGroup->save($peopleGroup);
+                $updatePeople = array();
+                $updatePeople['People']['group_id'] = $gid;
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                
+                //update father details
+                $updateMotherDetails = array();
+                $updateMotherDetails['People']['m_id'] = $_REQUEST['peopleid'];
+                $updateMotherDetails['People']['mother'] = $getPeopleDetail[0]['People']['first_name'];
+                $updateMotherDetails['People']['id'] = $idToBeUpdated;
+                $this->People->save($updateMotherDetails);
                 
                 break;
             case 'addnew':
