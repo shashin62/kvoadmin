@@ -51,7 +51,7 @@
                                 <div class="col-md-1">
                                  <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'male') { ?>
                                     <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br>
-                                    <?php $children = $People->getChildren($value['People']['id']);
+                                    <?php $children = $People->getChildren($value['People']['id'],'male');
                                     $childs = array();
                                     foreach ( $children as $k => $v ) {
                                         $childs[] = $v[0]['childname'];

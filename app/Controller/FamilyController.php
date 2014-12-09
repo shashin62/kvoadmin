@@ -269,7 +269,7 @@ Class FamilyController extends AppController {
                 $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
-                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                if (!empty($result) && !empty($this->request->data['People']['email']) && $this->request->data['People']['id'] == '') {
                     $msg['status'] = 0;
                     $msg['error']['name'][] = "email";
                     $msg['error']['errormsg'][] = __('This Email already exists.');
@@ -309,7 +309,7 @@ Class FamilyController extends AppController {
                 $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
-                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                if (!empty($result) && !empty($this->request->data['People']['email']) && $this->request->data['People']['id'] == '') {
                     $msg['status'] = 0;
                     $msg['error']['name'][] = "email";
                     $msg['error']['errormsg'][] = __('This Email already exists.');
@@ -352,7 +352,7 @@ Class FamilyController extends AppController {
                 $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
-                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                if (!empty($result) && !empty($this->request->data['People']['email']) && $this->request->data['People']['id'] == '') {
                     $msg['status'] = 0;
                     $msg['error']['name'][] = "email";
                     $msg['error']['errormsg'][] = __('This Email already exists.');
@@ -417,7 +417,7 @@ Class FamilyController extends AppController {
                  $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
-                if (!empty($result) && $this->request->data['People']['id'] == '') {
+                if (!empty($result) && !empty($this->request->data['People']['email']) && $this->request->data['People']['id'] == '') {
                     $msg['status'] = 0;
                     $msg['error']['name'][] = "email";
                     $msg['error']['errormsg'][] = __('This Email already exists.');
@@ -580,17 +580,16 @@ Class FamilyController extends AppController {
         $this->layout = null;
         $groupId = $_REQUEST['gid'];
         $uid = $_REQUEST['uid'];
-
         $data = $this->People->getFamilyDetails($groupId);
-
-
-//       echo '<pre>';
-//        print_r($data);
-//        exit;
         $rootId;
         $tree = array();
         foreach ($data as $key => $value) {
             $peopleData = $value['People'];
+            $children = $this->People->getChildren($peopleData['id'], $peopleData['gender']);
+            $childids = array();
+            foreach ($children as $k => $v) {
+                $childids[] = $v['People']['id'];
+            }
             
             if ( $peopleData['tree_level'] == "") {
                 $rootId = $peopleData['id'];
@@ -603,19 +602,10 @@ Class FamilyController extends AppController {
                 } else {
                     $tree[$peopleData['id']]['^'] = $peopleData['tree_level'];
                 }
-            } else {
-                
             }
-            //if ( $peopleData['tree_level'] == '') {
+            
             $tree[$peopleData['id']]['n'] = $peopleData['first_name'] . ' ' . $peopleData['last_name'];
             $tree[$peopleData['id']]['ai'] = $peopleData['id'];
-
-            $children = $this->People->getChildren($peopleData['id']);
-            $childids = array();
-            foreach ($children as $k => $v) {
-                
-                $childids[] = $v['People']['id'];
-            }
 
             if (count($children)) {
                 if ( $peopleData['tree_level'] == $rootId) {
@@ -630,9 +620,18 @@ Class FamilyController extends AppController {
             
             $tree[$peopleData['id']]['e'] = $peopleData['email'];
             $tree[$peopleData['id']]['u'] = $peopleData['phone_number'];
+            if ($peopleData['tree_level'] != '') {
+                if ( $peopleData['f_id'] == $rootId) {
+                    $tree[$peopleData['id']]['f'] = 'START';
+                } else {
+                    $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
+                }
+            } else {
+                $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
+            }
             
-            $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
             $tree[$peopleData['id']]['m'] = $peopleData['m_id'];
+            
             $tree[$peopleData['id']]['fg'] = true;
             $tree[$peopleData['id']]['g'] = $peopleData['gender'] == 'male' ? 'm' : 'f';
             $tree[$peopleData['id']]['hp'] = true;
@@ -660,10 +659,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['es'] = null;
             }
             $tree[$peopleData['id']]['q'] = $peopleData['surname_dob'];
-            
-            // }
         }
-        
         echo json_encode($tree);
         exit;
     }

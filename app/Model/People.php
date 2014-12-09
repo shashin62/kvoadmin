@@ -171,10 +171,14 @@ Class People extends AppModel
         
     }
 
-    public function getChildren($fatherId)
+    public function getChildren($fatherId, $gender = false)
     {
         $this->recursive = -1;
-        $options['conditions']['People.f_id'] = $fatherId;
+        if( $gender == 'male') {
+            $options['conditions']['People.f_id'] = $fatherId;
+        } else {
+            $options['conditions']['People.m_id'] = $fatherId;
+        }
         $options['fields'] = array('concat(People.first_name,People.last_name) as childname','People.id');
         try {
             $userData = $this->find('all', $options);
