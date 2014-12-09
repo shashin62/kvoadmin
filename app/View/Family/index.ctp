@@ -61,7 +61,7 @@
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last name:</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'readonly' => $readonly,'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">DOB</label>   
@@ -69,7 +69,7 @@
                <?php echo $this->Form->input('date_of_birth', 
                        array('id' => 'date_of_birth', 'value'=> $date_of_birth,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
                 </div>
-            </div>
+            </div>            
             <div class="form-group"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Marraige Date</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                <?php echo $this->Form->input('date_of_marriage', 
@@ -88,13 +88,20 @@
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="website">Surname now:</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('surname_now', array('id' => 'surname_now','value'=> $surname_now, 'placeholder' => 'Enter present surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('surname_now', array('id' => 'surname_now','readonly' => $readonly,'value'=> $surname_now, 'placeholder' => 'Enter present surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="website">Surname at birth:</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('surname_dob', array('id' => 'surname_dob','value'=> $surname_dob, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mahajan_membership_number">Mahajan #</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+               <?php echo $this->Form->input('mahajan_membership_number', 
+                       array('id' => 'mahajan_membership_number', 'value'=> $mahajan_membership_number,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
                 </div>
             </div>
             <div class="form-group">

@@ -12,11 +12,10 @@ $(document).ready(function () {
                 maxlength: 25
             },
             'data[People][phone_number]': {
-                required: true,
                 maxlength: 10
             },
             'data[People][email]': {
-                required: true,
+                required: false,
                 email: true
             },
             'data[People][gender]': {
@@ -33,11 +32,9 @@ $(document).ready(function () {
                 maxlength: 'Length exceeds 25 charaters'
             },
             'data[People][phone_number]': {
-                required: 'Please enter phone',
                 maxlength: 'Please enter valid phone number'
             },
             'data[People][email]': {
-                required: 'Please enter email',
                 email: 'Please enter valid email',
             },
             'data[People][gender]': {
