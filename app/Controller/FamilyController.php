@@ -202,6 +202,7 @@ Class FamilyController extends AppController {
                 $updateFatherDetails['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateFatherDetails['People']['id'] = $idToBeUpdated;
                 $this->People->save($updateFatherDetails);
+                $message = 'Father has been added';
                 break;
             case 'addmother':
                 $peopleGroup = array();
@@ -219,7 +220,7 @@ Class FamilyController extends AppController {
                 $updateMotherDetails['People']['mother'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateMotherDetails['People']['id'] = $idToBeUpdated;
                 $this->People->save($updateMotherDetails);
-                
+                $message = 'Mother has been added';
                 break;
             case 'addnew':
                 
