@@ -1,7 +1,15 @@
 <style type="text/css">
 </style>
 <div class="container-fluid">
-<h3 class="heading">Search and add  <?php echo ucfirst(str_replace('add', ' ', $type));?> of <?php echo $name_parent;?></h3>
+    
+    <?php
+    if( $name_parent ) {
+        $title = 'Search and add ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name_parent;
+    } else {
+        $title = 'Search/Add New Family';
+    }
+    ?>
+<h3 class="heading"><?php echo $title; ?></h3>
     <div class="row">
         <div class="col-xs-12 col-md-6">	
             <form class="form-horizontal addUser">
@@ -83,23 +91,3 @@
    doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'","fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'"}');
 });
 </script>
-<!--<script type="text/javascript">
-$(document).ready(function() {
-
-var table = $('#all_users').DataTable();
-$('#all_users').removeClass( 'display' ).addClass('table table-striped table-bordered');
-
-} );
-
-$(document).ready(function() {
-$(".search, .search_username").bind("keyup", function(){
-var table = $('#all_users').DataTable();
-        table
-.column( $(this).attr('custom') )
-.search( this.value )
-.draw();
-
-
-});
-});
-</script>-->

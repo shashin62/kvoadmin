@@ -84,18 +84,26 @@ $(function () {
 function insertUser(id, data)
 {
     var peopleId = id;
-
+    data = data.split(',');
+    
+    var peopleData = {};
+    peopleData['first_name'] = data[2];
+    peopleData['last_name'] = data[3];
+    peopleData['phone_number'] = data[4];
+    peopleData['village'] = data[8];
+    peopleData['email'] = data[9];
+    
     $.ajax({
         url: baseUrl + '/family/insertUser',
         dataType: 'json',
-        data: {peopleid: peopleId, type: actiontype, id: user_id, gid: group_id},
+        data: {peopleid: peopleId, type: actiontype, id: user_id, gid: group_id,data: peopleData},
         type: "POST",
         success: function (response) {
             var displayMsg = response.message;
             showJsSuccessMessage(displayMsg);
             setTimeout(function () {
                 $('.jssuccessMessage').hide('slow');
-                window.location = baseUrl + '/family/familiyGroups';
+               // window.location = baseUrl + '/family/familiyGroups';
             }, 2500);
         }
     });

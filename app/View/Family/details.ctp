@@ -19,6 +19,7 @@
     
                         ?>
 			<?php foreach( $data as $key => $value ) { ?>
+<?php if( $groupId == $value['People']['group_id']) { ?>
                         <div class="row">
 				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
 				<div class="col-md-2">
@@ -70,8 +71,16 @@
                                              <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
                         </div><br>
-                        
                         <?php } ?>
-			
+                        <?php } ?>
+			<u><h3>Secondary Family</h3></u>
+<?php foreach( $data as $key => $value ) { ?>
+<?php if( $groupId != $value['People']['group_id']) { ?>
+<div class="row">
+<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
+<div class="col-md-2"><a href="#">View Detail</a><br></div></div>
+</div>
+<?php } ?>
+<?php } ?>
 		</div>
 <?php echo $this->Html->script(array('Family/details')); ?>

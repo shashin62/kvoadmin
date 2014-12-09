@@ -34,7 +34,7 @@ function editFamilyGroup(id)
 
 $('.addfamily').click(function(){
    var $this =  $(this);
-   doFormPost(baseUrl+"/family/index?type=addnew",'{ "type":"addnew"}');
+   doFormPost(baseUrl+"/family/searchPeople?type=addnew",'{ "type":"addnew"}');
    
 });
 
