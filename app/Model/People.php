@@ -8,6 +8,7 @@ Class People extends AppModel
     
     public function getAllPeoples($type = false)
     {
+       
         $aColumns = array('p.id','p.first_name','p.last_name', 'p.phone_number','p.m_id','p.f_id',
             'IF( p.f_id = parent.id, parent.first_name, "") as father',
             'IF( p.m_id = parent2.id, parent2.first_name, "") as mother'
@@ -95,8 +96,16 @@ Class People extends AppModel
                     $sWhere .= ' p.gender = "female"';
                     break;
                 default:
+                    if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= ' AND ';
+                }
+                $sWhere .= ' p.gender = "male"';
                     break;
             }
+        } else {
+             
         }
 
         /*
@@ -445,6 +454,26 @@ Class People extends AppModel
         
         $options['fields'] = array('People.*');
         
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0]['People']) && $userData[0]['People'] != "") {
+                return $userData[0]['People'];
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function getAllRelationsIds($peopleId) 
+    {
+        $this->recursive = -1;
+        
+        $options['conditions']['AND'] = array('People.id' => $peopleId);
+        
+        $options['fields'] = array('People.partner_id','People.f_id','People.m_id');
         try {
             $userData = $this->find('all', $options);
             if ($userData && isset($userData[0]['People']) && $userData[0]['People'] != "") {

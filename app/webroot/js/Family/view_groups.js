@@ -10,7 +10,7 @@ $(function () {
 //        
 //    } );
 
-    oTable = $('#getFamilyGroup').DataTable({
+    oTable = $('#getFamilyGroup').dataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,

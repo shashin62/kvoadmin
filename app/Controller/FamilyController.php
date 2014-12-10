@@ -233,19 +233,47 @@ Class FamilyController extends AppController {
                     $groupData['Group']['name'] = 'Family of ' . $getPeopleDetail[0]['People']['first_name'];
                     $groupData['Group']['created'] = date('Y-m-d H:i:s');
                     $groupData['Group']['people_id'] = $_REQUEST['peopleid'];
+                    //save group as new group
                     $this->Group->save($groupData);
-                    
-                    
                     $peopleGroup = array();
                     $peopleGroup['PeopleGroup']['group_id'] = $this->Group->id;
                     $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
-                    
+                    // insert people ids and group ids
                     $this->PeopleGroup->save($peopleGroup);
-                    
+                    // update group id for old people
                     $updatePeople = array();
                     $updatePeople['People']['group_id'] = $this->Group->id;
                     $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                    
+                    $getAllRelationships = $this->People->getAllRelationsIds($_REQUEST['peopleid']);
+                   
+                    $getAllChildren = $this->People->getChildren($_REQUEST['peopleid'],'male',$gid);
+                   
+                    $ids = array();
+                    foreach( $getAllChildren as $key => $value) {
+                        $ids[] = $value['People']['id'];
+                    }
+                    
+                    foreach( $getAllRelationships as $k => $v ) {
+                        $ids[] = $v;
+                    }
+                    $i = 0;
+                    
+                    $allData = array();
+                    foreach ($ids as $peopleIds) {
+                        if (!empty($peopleIds)) {
+                            $allData[$i]['PeopleGroup']['group_id'] = $this->Group->id;
+                            $allData[$i]['PeopleGroup']['people_id'] = $peopleIds;
+                            $allData[$i]['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
+                            $i++;
+                        }
+                    }
+                    $this->PeopleGroup->saveAll($allData);
+                    
+                    
                     $message = 'Family has been created';
+                    
+                    
                 }
                 break;
             default:
