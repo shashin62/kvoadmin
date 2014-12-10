@@ -35,8 +35,11 @@ Class FamilyController extends AppController {
      *
      * @var array 
      */
-    public $uses = array('User', 'Aro', 'Role',
-        'People', 'Village', 'Education', 'State', 'BloodGroup', 'Group','Address','PeopleGroup');
+    public $uses = array(
+                        'User', 'Aro', 'Role',
+                        'People', 'Village', 'Education', 'State', 'BloodGroup', 
+                        'Group','Address','PeopleGroup'
+                        );
 
     /**
      *
@@ -66,19 +69,22 @@ Class FamilyController extends AppController {
         }
         
         $getPeopleData = $this->People->getPeopleData($peopleId, true);
-        
+        // add primary relationships to user- spouse, father, mother and childrens
         switch ($requestData['type']) 
         {   
             case 'addspouse':
                 $pageTitle = 'Add Spouse of ' . $_REQUEST['name_parent'];
+                // by default set gender, martial status
+                //  as spouse is always female and married
                 $this->set('gender', 'female');
                 $this->set('martial_status', 'Married');
                 $this->set('title','deravasi');
                 $this->set('parent_name',$_REQUEST['first_name']);
                 $this->set('last_name',$getPeopleData['People']['last_name']);
-                 $this->set('surname_now', $getPeopleData['People']['surname_now'] ? 
+                $this->set('surname_now', $getPeopleData['People']['surname_now'] ? 
                         $getPeopleData['People']['surname_now'] : $getPeopleData['People']['last_name'] );
-                 $this->set('readonly',true);
+                // set surname and village to read only mode
+                $this->set('readonly',true);
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
