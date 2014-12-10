@@ -67,14 +67,14 @@ $(function () {
         var table = $('#all_users').DataTable();
         table
                 .column($(this).attr('custom'))
-                .search(this.value)
+                .search($.trim(this.value))
                 .draw();
     });
     $(".search_DOB").bind("change", function () {
         var table = $('#all_users').DataTable();
         table
                 .column($(this).attr('custom'))
-                .search(this.value)
+                .search($.trim(this.value))
                 .draw();
     });
     
