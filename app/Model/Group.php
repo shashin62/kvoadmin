@@ -87,8 +87,6 @@ class Group extends AppModel {
          * SQL queries
          * Get data to display
          */
-
-
     $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
     parent.last_name,parent.date_of_birth,parent.phone_number,grp.created
@@ -118,7 +116,6 @@ class Group extends AppModel {
 
         $iTotal = $rResultTotal[0][0]['countid'];
 
-
         /*
          * Output
          */
@@ -130,29 +127,17 @@ class Group extends AppModel {
         );
 
         foreach ($rResult as $key => $value) {
-
             $row = array();
-            
-            //foreach ( $value['grp'] as $k => $v) {
-                
-                $row[] = $value['grp']['id'];
-                
-            //}
-            
-            foreach ( $value['parent'] as $k => $v) {
-                $row[] = $v;
+            $row[] = $value['grp']['id'];
+            foreach ($value['parent'] as $k => $v) {
+                $row[] = ucfirst(strtolower($v));
             }
-            
-            //foreach ( $value['grp'] as $k1 => $v1 ) {
-               // if( $v1['created']) {
-                    $row[] = $value['grp']['created'];
-               // }
-            //}
-            
+            $row[] = $value['grp']['created'];
+
             $row[] = '';
             $output['aaData'][] = $row;
         }
-        
+
 //        echo '<pre>';
 //        print_r($output);
 //        echo '</pre>';
