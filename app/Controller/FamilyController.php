@@ -213,8 +213,7 @@ Class FamilyController extends AppController {
                 $updatePeople = array();
                 $updatePeople['People']['group_id'] = $gid;
                 $updatePeople['People']['id'] = $_REQUEST['peopleid'];
-                
-                //update father details
+                //update mother details
                 $updateMotherDetails = array();
                 $updateMotherDetails['People']['m_id'] = $_REQUEST['peopleid'];
                 $updateMotherDetails['People']['mother'] = $getPeopleDetail[0]['People']['first_name'];
@@ -230,7 +229,23 @@ Class FamilyController extends AppController {
                 if( count($data)) {
                     $message  = $peopleData['first_name'] . ' ' . $peopleData['last_name'] . ' is already owner';
                 } else {
+                    $groupData = array();
+                    $groupData['Group']['name'] = 'Family of ' . $getPeopleDetail[0]['People']['first_name'];
+                    $groupData['Group']['created'] = date('Y-m-d H:i:s');
+                    $groupData['Group']['people_id'] = $_REQUEST['peopleid'];
+                    $this->Group->save($groupData);
                     
+                    
+                    $peopleGroup = array();
+                    $peopleGroup['PeopleGroup']['group_id'] = $this->Group->id;
+                    $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
+                    
+                    $this->PeopleGroup->save($peopleGroup);
+                    
+                    $updatePeople = array();
+                    $updatePeople['People']['group_id'] = $this->Group->id;
+                    $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                    $message = 'Family has been created';
                 }
                 break;
             default:
@@ -304,6 +319,7 @@ Class FamilyController extends AppController {
                     $groupData = array();
                     $groupData['Group']['name'] = 'Family of ' . $this->request->data['People']['first_name'];
                     $groupData['Group']['created'] = date('Y-m-d H:i:s');
+                    
                     $this->Group->save($groupData);
                     $this->request->data['People']['group_id'] = $this->Group->id;
                     if ($this->People->save($this->request->data)) {
@@ -314,6 +330,11 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['group_id'] = $this->Group->id;
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $this->PeopleGroup->save($peopleGroup);
+                        //update group table with people id
+                        $groupData = array();
+                        $groupData['Group']['people_id'] = $this->People->id;
+                        $groupData['Group']['id'] = $this->Group->id;
+                        $this->Group->save($groupData);
                     } else {
                         $msg['success'] = 0;
                         $msg['message'] = 'System Error, Please trye again';

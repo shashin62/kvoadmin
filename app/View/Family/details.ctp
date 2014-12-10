@@ -19,7 +19,7 @@
     
                         ?>
 			<?php foreach( $data as $key => $value ) { ?>
-<?php if( $groupId == $value['People']['group_id']) { ?>
+                    <?php if( $groupId == $value['People']['group_id']) { ?>
                         <div class="row">
 				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
 				<div class="col-md-2">
@@ -65,7 +65,7 @@
                                     <a data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
                                      <?php } ?>
                                     </div>                                 
-                                <?php if($value['People']['tree_level'] != '') { ?>
+                                <?php if($value['Group']['tree_level'] != '') { ?>
                                   <div class="col-md-2"><a href="#">Transfer of Family</a></div>
                                 <?php } else { ?>
                                              <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                

@@ -8,13 +8,14 @@ class Group extends AppModel {
      
      public function getAllFamilyGroups($userId, $roleId) {
          
-       $aColumns = array('id', 'name','created');
+       $aColumns = array('grp.id', 'grp.name','parent.first_name',
+           'parent.last_name','parent.phone_number','parent.date_of_birth','grp.created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
-        $sIndexColumn = "id";
+        $sIndexColumn = "grp.id";
 
         /* DB table to use */
-        $sTable = "groups";
+        $sTable = "groups as grp";
 
         /*
          * Paging
@@ -34,7 +35,7 @@ class Group extends AppModel {
             $sOrder = "ORDER BY  ";
             for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
                 if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
-                    $sOrder .= "`" . $aColumns[intval($_GET['iSortCol_' . $i])] . "` " .
+                    $sOrder .= "" . $aColumns[intval($_GET['iSortCol_' . $i])] . " " .
                             ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
                 }
             }
@@ -44,6 +45,8 @@ class Group extends AppModel {
                 $sOrder = "";
             }
         }
+        
+        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.phone_number','parent.date_of_birth');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -53,21 +56,21 @@ class Group extends AppModel {
         $sWhere = "";
         if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
             $sWhere = "WHERE (";
-            for ($i = 0; $i < count($aColumns); $i++) {
-                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch']) . "%' OR ";
+            for ($i = 0; $i < count($aSearchCollumns); $i++) {
+                $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch']) . "%' OR ";
             }
             $sWhere = substr_replace($sWhere, "", -3);
             $sWhere .= ')';
         }
         /* Individual column filtering */
-        for ($i = 0; $i < count($aColumns); $i++) {
+        for ($i = 0; $i < count($aSearchCollumns); $i++) {
             if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
                 if ($sWhere == "") {
                     $sWhere = "WHERE ";
                 } else {
                     $sWhere .= " AND ";
                 }
-                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
+                $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
         }        
         if( $roleId  == 1){
@@ -78,15 +81,19 @@ class Group extends AppModel {
                 }
         }
         
+         $sJoin = "  INNER JOIN people as parent ON (parent.id = grp.people_id)";
+         
         /*
          * SQL queries
          * Get data to display
          */
 
 
-      $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS `" . str_replace(" , ", " ", implode("`, `", $aColumns)) . "`
+    $sQuery = "
+    SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
+    parent.last_name,parent.date_of_birth,parent.phone_number,grp.created
             FROM   $sTable
+                $sJoin
             $sWhere
             $sOrder
             $sLimit
@@ -104,7 +111,7 @@ class Group extends AppModel {
 
         /* Total data set length */
         $sQuery = "
-    SELECT COUNT(`" . $sIndexColumn . "`) as countid
+    SELECT COUNT(" . $sIndexColumn . ") as countid
             FROM   $sTable
             ";
         $rResultTotal = $this->query($sQuery);
@@ -125,26 +132,30 @@ class Group extends AppModel {
         foreach ($rResult as $key => $value) {
 
             $row = array();
-            for ($i = 0; $i < count($aColumns); $i++) {
-               if ($aColumns[$i] == 'status') {
-                    switch ($value['groups'][$aColumns[$i]]) {
-                        case 1:
-                            $status = 'Active';
-
-                            break;
-
-                        default:
-                            break;
-                    }
-                     $value['groups'][$aColumns[$i]] = $status;
-               }
-                    
-                /* General output */
-                $row[] = $value['groups'][$aColumns[$i]];
+            
+            //foreach ( $value['grp'] as $k => $v) {
+                
+                $row[] = $value['grp']['id'];
+                
+            //}
+            
+            foreach ( $value['parent'] as $k => $v) {
+                $row[] = $v;
             }
+            
+            //foreach ( $value['grp'] as $k1 => $v1 ) {
+               // if( $v1['created']) {
+                    $row[] = $value['grp']['created'];
+               // }
+            //}
+            
             $row[] = '';
             $output['aaData'][] = $row;
         }
+        
+//        echo '<pre>';
+//        print_r($output);
+//        echo '</pre>';
         return $output;
     }
     

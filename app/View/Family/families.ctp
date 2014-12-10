@@ -11,7 +11,10 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>DOB</th>
+        <th>Mobile</th>
         <th>Created On</th>
         <th>Action</th>
     </tr>
