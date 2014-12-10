@@ -8,7 +8,7 @@ function format(d) {
             '<td>&nbsp<b>Mother</b>: ' +
             '' + d['11'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Village</b>: ' +
-            '' + d['8'] + '</td>&nbsp;' +
+            '' + d['4'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Email</b>: ' +
             '' + d['9'] + '</td>' +
             '</tr>' +
@@ -29,15 +29,16 @@ $(function () {
                 "defaultContent": ''
             },
             {"aaData": 1},
-            {"aaData": 2},
+            {"aaData": 2},            
             {"aaData": 3},
             {"aaData": 4},
             {"aaData": 5},
-            {"aaData": 6}
+            {"aaData": 6},
+            {"aaData": 7}
 
         ],
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            $('td:eq(6)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="insertUser(' + aData[1] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
+            $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="insertUser(' + aData[1] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
         },
         "rowCallback": function (row, data) {
         },
@@ -65,6 +66,7 @@ $(function () {
 
     $(".search, .search_username").bind("keyup", function () {
         var table = $('#all_users').DataTable();
+        console.log($(this).attr('custom'));
         table
                 .column($(this).attr('custom'))
                 .search($.trim(this.value))

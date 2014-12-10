@@ -43,6 +43,12 @@
                         <input id = "date_of_birth" type="text" class="form-control dp search_DOB" name="date_of_birth" placeholder="DOB" custom="4"/>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village:</label>
+                    <div class="col-lg-4 col-md-4 col-xs-4">
+                        <input type="text" class="form-control search_username" name="village" placeholder="Village" custom="5"/>
+                    </div>
+                </div>
             </form>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
@@ -63,6 +69,7 @@
                         <th>Id</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Village</th>
                         <th>Phone</th>
                         <th>DOB</th>
                         <th>Action</th>
