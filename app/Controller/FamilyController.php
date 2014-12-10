@@ -311,6 +311,7 @@ Class FamilyController extends AppController {
         $userID = $this->Session->read('User.user_id');
         
         $data = $this->request->data['People'];
+       
         if ($_REQUEST['peopleid'] != '') {
             $getPeopleDetail = $this->People->find('all', array('fields' => array('People.first_name',
                     'People.last_name', 'People.surname_now', 'People.group_id',

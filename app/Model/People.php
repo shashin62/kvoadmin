@@ -85,7 +85,7 @@ Class People extends AppModel
                 } else {
                     $sWhere .= ' AND ';
                 }
-                $sWhere .= ' p.gender = "male"';
+                $sWhere .= ' p.gender = "male" AND p.is_late = 0';
                     break;
                 case 'addmother':
                     if ($sWhere == "") {
@@ -93,7 +93,7 @@ Class People extends AppModel
                 } else {
                     $sWhere .= ' AND ';
                 }
-                    $sWhere .= ' p.gender = "female"';
+                    $sWhere .= ' p.gender = "female"  AND p.is_late = 0';
                     break;
                 default:
                     if ($sWhere == "") {
@@ -101,7 +101,7 @@ Class People extends AppModel
                 } else {
                     $sWhere .= ' AND ';
                 }
-                $sWhere .= ' p.gender = "male"';
+                $sWhere .= ' p.gender = "male"  AND p.is_late = 0';
                     break;
             }
         } else {

@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+$('.selectpicker').selectpicker();
+
     $("#createFamily").validate({
         errorElement: "span",
         rules: {

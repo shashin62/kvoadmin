@@ -113,7 +113,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 't',
+                'class' => 'selectpicker',
                 'style' => '',
                 'disabled' => $readonly,
                 'options' => $villages,
@@ -141,7 +141,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 't',
+                'class' => 'selectpicker',
                 'style' => '',
                 'options' => $educations,
                 'value' => $education
@@ -160,7 +160,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 't',
+                'class' => 'selectpicker',
                 'style' => '',
                 'options' => $bloodgroups,
                 'value' => $blood_group
@@ -168,6 +168,14 @@
             ?>
                 </div>
             </div>
+            <div class="form-group">
+							<div class="col-lg-4 col-md-4 col-xs-4 control-label"></div>
+							<div class="checkbox col-lg-8 col-md-8 col-xs-8">
+								<label>
+                                                                    <?php echo $this->Form->input("is_late", array('type' => "checkbox", 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Late')))); ?>
+								</label>
+							</div>
+						</div>
         </div>
     </div>
 
