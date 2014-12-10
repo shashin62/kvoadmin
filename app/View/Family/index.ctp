@@ -115,6 +115,7 @@
                 'legend' => false,
                 'class' => 't',
                 'style' => '',
+                'disabled' => $readonly,
                 'options' => $villages,
                 'value' => $village
             ));
