@@ -77,9 +77,12 @@
 <?php foreach( $data as $key => $value ) { ?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
 <div class="row">
-<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
-<div class="col-md-2"><a href="#">View Detail</a><br></div></div>
-</div>
+				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
+				<div class="col-md-2"><a href="#">View Detail</a></div>
+				
+			</div>
+
+
 <?php } ?>
 <?php } ?>
 		</div>
