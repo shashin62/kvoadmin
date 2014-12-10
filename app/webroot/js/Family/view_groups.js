@@ -2,7 +2,15 @@ var oTable;
 
 $(function () {
 
-    oTable = $('#getFamilyGroup').dataTable({
+// $('#getFamilyGroup tfoot th').each( function () {
+//     if( $(this).index() !== 0) {
+//            var title = $('#getFamilyGroup thead th').eq( $(this).index() ).text();
+//        $(this).html( '<input size="7" class="form-control" type="text" placeholder="Search '+title+'" />' );
+//     }
+//        
+//    } );
+
+    oTable = $('#getFamilyGroup').DataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
@@ -25,6 +33,15 @@ $(function () {
 
 
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
+    
+//    oTable.columns().eq( 0 ).each( function ( colIdx ) {
+//        $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
+//            oTable
+//                .column( colIdx )
+//                .search( this.value )
+//                .draw();
+//        } );
+//    } );
 });
 
 function editFamilyGroup(id)

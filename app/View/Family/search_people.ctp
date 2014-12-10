@@ -8,6 +8,12 @@
     } else {
         $title = 'Search/Add New Family';
     }
+    
+    if( $name_parent ) {
+        $buttonLabel = 'Add new ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name_parent;
+    } else {
+        $buttonLabel = 'Add New Family Owner';
+    }
     ?>
 <h3 class="heading"><?php echo $title; ?></h3>
     <div class="row">
@@ -43,7 +49,7 @@
                 <div class="form-actions">
                     <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>">Add new <?php echo ucfirst(str_replace('add', ' ', $type));?> of <?php echo $name_parent;?></button>
+                        <button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>"><?php echo $buttonLabel;?></button>
                     </div>
                 </div>
             </div>
