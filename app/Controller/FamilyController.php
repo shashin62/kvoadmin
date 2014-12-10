@@ -941,6 +941,7 @@ Class FamilyController extends AppController {
             $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
             $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
             $this->request->data = $getParentAddress[0];
+            
             if ($this->Address->save($this->request->data)) {
                 $msg['status'] = 1;
                 $addressId = $this->Address->id;

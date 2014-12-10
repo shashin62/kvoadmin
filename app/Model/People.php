@@ -391,8 +391,19 @@ Class People extends AppModel
         $this->recursive = -1;
         if ( isset($data['gid'])) {
             $options['conditions'] = array('People.group_id' => $data['gid']);
-            $options['conditions']['AND'] = array('People.tree_level' => '');
+            
         }
+        
+        $options['joins'] = array(
+            array('table' => 'groups',
+                'alias' => 'Group',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'People.group_id = Group.id'
+                )
+            ),
+             );
+        
         
         $options['fields'] = array('People.id','People.first_name','People.business_address_id','People.address_id');
         try {
