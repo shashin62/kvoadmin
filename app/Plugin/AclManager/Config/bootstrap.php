@@ -49,7 +49,7 @@ Configure::write('AclManager.ignoreActions', array('isAuthorized'));
  * List of ARO models to load
  * Use only if AclManager.aros aliases are different than model name
  */
- Configure::write('AclManager.models', array('Role', 'User'));
+// Configure::write('AclManager.models', array('Group', 'Customer'));
 
 /**
  * END OF USER SETTINGS

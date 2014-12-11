@@ -62,5 +62,7 @@ class AppController extends Controller {
     );
     public $helpers = array('Html', 'Form', 'Session');
 
-
+    public function beforeFilter() {
+      $this->Auth->allow('index','permissions','update_acos');
+    }
 }
