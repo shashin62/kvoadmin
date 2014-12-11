@@ -636,21 +636,10 @@ Class FamilyController extends AppController {
             ));
         $id = $this->request->params['pass'][0];
         $getDetails = $this->People->getFamilyDetails($id);
-//        echo '<pre>';
-//        print_r($getDetails);
-//        echo '</pre>';
-        if ( $roleId  ==2 ) {
-              $this->set('userId', $userID);
-            $this->set('groupId', $id);
-            $this->set('data', $getDetails);
-            
-        } else if( $roleId != 2 && in_array($id, $groupData[0]['Group'])) {
-                     $this->set('userId', $userID);
-            $this->set('groupId', $id);
-            $this->set('data', $getDetails);
-        } else {
-            $this->redirect('/');
-        }
+        $this->set('userId', $userID);
+        $this->set('groupId', $id);
+        $this->set('data', $getDetails);
+       
     }
 
     public function familiyGroups() {
