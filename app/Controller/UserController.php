@@ -122,13 +122,11 @@ Class UserController extends AppController {
     {
         $this->layout = 'ajax';
         $this->autoRender = false;
-       
+      
         if( !isset($this->request->data['User']['confirm_password'])) {
             unset($this->request->data['User']['confirm_password']);
         }
-        if( !isset($this->request->data['User']['role_id'])) {
-            $this->request->data['User']['role_id'] = 1;
-        }
+      
         if ( !isset($this->request->data['User']['status'])) {
             $this->request->data['User']['status'] = 1;
         }
@@ -158,25 +156,25 @@ Class UserController extends AppController {
         $this->User->recursive = -1;
         if ($msg['status'] == 1) {
             if ($this->User->save($data)) {
-                $groupData = array();
-                $groupData['Group']['name'] = 'Family of ' . $this->request->data['User']['first_name'];
-                $groupData['Group']['user_id'] = $this->User->id;
-                $groupData['Group']['created'] = date('Y-m-d H:i:s');
-                $this->Group->save($groupData);                
-                $peopleData = array();
-                $peopleData['People']['user_id'] = $this->User->id;
-                $peopleData['People']['group_id'] = $this->Group->id;
-                $peopleData['People']['first_name'] = $this->request->data['User']['first_name'];
-                $peopleData['People']['last_name'] = $this->request->data['User']['last_name'];
-                $peopleData['People']['email'] = $this->request->data['User']['email'];
-                $peopleData['People']['phone_number'] = $this->request->data['User']['phone_number'];
-                $peopleData['People']['gender'] = $this->request->data['User']['gender'];
-                $peopleData['People']['martial_status'] = $this->request->data['User']['martial_status'];
-                $peopleData['People']['date_of_birth'] = $this->request->data['User']['date_of_birth'];
-                $peopleData['People']['status'] = 1;
-                $peopleData['People']['created'] = date('Y-m-d H:i:s');
-                
-                $this->People->save($peopleData);
+//                $groupData = array();
+//                $groupData['Group']['name'] = 'Family of ' . $this->request->data['User']['first_name'];
+//                $groupData['Group']['user_id'] = $this->User->id;
+//                $groupData['Group']['created'] = date('Y-m-d H:i:s');
+//                $this->Group->save($groupData);                
+//                $peopleData = array();
+//                $peopleData['People']['user_id'] = $this->User->id;
+//                $peopleData['People']['group_id'] = $this->Group->id;
+//                $peopleData['People']['first_name'] = $this->request->data['User']['first_name'];
+//                $peopleData['People']['last_name'] = $this->request->data['User']['last_name'];
+//                $peopleData['People']['email'] = $this->request->data['User']['email'];
+//                $peopleData['People']['phone_number'] = $this->request->data['User']['phone_number'];
+//                $peopleData['People']['gender'] = $this->request->data['User']['gender'];
+//                $peopleData['People']['martial_status'] = $this->request->data['User']['martial_status'];
+//                $peopleData['People']['date_of_birth'] = $this->request->data['User']['date_of_birth'];
+//                $peopleData['People']['status'] = 1;
+//                $peopleData['People']['created'] = date('Y-m-d H:i:s');
+//                
+//                $this->People->save($peopleData);
                 
                 $msg['success'] = 1;
                 $msg['message'] = 'User has been registered';
