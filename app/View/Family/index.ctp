@@ -1,3 +1,20 @@
+ <style>
+.custom-combobox {
+position: relative;
+display: inline-block;
+}
+.custom-combobox-toggle {
+position: absolute;
+top: 0;
+bottom: 0;
+margin-left: -1px;
+padding: 0;
+}
+.custom-combobox-input {
+margin: 0;
+padding: 5px 10px;
+}
+</style>
 <div class="container-fluid">
     <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
@@ -107,7 +124,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 'selectpicker',
+                'class' => 'combobox',
                 'style' => '',
                 'disabled' => $readonly,
                 'options' => $villages,
@@ -135,7 +152,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 'selectpicker',
+                'class' => 'combobox',
                 'style' => '',
                 'options' => $educations,
                 'value' => $education
@@ -154,8 +171,9 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 'selectpicker',
-                'style' => '',
+                'class' => 'combobox',
+                'style' => 'width:50px;',
+                'width' => '50%',
                 'options' => $bloodgroups,
                 'value' => $blood_group
             ));

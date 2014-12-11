@@ -30,7 +30,7 @@
                                     'datepicker.min',
                                     'bootstrap-select.min','jquery-ui.min','jquery-ui.theme.min')); ?>
 <?php
-  echo $this->Html->script(array('jquery','common','bootstrap.min','jquery.validate','jquery-ui.min'));      
+  echo $this->Html->script(array('jquery','common','bootstrap.min','jquery.validate','jquery-ui.min','combobox'));      
 ?>
         <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
         <!-- Bootstrap DataTables JavaScript -->

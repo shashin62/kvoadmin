@@ -2,6 +2,9 @@ $(document).ready(function () {
 
 $('.selectpicker').selectpicker();
 
+$( ".combobox" ).combobox();
+
+
     $("#createFamily").validate({
         errorElement: "span",
         rules: {
