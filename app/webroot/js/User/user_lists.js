@@ -125,8 +125,6 @@ function deleteUser(id)
                 $('.jssuccessMessage').hide('slow');
                 oTable.fnDraw(true);
             }, 2500);
-
-
         }
     });
 }
@@ -150,3 +148,12 @@ function editUser(id, adata)
     $('.userid').val(aData[0]);
    $('.addUserForm').show();
 }
+
+$('.email').keyup(function(){
+        if($('.email').val().length >= 0) {
+            $('span.error').css('display','none');
+        } else {
+            $('span.error').find('.error').css('display','block');
+        }
+    });
+   
