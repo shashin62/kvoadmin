@@ -878,6 +878,7 @@ Class FamilyController extends AppController {
                 }
 
                 $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];
+                $this->request->data['Address']['suburb'] = $_REQUEST['suburb'];
                 if ($this->Address->save($this->request->data)) {
                     $msg['status'] = 1;
                     $addressId = $this->Address->id;
@@ -998,6 +999,7 @@ Class FamilyController extends AppController {
             $this->request->data['Address']['ownership_type'] = $_REQUEST['ownership_type'];
             $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];    
             $this->request->data['Address']['created'] = date('Y-m-d H:i:s');
+            $this->request->data['Address']['suburb'] = $_REQUEST['suburb'];
             
             if( isset($getParentAddress[0]) && count($getParentAddress)) {
                  $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];

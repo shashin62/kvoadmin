@@ -155,7 +155,20 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('suburb', array('id' => 'suburb','value'=> $suburb, 'placeholder' => 'Enter suburb' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default <?php echo $suburb == 'east' ? 'active' : '';?>">
+                                <input type="radio" name="suburb" <?php echo $suburb == 'east' ? 'checked=checked' : '';?> value="east">East
+                            </label>
+                            <label class="btn btn-default <?php echo $suburb == 'west' ? 'active' : '';?>">
+                                <input type="radio" name="suburb" <?php echo $suburb == 'west' ? 'checked=checked' : '';?> value="west">West
+                            </label>
+                            <label class="btn btn-default <?php echo $suburb == 'central' ? 'active' : '';?>">
+                                <input type="radio" name="suburb" <?php echo $suburb == 'central' ? 'checked=checked' : '';?> value="central">Central
+                            </label>
+                            <label class="btn btn-default <?php echo $suburb == 'other' ? 'active' : '';?>">
+                                <input type="radio" name="suburb" <?php echo $suburb == 'other' ? 'checked=checked' : '';?> value="other">Other
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
