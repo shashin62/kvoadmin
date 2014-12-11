@@ -22,8 +22,10 @@
                     <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
                          $roleOptions = array(
-                    '1' => 'Admin',
-                    '2' => 'Content'
+                    '1' => 'Super Admin',
+                    '2' => 'Operator',
+                    '3' => 'Manager',
+                    '4' => 'QA',
                     
                 );
             echo $this->Form->input('role_id', array('id' => 'role_id',
