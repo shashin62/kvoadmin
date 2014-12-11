@@ -20,7 +20,7 @@
                                 <input class="form-control" placeholder="Password" name="data[User][password]" type="password" id="UserPassword">
                             </div>
                             <input type="submit" class="btn btn-success btn-primary btn-small" value="Login">
-                            <a href="#/"><button type="submit" class="btn btn-link">Forgot Password?</button></a>
+                            <!--<a href="#/"><button type="submit" class="btn btn-link">Forgot Password?</button></a>-->
                         </fieldset>
                     </form>
                 </div>
