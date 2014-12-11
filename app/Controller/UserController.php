@@ -53,11 +53,11 @@ Class UserController extends AppController {
     public function add() {
 
         $data = array();
-        $data['User']['email'] = 'sanil@shet.com';
+        $data['User']['email'] = 'superadmin@kvomahajan.com';
         $data['User']['password'] = $this->generatePassword();
         $data['User']['created'] = gmdate("Y-m-d H:i:s");
         $data['User']['modified'] = gmdate("Y-m-d H:i:s");
-        $data['User']['role_id'] = 2;
+        $data['User']['role_id'] = 1;
         echo '<pre>';
         print_r($data);
         $this->User->recursive = -1;
@@ -127,7 +127,7 @@ Class UserController extends AppController {
             unset($this->request->data['User']['confirm_password']);
         }
         if( !isset($this->request->data['User']['role_id'])) {
-            $this->request->data['User']['role_id'] = 2;
+            $this->request->data['User']['role_id'] = 1;
         }
         if ( !isset($this->request->data['User']['status'])) {
             $this->request->data['User']['status'] = 1;
