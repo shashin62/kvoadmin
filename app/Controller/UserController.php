@@ -215,7 +215,7 @@ Class UserController extends AppController {
                     if ( $this->Session->read('User.role_id') == 2) {
                         $this->redirect($this->Auth->redirect('/family/familiyGroups'));
                     } else {
-                        $this->redirect($this->Auth->redirect());
+                        $this->redirect($this->Auth->redirect('/family/familiyGroups'));
                     }
                 }
                 
