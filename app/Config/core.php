@@ -387,3 +387,6 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
+
+
+Configure::write('base_url', 'http://10.50.249.127/kvoadmin');
