@@ -102,3 +102,11 @@ function editBloodGroup(id, name)
     $('.bloodgroupid').val(id);
     $('.addBgroupForm').show();
 }
+
+$('.bname').keyup(function(){
+        if($('.bname').val().length >= 0) {
+            $('span.error').css('display','none');
+        } else {
+            $('span.error').find('.error').css('display','block');
+        }
+    });

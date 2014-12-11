@@ -121,3 +121,27 @@ function editTranslation(id, aData)
     $('.translationid').val(id);
    $('.addTranslationForm').show();
 }
+
+$('.bname').keyup(function(){
+        if($('.bname').val().length >= 0) {
+            $('span.error').css('display','none');
+        } else {
+            $('span.error').find('.error').css('display','block');
+        }
+    });
+    
+    $('.gujurathiname').keyup(function(){
+        if($('.gujurathiname').val().length >= 0) {
+            $('span.error').css('display','none');
+        } else {
+            $('span.error').find('.error').css('display','block');
+        }
+    });
+    
+    $('.hindiname').keyup(function(){
+        if($('.hindiname').val().length >= 0) {
+            $('span.error').css('display','none');
+        } else {
+            $('span.error').find('.error').css('display','block');
+        }
+    });

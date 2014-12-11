@@ -96,3 +96,11 @@ function editCountry(id, name)
     $('.countryid').val(id);
     $('.addCountryForm').show();
 }
+
+$('.bname').keyup(function(){
+        if($('.bname').val().length >= 0) {
+            $('span.error').css('display','none');
+        } else {
+            $('span.error').find('.error').css('display','block');
+        }
+    });

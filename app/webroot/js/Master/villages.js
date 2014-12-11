@@ -97,3 +97,11 @@ function editBloodGroup(id, name)
     $('.villageid').val(id);
     $('.addVillageForm').show();
 }
+
+ $('.bname').keyup(function(){
+        if($('.bname').val().length >= 0) {
+            $('span.error').css('display','none');
+        } else {
+            $('span.error').find('.error').css('display','block');
+        }
+    });
