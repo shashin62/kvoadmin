@@ -81,8 +81,6 @@ Class FamilyController extends AppController {
                 $this->set('title','deravasi');
                 $this->set('parent_name',$_REQUEST['first_name']);
                 $this->set('last_name',$getPeopleData['People']['last_name']);
-                $this->set('surname_now', $getPeopleData['People']['surname_now'] ? 
-                        $getPeopleData['People']['surname_now'] : $getPeopleData['People']['last_name'] );
                 // set surname and village to read only mode
                 $this->set('readonly',true);
                 break;
@@ -98,8 +96,6 @@ Class FamilyController extends AppController {
                 }
                 $this->set('village',$getPeopleData['People']['village']);
                 $this->set('last_name',$getPeopleData['People']['last_name']);
-                 $this->set('surname_now', $getPeopleData['People']['surname_now'] ? 
-                        $getPeopleData['People']['surname_now'] : $getPeopleData['People']['last_name'] );
                 break;
             case 'addmother':
                 $pageTitle = 'Add Mother of ' . $_REQUEST['name_parent'];
@@ -113,15 +109,11 @@ Class FamilyController extends AppController {
                 }
                 
                 $this->set('last_name',$getPeopleData['People']['last_name']);
-                $this->set('surname_now', $getPeopleData['People']['surname_now'] ? 
-                        $getPeopleData['People']['surname_now'] : $getPeopleData['People']['last_name'] );
                 break;
             case 'addchilld':
                 $pageTitle = 'Add Child of ' . $_REQUEST['name_parent'];
                 $this->set('readonly',true);
                 $this->set('last_name',$getPeopleData['People']['last_name']);
-                 $this->set('surname_now', $getPeopleData['People']['surname_now'] ? 
-                        $getPeopleData['People']['surname_now'] : $getPeopleData['People']['last_name'] );
                 break;
             case 'addnew':
                 $pageTitle = 'Add New Family';
@@ -164,7 +156,6 @@ Class FamilyController extends AppController {
             $this->set('email', $getPeopleData['People']['email']);
             $this->set('gender', $getPeopleData['People']['gender']);
             $this->set('martial_status', $getPeopleData['People']['martial_status']);
-            $this->set('surname_now', $getPeopleData['People']['surname_now']);
             $this->set('surname_dob', $getPeopleData['People']['surname_dob']);
             $this->set('title', $getPeopleData['People']['title']);
             $this->set('state', $getPeopleData['People']['state']);
@@ -749,7 +740,7 @@ Class FamilyController extends AppController {
             $tree[$peopleData['id']]['g'] = $peopleData['gender'] == 'male' ? 'm' : 'f';
             $tree[$peopleData['id']]['hp'] = true;
             $tree[$peopleData['id']]['i'] = $peopleData['id'];
-            $tree[$peopleData['id']]['l'] = $peopleData['surname_now'];
+            $tree[$peopleData['id']]['l'] = $peopleData['last_name'];
             $tree[$peopleData['id']]['p'] = $peopleData['first_name'];
            
             if ( $peopleData['partner_id'] == $rootId) {

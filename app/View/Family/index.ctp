@@ -86,12 +86,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="website">Surname now:</label>
-                <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('surname_now', array('id' => 'surname_now','readonly' => $readonly,'value'=> $surname_now, 'placeholder' => 'Enter present surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="website">Surname at birth:</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('surname_dob', array('id' => 'surname_dob','value'=> $surname_dob, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
