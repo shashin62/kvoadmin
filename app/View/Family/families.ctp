@@ -1,5 +1,6 @@
 <?php
-if ($this->Session->read('User.role_id') == 2) {?>
+$roles = array(1,2,3);
+if (in_array($this->Session->read('User.role_id'),$roles)) {?>
 <div class="container-fluid">
     <div class="row">
         <a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addfamily"><span class="glyphicon glyphicon-edit"></span>Add Family Group</a>

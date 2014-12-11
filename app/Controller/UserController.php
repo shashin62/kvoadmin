@@ -72,13 +72,13 @@ Class UserController extends AppController {
 
         // get proper alfa from confiugre
         $alfa = Configure::read("passwordAlfa");
-
+        
         $token = "";
 
         for ($i = 0; $i < $password_length; $i++) {
             $token .= $alfa[rand(0, strlen($alfa) - 1)];
         }
-
+        
         return $token;
     }
 

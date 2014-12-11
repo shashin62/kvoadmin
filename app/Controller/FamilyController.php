@@ -672,7 +672,7 @@ Class FamilyController extends AppController {
         $this->autoRender = false;
         $userID = $this->Session->read('User.user_id');
         $roleId = $this->Session->read('User.role_id');
-        $data = $this->Group->getAllFamilyGroups($userID, $roleId);
+        $data = $this->Group->getAllFamilyGroups($userID);
         echo json_encode($data);
     }
 

@@ -6,7 +6,7 @@ class Group extends AppModel {
     
      var $name = 'Group';
      
-     public function getAllFamilyGroups($userId, $roleId) {
+     public function getAllFamilyGroups($userId) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
            'parent.last_name','parent.phone_number','parent.date_of_birth','grp.created');
@@ -73,13 +73,13 @@ class Group extends AppModel {
                 $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
         }        
-        if( $roleId  == 1){
-            if ($sWhere == "") {
-                    $sWhere = " WHERE user_id =  {$userId}";
-                } else {
-                    $sWhere .= " AND ";
-                }
-        }
+//        if( $roleId  == 1){
+//            if ($sWhere == "") {
+//                    $sWhere = " WHERE user_id =  {$userId}";
+//                } else {
+//                    $sWhere .= " AND ";
+//                }
+//        }
         
          $sJoin = "  INNER JOIN people as parent ON (parent.id = grp.people_id)";
          
