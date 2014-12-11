@@ -84,6 +84,12 @@ onclick="editUser(' + aData[0] + ', \'' + aData + '\')" data-rowid=' + aData[0] 
                 $('.addUserForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                    $('.userid').val('');
+                    $('.first_name').val('');
+                    $('.last_name').val('');
+                    $('.gender').val('');
+                    $('.email').val('');
+                    $('.password').val('')
                     oTable.fnDraw(true);
                 }, 1500);
             }

@@ -56,6 +56,8 @@ $("#addBloodGroup").validate({
                 $('.addBgroupForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                     $('.bloodgroupid').val('');
+                    $('.bname').val('');
                     oTable.fnDraw(true);
                 }, 2500);
             }

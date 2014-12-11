@@ -47,9 +47,11 @@ $("#addVillage").validate({
             } else {
                 var displayMsg = data.message;
                 showJsSuccessMessage(displayMsg);
-                $('.addBgroupForm').toggle('slow');
+                $('.addVillageForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                    $('.villageid').val('');
+                    $('.bname').val('');
                     oTable.fnDraw(true);
                 }, 2500);
             }

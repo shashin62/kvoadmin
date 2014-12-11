@@ -68,6 +68,10 @@ $(function () {
                 $('.addTranslationForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                    $('.translationid').val('');
+                    $('.bname').val('');
+                    $('.gujurathiname').val('');
+                    $('.hindiname').val('');
                    oTable.fnDraw(true);
                 }, 2500);
             }

@@ -51,6 +51,8 @@ $("#addEducation").validate({
                 $('.addEducationForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                    $('.educationid').val('');
+                    $('.bname').val('');
                     oTable.fnDraw(true);
                 }, 2500);
             }

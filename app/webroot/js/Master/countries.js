@@ -50,6 +50,8 @@ $("#addCountry").validate({
                 $('.addCountryForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                    $('.countryid').val('');
+                    $('.bname').val('');
                     oTable.fnDraw(true);
                 }, 2500);
             }

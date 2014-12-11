@@ -51,6 +51,8 @@ $("#addState").validate({
                 $('.addStateForm').toggle('slow');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                    $('.stateid').val('');
+                    $('.bname').val('');
                     oTable.fnDraw(true);
                 }, 2500);
             }
