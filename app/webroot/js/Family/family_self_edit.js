@@ -16,7 +16,7 @@ showmaidensurname('Male');
                 required: true,
                 maxlength: 25
             },
-            'data[People][phone_number]': {
+            'data[People][mobile_number]': {
                 required: true,
                 maxlength: 10
             },
@@ -40,7 +40,7 @@ showmaidensurname('Male');
                 required: 'Please enter last name',
                 maxlength: 'Length exceeds 25 charaters'
             },
-            'data[People][phone_number]': {
+            'data[People][mobile_number]': {
                 required: 'Please enter phone number',
                 maxlength: 'Please enter valid phone number'
             },
