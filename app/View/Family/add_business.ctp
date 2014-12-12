@@ -40,7 +40,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 't',
+                'class' => 'combobox',
                 'style' => '',
                 'options' => $busniessOptions,
                 'value' => $business_name
@@ -126,7 +126,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 't',
+                'class' => 'statescombo',
                 'tabindex'=> '10',
                 'style' => '',
                 'options' => $states,

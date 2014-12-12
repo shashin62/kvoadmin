@@ -1,4 +1,6 @@
 $(document).ready(function () {
+$( ".statescombo" ).combobox({width: '180px'});
+$( ".combobox" ).combobox({width: '100px'});
 
 showoccupation(occupation);
     $("#addressForm").validate({

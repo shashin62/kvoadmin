@@ -132,7 +132,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 't',
+                'class' => 'combobox',
                 'tabindex'=> '10',
                 'style' => '',
                 'options' => $states,

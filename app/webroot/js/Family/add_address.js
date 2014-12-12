@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+$( ".combobox" ).combobox();
     $("#addressForm").validate({
         errorElement: "span",
         rules: {

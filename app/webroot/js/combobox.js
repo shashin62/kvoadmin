@@ -1,8 +1,10 @@
 (function ($) {
     $.widget("custom.combobox", {
-        
+         options: {
+            width: '100px'
+        },
         _create: function () {
-            console.log(this);
+           
             this.wrapper = $("<span>")
                     .addClass("custom-combobox")
                     .insertAfter(this.element);
@@ -10,14 +12,23 @@
             this._createAutocomplete();
             this._createShowAllButton();
         },
+        _setOptions: function() {
+// _super and _superApply handle keeping the right this-context
+        this._superApply(arguments);
+                this._refresh();
+                },
+// _setOption is called for each individual option that is changing
+        _setOption: function(key, value) {
+
+        this._super(key, value);
+                },
         _createAutocomplete: function () {
             var selected = this.element.children(":selected"),
                     value = selected.val() ? selected.text() : "";
             this.input = $("<input>")
                     .appendTo(this.wrapper)
                     .val(value)
-                    .attr("title", "")
-                    .css('width','120px')
+                    .css('width',this.options.width)
                     .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
                     .autocomplete({
                         delay: 0,
