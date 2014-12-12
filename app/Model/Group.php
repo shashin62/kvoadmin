@@ -9,7 +9,7 @@ class Group extends AppModel {
      public function getAllFamilyGroups($userId) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
-           'parent.last_name','parent.phone_number','parent.date_of_birth','grp.created');
+           'parent.last_name','parent.mobile_number','parent.date_of_birth','grp.created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "grp.id";
@@ -46,7 +46,7 @@ class Group extends AppModel {
             }
         }
         
-        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.date_of_birth','parent.phone_number',);
+        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.date_of_birth','parent.mobile_number',);
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -89,7 +89,7 @@ class Group extends AppModel {
          */
     $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
-    parent.last_name,parent.date_of_birth,parent.phone_number,grp.created
+    parent.last_name,parent.date_of_birth,parent.mobile_number,grp.created
             FROM   $sTable
                 $sJoin
             $sWhere
