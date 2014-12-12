@@ -2,7 +2,7 @@
     <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
     <div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
+        <div class="btn-group " data-toggle="buttons">
             <label class="btn btn-default <?php echo $title == 'deravasi' ? 'active' : '';?>">
                 <input type="radio" name="title" <?php echo $title == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
             </label>
@@ -16,12 +16,12 @@
     </div>
     <br>
     <div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
+        <div class="btn-group genders" data-toggle="buttons">
             <label class="btn btn-default <?php echo $gender == 'male' ? 'active' : '';?>">
-                <input type="radio" name="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
+                <input type="radio" name="gender" class="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
             </label>
             <label class="btn btn-default <?php echo $gender == 'female' ? 'active' : '';?>">
-                <input type="radio" name="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
+                <input type="radio" name="gender" class="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
             </label>
         </div>
     </div>
@@ -82,11 +82,11 @@
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Phone</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone_number', array('id' => 'phone_number', 'value'=> $phone_number,'placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone_number', array('id' => 'phone_number', 'value'=> $phone_number,'placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="surname_dob">Surname at birth</label>
+            <div class="form-group maidensurname">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="surname_dob">Maiden Surname</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('surname_dob', array('id' => 'surname_dob','value'=> $surname_dob, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
@@ -107,6 +107,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
+                'empty' => __d('label', '--Select--'),
                 'class' => 'combobox',
                 'style' => '',
                 'disabled' => $readonly,
@@ -137,6 +138,7 @@
                 'legend' => false,
                 'class' => 'combobox',
                 'style' => '',
+                'empty' => __d('label', '--Select--'),
                 'options' => $educations,
                 'value' => $education
             ));
@@ -149,7 +151,8 @@
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="blood_group">Blood Group</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
-                        
+                        $array = array('' => '--select--');
+            $bloodgroups = array_merge($array, $bloodgroups);
             echo $this->Form->input('blood_group', array('id' => 'blood_group',
                 'label' => false,
                 'div' => false,
@@ -157,6 +160,7 @@
                 'class' => 'combobox',
                 'style' => 'width:50px;',
                 'width' => '50%',
+                'empty' => __d('label', '--Select--'),
                 'options' => $bloodgroups,
                 'value' => $blood_group
             ));
