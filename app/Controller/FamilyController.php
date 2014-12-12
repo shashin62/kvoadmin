@@ -38,7 +38,7 @@ Class FamilyController extends AppController {
     public $uses = array(
                         'User', 'Aro', 'Role',
                         'People', 'Village', 'Education', 'State', 'BloodGroup', 
-                        'Group','Address','PeopleGroup'
+                        'Group','Address','PeopleGroup','Suburb'
                         );
 
     /**
@@ -909,6 +909,10 @@ Class FamilyController extends AppController {
         
          $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
+        
+        $suburbs = $this->Suburb->find('list', array('fields' => array('Suburb.name', 'Suburb.name')));
+        $this->set(compact('suburbs'));
+        
         $pid = $_REQUEST['id'];
         $aid = $_REQUEST['aid'];        
         $gid = $_REQUEST['gid'];
