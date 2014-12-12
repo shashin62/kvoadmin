@@ -52,14 +52,14 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First name:</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('first_name', array('id' => 'first_name', 'value'=> $first_name,'placeholder' => 'Enter First Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
 
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last name:</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'readonly' => $readonly,'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
@@ -78,15 +78,15 @@
             </div>
             
         </div>
-        <div class="col-lg-6 col-md-6 col-xs-12">	
+        <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Phone:</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Phone</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('phone_number', array('id' => 'phone_number', 'value'=> $phone_number,'placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="website">Surname at birth:</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="surname_dob">Surname at birth</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('surname_dob', array('id' => 'surname_dob','value'=> $surname_dob, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
@@ -121,7 +121,7 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="email">Email id:</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="email">Email ID</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('email', array('id' => 'email', 'value'=> $email,'placeholder' => 'Enter email' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
