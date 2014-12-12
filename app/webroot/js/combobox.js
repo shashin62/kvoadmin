@@ -17,7 +17,7 @@
                     .appendTo(this.wrapper)
                     .val(value)
                     .attr("title", "")
-                    .css('width','93px')
+                    .css('width','120px')
                     .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
                     .autocomplete({
                         delay: 0,
