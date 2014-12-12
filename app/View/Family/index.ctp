@@ -80,9 +80,9 @@
         </div>
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Phone</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mobile_number">Mobile Number</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone_number', array('id' => 'phone_number', 'value'=> $phone_number,'placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
+                        <?php echo $this->Form->input('mobile_number', array('id' => 'mobile_number', 'value'=> $mobile_number,'placeholder' => 'Mobile number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
                 </div>
             </div>
             <div class="form-group maidensurname">
