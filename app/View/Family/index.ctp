@@ -1,21 +1,4 @@
- <style>
-.custom-combobox {
-position: relative;
-display: inline-block;
-}
-.custom-combobox-toggle {
-position: absolute;
-top: 0;
-bottom: 0;
-margin-left: -1px;
-padding: 0;
-}
-.custom-combobox-input {
-margin: 0;
-padding: 5px 10px;
-}
-</style>
-<div class="container-fluid">
+ <div class="container-fluid">
     <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
     <div class="row-fuild">
