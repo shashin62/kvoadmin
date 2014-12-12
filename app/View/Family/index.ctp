@@ -78,7 +78,7 @@
             </div>
             
         </div>
-        <div class="col-lg-6 col-md-6 col-xs-12">	
+        <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Phone:</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="website">Surname at birth:</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="surname_dob">Surname at birth:</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('surname_dob', array('id' => 'surname_dob','value'=> $surname_dob, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>

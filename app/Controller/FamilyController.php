@@ -6,9 +6,9 @@
  * PHP version 5.5
  *
  * @category  Controller
- * @package   Kvo Admin
+ * @package   KVO Admin
  * @author    S
- * @copyright 2014 Kvo Admin
+ * @copyright 2014 KVO Admin
  * @version   GIT:$
  * @since     1.0
  */
@@ -18,9 +18,9 @@ App::uses('AppController', 'Controller');
  * Controller class for Family Controller
  * 
  * @category  Controiller
- * @package   Kvo Admin
+ * @package   KVO Admin
  * @author    S
- * @copyright 2014 Kvo Admin
+ * @copyright 2014 KVO Admin
  * @since     1.0
  */
 Class FamilyController extends AppController {

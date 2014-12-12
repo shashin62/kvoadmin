@@ -6,13 +6,13 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
                         <?php echo $this->Form->input('first_name', array('id' => 'first_name', 'placeholder' => 'Enter first name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control first_name')); ?>
                     </div>
                 </div>
             <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last name:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
                         <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control last_name')); ?>
                     </div>
@@ -41,15 +41,15 @@
                 </div>
             <?php echo $this->Form->input('id', array('type' => 'hidden',  'id' => 'id', 'placeholder' => 'Enter Education name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control userid')); ?>
         </div>
-        <div class="col-lg-6 col-md-6 col-xs-12">	
+        <div class="col-lg-6 col-md-6 col-xs-12">
                  <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="email">Email id:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="email">Email ID</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
                         <?php echo $this->Form->input('email', array('id' => 'email', 'placeholder' => 'Enter email' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control email')); ?>
                     </div>
                 </div>
                 <div class="form-group passwordField">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="password">Password:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="password">Password</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
                        <?php echo $this->Form->input('password', array('id' => 'password', 'placeholder' => 'Enter password' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control password')); ?>
                     </div>
@@ -68,7 +68,7 @@
                 'div' => false,
                 'legend' => false,
                 'class' => 't gender',
-                'style' => '',
+                'style' => 'form-control',
                 'options' => $genderOptions
             ));
             ?>
@@ -79,9 +79,12 @@
             
         </div>
     <div class="row">
-        <div class="col-lg-2 col-md-1 col-xs-2">
+        <div class="col-lg-12 col-md-12 col-xs-12">
                 <div class="form-actions">
-                    <div class="col-lg-2 col-md-1 col-xs-1">
+					<div class="col-lg-4 col-md-4 col-xs-4">
+                        <button type="button" class="btn btn-primary bgButton">Submit</button>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
                         <button type="button" class="btn btn-primary bgButton">Submit</button>
                     </div>
                 </div>
