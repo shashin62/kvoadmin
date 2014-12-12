@@ -20,31 +20,31 @@
         <div class="col-xs-12 col-md-6">	
             <form class="form-horizontal addUser">
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
                         <input type="text" class="form-control search_username" name="first_name" placeholder="Firstname" custom="1" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
                         <input type="text" class="form-control search_username" name="last_name" placeholder="Lastname" custom="2" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Contact number:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Contact Number</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
                         <input type="text" class="form-control search" name="phone_number" placeholder="Contact number" custom="3"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_birth">DOB:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_birth">DOB</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
                         <input id = "date_of_birth" type="text" class="form-control dp search_DOB" name="date_of_birth" placeholder="DOB" custom="4"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
                         <input type="text" class="form-control search_username" name="village" placeholder="Village" custom="5"/>
                     </div>

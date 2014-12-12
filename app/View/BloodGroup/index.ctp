@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Name:</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Name</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
                         <?php echo $this->Form->input('name', array('id' => 'name', 'placeholder' => 'Enter Blood group name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control bname')); ?>
                     </div>
