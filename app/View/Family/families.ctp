@@ -1,3 +1,8 @@
+<style>
+    tfoot {
+    display: table-header-group;
+}
+</style>
 <?php
 $roles = array(1,2,3);
 if (in_array($this->Session->read('User.role_id'),$roles)) {?>
@@ -10,6 +15,16 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
 <div class="container-fluid">   
     <h3 class="heading">Family Groups</h3>
     <table id="getFamilyGroup" class="display" cellspacing="0" width="100%">
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>DOB</th>
+                <th>Mobile</th>
+                <th>Created On</th>
+            </tr>
+        </tfoot>
         <thead>
             <tr>
                 <th>ID</th>
@@ -21,16 +36,7 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
                 <th>Action</th>
             </tr>
         </thead>
-<!--        <tfoot>
-            <tr>
-                
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>DOB</th>
-                <th>Mobile</th>
-                <th>Created On</th>
-            </tr>
-        </tfoot>-->
+        
         <tbody>
 
         </tbody>

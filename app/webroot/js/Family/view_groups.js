@@ -2,15 +2,16 @@ var oTable;
 
 $(function () {
 
-// $('#getFamilyGroup tfoot th').each( function () {
-//     if( $(this).index() !== 0) {
-//            var title = $('#getFamilyGroup thead th').eq( $(this).index() ).text();
-//        $(this).html( '<input size="7" class="form-control" type="text" placeholder="Search '+title+'" />' );
-//     }
-//        
-//    } );
+ $('#getFamilyGroup tfoot th').each( function () {
+     console.log($(this).index());
+     if( $(this).index() !== 0) {
+            var title = $('#getFamilyGroup thead th').eq( $(this).index() ).text();
+        $(this).html( '<input size="7" class="form-control" type="text" placeholder="Search" />' );
+     }
+        
+    } );
 
-    oTable = $('#getFamilyGroup').dataTable({
+    oTable = $('#getFamilyGroup').DataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
@@ -25,23 +26,22 @@ $(function () {
 
         },
         "fnInitComplete": function (oSettings, json) {
-
-
-
         }
     });
 
 
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
     
-//    oTable.columns().eq( 0 ).each( function ( colIdx ) {
-//        $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
-//            oTable
-//                .column( colIdx )
-//                .search( this.value )
-//                .draw();
-//        } );
-//    } );
+    oTable.columns().eq( 0 ).each( function ( colIdx ) {
+        if( colIdx != 0) {
+        $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
+            oTable
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    }
+    } );
 });
 
 function editFamilyGroup(id)
@@ -67,7 +67,7 @@ function deleteFamilyGroup(id)
             showJsSuccessMessage(displayMsg);
             setTimeout(function () {
                 $('.jssuccessMessage').hide('slow');
-                oTable.fnDraw(true);
+                oTable.draw();
             }, 2500);
 
 
