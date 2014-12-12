@@ -22,7 +22,7 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
                 <th>Last Name</th>
                 <th>DOB</th>
                 <th>Mobile</th>
-                <th>Created On</th>
+                <th></th>
             </tr>
         </tfoot>
         <thead>

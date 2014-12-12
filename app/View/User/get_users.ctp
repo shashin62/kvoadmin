@@ -84,9 +84,6 @@
 					<div class="col-lg-4 col-md-4 col-xs-4">
                         <button type="button" class="btn btn-primary bgButton">Submit</button>
                     </div>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <button type="button" class="btn btn-primary bgButton">Submit</button>
-                    </div>
                 </div>
             </div>
     </div>

@@ -89,10 +89,11 @@ function insertUser(id, data)
     data = data.split(',');
     
     var peopleData = {};
+   
     peopleData['first_name'] = data[2];
     peopleData['last_name'] = data[3];
-    peopleData['phone_number'] = data[4];
-    peopleData['village'] = data[8];
+    peopleData['phone_number'] = data[5];
+    peopleData['village'] = data[4];
     peopleData['email'] = data[9];
     
     $.ajax({
