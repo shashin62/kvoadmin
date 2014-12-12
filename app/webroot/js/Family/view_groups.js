@@ -3,11 +3,17 @@ var oTable;
 $(function () {
 
  $('#getFamilyGroup tfoot th').each( function () {
-     console.log($(this).index());
+     
      if( $(this).index() !== 0) {
             var title = $('#getFamilyGroup thead th').eq( $(this).index() ).text();
+            if( title == 'DOB' ) {
+               $(this).html( '<input size="7" id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="Search" />' ); 
+            } else {
         $(this).html( '<input size="7" class="form-control" type="text" placeholder="Search" />' );
-     }
+    }
+     } 
+     
+     
         
     } );
 
@@ -42,6 +48,21 @@ $(function () {
         } );
     }
     } );
+   
+        $("#date_of_birth").datepicker({
+            format: "yyyy-mm-dd",
+        });
+        $('.dp').on('change', function () {
+            $('.datepicker').hide();
+        });
+       
+//    $(".search_DOB").bind("change", function () {
+//        var table = $('#getFamilyGroup').DataTable();
+//        table
+//                .column($(this).attr('custom'))
+//                .search($.trim(this.value))
+//                .draw();
+//    });
 });
 
 function editFamilyGroup(id)

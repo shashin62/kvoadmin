@@ -46,7 +46,7 @@ class Group extends AppModel {
             }
         }
         
-        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.phone_number','parent.date_of_birth');
+        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.date_of_birth','parent.phone_number',);
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
