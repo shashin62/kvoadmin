@@ -39,7 +39,7 @@ onclick="editUser(' + aData[0] + ', \'' + aData + '\')" data-rowid=' + aData[0] 
                 required: true,
                 email: true
             },
-            'data[Userd][password]': {
+            'data[User][password]': {
                 required: true,
                 minlength : 6
             },
