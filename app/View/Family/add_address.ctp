@@ -48,6 +48,22 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">Suburb</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                         <?php
+            echo $this->Form->input('suburb_main', array('id' => 'suburb_main',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'class' => 'combobox',
+                'tabindex'=> '10',
+                'style' => '',
+                'options' => $suburbs
+            ));
+            ?>
+                </div>
+            </div>
                  <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
