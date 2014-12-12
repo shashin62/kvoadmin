@@ -3,7 +3,13 @@ $(document).ready(function () {
 $('.selectpicker').selectpicker();
 
 $( ".combobox" ).combobox();
-showmaidensurname('Male');
+if( userType =='addmother') {
+showmaidensurname('Female');
+} else if(userType == 'addfather') {
+    showmaidensurname('Male');
+} else {
+    showmaidensurname('Male');
+}
 
     $("#createFamily").validate({
         errorElement: "span",
