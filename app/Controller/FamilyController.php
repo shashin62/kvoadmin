@@ -118,6 +118,9 @@ Class FamilyController extends AppController {
                 break;
             case 'addnew':
                 $pageTitle = 'Add New Family';
+                $this->set('gender', 'male');
+                $this->set('title','sthanakvasi');
+                $this->set('martial_status', 'Married');
                 break;
             default:
                 $requestData['type'] = 'self';
@@ -225,10 +228,10 @@ Class FamilyController extends AppController {
                
                 $peopleData = $_REQUEST['data'];
                
-                $data = $this->People->checkExistingOwner($peopleData);
+                $data = $this->People->checkExistingOwner($peopleData); 
+              
                 
-                
-                if( count($data)) {
+                if( count($data) > 0) {
                     $message  = $peopleData['first_name'] . ' ' . $peopleData['last_name'] . ' is already owner';
                 } else {
                     $groupData = array();
