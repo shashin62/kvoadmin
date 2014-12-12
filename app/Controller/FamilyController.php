@@ -115,6 +115,7 @@ Class FamilyController extends AppController {
                 $pageTitle = 'Add Child of ' . $_REQUEST['name_parent'];
                 $this->set('readonly',true);
                 $this->set('last_name',$getPeopleData['People']['last_name']);
+                $this->set('village',$getPeopleData['People']['village']);
                 break;
             case 'addnew':
                 $pageTitle = 'Add New Family';
