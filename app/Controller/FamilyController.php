@@ -157,7 +157,7 @@ Class FamilyController extends AppController {
             $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
-            $this->set('phone_number', $getPeopleData['People']['phone_number'] ? $getPeopleData['People']['phone_number'] : $sessionData['phone_number'] );
+            $this->set('mobile_number', $getPeopleData['People']['mobile_number'] ? $getPeopleData['People']['mobile_number'] : $sessionData['mobile_number'] );
             $this->set('email', $getPeopleData['People']['email']);
             $this->set('gender', $getPeopleData['People']['gender']);
             $this->set('martial_status', $getPeopleData['People']['martial_status']);
@@ -341,12 +341,12 @@ Class FamilyController extends AppController {
                     $msg['error']['errormsg'][] = __('This Email already exists.');
                 }
 
-                if (isset($this->request->data['People']['phone_number']) && !empty($this->request->data['People']['phone_number'])) {
-                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+                if (isset($this->request->data['People']['mobile_number']) && !empty($this->request->data['People']['mobile_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['mobile_number']);
 
                     if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
                         $msg['status'] = 0;
-                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['name'][] = "mobile_number";
                         $msg['error']['errormsg'][] = __('This Phone already exists.');
                     }
                 }
@@ -392,12 +392,12 @@ Class FamilyController extends AppController {
                     $msg['error']['errormsg'][] = __('This Email already exists.');
                 }
 
-                if (isset($this->request->data['People']['phone_number']) && !empty($this->request->data['People']['phone_number'])) {
-                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+                if (isset($this->request->data['People']['mobile_number']) && !empty($this->request->data['People']['mobile_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['mobile_number']);
 
                     if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
                         $msg['status'] = 0;
-                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['name'][] = "mobile_number";
                         $msg['error']['errormsg'][] = __('This Phone already exists.');
                     }
                 }
@@ -442,12 +442,12 @@ Class FamilyController extends AppController {
                     $msg['error']['errormsg'][] = __('This Email already exists.');
                 }
 
-                if (isset($this->request->data['People']['phone_number']) && !empty($this->request->data['People']['phone_number'])) {
-                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+                if (isset($this->request->data['People']['mobile_number']) && !empty($this->request->data['People']['mobile_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['mobile_number']);
 
                     if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
                         $msg['status'] = 0;
-                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['name'][] = "mobile_number";
                         $msg['error']['errormsg'][] = __('This Phone already exists.');
                     }
                 }
@@ -514,12 +514,12 @@ Class FamilyController extends AppController {
                     $msg['error']['errormsg'][] = __('This Email already exists.');
                 }
 
-                if (isset($this->request->data['People']['phone_number'])) {
-                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+                if (isset($this->request->data['People']['mobile_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['mobile_number']);
 
-                    if (!empty($phoneData) && !empty($this->request->data['People']['phone_number']) && $this->request->data['People']['id'] == '' ) {
+                    if (!empty($phoneData) && !empty($this->request->data['People']['mobile_number']) && $this->request->data['People']['id'] == '' ) {
                         $msg['status'] = 0;
-                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['name'][] = "mobile_number";
                         $msg['error']['errormsg'][] = __('This Phone already exists.');
                     }
                 } 
@@ -554,12 +554,12 @@ Class FamilyController extends AppController {
                     $msg['error']['errormsg'][] = __('This Email already exists.');
                 }
 
-                if (isset($this->request->data['People']['phone_number'])) {
-                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['phone_number']);
+                if (isset($this->request->data['People']['mobile_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['mobile_number']);
 
-                    if (!empty($phoneData) && !empty($this->request->data['People']['phone_number']) && $this->request->data['People']['id'] == '') {
+                    if (!empty($phoneData) && !empty($this->request->data['People']['mobile_number']) && $this->request->data['People']['id'] == '') {
                         $msg['status'] = 0;
-                        $msg['error']['name'][] = "phone_number";
+                        $msg['error']['name'][] = "mobile_number";
                         $msg['error']['errormsg'][] = __('This Phone already exists.');
                     }
                 }
@@ -720,7 +720,7 @@ Class FamilyController extends AppController {
             }
             
             $tree[$peopleData['id']]['e'] = $peopleData['email'];
-            $tree[$peopleData['id']]['u'] = $peopleData['phone_number'];
+            $tree[$peopleData['id']]['u'] = $peopleData['mobile_number'];
             if ($peopleGroup['tree_level'] != '') {
                 if ( $peopleData['f_id'] == $rootId) {
                     $tree[$peopleData['id']]['f'] = 'START';
