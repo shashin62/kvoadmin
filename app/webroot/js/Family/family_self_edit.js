@@ -3,7 +3,7 @@ $(document).ready(function () {
 $('.selectpicker').selectpicker();
 
 $( ".combobox" ).combobox();
-
+showmaidensurname('Male');
 
     $("#createFamily").validate({
         errorElement: "span",
@@ -17,6 +17,7 @@ $( ".combobox" ).combobox();
                 maxlength: 25
             },
             'data[People][phone_number]': {
+                required: true,
                 maxlength: 10
             },
             'data[People][email]': {
@@ -24,6 +25,9 @@ $( ".combobox" ).combobox();
                 email: true
             },
             'data[People][gender]': {
+                required: true
+            },
+             'data[People][village]': {
                 required: true
             },
         },
@@ -37,6 +41,7 @@ $( ".combobox" ).combobox();
                 maxlength: 'Length exceeds 25 charaters'
             },
             'data[People][phone_number]': {
+                required: 'Please enter phone number',
                 maxlength: 'Please enter valid phone number'
             },
             'data[People][email]': {
@@ -44,6 +49,9 @@ $( ".combobox" ).combobox();
             },
             'data[People][gender]': {
                 required: 'Please select gender'
+            },
+            'data[People][village]': {
+                required: 'Please select village'
             },
         },
         submitHandler: function (form) {
@@ -75,19 +83,38 @@ $( ".combobox" ).combobox();
 });
 
 $(".editOwnButton").click(function () {
+    if( userType == 'addchilld') {
+        $('.phone_number').rules('remove', 'required');
+    }
     $("#createFamily").submit();
     return false;
 });
 
+$('.genders > label').click(function()
+{
+   showmaidensurname($(this).text());
+});
+
+function showmaidensurname($this)
+{
+    
+    if( $.trim($this) == "Male") {
+       $(".maidensurname").hide();
+   } else {
+        $(".maidensurname").show();
+   }
+}
 $(".male").click(function () {
-    $(".maidenvillage").hide();
+    $(".maidensurname").hide();
     $(".widower").val('widower');
     
     return false;
 });
 
 $(".female").click(function () {
-    $(".maidenvillage").show();
+    $(".maidensurname").show();
      $(".widower").val('widow');
     return false;
 });
+
+
