@@ -224,7 +224,10 @@ Class FamilyController extends AppController {
                 
                
                 $peopleData = $_REQUEST['data'];
+               
                 $data = $this->People->checkExistingOwner($peopleData);
+                
+                
                 if( count($data)) {
                     $message  = $peopleData['first_name'] . ' ' . $peopleData['last_name'] . ' is already owner';
                 } else {
