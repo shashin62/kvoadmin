@@ -430,8 +430,9 @@ Class People extends AppModel
     
     public function checkExistingOwner($data)
     {
+       
         $this->recursive = -1;
-       $options['conditions']['AND'] = array('People.tree_level' => '');
+       $options['conditions']['AND'] = array('pgroup.tree_level' => '');
         if( !empty($data['first_name'])) {
             $options['conditions']['AND'][] = array('People.first_name' => $data['first_name']);
         }
@@ -451,7 +452,17 @@ Class People extends AppModel
             $options['conditions']['AND'][] = array('People.email' => $data['email']);
         }
         
+        $options['joins'] = array(
+            array('table' => 'people_groups',
+                'alias' => 'pgroup',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'People.id = pgroup.people_id'
+                )
+            ),
+             );
         
+       
         $options['fields'] = array('People.*');
         
         try {
