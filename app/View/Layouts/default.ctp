@@ -71,6 +71,7 @@
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/country/index">Countries</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/village/index">Villages</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/translation/index">Translations</a></li>
+                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/suburb/index">Suburbs</a></li>
                             </ul>
                         </li>
                         <?php } ?>
