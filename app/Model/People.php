@@ -9,7 +9,7 @@ Class People extends AppModel
     public function getAllPeoples($type = false)
     {
        
-        $aColumns = array('p.id','p.first_name','p.last_name', 'p.village','p.phone_number','p.m_id','p.f_id',
+        $aColumns = array('p.id','p.first_name','p.last_name', 'p.village','p.mobile_number','p.m_id','p.f_id',
             'IF( p.f_id = parent.id, parent.first_name, "") as father',
             'IF( p.m_id = parent2.id, parent2.first_name, "") as mother'
             );
@@ -49,7 +49,7 @@ Class People extends AppModel
             }
         }
         
-        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.phone_number','p.date_of_birth','p.village');
+        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.mobile_number','p.date_of_birth','p.village');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -116,10 +116,10 @@ Class People extends AppModel
                     LEFT JOIN people as parent2 ON (parent2.id = p.m_id) 
                     ";
                     
-        //$sGroup = " group by p.phone_number";
+        //$sGroup = " group by p.mobile_number";
 
       $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.phone_number, p.date_of_birth, p.m_id, p.f_id, 
+    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number, p.date_of_birth, p.m_id, p.f_id, 
     IF( p.f_id = parent.id ,parent.first_name, '') as father
               , IF( p.m_id = parent2.id, parent2.first_name, '') as mother,
               p.village,p.email
@@ -376,7 +376,7 @@ Class People extends AppModel
      */
     public function checkPhoneExists($phone) {
         $this->recursive = -1;
-        $options['conditions'] = array('People.phone_number' => $phone);
+        $options['conditions'] = array('People.mobile_number' => $phone);
         $options['fields'] = array('People.id');
         try {
             $userData = $this->find('all', $options);
@@ -444,8 +444,8 @@ Class People extends AppModel
             $options['conditions']['AND'][] = array('People.village' => $data['village']);
         }
         
-        if( !empty($data['phone_number'])) {
-            $options['conditions']['AND'][] = array('People.phone_number' => $data['phone_number']);
+        if( !empty($data['mobile_number'])) {
+            $options['conditions']['AND'][] = array('People.mobile_number' => $data['mobile_number']);
         }
         
         if( !empty($data['email'])) {
