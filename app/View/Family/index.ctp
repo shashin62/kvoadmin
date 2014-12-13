@@ -195,6 +195,7 @@
 <script type="text/javascript">
     var pid = '<?php echo $pid; ?>';
     var userType = '<?php echo $userType; ?>';
+    var grpid = '<?php echo $gid; ?>';
 </script>
 <script>
     $(function () {

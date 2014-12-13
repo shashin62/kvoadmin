@@ -1,7 +1,9 @@
 $('.self').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
-   doFormPost(baseUrl+"/family/index?type=self&id="+ id,'{ "type":"self","fid":"'+ id +'"}');
+   var gid = $this.data('gid');
+   
+   doFormPost(baseUrl+"/family/index?type=self&id="+ id+ "&gid=" + gid,'{ "type":"self","fid":"'+ id +'","gid":"'+ gid +'"}');
    
 });
 

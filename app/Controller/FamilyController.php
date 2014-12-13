@@ -128,8 +128,8 @@ Class FamilyController extends AppController {
                 $pageTitle = 'Create your family - edit your Details';
                 break;
         }
-        
-        $this->set('gid', $requestData['group_id']);
+         
+        $this->set('gid', $_REQUEST['gid']);
         $this->set('pid', $peopleId);
         $this->set('pageTitle', $pageTitle);
         $this->set('userType', $requestData['type']);
