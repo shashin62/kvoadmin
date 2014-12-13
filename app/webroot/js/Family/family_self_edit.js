@@ -89,7 +89,7 @@ showmaidensurname('Female');
 });
 
 $(".editOwnButton").click(function () {
-    if( userType == 'addchilld') {
+    if( userType != 'addnew') {
         $('.phone_number').rules('remove', 'required');
     }
     $("#createFamily").submit();
