@@ -77,6 +77,10 @@ showmaidensurname('Female');
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
+                    
+                    if ( grpid == '') {
+                        grpid = data.grpid;
+                    }
                     window.location.href = baseUrl + "/family/details/"+ grpid;
                 }, 2500);
             }
