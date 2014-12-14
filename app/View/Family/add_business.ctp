@@ -211,6 +211,7 @@
     var prntid = '<?php echo $parentid; ?>';
     var paddressid = '<?php echo $parentaddressid;?>';
     var occupation = '<?php echo $occupation;?>';
+    var grpid = '<?php echo $gid; ?>';
 
 </script>
 <?php echo $this->Html->script(array('Family/add_busniess')); ?>
