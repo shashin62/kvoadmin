@@ -815,6 +815,7 @@ Class FamilyController extends AppController {
         }
          $this->set('peopleid',$pid);
          $this->set('aid',$aid ? $aid : '');
+         $this->set('gid',$gid ? $gid : '');
          $this->set('name',$getOwnerDetails['first_name']);
           $this->set('parentid',$getOwnerDetails['id']);
           $this->set('parentaddressid',$getOwnerDetails['business_address_id']);
@@ -953,6 +954,7 @@ Class FamilyController extends AppController {
         $this->set('name',$getOwnerDetails['first_name']);
         $this->set('parentid',$getOwnerDetails['id']);
         $this->set('aid',$aid ? $aid : '');
+        $this->set('gid',$gid ? $gid : '');
         
     }
     
