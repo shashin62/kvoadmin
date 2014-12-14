@@ -65,7 +65,7 @@
                 </div>
             </div>
                  <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb</label>   
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb Zone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-default <?php echo $suburb == 'east' ? 'active' : '';?>">
@@ -197,5 +197,6 @@
     var aid = '<?php echo $addressid; ?>';   
      var pid = '<?php echo $peopleid; ?>';
      var prntid = '<?php echo $parentid; ?>';
+     var grpid = '<?php echo $gid; ?>';
 </script>
 <?php echo $this->Html->script(array('Family/add_address')); ?>
