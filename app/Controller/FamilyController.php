@@ -370,6 +370,7 @@ Class FamilyController extends AppController {
                         $groupData = array();
                         $groupData['Group']['people_id'] = $this->People->id;
                         $groupData['Group']['id'] = $this->Group->id;
+                         $msg['grpid'] = $this->Group->id;
                         $this->Group->save($groupData);
                     } else {
                         $msg['success'] = 0;
