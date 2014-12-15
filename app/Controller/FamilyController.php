@@ -784,20 +784,19 @@ Class FamilyController extends AppController {
         
         $gid = $_REQUEST['gid'];
         
-         $data = $this->People->find('all',array('fields' => array(
-            'People.user_id','People.first_name','People.tree_level','People.occupation')
-            ,'conditions'=> array(
-                'People.group_id' => $gid,
-                'People.id' => $pid,
-                )));
+        
          
          $array = array();
         $array['gid'] = $gid;
         
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
       
+        $data = $this->People->getFamilyDetails($gid, $pid);
+        
+        
         $peopleData = $data[0]['People'];
-        $this->set('show',$peopleData['tree_level'] == "" ? false : true);
+        $groupData  = $data[0]['Group'];
+        $this->set('show',$groupData['tree_level'] == "" ? false : true);
         $this->set('occupation',$peopleData['occupation']);
         $getParentAddress = $this->Address->find('all',
                                     array(
@@ -933,17 +932,12 @@ Class FamilyController extends AppController {
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
         
         $array['pid'] = $pid;
-        $data = $this->People->find('all',array('fields' => array(
-            'People.user_id','People.first_name','People.tree_level')
-            ,'conditions'=> array(
-                'People.group_id' => $gid,
-                'People.id' => $pid,
-                )));
+        $data = $this->People->getFamilyDetails($gid, $pid);
         
         
         $peopleData = $data[0]['People'];
-        
-        $this->set('show',$peopleData['tree_level'] == "" ? false : true);
+        $groupData  = $data[0]['Group'];
+        $this->set('show',$groupData['tree_level'] == "" ? false : true);
         if( isset($getParentAddress[0]) && count($getParentAddress)) {
             $data = $getParentAddress[0]['Address'];
             foreach ( $data as $key => $value ) {
