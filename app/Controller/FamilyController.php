@@ -677,9 +677,7 @@ Class FamilyController extends AppController {
         $groupId = $_REQUEST['gid'];
         $uid = $_REQUEST['uid'];
         $data = $this->People->getFamilyDetails($groupId);
-//       echo '<pre>';
-//       print_r($data);
-//       echo '</pre>';
+        $parentName = $data[0]['People']['first_name'] . ' ' .$data[0]['People']['last_name'];
         $rootId;
         $tree = array();
         foreach ($data as $key => $value) {
@@ -767,7 +765,10 @@ Class FamilyController extends AppController {
 //        print_r($tree);
 //        echo '</pre>';
 //        exit;
-        echo json_encode($tree);
+        $jsonData['tree'] = $tree;
+        $jsonData['parent_name'] = $parentName;
+        
+        echo json_encode($jsonData);
         exit;
     }
     
