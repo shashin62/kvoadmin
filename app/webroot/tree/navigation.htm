@@ -35,7 +35,12 @@
 	
 	<BODY CLASS="rbody" onLoad="PL();"><TABLE WIDTH="100%" HEIGHT="100%">
 		<TR VALIGN="middle"><TD ALIGN="center">
-			
+			<SPAN ID="printbutton">
+				<A HREF="#" onClick="parent.ESM('print'); return false;"><IMG SRC="print.gif" WIDTH="22" HEIGHT="22" ALIGN="ABSMIDDLE" TITLE="Print version" BORDER="0" STYLE="margin-right:4px;">Print</A>
+				&nbsp;-&nbsp;
+			</SPAN>
+			<A HREF="#" onClick="parent.ETI(); return false;"><SPAN ID="sidelinktext"></SPAN></A>
+			&nbsp;-&nbsp;
 			<A HREF="#" onClick="parent.ETK(); return false;"><SPAN ID="keylinktext">Show</SPAN> key</A>
 			&nbsp;-&nbsp;
 			<A HREF="#" onClick="parent.EBS(); return false;">Back to <SPAN ID="backtotext">start</SPAN></A>
