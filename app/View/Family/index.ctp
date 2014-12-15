@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>   
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="vsillage">Village</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
                         
@@ -108,7 +108,7 @@
                 'div' => false,
                 'legend' => false,
                 'empty' => __d('label', '--Select--'),
-                'class' => 'combobox',
+                'class' => 'village combobox',
                 'style' => '',
                 'disabled' => $readonly,
                 'options' => $villages,
@@ -116,6 +116,7 @@
             ));
             ?>
                 </div>
+                
             </div>
         </div>
     </div>
