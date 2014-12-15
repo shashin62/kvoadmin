@@ -3,14 +3,14 @@
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
     <div class="row-fuild">
         <div class="btn-group " data-toggle="buttons">
-            <label class="btn btn-default <?php echo $title == 'deravasi' ? 'active' : '';?>">
-                <input type="radio" name="title" <?php echo $title == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
+            <label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
+                <input type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
             </label>
-            <label class="btn btn-default <?php echo $title == 'sthanakvasi' ? 'active' : '';?>">
-                <input type="radio" name="title" <?php echo $title == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
+            <label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
+                <input type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
             </label>
-            <label class="btn btn-default <?php echo $title == 'other' ? 'active' : '';?>">
-                <input type="radio" name="title" <?php echo $title == 'other' ? 'checked=checked' : '';?> value="other">Other
+            <label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
+                <input type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
             </label>
         </div>
     </div>
