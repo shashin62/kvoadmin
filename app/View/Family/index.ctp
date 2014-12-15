@@ -86,9 +86,9 @@
                 </div>
             </div>
             <div class="form-group maidensurname">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="surname_dob">Maiden Surname</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_surname">Maiden Surname</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('surname_dob', array('id' => 'surname_dob','value'=> $surname_dob, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname','value'=> $maiden_surname, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
