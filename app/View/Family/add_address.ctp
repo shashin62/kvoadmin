@@ -60,7 +60,8 @@
                 'class' => 'combobox',
                 'tabindex'=> '10',
                 'style' => '',
-                'options' => $suburbs
+                'options' => $suburbs,
+                'value' => $suburb
             ));
             ?>
                 </div>
