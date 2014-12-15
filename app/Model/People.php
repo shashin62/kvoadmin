@@ -95,6 +95,9 @@ Class People extends AppModel
                 }
                     $sWhere .= ' p.gender = "female"  AND p.is_late = 0';
                     break;
+                case 'global' :
+                    
+                    break;
                 default:
                     if ($sWhere == "") {
                     $sWhere = "WHERE ";
@@ -165,7 +168,9 @@ Class People extends AppModel
             $row = array();
             //for ($i = 0; $i < count($aColumns); $i++) {
                 /* General output */
-            $row[] = '';
+            //if( $type != 'global') {
+                $row[] = '';
+            //}
             foreach ( $value['p'] as $k => $v) {
                 $row[] = $v;
             }
