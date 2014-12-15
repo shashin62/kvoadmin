@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addsuburb"><span class="glyphicon glyphicon-edit"></span>Add Village</a>
+    <a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addsuburb"><span class="glyphicon glyphicon-edit"></span>Add Suburb</a>
 </div>
 <div class="container-fluid addSuburbForm" style="display: none;">
     <?php echo $this->Form->create('Suburb', array('class' => 'form-horizontal suburbForm', 'id' => 'addSuburb', 'name' => 'suburb')); ?>
