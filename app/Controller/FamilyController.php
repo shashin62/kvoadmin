@@ -162,7 +162,7 @@ Class FamilyController extends AppController {
             $this->set('email', $getPeopleData['People']['email']);
             $this->set('gender', $getPeopleData['People']['gender']);
             $this->set('martial_status', $getPeopleData['People']['martial_status']);
-            $this->set('surname_dob', $getPeopleData['People']['surname_dob']);
+            $this->set('maiden_surname', $getPeopleData['People']['maiden_surname']);
             $this->set('sect', $getPeopleData['People']['sect']);
             $this->set('state', $getPeopleData['People']['state']);
             $this->set('education', $getPeopleData['People']['education']);
@@ -320,7 +320,7 @@ Class FamilyController extends AppController {
        
         if ($_REQUEST['peopleid'] != '') {
             $getPeopleDetail = $this->People->find('all', array('fields' => array('People.first_name',
-                    'People.last_name', 'People.surname_now', 'People.group_id',
+                    'People.last_name', 'People.maiden_surname', 'People.group_id',
                 'People.f_id','People.partner_id','People.m_id','People.partner_name','People.village'),
                 'conditions' => array('People.id' => $_REQUEST['peopleid']))
             );
@@ -759,7 +759,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['pc'] = array();
                 $tree[$peopleData['id']]['es'] = null;
             }
-            $tree[$peopleData['id']]['q'] = $peopleData['surname_dob'];
+            $tree[$peopleData['id']]['q'] = $peopleData['maiden_surname'];
         }
 //         echo '<pre>';
 //        print_r($tree);
