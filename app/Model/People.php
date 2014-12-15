@@ -251,7 +251,7 @@ Class People extends AppModel
      * @param type $groupId
      * @return boolean
      */
-    public function getFamilyDetails($groupId , $pid = false)
+    public function getFamilyDetails($groupId , $pid = false,$getAllDetails = false)
     {
         
         $this->recursive = -1;
@@ -260,8 +260,8 @@ Class People extends AppModel
         if( $pid ) {
             $options['conditions']['People.id'] = $pid;
         }
-        
-         $options['joins'] = array(
+        if( $getAllDetails) {
+             $options['joins'] = array(
             array('table' => 'people_groups',
                 'alias' => 'Group',
                 'type' => 'LEFT',
@@ -269,12 +269,51 @@ Class People extends AppModel
                     'People.id = Group.people_id'
                 )
             ),
+             array('table' => 'people',
+                'alias' => 'parent1',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'parent1.id = People.f_id'
+                )
+            ),
+             array('table' => 'people',
+                'alias' => 'parent2',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'parent2.id = People.m_id'
+                )
+            ),
+             
+             array('table' => 'people',
+                'alias' => 'grandfather',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'grandfather.id = parent1.f_id'
+                )
+            )
              );
-          $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
+        } else {
+             $options['joins'] = array(
+            array('table' => 'people_groups',
+                'alias' => 'Group',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'People.id = Group.people_id'
+                )
+            ),
+                 );
+        }
+        if ( $getAllDetails) {
+            $options['fields'] = array('People.*','Group.tree_level','Group.people_id','concat_ws(" ",grandfather.first_name,grandfather.last_name) as grandfather');
+        } else {
+            $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
+        }
+          
           $options['order'] = array('Group.tree_level' => 'asc');
         try {
             $familyData = $this->find('all', $options);
-
+            
+            //exit;
 
             if (!empty($familyData) && isset($familyData[0])) {
                 $familyData = $familyData;
