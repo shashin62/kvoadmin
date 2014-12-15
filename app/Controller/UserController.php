@@ -266,7 +266,7 @@ Class UserController extends AppController {
          $this->Session->write('User.phone_number', !empty($userAllData['User']['phone_number']) ? $userAllData['User']['phone_number'] : '');
          $this->Session->write('User.martial_status', !empty($userAllData['People']['martial_status']) ? $userAllData['People']['martial_status'] : '');
          $this->Session->write('User.surname_now', !empty($userAllData['People']['surname_now']) ? $userAllData['People']['surname_now'] : '');
-         $this->Session->write('User.surname_dob', !empty($userAllData['People']['surname_dob']) ? $userAllData['People']['surname_dob'] : '');
+         $this->Session->write('User.surname_dob', !empty($userAllData['People']['maiden_surname']) ? $userAllData['People']['maiden_surname'] : '');
           $this->Session->write('User.state', !empty($userAllData['People']['state']) ? $userAllData['People']['state'] : '');
            $this->Session->write('User.village', !empty($userAllData['People']['village']) ? $userAllData['People']['village'] : '');
            $this->Session->write('User.education', !empty($userAllData['People']['education']) ? $userAllData['People']['education'] : '');
