@@ -42,7 +42,7 @@
                                 </div>
 				<div class="col-md-2">
                                     <a class="editbusiness" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['business_address_id'];?>" href="#">
-                            <?php echo $value['People']['business_address_id'] ? 'Edit Eduction Details' : 'Add Eduction Details';?></a><br>
+                            <?php echo $value['People']['business_address_id'] ? 'Edit Business Details' : 'Add Business Details';?></a><br>
                                     <?php if( empty($value['People']['m_id'])) { ?>
                                     <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
                                     <?php } else { ?>
@@ -70,6 +70,32 @@
                                 <?php } else { ?>
                                              <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
+                                <div class="col-md-1">
+                                <?php if( empty($value['People']['f_id']) ) { ?>
+                                    <span style="color:orange">Father</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['m_id']) ) { ?>
+                                    <span style="color:orange">Mother</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['gender']) ) { ?>
+                                    <span style="color:orange">Gender</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['address_id']) ) { ?>
+                                    <span style="color:orange">Home Address</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['mobile_number']) ) { ?>
+                                    <span style="color:orange">Mobile</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['date_of_birth']) ) { ?>
+                                    <span style="color:orange">DOB</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['village']) ) { ?>
+                                    <span style="color:orange">Village</span>
+                                <?php } ?>
+                               <?php if( empty($value[0]['grandfather'])) { ?>
+                                    <span style="color:orange">Grand Father</span>
+                                <?php } ?>
+                                </div>
                         </div><br>
                         <?php } ?>
                         <?php } ?>
@@ -79,7 +105,32 @@
 <div class="row">
 				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
 				<div class="col-md-2"><a href="#">View Detail</a></div>
-				
+				<div class="col-md-1">
+                                <?php if( empty($value['People']['f_id']) ) { ?>
+                                    <span style="color:orange">Father</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['m_id']) ) { ?>
+                                    <span style="color:orange">Mother</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['gender']) ) { ?>
+                                    <span style="color:orange">Gender</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['address_id']) ) { ?>
+                                    <span style="color:orange">Home Address</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['mobile_number']) ) { ?>
+                                    <span style="color:orange">Mobile</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['date_of_birth']) ) { ?>
+                                    <span style="color:orange">DOB</span>
+                                <?php } ?>
+                                <?php if( empty($value['People']['village']) ) { ?>
+                                    <span style="color:orange">Village</span>
+                                <?php } ?>
+                                <?php if( empty($value[0]['grandfather'])) { ?>
+                                    <span style="color:orange">Grand Father</span>
+                                <?php } ?>
+                                </div>
 			</div>
 
 
