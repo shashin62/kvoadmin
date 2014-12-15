@@ -80,3 +80,19 @@ function displayErrors(ename,etype,error, callType, marginLeft)
         //}
     }
 }
+function format(d) {
+    
+    return '<table cellpadding="2" cellspacing="0" border="0" style="">' +
+            '<tr>' +
+            '<td>&nbsp<b>Father</b>:' +
+            '' + d['10'] + '</td>&nbsp;' +
+            '<td>&nbsp<b>Mother</b>: ' +
+            '' + d['11'] + '</td>&nbsp;' +
+            '<td>&nbsp<b>Village</b>: ' +
+            '' + d['4'] + '</td>&nbsp;' +
+            '<td>&nbsp<b>Email</b>: ' +
+            '' + d['9'] + '</td>' +
+            '</tr>' +
+            '</table>';
+}
+
