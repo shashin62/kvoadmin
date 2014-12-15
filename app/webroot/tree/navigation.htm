@@ -20,9 +20,17 @@
 		<LINK REL="stylesheet" TYPE="text/css" HREF="styles.css?130317">
 
 		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-
+                <SCRIPT src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="common.js?130317" type="text/javascript"></script>	
 		<script src="navigation.js?130317" type="text/javascript"></script>	
+                <script type="text/javascript">
+                    $(document).ready(function()
+                    {
+                        
+                    $('#sidelinktext').trigger('click');
+                    });
+                    
+    </script>
 	</HEAD>
 	
 	<BODY CLASS="rbody" onLoad="PL();"><TABLE WIDTH="100%" HEIGHT="100%">
@@ -112,4 +120,5 @@
 			</SELECT>
 		</TD></TR>
 	</TABLE></BODY>
+        
 </HTML>
