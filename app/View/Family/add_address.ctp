@@ -56,6 +56,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
+                'empty' => __d('label', '--Select--'),
                 'class' => 'combobox',
                 'tabindex'=> '10',
                 'style' => '',

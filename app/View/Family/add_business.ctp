@@ -145,6 +145,7 @@
                 'legend' => false,
                 'class' => 'statescombo',
                 'tabindex'=> '10',
+                'empty' => __d('label', '--Select--'),
                 'style' => '',
                 'options' => $states,
                 'value' => $state
