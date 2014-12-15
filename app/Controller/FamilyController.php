@@ -647,12 +647,10 @@ Class FamilyController extends AppController {
     public function details() 
     {
         $userID = $this->Session->read('User.user_id');
-        $roleId = $this->Session->read('User.role_id');
-        $groupData = $this->Group->find('all',array('fields' => array('Group.id'),
-            'conditions' => array('Group.user_id' => $userID)
-            ));
+        
+        
         $id = $this->request->params['pass'][0];
-        $getDetails = $this->People->getFamilyDetails($id);
+        $getDetails = $this->People->getFamilyDetails($id, false, true);
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('data', $getDetails);
