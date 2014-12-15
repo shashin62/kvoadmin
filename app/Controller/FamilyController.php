@@ -78,7 +78,7 @@ Class FamilyController extends AppController {
                 //  as spouse is always female and married
                 $this->set('gender', 'female');
                 $this->set('martial_status', 'Married');
-                $this->set('title','deravasi');
+                $this->set('sect','deravasi');
                 $this->set('parent_name',$_REQUEST['first_name']);
                 $this->set('last_name',$getPeopleData['People']['last_name']);
                 // set surname and village to read only mode
@@ -88,7 +88,7 @@ Class FamilyController extends AppController {
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
                 $this->set('gender', 'male');
-                $this->set('title','sthanakvasi');
+                $this->set('sect','sthanakvasi');
                 $this->set('martial_status', 'Married');
                 if ($getPeopleData['People']['tree_level'] == '') {
                     $this->set('readonly',true);
@@ -100,7 +100,7 @@ Class FamilyController extends AppController {
                 break;
             case 'addmother':
                 $pageTitle = 'Add Mother of ' . $_REQUEST['name_parent'];
-                $this->set('title','deravasi');
+                $this->set('sect','deravasi');
                 $this->set('gender', 'female');
                 $this->set('martial_status', 'Married');
                 if ($getPeopleData['People']['tree_level'] == '') {
@@ -120,7 +120,7 @@ Class FamilyController extends AppController {
             case 'addnew':
                 $pageTitle = 'Add New Family';
                 $this->set('gender', 'male');
-                $this->set('title','sthanakvasi');
+                $this->set('sect','sthanakvasi');
                 $this->set('martial_status', 'Married');
                 break;
             default:
@@ -163,7 +163,7 @@ Class FamilyController extends AppController {
             $this->set('gender', $getPeopleData['People']['gender']);
             $this->set('martial_status', $getPeopleData['People']['martial_status']);
             $this->set('surname_dob', $getPeopleData['People']['surname_dob']);
-            $this->set('title', $getPeopleData['People']['title']);
+            $this->set('sect', $getPeopleData['People']['sect']);
             $this->set('state', $getPeopleData['People']['state']);
             $this->set('education', $getPeopleData['People']['education']);
             $this->set('village', $getPeopleData['People']['village']);
@@ -326,7 +326,7 @@ Class FamilyController extends AppController {
             );
         }
         
-         $this->request->data['People']['title'] = $this->request->data['title'];
+         $this->request->data['People']['sect'] = $this->request->data['sect'];
          $this->request->data['People']['gender'] = $this->request->data['gender'];
         $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
         switch ($_REQUEST['type']) {
