@@ -12,7 +12,16 @@ showmaidensurname('Female');
 }
 
     $("#createFamily").validate({
-        errorElement: "span",
+         errorElement: "div",
+          errorPlacement: function(error, element) {
+               var type = $(element).attr("type");
+            if (typeof type == 'undefined') {
+                error.appendTo(element.parent());
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
         rules: {
             'data[People][first_name]': {
                 required: true,
