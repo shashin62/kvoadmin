@@ -241,11 +241,15 @@ Class People extends AppModel
      * @param type $groupId
      * @return boolean
      */
-    public function getFamilyDetails($groupId)
+    public function getFamilyDetails($groupId , $pid = false)
     {
         
         $this->recursive = -1;
         $options['conditions']['Group.group_id'] = $groupId;
+        
+        if( $pid ) {
+            $options['conditions']['People.id'] = $pid;
+        }
         
          $options['joins'] = array(
             array('table' => 'people_groups',
