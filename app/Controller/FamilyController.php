@@ -205,6 +205,7 @@ Class FamilyController extends AppController {
                 $updateFatherDetails['People']['f_id'] = $_REQUEST['peopleid'];
                 $updateFatherDetails['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateFatherDetails['People']['id'] = $idToBeUpdated;
+                $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 $this->People->save($updateFatherDetails);
                 $message = 'Father has been added';
                 break;
@@ -222,6 +223,7 @@ Class FamilyController extends AppController {
                 $updateMotherDetails['People']['m_id'] = $_REQUEST['peopleid'];
                 $updateMotherDetails['People']['mother'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateMotherDetails['People']['id'] = $idToBeUpdated;
+                
                 $this->People->save($updateMotherDetails);
                 $message = 'Mother has been added';
                 break;
@@ -358,6 +360,7 @@ Class FamilyController extends AppController {
                     
                     $this->Group->save($groupData);
                     $this->request->data['People']['group_id'] = $this->Group->id;
+                    $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                     if ($this->People->save($this->request->data)) {
 
                         $msg['status'] = 1;
@@ -406,6 +409,7 @@ Class FamilyController extends AppController {
 
                 $name = $getPeopleDetail[0]['People']['first_name'] . '' . $getPeopleDetail[0]['People']['lastname'];
                 $this->request->data['People']['partner_name'] = $name;
+                $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 if ($msg['status'] == 1) {
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
@@ -455,7 +459,7 @@ Class FamilyController extends AppController {
                 }
                 if ($msg['status'] == 1) {
 
-
+                    $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                         $fatherId = $this->People->id;
@@ -526,6 +530,7 @@ Class FamilyController extends AppController {
                     }
                 } 
                 if ($msg['status'] == 1) {
+                    $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                         $message = 'Child has been added';
@@ -566,6 +571,7 @@ Class FamilyController extends AppController {
                     }
                 }
                  if ($msg['status'] == 1) {
+                     $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 if ($this->People->save($this->request->data)) {
                     $msg['status'] = 1;
                     $motherId = $this->People->id;
@@ -613,6 +619,7 @@ Class FamilyController extends AppController {
 
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
+                    $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                     } else {
