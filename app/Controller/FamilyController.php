@@ -791,7 +791,8 @@ Class FamilyController extends AppController {
         
         $gid = $_REQUEST['gid'];
         
-        
+         $suburbs = $this->Suburb->find('list', array('fields' => array('Suburb.name', 'Suburb.name')));
+        $this->set(compact('suburbs'));
          
          $array = array();
         $array['gid'] = $gid;
@@ -833,7 +834,7 @@ Class FamilyController extends AppController {
     {
         $this->autoRender = false;
         $this->layout = 'ajax';
-        
+       
         $userID = $this->Session->read('User.user_id');
         $peopleId = $_REQUEST['peopleid'];
         $aid = $_REQUEST['addressid'];
@@ -845,7 +846,9 @@ Class FamilyController extends AppController {
         
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife','Retired','Studying','Other');
+         
         if (!in_array($this->request->data['occupation'], $occupation)) {
+            
             $parentId = $_REQUEST['parentid'];
             $paddressid = $_REQUEST['paddressid'];
             if ($same == 1) {
@@ -861,7 +864,9 @@ Class FamilyController extends AppController {
                 unset($getParentAddress[0]['Address']['people_id']);
                 $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
                 $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
+                $this->request->data['Address']['suburb_zone'] = $this->request->data['suburb_zone'];
                 $this->request->data = $getParentAddress[0];
+               
                 if ($this->Address->save($this->request->data)) {
                     $msg['status'] = 1;
                     $addressId = $this->Address->id;
@@ -885,7 +890,7 @@ Class FamilyController extends AppController {
                 }
 
                 $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];
-                $this->request->data['Address']['suburb'] = $_REQUEST['suburb'];
+                $this->request->data['Address']['suburb_zone'] = $this->request->data['suburb_zone'];
                 if ($this->Address->save($this->request->data)) {
                     $msg['status'] = 1;
                     $addressId = $this->Address->id;
@@ -964,6 +969,7 @@ Class FamilyController extends AppController {
     {
         $this->autoRender = false;
         $this->layout = 'ajax';
+        
         $userID = $this->Session->read('User.user_id');
         $same = $this->request->data['Address']['is_same'];
         $parentId = $_REQUEST['parentid'];
@@ -980,6 +986,7 @@ Class FamilyController extends AppController {
             unset($getParentAddress[0]['Address']['people_id']);
             $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
             $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
+            
             $this->request->data = $getParentAddress[0];
             
             if ($this->Address->save($this->request->data)) {
@@ -1006,7 +1013,7 @@ Class FamilyController extends AppController {
             $this->request->data['Address']['ownership_type'] = $_REQUEST['ownership_type'];
             $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];    
             $this->request->data['Address']['created'] = date('Y-m-d H:i:s');
-            $this->request->data['Address']['suburb'] = $_REQUEST['suburb'];
+            $this->request->data['Address']['suburb_zone'] = $_REQUEST['suburb_zone'];
             
             if( isset($getParentAddress[0]) && count($getParentAddress)) {
                  $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];
