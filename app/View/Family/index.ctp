@@ -3,7 +3,7 @@
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
     <?php 
    
-    if( $userType == 'addnew' || $call_again != null) { ?>
+    if( $userType == 'addnew' || ($call_again === false || $call_again === true)) { ?>
     
     <div class="row-fuild">
         <div class="btn-group ">
