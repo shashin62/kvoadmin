@@ -16,8 +16,12 @@
                  <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Last Week Completed Record(s)</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php foreach ( $completedCountThisWeek as $k => $v) {?>
+                        <?php
+                        if ( count($completedCountThisWeek)) {
+                            foreach ( $completedCountThisWeek as $k => $v) {?>
                             <span><?php echo $v['name'];?></span> (<?php echo $v['count'];?>)<br />
+                    <?php } } else { ?>
+                        NA
                     <?php } ?>
                     </div>
                 </div>                
