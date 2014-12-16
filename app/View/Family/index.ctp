@@ -1,6 +1,20 @@
  <div class="container-fluid">
     <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
+    <?php if( $userType == 'addnew' || $tree_level == "") { ?>
+    
+    <div class="row-fuild">
+        <div class="btn-group ">
+                <div class=" control-label"></div>
+                <div class="checkbox">
+                    <label>
+                    <?php echo $this->Form->input("call_again", array('type' => "checkbox", 'checked' => $call_again == 1 ? 'checked' : '','div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Call Again?')))); ?>
+                    </label>
+                </div>
+            </div>
+    </div>
+    <br/>
+    <?php } ?>
     <div class="row-fuild">
         <div class="btn-group " data-toggle="buttons">
             <label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
@@ -51,6 +65,7 @@
     <br>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
+            
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
@@ -76,7 +91,6 @@
                        array('id' => 'date_of_marriage', 'type' => 'text','value'=> $date_of_marriage,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
                 </div>
             </div>
-            
         </div>
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
