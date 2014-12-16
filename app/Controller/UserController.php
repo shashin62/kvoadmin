@@ -95,8 +95,8 @@ Class UserController extends AppController {
     public function welcome()
     {
         $userId = $this->Session->read('User.user_id');
-        
-        $getCurrentWeekRecords = $this->People->getCompletedCountThisWeek($userId);
+        if( $this->Session->read('User.user_id') == 2) {
+             $getCurrentWeekRecords = $this->People->getCompletedCountThisWeek($userId);
         
         $enteredCounts = array();
         $i = 0;
@@ -131,6 +131,11 @@ Class UserController extends AppController {
         }
         
         $this->set('incompletedCount',$incompletedCounts);
+        } else {
+            $this->redirect($this->Auth->redirect('/family/familiyGroups'));
+        }
+        
+       
                 
         
     }
