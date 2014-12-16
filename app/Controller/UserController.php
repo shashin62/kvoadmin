@@ -96,28 +96,42 @@ Class UserController extends AppController {
     {
         $userId = $this->Session->read('User.user_id');
         
-        $getEnteredRecords = $this->People->getEnteredCount($userId);
+        $getCurrentWeekRecords = $this->People->getCompletedCountThisWeek($userId);
         
         $enteredCounts = array();
         $i = 0;
-        foreach( $getEnteredRecords as $value) {
+        foreach( $getCurrentWeekRecords as $value) {
             $enteredCounts[$i]['count'] = $value[0]['count'];
-            $enteredCounts[$i]['name'] = $value['People']['first_name'] . ' ' . $value['People']['last_name'];
+            $enteredCounts[$i]['name'] = $value['u']['first_name'] . ' ' . $value['u']['last_name'];
             $i++;
         }
-        $getCompletedCount = $this->People->getCompletedCount($userId);
+        $getLastCompletedCount = $this->People->getCompletedCountLastWeek($userId);
+        
         
         $completedCounts = array();
         $i = 0;
-        foreach( $getCompletedCount as $value) {
+        foreach( $getLastCompletedCount as $value) {
             $completedCounts[$i]['count'] = $value[0]['count'];
-            $completedCounts[$i]['name'] = $value['People']['first_name'] . ' ' . $value['People']['last_name'];
+            $completedCounts[$i]['name'] = $value['u']['first_name'] . ' ' . $value['u']['last_name'];
             $i++;
         }
         
         $this->set('completedCountThisWeek',$completedCounts);
         
         $this->set('enteredCount',$enteredCounts);
+        
+        $getIncompleteRecords = $this->People->getInCompleteRecords();
+        
+        $incompletedCounts = array();
+        $i = 0;
+        foreach( $getIncompleteRecords as $value) {
+            $incompletedCounts[$i]['count'] = $value[0]['count'];
+            $incompletedCounts[$i]['name'] = $value['u']['first_name'] . ' ' . $value['u']['last_name'];
+            $i++;
+        }
+        
+        $this->set('incompletedCount',$incompletedCounts);
+                
         
     }
     
