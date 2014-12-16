@@ -107,7 +107,8 @@ foreach( $data as $key => $value ) { $missingData = array();?>
                         <?php } ?>
                         <?php } ?>
 			<u><h3>Secondary Family</h3></u>
-<?php foreach( $data as $key => $value ) { $missingData = array();?>
+<?php foreach( $data as $key => $value ) { 
+$missingData = array();?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
 <div class="row">
 				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
