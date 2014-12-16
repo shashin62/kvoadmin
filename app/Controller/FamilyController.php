@@ -206,6 +206,7 @@ Class FamilyController extends AppController {
                 $updateFatherDetails['People']['id'] = $idToBeUpdated;
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 $this->People->save($updateFatherDetails);
+                $msg['group_id'] = $gid;
                 $message = 'Father has been added';
                 break;
             case 'addmother':
@@ -224,6 +225,7 @@ Class FamilyController extends AppController {
                 $updateMotherDetails['People']['id'] = $idToBeUpdated;
                 
                 $this->People->save($updateMotherDetails);
+                $msg['group_id'] = $gid;
                 $message = 'Mother has been added';
                 break;
             case 'addnew':
@@ -279,7 +281,7 @@ Class FamilyController extends AppController {
                     }
                     $this->PeopleGroup->saveAll($allData);
                     
-                    
+                    $msg['group_id'] = $this->Group->id;
                     $message = 'Family has been created';
                     
                     
@@ -651,6 +653,9 @@ Class FamilyController extends AppController {
         
         $id = $this->request->params['pass'][0];
         $getDetails = $this->People->getFamilyDetails($id, false, true);
+//        echo '<pre>';
+//        print_r($getDetails);
+//        exit;
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('data', $getDetails);
