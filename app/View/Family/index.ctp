@@ -1,27 +1,43 @@
  <div class="container-fluid">
     <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
+    <?php 
+   
+    if( $userType == 'addnew' || ($call_again === false || $call_again === true)) { ?>
+    
     <div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default <?php echo $title == 'deravasi' ? 'active' : '';?>">
-                <input type="radio" name="title" <?php echo $title == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
+        <div class="btn-group ">
+                <div class=" control-label"></div>
+                <div class="checkbox">
+                    <label>
+                    <?php echo $this->Form->input("call_again", array('type' => "checkbox", 'checked' => $call_again == 1 ? 'checked' : '','div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Call Again?')))); ?>
+                    </label>
+                </div>
+            </div>
+    </div>
+    <br/>
+    <?php } ?>
+    <div class="row-fuild">
+        <div class="btn-group " data-toggle="buttons">
+            <label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
+                <input type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
             </label>
-            <label class="btn btn-default <?php echo $title == 'sthanakvasi' ? 'active' : '';?>">
-                <input type="radio" name="title" <?php echo $title == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
+            <label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
+                <input type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
             </label>
-            <label class="btn btn-default <?php echo $title == 'other' ? 'active' : '';?>">
-                <input type="radio" name="title" <?php echo $title == 'other' ? 'checked=checked' : '';?> value="other">Other
+            <label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
+                <input type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
             </label>
         </div>
     </div>
     <br>
     <div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
+        <div class="btn-group genders" data-toggle="buttons">
             <label class="btn btn-default <?php echo $gender == 'male' ? 'active' : '';?>">
-                <input type="radio" name="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
+                <input type="radio" name="gender" class="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
             </label>
             <label class="btn btn-default <?php echo $gender == 'female' ? 'active' : '';?>">
-                <input type="radio" name="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
+                <input type="radio" name="gender" class="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
             </label>
         </div>
     </div>
@@ -51,6 +67,7 @@
     <br>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
+            
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
@@ -76,19 +93,18 @@
                        array('id' => 'date_of_marriage', 'type' => 'text','value'=> $date_of_marriage,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
                 </div>
             </div>
-            
         </div>
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Phone</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mobile_number">Mobile Number</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone_number', array('id' => 'phone_number', 'value'=> $phone_number,'placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('mobile_number', array('id' => 'mobile_number', 'value'=> $mobile_number,'placeholder' => 'Mobile number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="surname_dob">Surname at birth</label>
+            <div class="form-group maidensurname">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_surname">Maiden Surname</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('surname_dob', array('id' => 'surname_dob','value'=> $surname_dob, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname','value'=> $maiden_surname, 'placeholder' => 'Enter dob surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
@@ -99,7 +115,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>   
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="vsillage">Village</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
                         
@@ -107,7 +123,8 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 'combobox',
+                'empty' => __d('label', '--Select--'),
+                'class' => 'village combobox',
                 'style' => '',
                 'disabled' => $readonly,
                 'options' => $villages,
@@ -115,6 +132,7 @@
             ));
             ?>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -137,6 +155,7 @@
                 'legend' => false,
                 'class' => 'combobox',
                 'style' => '',
+                'empty' => __d('label', '--Select--'),
                 'options' => $educations,
                 'value' => $education
             ));
@@ -149,7 +168,8 @@
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="blood_group">Blood Group</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
-                        
+                        $array = array('' => '--select--');
+            $bloodgroups = array_merge($array, $bloodgroups);
             echo $this->Form->input('blood_group', array('id' => 'blood_group',
                 'label' => false,
                 'div' => false,
@@ -157,6 +177,7 @@
                 'class' => 'combobox',
                 'style' => 'width:50px;',
                 'width' => '50%',
+                'empty' => __d('label', '--Select--'),
                 'options' => $bloodgroups,
                 'value' => $blood_group
             ));
@@ -167,7 +188,7 @@
 							<div class="col-lg-4 col-md-4 col-xs-4 control-label"></div>
 							<div class="checkbox col-lg-8 col-md-8 col-xs-8">
 								<label>
-                                                                    <?php echo $this->Form->input("is_late", array('type' => "checkbox", 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Late')))); ?>
+                                                                    <?php echo $this->Form->input("is_late", array('type' => "checkbox", 'checked' => $is_late == 1 ? 'checked' : '','div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Late')))); ?>
 								</label>
 							</div>
 						</div>
@@ -191,6 +212,7 @@
 <script type="text/javascript">
     var pid = '<?php echo $pid; ?>';
     var userType = '<?php echo $userType; ?>';
+    var grpid = '<?php echo $gid; ?>';
 </script>
 <script>
     $(function () {

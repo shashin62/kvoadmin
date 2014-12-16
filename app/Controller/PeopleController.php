@@ -52,5 +52,16 @@ Class PeopleController extends AppController {
         $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
         $this->set(compact('villages'));
     }
+    
+    public function callAgain()
+    {
+        $this->autoRender = false;
+        $data = $this->People->getCallAgainMembers();
+//        echo '<pre>';
+//        print_r($data);
+//        echo '</pre>';
+//        exit;
+        echo json_encode($data);
+    }
 }
 

@@ -28,7 +28,7 @@ showoccupation(occupation);
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
-                    window.location.href = baseUrl + "/family/familiyGroups";
+                    window.location.href = baseUrl + "/family/details/" + grpid;
                 }, 2500);
             }
                

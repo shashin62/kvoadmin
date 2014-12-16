@@ -43,8 +43,8 @@ SS("printbutton",false);
 }
 
 function NSS(s){
-
-SH("sidelinktext",s?"Hide":"Show");
+console.log(s);
+SH("sidelinktext",s?"":"");
 
 }
 

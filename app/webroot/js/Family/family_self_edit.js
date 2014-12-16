@@ -3,10 +3,25 @@ $(document).ready(function () {
 $('.selectpicker').selectpicker();
 
 $( ".combobox" ).combobox();
-
+if( userType =='addmother') {
+showmaidensurname('Female');
+} else if(userType == 'addfather') {
+    showmaidensurname('Male');
+} else {
+    showmaidensurname('Male');
+}
 
     $("#createFamily").validate({
-        errorElement: "span",
+         errorElement: "div",
+          errorPlacement: function(error, element) {
+               var type = $(element).attr("type");
+            if (typeof type == 'undefined') {
+                error.appendTo(element.parent());
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
         rules: {
             'data[People][first_name]': {
                 required: true,
@@ -16,7 +31,8 @@ $( ".combobox" ).combobox();
                 required: true,
                 maxlength: 25
             },
-            'data[People][phone_number]': {
+            'data[People][mobile_number]': {
+                required: true,
                 maxlength: 10
             },
             'data[People][email]': {
@@ -24,6 +40,9 @@ $( ".combobox" ).combobox();
                 email: true
             },
             'data[People][gender]': {
+                required: true
+            },
+             'data[People][village]': {
                 required: true
             },
         },
@@ -36,7 +55,8 @@ $( ".combobox" ).combobox();
                 required: 'Please enter last name',
                 maxlength: 'Length exceeds 25 charaters'
             },
-            'data[People][phone_number]': {
+            'data[People][mobile_number]': {
+                required: 'Please enter phone number',
                 maxlength: 'Please enter valid phone number'
             },
             'data[People][email]': {
@@ -44,6 +64,9 @@ $( ".combobox" ).combobox();
             },
             'data[People][gender]': {
                 required: 'Please select gender'
+            },
+            'data[People][village]': {
+                required: 'Please select village'
             },
         },
         submitHandler: function (form) {
@@ -63,7 +86,11 @@ $( ".combobox" ).combobox();
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
-                    window.location.href = baseUrl + "/family/familiyGroups";
+                    
+                    if ( grpid == '') {
+                        grpid = data.grpid;
+                    }
+                    window.location.href = baseUrl + "/family/details/"+ grpid;
                 }, 2500);
             }
                
@@ -75,19 +102,38 @@ $( ".combobox" ).combobox();
 });
 
 $(".editOwnButton").click(function () {
+    if( userType != 'addnew') {
+        $('.phone_number').rules('remove', 'required');
+    }
     $("#createFamily").submit();
     return false;
 });
 
+$('.genders > label').click(function()
+{
+   showmaidensurname($(this).text());
+});
+
+function showmaidensurname($this)
+{
+    
+    if( $.trim($this) == "Male") {
+       $(".maidensurname").hide();
+   } else {
+        $(".maidensurname").show();
+   }
+}
 $(".male").click(function () {
-    $(".maidenvillage").hide();
+    $(".maidensurname").hide();
     $(".widower").val('widower');
     
     return false;
 });
 
 $(".female").click(function () {
-    $(".maidenvillage").show();
+    $(".maidensurname").show();
      $(".widower").val('widow');
     return false;
 });
+
+

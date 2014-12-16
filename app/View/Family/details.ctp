@@ -18,7 +18,9 @@
                         $People = new People();
     
                         ?>
-			<?php foreach( $data as $key => $value ) { ?>
+			<?php 
+
+foreach( $data as $key => $value ) { $missingData = array();?>
                     <?php if( $groupId == $value['People']['group_id']) { ?>
                         <div class="row">
 				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
@@ -42,7 +44,7 @@
                                 </div>
 				<div class="col-md-2">
                                     <a class="editbusiness" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['business_address_id'];?>" href="#">
-                            <?php echo $value['People']['business_address_id'] ? 'Edit Eduction Details' : 'Add Eduction Details';?></a><br>
+                            <?php echo $value['People']['business_address_id'] ? 'Edit Business Details' : 'Add Business Details';?></a><br>
                                     <?php if( empty($value['People']['m_id'])) { ?>
                                     <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
                                     <?php } else { ?>
@@ -70,16 +72,77 @@
                                 <?php } else { ?>
                                              <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
+                                
+                                <?php 
+                                   if (empty($value['People']['f_id'])) {
+            $missingData[] = '<span style="color:orange">Father</span><br/>';
+        }
+        if (empty($value['People']['m_id'])) {
+            $missingData[] = '<span style="color:orange">Mother</span><br/>';
+        }
+        if (empty($value['People']['gender'])) {
+            $missingData[] = '<span style="color:orange">Gender</span><br/>';
+        }
+        if (empty($value['People']['address_id'])) {
+            $missingData[] = '<span style="color:orange">Address</span><br/>';
+        }
+        if (empty($value['People']['mobile_number'])) {
+            $missingData[] = '<span style="color:orange">Mobile</span><br/>';
+        }
+        if (empty($value['People']['date_of_birth'])) {
+            $missingData[] = '<span style="color:orange">DOB</span><br/>';
+        }
+        if (empty($value['People']['village'])) {
+            $missingData[] = '<span style="color:orange">village</span><br/>';
+        }
+        if (empty($value[0]['grandfather'])) {
+            $missingData[] = '<span style="color:orange">grandfather</span><br/>';
+        }
+
+                                    ?>
+                                   <div class="col-md-1"> 
+                                    <?php echo implode(',',$missingData);?>                                    
+                                </div>
                         </div><br>
                         <?php } ?>
                         <?php } ?>
 			<u><h3>Secondary Family</h3></u>
-<?php foreach( $data as $key => $value ) { ?>
+<?php foreach( $data as $key => $value ) { 
+$missingData = array();?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
 <div class="row">
 				<div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
 				<div class="col-md-2"><a href="#">View Detail</a></div>
-				
+<?php 
+                                   if (empty($value['People']['f_id'])) {
+            $missingData[] = '<span style="color:orange">Father</span><br/>';
+        }
+        if (empty($value['People']['m_id'])) {
+            $missingData[] = '<span style="color:orange">Mother</span><br/>';
+        }
+        if (empty($value['People']['gender'])) {
+            $missingData[] = '<span style="color:orange">Gender</span><br/>';
+        }
+        if (empty($value['People']['address_id'])) {
+            $missingData[] = '<span style="color:orange">Address</span><br/>';
+        }
+        if (empty($value['People']['mobile_number'])) {
+            $missingData[] = '<span style="color:orange">Mobile</span><br/>';
+        }
+        if (empty($value['People']['date_of_birth'])) {
+            $missingData[] = '<span style="color:orange">DOB</span><br/>';
+        }
+        if (empty($value['People']['village'])) {
+            $missingData[] = '<span style="color:orange">village</span><br/>';
+        }
+        if (empty($value[0]['grandfather'])) {
+            $missingData[] = '<span style="color:orange">grandfather</span><br/>';
+        }
+
+                                    ?>
+				<div class="col-md-1">
+                                 <?php echo implode(',',$missingData);?> 
+                                </div>
 			</div>
 
 

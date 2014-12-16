@@ -9,7 +9,7 @@ Class People extends AppModel
     public function getAllPeoples($type = false)
     {
        
-        $aColumns = array('p.id','p.first_name','p.last_name', 'p.village','p.phone_number','p.m_id','p.f_id',
+        $aColumns = array('p.id','p.first_name','p.last_name', 'p.village','p.mobile_number','p.m_id','p.f_id',
             'IF( p.f_id = parent.id, parent.first_name, "") as father',
             'IF( p.m_id = parent2.id, parent2.first_name, "") as mother'
             );
@@ -49,7 +49,7 @@ Class People extends AppModel
             }
         }
         
-        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.phone_number','p.date_of_birth','p.village');
+        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.mobile_number','p.date_of_birth','p.village');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -85,7 +85,7 @@ Class People extends AppModel
                 } else {
                     $sWhere .= ' AND ';
                 }
-                $sWhere .= ' p.gender = "male" AND p.is_late = 0';
+                $sWhere .= ' p.gender = "male" AND p.is_late = 0 AND p.first_name is not null';
                     break;
                 case 'addmother':
                     if ($sWhere == "") {
@@ -93,7 +93,15 @@ Class People extends AppModel
                 } else {
                     $sWhere .= ' AND ';
                 }
-                    $sWhere .= ' p.gender = "female"  AND p.is_late = 0';
+                    $sWhere .= ' p.gender = "female"  AND p.is_late = 0 AND p.first_name is not null';
+                    break;
+                case 'global' :
+                     if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= ' AND ';
+                }
+                $sWhere .= ' p.first_name is not null';
                     break;
                 default:
                     if ($sWhere == "") {
@@ -101,7 +109,7 @@ Class People extends AppModel
                 } else {
                     $sWhere .= ' AND ';
                 }
-                $sWhere .= ' p.gender = "male"  AND p.is_late = 0';
+                $sWhere .= ' p.gender = "male"  AND p.is_late = 0 AND p.first_name is not null';
                     break;
             }
         } else {
@@ -116,10 +124,10 @@ Class People extends AppModel
                     LEFT JOIN people as parent2 ON (parent2.id = p.m_id) 
                     ";
                     
-        //$sGroup = " group by p.phone_number";
+        //$sGroup = " group by p.mobile_number";
 
       $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.phone_number, p.date_of_birth, p.m_id, p.f_id, 
+    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number, p.date_of_birth, p.m_id, p.f_id, 
     IF( p.f_id = parent.id ,parent.first_name, '') as father
               , IF( p.m_id = parent2.id, parent2.first_name, '') as mother,
               p.village,p.email
@@ -165,7 +173,9 @@ Class People extends AppModel
             $row = array();
             //for ($i = 0; $i < count($aColumns); $i++) {
                 /* General output */
-            $row[] = '';
+            //if( $type != 'global') {
+                $row[] = '';
+            //}
             foreach ( $value['p'] as $k => $v) {
                 $row[] = $v;
             }
@@ -210,7 +220,7 @@ Class People extends AppModel
     }
 
 
-    public function getPeopleData( $userId , $type = false) {
+    public function getPeopleData( $userId , $type = false , $groupId = false) {
         $this->recursive = -1;
         if( $type) {
             $options['conditions']['People.id'] = $userId;
@@ -218,7 +228,19 @@ Class People extends AppModel
             $options['conditions']['People.user_id'] = $userId;
         }
         
-          $options['fields'] = array('People.*');
+        $options['conditions']['Group.group_id'] = $groupId;
+        
+         $options['joins'] = array(
+            array('table' => 'people_groups',
+                'alias' => 'Group',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'People.id = Group.people_id'
+                )
+            )
+             );
+        
+          $options['fields'] = array('People.*','Group.tree_level');
         try {
             $userData = $this->find('all', $options);
 
@@ -241,13 +263,17 @@ Class People extends AppModel
      * @param type $groupId
      * @return boolean
      */
-    public function getFamilyDetails($groupId)
+    public function getFamilyDetails($groupId , $pid = false,$getAllDetails = false)
     {
         
         $this->recursive = -1;
         $options['conditions']['Group.group_id'] = $groupId;
         
-         $options['joins'] = array(
+        if( $pid ) {
+            $options['conditions']['People.id'] = $pid;
+        }
+        if( $getAllDetails) {
+             $options['joins'] = array(
             array('table' => 'people_groups',
                 'alias' => 'Group',
                 'type' => 'LEFT',
@@ -255,12 +281,51 @@ Class People extends AppModel
                     'People.id = Group.people_id'
                 )
             ),
+             array('table' => 'people',
+                'alias' => 'parent1',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'parent1.id = People.f_id'
+                )
+            ),
+             array('table' => 'people',
+                'alias' => 'parent2',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'parent2.id = People.m_id'
+                )
+            ),
+             
+             array('table' => 'people',
+                'alias' => 'grandfather',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'grandfather.id = parent1.f_id'
+                )
+            )
              );
-          $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
+        } else {
+             $options['joins'] = array(
+            array('table' => 'people_groups',
+                'alias' => 'Group',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'People.id = Group.people_id'
+                )
+            ),
+                 );
+        }
+        if ( $getAllDetails) {
+            $options['fields'] = array('People.*','Group.tree_level','Group.people_id','concat_ws(" ",grandfather.first_name,grandfather.last_name) as grandfather');
+        } else {
+            $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
+        }
+          
           $options['order'] = array('Group.tree_level' => 'asc');
         try {
             $familyData = $this->find('all', $options);
-
+            
+            //exit;
 
             if (!empty($familyData) && isset($familyData[0])) {
                 $familyData = $familyData;
@@ -376,7 +441,7 @@ Class People extends AppModel
      */
     public function checkPhoneExists($phone) {
         $this->recursive = -1;
-        $options['conditions'] = array('People.phone_number' => $phone);
+        $options['conditions'] = array('People.mobile_number' => $phone);
         $options['fields'] = array('People.id');
         try {
             $userData = $this->find('all', $options);
@@ -444,8 +509,8 @@ Class People extends AppModel
             $options['conditions']['AND'][] = array('People.village' => $data['village']);
         }
         
-        if( !empty($data['phone_number'])) {
-            $options['conditions']['AND'][] = array('People.phone_number' => $data['phone_number']);
+        if( !empty($data['mobile_number'])) {
+            $options['conditions']['AND'][] = array('People.mobile_number' => $data['mobile_number']);
         }
         
         if( !empty($data['email'])) {
@@ -496,6 +561,201 @@ Class People extends AppModel
             CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
             return false;
         }
+    }
+    
+    public function getCallAgainMembers()
+    {
+        $aColumns = array('id', 'first_name', 'last_name','mobile_number');
+
+        /* Indexed column (used for fast and accurate table cardinality) */
+        $sIndexColumn = "id";
+
+        /* DB table to use */
+        $sTable = "people";
+
+        /*
+         * Paging
+         */
+        $sLimit = "";
+        if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+            $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
+                    intval($_GET['iDisplayLength']);
+        }
+
+
+        /*
+         * Ordering
+         */
+        $sOrder = "";
+        if (isset($_GET['iSortCol_0'])) {
+            $sOrder = "ORDER BY  ";
+            for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
+                if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
+                    $sOrder .= "`" . $aColumns[intval($_GET['iSortCol_' . $i])] . "` " .
+                            ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+                }
+            }
+
+            $sOrder = substr_replace($sOrder, "", -2);
+            if ($sOrder == "ORDER BY") {
+                $sOrder = "";
+            }
+        }
+        /*
+         * Filtering
+         * NOTE this does not match the built-in DataTables filtering which does it
+         * word by word on any field. It's possible to do here, but concerned about efficiency
+         * on very large tables, and MySQL's regex functionality is very limited
+         */
+        $sWhere = "";
+        if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+            $sWhere = "WHERE (";
+            for ($i = 0; $i < count($aColumns); $i++) {
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch']) . "%' OR ";
+            }
+            $sWhere = substr_replace($sWhere, "", -3);
+            $sWhere .= ')';
+        }
+        /* Individual column filtering */
+        for ($i = 0; $i < count($aColumns); $i++) {
+            if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
+                if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= " AND ";
+                }
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
+            }
+        }
+        
+        if ($sWhere == "") {
+            $sWhere = "WHERE call_again = 1";
+        } else {
+            $sWhere .= ' AND call_again = 1';
+        }
+
+        /*
+         * SQL queries
+         * Get data to display
+         */
+
+
+        $sQuery = "
+    SELECT SQL_CALC_FOUND_ROWS `" . str_replace(" , ", " ", implode("`, `", $aColumns)) . "`
+            FROM   $sTable
+            $sWhere
+            $sOrder
+            $sLimit
+            ";
+
+        $rResult = $this->query($sQuery);
+
+        /* Data set length after filtering */
+        $sQuery = "
+    SELECT FOUND_ROWS() as total
+";
+        $rResultFilterTotal = $this->query($sQuery);
+
+        $iFilteredTotal = $rResultFilterTotal[0][0]['total'];
+
+        /* Total data set length */
+        $sQuery = "
+    SELECT COUNT(`" . $sIndexColumn . "`) as countid
+            FROM   $sTable
+            ";
+        $rResultTotal = $this->query($sQuery);
+
+        $iTotal = $rResultTotal[0][0]['countid'];
+
+
+        /*
+         * Output
+         */
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iFilteredTotal,
+            "aaData" => array()
+        );
+
+        foreach ($rResult as $key => $value) {
+
+            $row = array();
+            for ($i = 0; $i < count($aColumns); $i++) {
+                /* General output */
+                $row[] = $value['people'][$aColumns[$i]];
+            }
+            //$row[] = '';
+            $output['aaData'][] = $row;
+        }
+        return $output;
+    }
+    
+    public function getCompletedCountLastWeek($userId)
+    {
+        $this->recursive = -1;
+        $dbh = $this->getDataSource();
+        
+        $result = $dbh->fetchAll("SELECT 
+SUM(IF(p.f_id IS NOT NULL AND p.m_id IS NOT NULL AND p.gender IS NOT NULL AND p.village IS NOT NULL AND p.date_of_birth IS NOT NULL AND p.mobile_number IS NOT NULL,1,0)) as count, u.first_name, u.last_name,p.modified,GROUP_CONCAT(p.id)
+FROM `people` as p
+INNER JOIN users as u ON u.id = p.created_by
+WHERE u.role_id = 2 
+ AND p.modified BETWEEN DATE_SUB( CURDATE( ) , INTERVAL (dayofweek(CURDATE())+5) DAY ) AND DATE_SUB( CURDATE( ) , INTERVAL (dayofweek(CURDATE())) DAY ) 
+GROUP BY p.created_by");
+        
+        return $result;
+        
+    }
+    
+    public function getCompletedCountThisWeek($userId) 
+    {
+        $this->recursive = -1;
+        $dbh = $this->getDataSource();
+        
+        $result = $dbh->fetchAll("SELECT 
+SUM(IF(p.f_id IS NOT NULL AND p.m_id IS NOT NULL AND p.gender IS NOT NULL AND p.village IS NOT NULL AND p.date_of_birth IS NOT NULL AND p.mobile_number IS NOT NULL,1,0)) as count, u.first_name, u.last_name,p.modified
+FROM `people` as p
+INNER JOIN users as u ON u.id = p.created_by
+
+WHERE u.role_id = 2
+AND YEARWEEK(p.modified )=YEARWEEK(NOW())
+GROUP BY p.created_by");
+        
+        return $result;
+
+        try {
+            
+            return $result;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        } 
+    }
+    
+    public function getInCompleteRecords()
+    {
+        $this->recursive = -1;
+        $dbh = $this->getDataSource();
+        
+        $result = $dbh->fetchAll("SELECT 
+SUM(IF(p.f_id IS  NULL OR p.m_id IS  NULL OR p.gender IS  NULL OR p.village IS  NULL OR p.date_of_birth IS  NULL OR p.mobile_number IS NOT NULL,1,0)) as count, u.first_name, u.last_name,p.modified
+FROM `people` as p
+INNER JOIN users as u ON u.id = p.created_by
+
+WHERE u.role_id = 2
+
+GROUP BY p.created_by");
+        
+        return $result;
+
+        try {
+            
+            return $result;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        } 
     }
     
 

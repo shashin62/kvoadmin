@@ -48,21 +48,39 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">Suburb</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                         <?php
+            echo $this->Form->input('suburb', array('id' => 'suburb',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'empty' => __d('label', '--Select--'),
+                'class' => 'combobox',
+                'tabindex'=> '10',
+                'style' => '',
+                'options' => $suburbs,
+                'value' => $suburb
+            ));
+            ?>
+                </div>
+            </div>
                  <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb</label>   
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb_zone">Suburb Zone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default <?php echo $suburb == 'east' ? 'active' : '';?>">
-                                <input type="radio" name="suburb" <?php echo $suburb == 'east' ? 'checked=checked' : '';?> value="east">East
+                            <label class="btn btn-default <?php echo $suburb_zone == 'east' ? 'active' : '';?>">
+                                <input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'east' ? 'checked=checked' : '';?> value="east">East
                             </label>
-                            <label class="btn btn-default <?php echo $suburb == 'west' ? 'active' : '';?>">
-                                <input type="radio" name="suburb" <?php echo $suburb == 'west' ? 'checked=checked' : '';?> value="west">West
+                            <label class="btn btn-default <?php echo $suburb_zone == 'west' ? 'active' : '';?>">
+                                <input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'west' ? 'checked=checked' : '';?> value="west">West
                             </label>
-                            <label class="btn btn-default <?php echo $suburb == 'central' ? 'active' : '';?>">
-                                <input type="radio" name="suburb" <?php echo $suburb == 'central' ? 'checked=checked' : '';?> value="central">Central
+                            <label class="btn btn-default <?php echo $suburb_zone == 'central' ? 'active' : '';?>">
+                                <input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'central' ? 'checked=checked' : '';?> value="central">Central
                             </label>
-                            <label class="btn btn-default <?php echo $suburb == 'other' ? 'active' : '';?>">
-                                <input type="radio" name="suburb" <?php echo $suburb == 'other' ? 'checked=checked' : '';?> value="other">Other
+                            <label class="btn btn-default <?php echo $suburb_zone == 'other' ? 'active' : '';?>">
+                                <input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'other' ? 'checked=checked' : '';?> value="other">Other
                             </label>
                         </div>
                         
@@ -178,8 +196,9 @@
 </div>
 <script type="text/javascript">
    
-    var aid = '<?php echo $addressid; ?>';   
+    var aid = '<?php echo $addressid ? $addressid : ''; ?>';   
      var pid = '<?php echo $peopleid; ?>';
      var prntid = '<?php echo $parentid; ?>';
+     var grpid = '<?php echo $gid; ?>';
 </script>
 <?php echo $this->Html->script(array('Family/add_address')); ?>

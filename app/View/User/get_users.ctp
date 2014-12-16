@@ -54,6 +54,12 @@
                        <?php echo $this->Form->input('password', array('id' => 'password', 'placeholder' => 'Enter password' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control password')); ?>
                     </div>
                 </div>
+<div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Mobile Number</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <?php echo $this->Form->input('phone_number', array('id' => 'phone_number', 'placeholder' => 'Mobile number' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    </div>
+                </div>
             <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Gender</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">

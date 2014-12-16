@@ -1,7 +1,9 @@
 $('.self').click(function(){
    var $this =  $(this);
    var id = $this.data('id');
-   doFormPost(baseUrl+"/family/index?type=self&id="+ id,'{ "type":"self","fid":"'+ id +'"}');
+   var gid = $this.data('gid');
+   
+   doFormPost(baseUrl+"/family/index?type=self&id="+ id+ "&gid=" + gid,'{ "type":"self","fid":"'+ id +'","gid":"'+ gid +'"}');
    
 });
 
@@ -32,8 +34,9 @@ $('.addspouse').click(function(){
     var $this =  $(this);
     var id = $this.data('id');
     var first_name = $this.data('first_name');
-    
-   doFormPost(baseUrl+"/family/index?type=addspouse",'{ "type":"addspouse","fid":"'+ id +'","name_parent":"'+ first_name +'"}');
+     var gid = $this.data('gid');
+   doFormPost(baseUrl+"/family/index?type=addspouse",
+   '{ "type":"addspouse","fid":"'+ id +'","name_parent":"'+ first_name +'","gid":"'+ gid +'"}');
     
 });
 
@@ -57,11 +60,14 @@ $('.addmother').click(function(){
     
 });
 $('.addchild').click(function(){
+    
    var $this =  $(this);
    var id = $this.data('id');
   var first_name = $this.data('first_name');
-  
-   doFormPost(baseUrl+"/family/index?type=addchilld",'{ "type":"addchilld","fid":"'+ id +'","name_parent":"'+ first_name +'"}');
+  var gid = $this.data('gid');
+ 
+   doFormPost(baseUrl+"/family/index?type=addchilld",
+   '{ "type":"addchilld","fid":"'+ id +'","name_parent":"'+ first_name +'","gid":"'+ gid +'"}');
    
     
 });

@@ -32,9 +32,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Contact Number</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mobile_number">Mobile Number</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control search" name="phone_number" placeholder="Contact number" custom="3"/>
+                        <input type="text" class="form-control search" name="mobile_number" placeholder="Mobile number" custom="3"/>
                     </div>
                 </div>
                 <div class="form-group">

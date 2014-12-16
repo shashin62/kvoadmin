@@ -94,6 +94,44 @@ Class UserController extends AppController {
     
     public function welcome()
     {
+        $userId = $this->Session->read('User.user_id');
+        
+        $getCurrentWeekRecords = $this->People->getCompletedCountThisWeek($userId);
+        
+        $enteredCounts = array();
+        $i = 0;
+        foreach( $getCurrentWeekRecords as $value) {
+            $enteredCounts[$i]['count'] = $value[0]['count'];
+            $enteredCounts[$i]['name'] = $value['u']['first_name'] . ' ' . $value['u']['last_name'];
+            $i++;
+        }
+        $getLastCompletedCount = $this->People->getCompletedCountLastWeek($userId);
+        
+        
+        $completedCounts = array();
+        $i = 0;
+        foreach( $getLastCompletedCount as $value) {
+            $completedCounts[$i]['count'] = $value[0]['count'];
+            $completedCounts[$i]['name'] = $value['u']['first_name'] . ' ' . $value['u']['last_name'];
+            $i++;
+        }
+        
+        $this->set('completedCountThisWeek',$completedCounts);
+        
+        $this->set('enteredCount',$enteredCounts);
+        
+        $getIncompleteRecords = $this->People->getInCompleteRecords();
+        
+        $incompletedCounts = array();
+        $i = 0;
+        foreach( $getIncompleteRecords as $value) {
+            $incompletedCounts[$i]['count'] = $value[0]['count'];
+            $incompletedCounts[$i]['name'] = $value['u']['first_name'] . ' ' . $value['u']['last_name'];
+            $i++;
+        }
+        
+        $this->set('incompletedCount',$incompletedCounts);
+                
         
     }
     
@@ -213,7 +251,7 @@ Class UserController extends AppController {
                     $this->setCakeSession($userAllData);
                     $this->Cookie->write('Auth.User', $cookie, true, '+2 weeks');
                     if ( $this->Session->read('User.role_id') == 2) {
-                        $this->redirect($this->Auth->redirect('/family/familiyGroups'));
+                        $this->redirect($this->Auth->redirect('/'));
                     } else {
                         $this->redirect($this->Auth->redirect('/family/familiyGroups'));
                     }
@@ -266,7 +304,7 @@ Class UserController extends AppController {
          $this->Session->write('User.phone_number', !empty($userAllData['User']['phone_number']) ? $userAllData['User']['phone_number'] : '');
          $this->Session->write('User.martial_status', !empty($userAllData['People']['martial_status']) ? $userAllData['People']['martial_status'] : '');
          $this->Session->write('User.surname_now', !empty($userAllData['People']['surname_now']) ? $userAllData['People']['surname_now'] : '');
-         $this->Session->write('User.surname_dob', !empty($userAllData['People']['surname_dob']) ? $userAllData['People']['surname_dob'] : '');
+         $this->Session->write('User.surname_dob', !empty($userAllData['People']['maiden_surname']) ? $userAllData['People']['maiden_surname'] : '');
           $this->Session->write('User.state', !empty($userAllData['People']['state']) ? $userAllData['People']['state'] : '');
            $this->Session->write('User.village', !empty($userAllData['People']['village']) ? $userAllData['People']['village'] : '');
            $this->Session->write('User.education', !empty($userAllData['People']['education']) ? $userAllData['People']['education'] : '');

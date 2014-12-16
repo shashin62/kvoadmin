@@ -20,7 +20,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">	
                  <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Phone</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Mobile Number</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('phone_number', array('id' => 'phone_number', 'placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
