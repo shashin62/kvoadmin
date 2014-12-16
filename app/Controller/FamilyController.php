@@ -196,6 +196,10 @@ Class FamilyController extends AppController {
                 $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;                
                 $this->PeopleGroup->save($peopleGroup);
+                //check if father has his own family
+                $data = $this->Group->find('all',array('fields' => array('Group.id'),
+                            'conditions' => array('Group.people_id' => $_REQUEST['peopelid'])));
+                
                 $updatePeople = array();
                 $updatePeople['People']['group_id'] = $gid;
                 $updatePeople['People']['id'] = $_REQUEST['peopleid'];                
