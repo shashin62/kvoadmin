@@ -95,7 +95,7 @@ Class UserController extends AppController {
     public function welcome()
     {
         $userId = $this->Session->read('User.user_id');
-        if( $this->Session->read('User.user_id') == 2) {
+        if( $this->Session->read('User.role_id') == 2) {
              $getCurrentWeekRecords = $this->People->getCompletedCountThisWeek($userId);
         
         $enteredCounts = array();
