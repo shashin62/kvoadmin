@@ -57,7 +57,7 @@
             <?php if ($this->Session->read('Auth.User')) {?>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?php echo $this->base;?>">Community App</a></li>
+                        <li><a href="<?php echo $this->base.'/user/welcome';?>">Community App</a></li>
                         <?php 
                         
                         if ($this->Session->read('User.role_id') != 2) {?>
