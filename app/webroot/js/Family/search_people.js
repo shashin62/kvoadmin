@@ -81,7 +81,7 @@ function insertUser(id, data)
     peopleData['phone_number'] = data[5];
     peopleData['village'] = data[4];
     peopleData['email'] = data[9];
-    
+   
     $.ajax({
         url: baseUrl + '/family/insertUser',
         dataType: 'json',
@@ -92,7 +92,7 @@ function insertUser(id, data)
             showJsSuccessMessage(displayMsg);
             setTimeout(function () {
                 $('.jssuccessMessage').hide('slow');
-                window.location = baseUrl + '/family/familiyGroups';
+                window.location = baseUrl + '/family/details/'+ response.group_id;
             }, 2500);
         }
     });
