@@ -94,6 +94,30 @@ Class UserController extends AppController {
     
     public function welcome()
     {
+        $userId = $this->Session->read('User.user_id');
+        
+        $getEnteredRecords = $this->People->getEnteredCount($userId);
+        
+        $enteredCounts = array();
+        $i = 0;
+        foreach( $getEnteredRecords as $value) {
+            $enteredCounts[$i]['count'] = $value[0]['count'];
+            $enteredCounts[$i]['name'] = $value['People']['first_name'] . ' ' . $value['People']['last_name'];
+            $i++;
+        }
+        $getCompletedCount = $this->People->getCompletedCount($userId);
+        
+        $completedCounts = array();
+        $i = 0;
+        foreach( $getCompletedCount as $value) {
+            $completedCounts[$i]['count'] = $value[0]['count'];
+            $completedCounts[$i]['name'] = $value['People']['first_name'] . ' ' . $value['People']['last_name'];
+            $i++;
+        }
+        
+        $this->set('completedCountThisWeek',$completedCounts);
+        
+        $this->set('enteredCount',$enteredCounts);
         
     }
     
@@ -213,7 +237,7 @@ Class UserController extends AppController {
                     $this->setCakeSession($userAllData);
                     $this->Cookie->write('Auth.User', $cookie, true, '+2 weeks');
                     if ( $this->Session->read('User.role_id') == 2) {
-                        $this->redirect($this->Auth->redirect('/family/familiyGroups'));
+                        $this->redirect($this->Auth->redirect('/'));
                     } else {
                         $this->redirect($this->Auth->redirect('/family/familiyGroups'));
                     }
