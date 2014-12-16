@@ -70,7 +70,7 @@ foreach( $data as $key => $value ) { $missingData = array();?>
                                 <?php if($value['Group']['tree_level'] != '') { ?>
                                   <div class="col-md-2"><a href="#">Transfer of Family</a></div>
                                 <?php } else { ?>
-                                             <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
+                                             <div class="col-md-2"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
                                 
                                 <?php 
