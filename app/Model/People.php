@@ -691,70 +691,67 @@ Class People extends AppModel
         return $output;
     }
     
-    public function getCompletedCount($userId)
+    public function getCompletedCountLastWeek($userId)
     {
         $this->recursive = -1;
+        $dbh = $this->getDataSource();
         
-        //$options['conditions']['AND'] = array('People.created_by' => $userId);
+        $result = $dbh->fetchAll("SELECT 
+SUM(IF(p.f_id IS NOT NULL AND p.m_id IS NOT NULL AND p.gender IS NOT NULL AND p.village IS NOT NULL AND p.date_of_birth IS NOT NULL AND p.mobile_number IS NOT NULL,1,0)) as count, u.first_name, u.last_name,p.modified,GROUP_CONCAT(p.id)
+FROM `people` as p
+INNER JOIN users as u ON u.id = p.created_by
+WHERE u.role_id = 2 
+ AND p.modified BETWEEN DATE_SUB( CURDATE( ) , INTERVAL (dayofweek(CURDATE())+5) DAY ) AND DATE_SUB( CURDATE( ) , INTERVAL (dayofweek(CURDATE())) DAY ) 
+GROUP BY p.created_by");
         
-        $options['conditions']['AND'] = array('u.role_id' => 2);
+        return $result;
         
+    }
+    
+    public function getCompletedCountThisWeek($userId) 
+    {
+        $this->recursive = -1;
+        $dbh = $this->getDataSource();
         
+        $result = $dbh->fetchAll("SELECT 
+SUM(IF(p.f_id IS NOT NULL AND p.m_id IS NOT NULL AND p.gender IS NOT NULL AND p.village IS NOT NULL AND p.date_of_birth IS NOT NULL AND p.mobile_number IS NOT NULL,1,0)) as count, u.first_name, u.last_name,p.modified
+FROM `people` as p
+INNER JOIN users as u ON u.id = p.created_by
+
+WHERE u.role_id = 2
+AND YEARWEEK(p.modified )=YEARWEEK(NOW())
+GROUP BY p.created_by");
         
-        
-        $options['fields'] = array(
-            'SUM(IF(People.f_id IS NOT NULL AND People.m_id IS NOT NULL AND People.gender IS NOT NULL '
-            . 'AND People.village IS NOT NULL AND People.date_of_birth IS NOT NULL AND People.mobile_number IS NOT NULL,1,0)) as count',
-            'People.first_name',
-            'People.last_name'
-            );
-        
-        $options['joins'] = array(
-            array('table' => 'users',
-                'alias' => 'u',
-                'type' => 'INNER',
-                'conditions' => array(
-                    'u.id = People.created_by'
-                )
-            ),
-        );
-          
-        $options['group'] = array('People.created_by');        
-        
-        
-        
+        return $result;
+
         try {
-            $userData = $this->find('all', $options);
-            return $userData;
+            
+            return $result;
         } catch (Exception $e) {
             CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
             return false;
         } 
     }
     
-    public function getEnteredCount($userId) 
+    public function getInCompleteRecords()
     {
         $this->recursive = -1;
+        $dbh = $this->getDataSource();
         
-        $options['conditions']['AND'] = array('u.role_id' => 2);
+        $result = $dbh->fetchAll("SELECT 
+SUM(IF(p.f_id IS  NULL OR p.m_id IS  NULL OR p.gender IS  NULL OR p.village IS  NULL OR p.date_of_birth IS  NULL OR p.mobile_number IS NOT NULL,1,0)) as count, u.first_name, u.last_name,p.modified
+FROM `people` as p
+INNER JOIN users as u ON u.id = p.created_by
+
+WHERE u.role_id = 2
+
+GROUP BY p.created_by");
         
-        $options['fields'] = array('COUNT(*) as count','People.first_name','People.last_name');
-        
-        $options['joins'] = array(
-            array('table' => 'users',
-                'alias' => 'u',
-                'type' => 'INNER',
-                'conditions' => array(
-                    'u.id = People.created_by'
-                )
-            ),
-        );
-          
-        $options['group'] = array('People.created_by');
+        return $result;
 
         try {
-            $userData = $this->find('all', $options);
-            return $userData;
+            
+            return $result;
         } catch (Exception $e) {
             CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
             return false;
