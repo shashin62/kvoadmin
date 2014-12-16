@@ -691,6 +691,76 @@ Class People extends AppModel
         return $output;
     }
     
+    public function getCompletedCount($userId)
+    {
+        $this->recursive = -1;
+        
+        //$options['conditions']['AND'] = array('People.created_by' => $userId);
+        
+        $options['conditions']['AND'] = array('u.role_id' => 2);
+        
+        
+        
+        
+        $options['fields'] = array(
+            'SUM(IF(People.f_id IS NOT NULL AND People.m_id IS NOT NULL AND People.gender IS NOT NULL '
+            . 'AND People.village IS NOT NULL AND People.date_of_birth IS NOT NULL AND People.mobile_number IS NOT NULL,1,0)) as count',
+            'People.first_name',
+            'People.last_name'
+            );
+        
+        $options['joins'] = array(
+            array('table' => 'users',
+                'alias' => 'u',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'u.id = People.created_by'
+                )
+            ),
+        );
+          
+        $options['group'] = array('People.created_by');        
+        
+        
+        
+        try {
+            $userData = $this->find('all', $options);
+            return $userData;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        } 
+    }
+    
+    public function getEnteredCount($userId) 
+    {
+        $this->recursive = -1;
+        
+        $options['conditions']['AND'] = array('u.role_id' => 2);
+        
+        $options['fields'] = array('COUNT(*) as count','People.first_name','People.last_name');
+        
+        $options['joins'] = array(
+            array('table' => 'users',
+                'alias' => 'u',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'u.id = People.created_by'
+                )
+            ),
+        );
+          
+        $options['group'] = array('People.created_by');
+
+        try {
+            $userData = $this->find('all', $options);
+            return $userData;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        } 
+    }
+    
 
     
 }
