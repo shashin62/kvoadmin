@@ -6,7 +6,7 @@ class Group extends AppModel {
     
      var $name = 'Group';
      
-     public function getAllFamilyGroups($userId) {
+     public function getAllFamilyGroups($userId, $roleId) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
            'parent.last_name','parent.mobile_number','parent.date_of_birth','grp.created');
@@ -25,8 +25,6 @@ class Group extends AppModel {
             $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
                     intval($_GET['iDisplayLength']);
         }
-
-
         /*
          * Ordering
          */
@@ -73,14 +71,14 @@ class Group extends AppModel {
                 $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
         }        
-//        if( $roleId  == 1){
+//        if( $roleId  == 2){
 //            if ($sWhere == "") {
-//                    $sWhere = " WHERE user_id =  {$userId}";
+//                    $sWhere = " WHERE created_by =  {$userId}";
 //                } else {
 //                    $sWhere .= " AND ";
 //                }
 //        }
-        
+//        
          $sJoin = "  INNER JOIN people as parent ON (parent.id = grp.people_id)";
          
         /*
@@ -100,9 +98,8 @@ class Group extends AppModel {
         $rResult = $this->query($sQuery);
 
         /* Data set length after filtering */
-        $sQuery = "
-    SELECT FOUND_ROWS() as total
-";
+        $sQuery = "SELECT FOUND_ROWS() as total";
+        
         $rResultFilterTotal = $this->query($sQuery);
 
         $iFilteredTotal = $rResultFilterTotal[0][0]['total'];
@@ -138,9 +135,6 @@ class Group extends AppModel {
             $output['aaData'][] = $row;
         }
 
-//        echo '<pre>';
-//        print_r($output);
-//        echo '</pre>';
         return $output;
     }
     
