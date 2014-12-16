@@ -37,13 +37,13 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="wing">Wing</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('wing', array('id' => 'wing', 'tabindex'=> '2', 'value'=> $wing,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('wing', array('id' => 'wing', 'tabindex'=> '2', 'value'=> $wing,'placeholder' => 'Enter Wing' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="room_number">Apartment No.</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('room_number', array('id' => 'room_number','tabindex'=> '3','value'=> $room_number,'type' => 'text','placeholder' => 'Contact number' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('room_number', array('id' => 'room_number','tabindex'=> '3','value'=> $room_number,'type' => 'text','placeholder' => 'Enter Apartment No.' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="district">District</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('district', array('id' => 'district','tabindex'=> '9', 'value'=> $district,'placeholder' => 'Enter district' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('district', array('id' => 'district','tabindex'=> '9', 'value'=> $district,'placeholder' => 'Enter District' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 
@@ -125,13 +125,13 @@
                  <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="road">Road</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter raod name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="cross_road">Cross Road</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                       <?php echo $this->Form->input('cross_road', array('id' => 'cross_road','tabindex'=> '7', 'value'=> $cross_road,'type' => 'text','placeholder' => 'Enter raod name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                       <?php echo $this->Form->input('cross_road', array('id' => 'cross_road','tabindex'=> '7', 'value'=> $cross_road,'type' => 'text','placeholder' => 'Enter Cross Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
 <!--                <div class="form-group">
@@ -162,19 +162,19 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip Code</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter zip code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone1">Home Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '12', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter home phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '12', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter Home phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone2">Other Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone2', array('id' => 'phone2', 'tabindex'=> '13','value'=> $phone2,'type' => 'text','placeholder' => 'Enter home phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone2', array('id' => 'phone2', 'tabindex'=> '13','value'=> $phone2,'type' => 'text','placeholder' => 'Enter Other phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 
