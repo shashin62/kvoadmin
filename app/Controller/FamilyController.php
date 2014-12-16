@@ -68,7 +68,8 @@ Class FamilyController extends AppController {
             $peopleId = $requestData['fid'];
         }
         
-        $getPeopleData = $this->People->getPeopleData($peopleId, true);
+        $getPeopleData = $this->People->getPeopleData($peopleId, true ,$_REQUEST['gid']);        
+        
         // add primary relationships to user- spouse, father, mother and childrens
         switch ($requestData['type']) 
         {   
@@ -150,7 +151,7 @@ Class FamilyController extends AppController {
 
         if ($requestData['type'] == 'self') {
            
-            $getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
+            //$getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
             $this->set('readonly',false);
             $this->set('first_name', $getPeopleData['People']['first_name']);
             $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
@@ -168,6 +169,8 @@ Class FamilyController extends AppController {
             $this->set('education', $getPeopleData['People']['education']);
             $this->set('village', $getPeopleData['People']['village']);
             $this->set('blood_group', $getPeopleData['People']['blood_group']);
+            $this->set('tree_level',$getPeopleData['Group']['tree_level']);
+            $this->set('call_again',$getPeopleData['People']['call_again']);
             $this->set('mahajan_membership_number', $getPeopleData['People']['mahajan_membership_number']);
         }
     }
@@ -187,19 +190,15 @@ Class FamilyController extends AppController {
         $this->request->data = $getPeopleDetail[0];
         $updatePeople = array();
         switch ($type) {
-            case 'addfather':
-                
+            case 'addfather':                
                 $peopleGroup = array();
                 $peopleGroup['PeopleGroup']['group_id'] = $gid;
                 $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
-                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
-                
-                
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;                
                 $this->PeopleGroup->save($peopleGroup);
                 $updatePeople = array();
                 $updatePeople['People']['group_id'] = $gid;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
-                
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];                
                 //update father details
                 $updateFatherDetails = array();
                 $updateFatherDetails['People']['f_id'] = $_REQUEST['peopleid'];
@@ -667,7 +666,7 @@ Class FamilyController extends AppController {
         $this->autoRender = false;
         $userID = $this->Session->read('User.user_id');
         $roleId = $this->Session->read('User.role_id');
-        $data = $this->Group->getAllFamilyGroups($userID);
+        $data = $this->Group->getAllFamilyGroups($userID, $roleId);
         echo json_encode($data);
     }
 
