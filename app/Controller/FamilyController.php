@@ -618,7 +618,7 @@ Class FamilyController extends AppController {
 
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
-                    $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+                    
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                     } else {
