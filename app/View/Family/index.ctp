@@ -1,7 +1,9 @@
  <div class="container-fluid">
     <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
-    <?php if( $userType == 'addnew' || $tree_level == "") { ?>
+    <?php 
+   
+    if( $userType == 'addnew' || $call_again != null) { ?>
     
     <div class="row-fuild">
         <div class="btn-group ">
