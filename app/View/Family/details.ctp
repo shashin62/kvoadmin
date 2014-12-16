@@ -1,8 +1,8 @@
 <div class="container-fluid">
 			
 			<div class="row">
-				<div class="col-md-8"><h2>Add/Edit User Detail</h2></div>
-				<div class="col-md-4">
+				<div class="col-md-6"><h2>Add/Edit User Detail</h2></div>
+				<div class="col-md-6">
 					<button type="button" class="btn btn-sm btn-primary">Update Names</button>
 					<button type="button" class="btn btn-sm btn-primary">Show Names: English</button>
 					<button type="button" class="btn btn-sm btn-primary">Show Names: Hindi</button>
@@ -70,7 +70,7 @@ foreach( $data as $key => $value ) { $missingData = array();?>
                                 <?php if($value['Group']['tree_level'] != '') { ?>
                                   <div class="col-md-2"><a href="#">Transfer of Family</a></div>
                                 <?php } else { ?>
-                                             <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
+                                             <div class="col-md-2"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
                                 
                                 <?php 
@@ -133,15 +133,15 @@ $missingData = array();?>
             $missingData[] = '<span style="color:orange">DOB</span><br/>';
         }
         if (empty($value['People']['village'])) {
-            $missingData[] = '<span style="color:orange">village</span><br/>';
+            $missingData[] = '<span style="color:orange">Village</span><br/>';
         }
         if (empty($value[0]['grandfather'])) {
-            $missingData[] = '<span style="color:orange">grandfather</span><br/>';
+            $missingData[] = '<span style="color:orange">Grandfather</span><br/>';
         }
 
                                     ?>
 				<div class="col-md-1">
-                                 <?php echo implode(',',$missingData);?> 
+                                 <?php echo implode(', ',$missingData);?> 
                                 </div>
 			</div>
 

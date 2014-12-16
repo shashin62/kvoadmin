@@ -22,13 +22,13 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control search_username" name="first_name" placeholder="Firstname" custom="1" />
+                        <input type="text" class="form-control search_username" name="first_name" placeholder="First Name" custom="1" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control search_username" name="last_name" placeholder="Lastname" custom="2" />
+                        <input type="text" class="form-control search_username" name="last_name" placeholder="Last Name" custom="2" />
                     </div>
                 </div>
                 <div class="form-group">
