@@ -251,6 +251,7 @@ Class FamilyController extends AppController {
                     // update group id for old people
                     $updatePeople = array();
                     $updatePeople['People']['group_id'] = $this->Group->id;
+                    $updatePeople['People']['call_again'] = 0;
                     $updatePeople['People']['id'] = $_REQUEST['peopleid'];
                     
                     $getAllRelationships = $this->People->getAllRelationsIds($_REQUEST['peopleid']);
