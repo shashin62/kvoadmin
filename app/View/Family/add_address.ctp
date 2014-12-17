@@ -58,7 +58,7 @@
                 'legend' => false,
                 'empty' => __d('label', '--Select--'),
                 'class' => 'combobox',
-                'tabindex'=> '10',
+                'tabindex'=> '8',
                 'style' => '',
                 'options' => $suburbs,
                 'value' => $suburb
@@ -71,7 +71,7 @@
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-default <?php echo $suburb_zone == 'east' ? 'active' : '';?>">
-                                <input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'east' ? 'checked=checked' : '';?> value="east">East
+                                <input tabindex= '9' type="radio" name="suburb_zone" <?php echo $suburb_zone == 'east' ? 'checked=checked' : '';?> value="east">East
                             </label>
                             <label class="btn btn-default <?php echo $suburb_zone == 'west' ? 'active' : '';?>">
                                 <input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'west' ? 'checked=checked' : '';?> value="west">West
@@ -89,13 +89,13 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="city">City</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('city', array('id' => 'city','tabindex'=> '8','value'=> $city, 'placeholder' => 'Enter City' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('city', array('id' => 'city','tabindex'=> '10','value'=> $city, 'placeholder' => 'Enter City' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="district">District</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('district', array('id' => 'district','tabindex'=> '9', 'value'=> $district,'placeholder' => 'Enter District' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('district', array('id' => 'district','tabindex'=> '11', 'value'=> $district,'placeholder' => 'Enter District' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 
@@ -151,7 +151,7 @@
                 'div' => false,
                 'legend' => false,
                 'class' => 'combobox',
-                'tabindex'=> '10',
+                'tabindex'=> '12',
                 'style' => '',
                 'options' => $states,
                 'value' => $state
@@ -162,19 +162,19 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip Code</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone1">Home Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '12', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter Home phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '14', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter Home phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone2">Other Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone2', array('id' => 'phone2', 'tabindex'=> '13','value'=> $phone2,'type' => 'text','placeholder' => 'Enter Other phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone2', array('id' => 'phone2', 'tabindex'=> '15','value'=> $phone2,'type' => 'text','placeholder' => 'Enter Other phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 
