@@ -183,6 +183,7 @@ Class FamilyController extends AppController {
         $type = $_REQUEST['type'];
         $idToBeUpdated = $_REQUEST['id'];
         $gid = $_REQUEST['gid'];
+        $peopleId = $_REQUEST['peopleid'];
         
         $getPeopleDetail = $this->People->find('all', array(
             'conditions' => array('People.id' => $_REQUEST['peopleid']))
@@ -190,22 +191,25 @@ Class FamilyController extends AppController {
         $this->request->data = $getPeopleDetail[0];
         $updatePeople = array();
         switch ($type) {
-            case 'addfather':                
+            case 'addfather':   
+                
+                $data = $this->Group->find('all',array('fields' => array('Group.id'),
+                            'conditions' => array('Group.people_id' => $peopleId)));
+               
                 $peopleGroup = array();
                 $peopleGroup['PeopleGroup']['group_id'] = $gid;
-                $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
+                $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;                
                 $this->PeopleGroup->save($peopleGroup);
                 //check if father has his own family
-                $data = $this->Group->find('all',array('fields' => array('Group.id'),
-                            'conditions' => array('Group.people_id' => $_REQUEST['peopelid'])));
-                
-                $updatePeople = array();
-                $updatePeople['People']['group_id'] = $gid;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];                
+                if (!isset($data[0]) && !count($data)) {
+                    $updatePeople = array();
+                    $updatePeople['People']['group_id'] = $gid;
+                    $updatePeople['People']['id'] = $peopleId;
+                }
                 //update father details
                 $updateFatherDetails = array();
-                $updateFatherDetails['People']['f_id'] = $_REQUEST['peopleid'];
+                $updateFatherDetails['People']['f_id'] = $peopleId;
                 $updateFatherDetails['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateFatherDetails['People']['id'] = $idToBeUpdated;
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
