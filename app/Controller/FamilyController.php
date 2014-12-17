@@ -57,7 +57,15 @@ Class FamilyController extends AppController {
     public function index() 
     {
         $requestData = $this->request->data;
-      
+      $this->set('first_name',isset($this->request->data['first_name']) ? 
+                        $this->request->data['first_name'] : '');
+                $this->set('last_name',isset($this->request->data['last_name']) ? 
+                        $this->request->data['last_name'] : '');
+                $this->set('date_of_birth',isset($this->request->data['date_of_birth']) 
+                        ? $this->request->data['date_of_birth'] : '');
+                $this->set('mobile_number',isset($this->request->data['mobile_number'])  ?
+                        $this->request->data['mobile_number'] : '');
+        
         if ($requestData['type'] == 'self') {
            $userId = $requestData['fid'];//$this->Session->read('User.user_id');
             $toFetchData = true;
@@ -111,6 +119,7 @@ Class FamilyController extends AppController {
                 }
                 
                 $this->set('last_name',$getPeopleData['People']['last_name']);
+                 $this->set('village',$getPeopleData['People']['village']);
                 break;
             case 'addchilld':
                 $pageTitle = 'Add Child of ' . $_REQUEST['name_parent'];
@@ -123,6 +132,7 @@ Class FamilyController extends AppController {
                 $this->set('gender', 'male');
                 $this->set('sect','sthanakvasi');
                 $this->set('martial_status', 'Married');
+                
                 break;
             default:
                 $requestData['type'] = 'self';
@@ -661,9 +671,7 @@ Class FamilyController extends AppController {
         
         $id = $this->request->params['pass'][0];
         $getDetails = $this->People->getFamilyDetails($id, false, true);
-//        echo '<pre>';
-//        print_r($getDetails);
-//        exit;
+       
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('data', $getDetails);
