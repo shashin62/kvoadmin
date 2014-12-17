@@ -138,5 +138,34 @@ class Group extends AppModel {
         return $output;
     }
     
+    
+    public function getOwners()
+    {
+         $this->recursive = -1;
+        
+        $options['joins'] = array(
+            array('table' => 'people',
+                'alias' => 'People',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'People.id = Group.people_id'
+                )
+            ),
+             );
+        
+        
+        $options['fields'] = array('People.id','People.first_name','People.last_name','Group.id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData ) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
 }
 
