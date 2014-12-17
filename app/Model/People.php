@@ -700,7 +700,7 @@ Class People extends AppModel
 SUM(IF(p.f_id IS NOT NULL AND p.m_id IS NOT NULL AND p.gender IS NOT NULL AND p.village IS NOT NULL AND p.date_of_birth IS NOT NULL AND p.mobile_number IS NOT NULL,1,0)) as count, u.first_name, u.last_name,p.modified,GROUP_CONCAT(p.id)
 FROM `people` as p
 INNER JOIN users as u ON u.id = p.created_by
-WHERE u.role_id = 2 
+WHERE u.role_id = 2  or u.role_id =1
  AND p.modified BETWEEN DATE_SUB( CURDATE( ) , INTERVAL (dayofweek(CURDATE())+5) DAY ) AND DATE_SUB( CURDATE( ) , INTERVAL (dayofweek(CURDATE())) DAY ) 
 GROUP BY p.created_by");
         
@@ -718,7 +718,7 @@ SUM(IF(p.f_id IS NOT NULL AND p.m_id IS NOT NULL AND p.gender IS NOT NULL AND p.
 FROM `people` as p
 INNER JOIN users as u ON u.id = p.created_by
 
-WHERE u.role_id = 2
+WHERE u.role_id = 2 or u.role_id =1
 AND YEARWEEK(p.modified )=YEARWEEK(NOW())
 GROUP BY p.created_by");
         
@@ -743,7 +743,7 @@ SUM(IF(p.f_id IS  NULL OR p.m_id IS  NULL OR p.gender IS  NULL OR p.village IS  
 FROM `people` as p
 INNER JOIN users as u ON u.id = p.created_by
 
-WHERE u.role_id = 2
+WHERE u.role_id = 2 or u.role_id =1
 
 GROUP BY p.created_by");
         
