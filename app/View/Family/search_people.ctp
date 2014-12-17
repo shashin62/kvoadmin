@@ -22,31 +22,31 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control search_username" name="first_name" placeholder="First Name" custom="1" />
+                        <input type="text" class="form-control first_name search_username" name="first_name" placeholder="First Name" custom="1" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control search_username" name="last_name" placeholder="Last Name" custom="2" />
+                        <input type="text" class="form-control last_name search_username" name="last_name" placeholder="Last Name" custom="2" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mobile_number">Mobile Number</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control search" name="mobile_number" placeholder="Mobile number" custom="3"/>
+                        <input type="text" class="form-control mobile_number search" name="mobile_number" placeholder="Mobile number" custom="3"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_birth">DOB</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input id = "date_of_birth" type="text" class="form-control dp search_DOB" name="date_of_birth" placeholder="DOB" custom="4"/>
+                        <input id = "date_of_birth" type="text" class="dob form-control dp search_DOB" name="date_of_birth" placeholder="DOB" custom="4"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control search_username" name="village" placeholder="Village" custom="5"/>
+                        <input type="text" class="form-control village search_username" name="village" placeholder="Village" custom="5"/>
                     </div>
                 </div>
             </form>
@@ -101,6 +101,16 @@
    var id = user_id;
    var gid = group_id;
  var first_name = $(this).data('first_name');
-   doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'","fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'"}');
+ var firstname = $.trim($('.first_name').val());
+ var lastname = $.trim($('.last_name').val());
+ var village = $.trim($('.village').val());
+ var phone = $.trim($('.mobile_number').val());
+ var dob = $.trim($('.dob').val());
+ 
+
+ 
+   doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'",\n\
+"fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'","first_name":"'+ firstname +'",\n\
+"last_name":"'+ lastname +'","date_of_birth":"'+ dob +'","mobile_number":"'+ phone +'"}');
 });
 </script>
