@@ -79,16 +79,12 @@ $(document).ready(function () {
         width: 'auto',
         modal: true,
         buttons: {
-           
-                "Submit": transferUser,
-                Cancel: function () {
-                    dialog.dialog("close");
-                
+        "Submit": transferUser,
+        Cancel: function () {
+                dialog.dialog("close");
             }
         },
         close: function () {
-
-
         }
     });
 
