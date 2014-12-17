@@ -16,9 +16,13 @@
                         <?php
                        App::import('Model', 'People');
                         $People = new People();
-    
+                        $hofId ;
                         ?>
-			<?php foreach( $data as $key => $value ) { 
+                        
+			<?php foreach( $data as $key => $value ) {
+                            if( $value['Group']['tree_level'] == '') {
+                                $hofId = $value['People']['id'];
+                            }
                             $missingData = array();?>
                     <?php if( $groupId == $value['People']['group_id']) { ?>
     <div class="row">
@@ -71,7 +75,11 @@
                                      <?php } ?>
         </div>                                 
                                 <?php if($value['Group']['tree_level'] != '') { ?>
-        <div class="col-md-2"><a data-id="<?php echo $value['People']['id'];?>" class="transfer-family" href="javascript:void(0);">Transfer of Family</a></div>
+        <div class="col-md-2">
+            <?php if( $hofId != $value['People']['partner_id']) { ?>
+            <a data-id="<?php echo $value['People']['id'];?>" class="transfer-family" href="javascript:void(0);">Transfer of Family</a>
+            <?php } ?>
+        </div>
                                 <?php } else { ?>
         <div class="col-md-2"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
@@ -154,10 +162,8 @@ $missingData = array();?>
 </div>
 <div id="dialog-form" title="Transfer of family">
     <div class="container-fluid">
-        
-   
-    <div class="row">
-        <div class="form-group">
+        <div class="row">
+            <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="owner">Transfer to</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
@@ -171,10 +177,8 @@ echo '</select>';
             
             ?>
                 </div>
-                
             </div>
+        </div>
     </div>
-         </div>
-    
 </div>
 <?php echo $this->Html->script(array('Family/details')); ?>
