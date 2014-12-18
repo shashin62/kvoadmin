@@ -17,12 +17,26 @@ showmaidensurname('Female');
                var type = $(element).attr("type");
             if (typeof type == 'undefined') {
                 error.appendTo(element.parent());
+            }else if(  type == 'radio' ) {
+                error.appendTo(element.parent().parent());
             }
             else {
                 error.insertAfter(element);
             }
         },
         rules: {
+             'sect': {
+                required: true,
+                maxlength: 25
+            },
+            'gender' : {
+                required: true,
+                maxlength: 25
+            },
+            'martial_status': {
+                required: true,
+                maxlength: 25
+            },
             'data[People][first_name]': {
                 required: true,
                 maxlength: 25
@@ -39,14 +53,21 @@ showmaidensurname('Female');
                 required: false,
                 email: true
             },
-            'data[People][gender]': {
-                required: true
-            },
+            
              'data[People][village]': {
                 required: true
             },
         },
         messages: {
+            'sect': {
+                 required: 'Please select sect',
+            },
+            'gender' : {
+                 required: 'Please select gender',
+            },
+             'martial_status': {
+                 required: 'Please select martial status',
+             },
             'data[People][first_name]': {
                 required: 'Please enter first name',
                 maxlength: 'Length exceeds 25 charaters'
@@ -61,10 +82,7 @@ showmaidensurname('Female');
             },
             'data[People][email]': {
                 email: 'Please enter valid email',
-            },
-            'data[People][gender]': {
-                required: 'Please select gender'
-            },
+            },            
             'data[People][village]': {
                 required: 'Please select village'
             },
