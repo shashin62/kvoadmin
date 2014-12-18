@@ -9,7 +9,7 @@ class Group extends AppModel {
      public function getAllFamilyGroups($userId, $roleId) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
-           'parent.last_name','parent.mobile_number','parent.date_of_birth','grp.created');
+           'parent.last_name','parent.mobile_number','parent.date_of_birth','grp.created','parent.created_by');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "grp.id";
@@ -87,7 +87,7 @@ class Group extends AppModel {
          */
     $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
-    parent.last_name,parent.date_of_birth,parent.mobile_number,grp.created
+    parent.last_name,parent.date_of_birth,parent.mobile_number,grp.created,parent.created_by
             FROM   $sTable
                 $sJoin
             $sWhere
@@ -122,15 +122,18 @@ class Group extends AppModel {
             "iTotalDisplayRecords" => $iFilteredTotal,
             "aaData" => array()
         );
-
+      //  print_r($rResult);
         foreach ($rResult as $key => $value) {
             $row = array();
             $row[] = $value['grp']['id'];
             foreach ($value['parent'] as $k => $v) {
-                $row[] = ucfirst(strtolower($v));
+               
+                     $row[] = ucfirst(strtolower($v));
+                
+               
             }
-            $row[] = $value['grp']['created'];
-
+            
+            //$row[] = $value['grp']['people_id'];
             $row[] = '';
             $output['aaData'][] = $row;
         }
