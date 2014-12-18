@@ -23,10 +23,12 @@ $(function () {
         "bServerSide": true,
         "sAjaxSource": baseUrl + "/family/getAjaxGroups",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            
-            $('td:eq(6)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
-<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
-
+            console.log(aData);
+            $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
+');
+          if( roleid == 1 || roleid == aData[5]) {
+                $('td:eq(5)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
+            }
         },
         "rowCallback": function (row, data) {
 
