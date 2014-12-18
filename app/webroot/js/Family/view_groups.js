@@ -26,7 +26,7 @@ $(function () {
             console.log(aData);
             $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
 ');
-          if( roleid == 1 || roleid == aData[5]) {
+          if( roleid == 1 || roleid == aData[4]) {
                 $('td:eq(5)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
             }
         },
