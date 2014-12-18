@@ -9,8 +9,13 @@
     <br>
     <div class="addresscontainer">       
     
-<div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
+        <div class="row">
+            
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="ownership_type">Home Status</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-default <?php echo $ownership_type == 1 ? 'active' : '';?>">
                 <input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 1 ? 'checked=checked' : '';?> value="1">Ownership
             </label>
@@ -23,11 +28,8 @@
             <label class="btn btn-default <?php echo $ownership_type == 4 ? 'active' : '';?>">
                 <input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 4 ? 'checked=checked' : '';?> value="4">Other
             </label>
-        </div>
-    </div>
-    <br>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-xs-12">
+        </div></div>
+                    </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">No of Rooms</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
