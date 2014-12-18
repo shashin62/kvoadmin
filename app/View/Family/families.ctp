@@ -39,6 +39,6 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
 </div>
 <script type="text/javascript">
     var roleid = '<?php echo $this->Session->read('User.role_id'); ?>';
-   
+   var userid = '<?php echo $this->Session->read('User.user_id'); ?>';
 </script>
 <?php echo $this->Html->script(array('Family/view_groups')); ?>
