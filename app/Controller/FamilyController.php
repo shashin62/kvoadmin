@@ -129,9 +129,9 @@ Class FamilyController extends AppController {
                 break;
             case 'addnew':
                 $pageTitle = 'Add New Family';
-                $this->set('gender', 'male');
-                $this->set('sect','sthanakvasi');
-                $this->set('martial_status', 'Married');
+//                $this->set('gender', 'male');
+//                $this->set('sect','sthanakvasi');
+//                $this->set('martial_status', 'Married');
                 
                 break;
             default:
