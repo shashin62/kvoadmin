@@ -95,7 +95,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 'combobox',
+                'class' => 'combobox suburb',
                 'tabindex'=> '10',
                 'style' => '',
                 'options' => $suburbs,
@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="city">City</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('city', array('id' => 'city','tabindex'=> '8','value'=> $city, 'placeholder' => 'Enter City' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('city', array('id' => 'city','tabindex'=> '8','value'=> $city, 'placeholder' => 'Enter City' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control city')); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -144,7 +144,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 'statescombo',
+                'class' => 'statescombo state',
                 'tabindex'=> '10',
                 'empty' => __d('label', '--Select--'),
                 'style' => '',
@@ -169,7 +169,7 @@
                  <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="password">Road</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter raod name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter raod name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control road')); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -190,7 +190,7 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip Code</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter zip code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter zip code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
                     </div>
                 </div>
                 <div class="form-group">

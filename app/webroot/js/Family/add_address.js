@@ -1,12 +1,66 @@
 $(document).ready(function () {
 $( ".combobox" ).combobox({width: '200px'});
     $("#addressForm").validate({
-        errorElement: "span",
+        errorElement: "div",
+          errorPlacement: function(error, element) {
+               var type = $(element).attr("type");
+               
+            if (typeof type == 'undefined' ) {
+                error.appendTo(element.parent());
+            } else if(  type == 'radio' ) {
+                error.appendTo(element.parent().parent());
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
         rules: {
-            
+            'ownership_type': {
+                required: true,
+                maxlength: 25
+            },
+            'data[Address][road]': {
+                required: true,
+                maxlength: 25
+            },
+            'data[Address][suburb]': {
+                required: true,
+                maxlength: 25
+            },
+            'data[Address][city]': {
+                required: true,
+                maxlength: 25
+            },
+            'data[Address][state]': {
+                required: true,
+                maxlength: 25
+            },
+            'data[Address][zip_code]': {
+                required: true,
+                maxlength: 25
+            },
         },
         messages: {
-           
+           'data[Address][road]': {
+                required: 'Please enter road',
+                maxlength: 'Length exceeds 25 charaters'
+            },
+             'data[Address][suburb]': {
+                required: 'Please enter suburb',
+                maxlength: 'Length exceeds 25 charaters'
+            },
+            'data[Address][city]': {
+                required: 'Please enter city',
+                maxlength: 'Length exceeds 25 charaters'
+            },
+            'data[Address][state]': {
+                required: 'Please enter state',
+                maxlength: 'Length exceeds 25 charaters'
+            },
+            'data[Address][zip_code]': {
+                required: 'Please enter zip code',
+                maxlength: 'Length exceeds 25 charaters'
+            },
         },
         submitHandler: function (form) {
             var queryString = $('#addressForm').serialize();
@@ -35,6 +89,15 @@ $( ".combobox" ).combobox({width: '200px'});
 });
 
 $(".addressButton").click(function () {
+    if ( $('.same_as').is(':checked') == true) {
+        $('.ownership_type').rules('remove', 'required');
+        $('.city').rules('remove', 'required');
+        $('.zipcode').rules('remove', 'required');
+        $('.state').rules('remove', 'required');
+        $('.road').rules('remove', 'required');
+        $('.suburb').rules('remove', 'required');
+       
+    }
     $("#addressForm").submit();
     return false;
 });
