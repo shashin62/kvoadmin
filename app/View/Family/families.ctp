@@ -31,11 +31,14 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>DOB</th>
-                <th>Mobile</th>
-                <th>Created On</th>
+                <th>Mobile</th>               
                 <th>Action</th>
             </tr>
         </thead>
     </table>
 </div>
+<script type="text/javascript">
+    var roleid = '<?php echo $this->Session->read('User.role_id'); ?>';
+   
+</script>
 <?php echo $this->Html->script(array('Family/view_groups')); ?>
