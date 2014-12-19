@@ -2,7 +2,7 @@ var oTable;
 
 
 $(function () {
-    //$( ".combobox" ).combobox();
+    $('.selectpicker').selectpicker();
     oTable = $('#all_users').DataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
