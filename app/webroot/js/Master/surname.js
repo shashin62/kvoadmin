@@ -70,7 +70,7 @@ $('.addsurname').click(function () {
     $('.addSurnameForm').toggle('slow');
 });
 
-function deleteBloodGroup(id)
+function deleteSurname(id)
 {
 
     $.ajax({
