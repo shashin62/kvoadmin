@@ -65,6 +65,8 @@ Class FamilyController extends AppController {
                         ? $this->request->data['date_of_birth'] : '');
                 $this->set('mobile_number',isset($this->request->data['mobile_number'])  ?
                         $this->request->data['mobile_number'] : '');
+                 $this->set('village',isset($this->request->data['village'])  ?
+                        $this->request->data['village'] : '');
         
         if ($requestData['type'] == 'self') {
            $userId = $requestData['fid'];//$this->Session->read('User.user_id');
@@ -1087,6 +1089,9 @@ Class FamilyController extends AppController {
         $this->set('type',$_REQUEST['type']);
         $this->set('fid',$_REQUEST['fid']);
         $this->set('gid',$_REQUEST['gid']);
+        $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
+        $this->set(compact('villages'));
+
         $this->set('name_parent',$_REQUEST['name_parent']);
     }
     
