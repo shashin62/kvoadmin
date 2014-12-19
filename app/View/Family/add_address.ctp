@@ -107,19 +107,19 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="building_name">Building Name</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('building_name', array('id' => 'building_name','tabindex'=> '4','value'=> $building_name,'type' => 'text', 'placeholder' => 'Enter website' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('building_name', array('id' => 'building_name','tabindex'=> '4','value'=> $building_name,'type' => 'text', 'placeholder' => 'Enter Building Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="complex_name">Complex Name</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('complex_name', array('id' => 'complex_name','tabindex'=> '4','value'=> $complex_name,'type' => 'text', 'placeholder' => 'Enter complex name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('complex_name', array('id' => 'complex_name','tabindex'=> '4','value'=> $complex_name,'type' => 'text', 'placeholder' => 'Enter Complex Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="plot_number">Plot No.</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('plot_number', array('id' => 'plot_number','tabindex'=> '5', 'value'=> $plot_number,'type' => 'text','placeholder' => 'Enter plot no' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('plot_number', array('id' => 'plot_number','tabindex'=> '5', 'value'=> $plot_number,'type' => 'text','placeholder' => 'Enter Plot No.' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                  <div class="form-group">
