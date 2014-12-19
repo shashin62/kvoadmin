@@ -2,6 +2,7 @@ var oTable;
 
 
 $(function () {
+    //$( ".combobox" ).combobox();
     oTable = $('#all_users').DataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
@@ -44,6 +45,15 @@ $(function () {
                 .draw();
     });
     $(".search_DOB").bind("change", function () {
+        var table = $('#all_users').DataTable();
+        table
+                .column($(this).attr('custom'))
+                .search($.trim(this.value))
+                .draw();
+    });
+    
+     $(".village").bind("change", function () {
+       
         var table = $('#all_users').DataTable();
         table
                 .column($(this).attr('custom'))
