@@ -139,7 +139,7 @@ class Group extends AppModel {
     }
     
     
-    public function getOwners()
+    public function getOwners($gid)
     {
          $this->recursive = -1;
         
