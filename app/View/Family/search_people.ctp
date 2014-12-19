@@ -53,7 +53,7 @@
                 'div' => false,
                 'legend' => false,
                 'empty' => __d('label', '--Select--'),
-                'class' => 'village combobox',
+                'class' => 'village selectpicker',
                 'style' => '',
                 'options' => $villages,
                 'custom' => 5
