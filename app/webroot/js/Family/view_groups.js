@@ -7,9 +7,9 @@ $(function () {
      if( $(this).index() !== 0 && $(this).index() != 5) {
             var title = $('#getFamilyGroup thead th').eq( $(this).index() ).text();
             if( title == 'DOB' ) {
-               $(this).html( '<input size="7" id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="Search" />' ); 
+               $(this).html( '<input id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="" />' ); 
             } else {
-        $(this).html( '<input size="7" class="form-control" type="text" placeholder="Search" />' );
+        $(this).html( '<input class="form-control" type="text" placeholder="Search" />' );
     }
      } 
      
@@ -23,10 +23,12 @@ $(function () {
         "bServerSide": true,
         "sAjaxSource": baseUrl + "/family/getAjaxGroups",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            
-            $('td:eq(6)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
-<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
-
+            console.log(aData);
+            $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
+');
+          if( roleid == 1 || userid == aData[5]) {
+                $('td:eq(5)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
+            }
         },
         "rowCallback": function (row, data) {
 

@@ -129,9 +129,9 @@ Class FamilyController extends AppController {
                 break;
             case 'addnew':
                 $pageTitle = 'Add New Family';
-                $this->set('gender', 'male');
-                $this->set('sect','sthanakvasi');
-                $this->set('martial_status', 'Married');
+//                $this->set('gender', 'male');
+//                $this->set('sect','sthanakvasi');
+//                $this->set('martial_status', 'Married');
                 
                 break;
             default:
@@ -668,6 +668,7 @@ Class FamilyController extends AppController {
     {
         $userID = $this->Session->read('User.user_id');
         
+        $roleID = $this->Session->read('User.role_id');
         
         $getOwners = $this->Group->getOwners();
        
@@ -685,6 +686,7 @@ Class FamilyController extends AppController {
        
         $this->set('userId', $userID);
         $this->set('groupId', $id);
+        $this->set('roleId', $roleID);
         $this->set('data', $getDetails);
        
     }

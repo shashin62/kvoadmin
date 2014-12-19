@@ -8,12 +8,16 @@ $roles = array(1,2,3);
 if (in_array($this->Session->read('User.role_id'),$roles)) {?>
 <div class="container-fluid">
     <div class="row">
-        <a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addfamily"><span class="glyphicon glyphicon-edit"></span>New Family</a>
+		<div class="col-md-6 col-lg-6 col-xs-12">
+		    <h3 class="heading">Families</h3>
+		</div>
+		<div class="col-md-6 col-lg-6 col-xs-12">
+			<a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addfamily"><span class="glyphicon glyphicon-edit"></span>New Family</a>
+		</div>
     </div>
 <?php } ?>
 </div>
 <div class="container-fluid">   
-    <h3 class="heading">Families</h3>
     <table id="getFamilyGroup" class="display" cellspacing="0" width="100%">
         <tfoot>
             <tr>
@@ -31,11 +35,14 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>DOB</th>
-                <th>Mobile</th>
-                <th>Created On</th>
+                <th>Mobile</th>               
                 <th>Action</th>
             </tr>
         </thead>
     </table>
 </div>
+<script type="text/javascript">
+    var roleid = '<?php echo $this->Session->read('User.role_id'); ?>';
+   var userid = '<?php echo $this->Session->read('User.user_id'); ?>';
+</script>
 <?php echo $this->Html->script(array('Family/view_groups')); ?>

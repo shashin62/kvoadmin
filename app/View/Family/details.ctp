@@ -1,15 +1,14 @@
 <div class="container-fluid">
-
     <div class="row">
-        <div class="col-md-6"><h2>Add/Edit User Detail</h2></div>
-        <div class="col-md-6">
-            <button type="button" class="btn btn-sm btn-primary">Update Names</button>
+        <div class="col-md-6"><h3>Add/Edit User Detail</h3></div>
+        <div class="col-md-6 pull-right">
             <button type="button" class="btn btn-sm btn-primary">Show Names: English</button>
             <button type="button" class="btn btn-sm btn-primary">Show Names: Hindi</button>
             <button type="button" class="btn btn-sm btn-primary">Show Names: Gujarati</button>
         </div>
     </div>
-    <br>
+
+	<br>
 
     <u><h3>Primary Family</h3></u>
 
@@ -26,7 +25,7 @@
                             $missingData = array();?>
                     <?php if( $groupId == $value['People']['group_id']) { ?>
     <div class="row">
-        <div class="col-md-2" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?> ><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
+        <div class="col-md-2" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?> ><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
         <div class="col-md-2">
             <a class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
                                     <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
@@ -70,18 +69,18 @@
                                     ?>
             <div>Children: <?php echo implode(',',$childs); ?></div>
                                 <?php } ?>
-                                    <?php if($value['People']['user_id'] == "") { ?>
+                                    <?php if( $roleId == 1 && $value['Group']['tree_level'] != '') { ?>
             <a data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
                                      <?php } ?>
         </div>                                 
                                 <?php if($value['Group']['tree_level'] != '') { ?>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <?php if( $hofId != $value['People']['partner_id']) { ?>
             <a data-id="<?php echo $value['People']['id'];?>" class="transfer-family" href="javascript:void(0);">Transfer of Family</a>
             <?php } ?>
         </div>
                                 <?php } else { ?>
-        <div class="col-md-2"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
+        <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
 
                                 <?php 
@@ -122,8 +121,8 @@
 $missingData = array();?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
     <div class="row">
-        <div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?></div>
-        <div class="col-md-2"><a href="#">View Detail</a></div>
+        <div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
+        <div class="col-md-3"><a href="#">View Detail</a></div>
 <?php 
                                    if (empty($value['People']['f_id'])) {
             $missingData[] = '<span style="color:orange">Father</span><br/>';

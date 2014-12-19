@@ -7,27 +7,27 @@
     </div>
     <?php } ?>
     <br>
-    <div class="addresscontainer">       
-    
-<div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
+    <div class="addresscontainer">    
+        <div class="row">            
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="ownership_type">Home Status</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-default <?php echo $ownership_type == 1 ? 'active' : '';?>">
-                <input type="radio" name="ownership_type" <?php echo $ownership_type == 1 ? 'checked=checked' : '';?> value="1">Ownership
+                <input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 1 ? 'checked=checked' : '';?> value="1">Ownership
             </label>
             <label class="btn btn-default <?php echo $ownership_type == 2 ? 'active' : '';?>">
-                <input type="radio" name="ownership_type" <?php echo $ownership_type == 2 ? 'checked=checked' : '';?> value="2">Leave & License
+                <input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 2 ? 'checked=checked' : '';?> value="2">Leave & License
             </label>
             <label class="btn btn-default <?php echo $ownership_type == 3 ? 'active' : '';?>">
-                <input type="radio" name="ownership_type" <?php echo $ownership_type == 3 ? 'checked=checked' : '';?> value="3">Pagadi
+                <input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 3 ? 'checked=checked' : '';?> value="3">Pagadi
             </label>
             <label class="btn btn-default <?php echo $ownership_type == 4 ? 'active' : '';?>">
-                <input type="radio" name="ownership_type" <?php echo $ownership_type == 4 ? 'checked=checked' : '';?> value="4">Other
+                <input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 4 ? 'checked=checked' : '';?> value="4">Other
             </label>
-        </div>
-    </div>
-    <br>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-xs-12">
+        </div></div>
+                    </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">No of Rooms</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
@@ -57,7 +57,7 @@
                 'div' => false,
                 'legend' => false,
                 'empty' => __d('label', '--Select--'),
-                'class' => 'combobox',
+                'class' => 'combobox suburb',
                 'tabindex'=> '8',
                 'style' => '',
                 'options' => $suburbs,
@@ -89,7 +89,7 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="city">City</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('city', array('id' => 'city','tabindex'=> '10','value'=> $city, 'placeholder' => 'Enter City' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('city', array('id' => 'city','tabindex'=> '10','value'=> $city, 'placeholder' => 'Enter City' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control city')); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -107,25 +107,25 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="building_name">Building Name</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('building_name', array('id' => 'building_name','tabindex'=> '4','value'=> $building_name,'type' => 'text', 'placeholder' => 'Enter website' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('building_name', array('id' => 'building_name','tabindex'=> '4','value'=> $building_name,'type' => 'text', 'placeholder' => 'Enter Building Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="complex_name">Complex Name</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('complex_name', array('id' => 'complex_name','tabindex'=> '4','value'=> $complex_name,'type' => 'text', 'placeholder' => 'Enter complex name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('complex_name', array('id' => 'complex_name','tabindex'=> '4','value'=> $complex_name,'type' => 'text', 'placeholder' => 'Enter Complex Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="plot_number">Plot No.</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('plot_number', array('id' => 'plot_number','tabindex'=> '5', 'value'=> $plot_number,'type' => 'text','placeholder' => 'Enter plot no' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('plot_number', array('id' => 'plot_number','tabindex'=> '5', 'value'=> $plot_number,'type' => 'text','placeholder' => 'Enter Plot No.' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                  <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="road">Road</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control road')); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -150,7 +150,8 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
-                'class' => 'combobox',
+                'empty' => __d('label', '--Select--'),
+                'class' => 'combobox state',
                 'tabindex'=> '12',
                 'style' => '',
                 'options' => $states,
@@ -162,7 +163,7 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip Code</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
                     </div>
                 </div>
                 <div class="form-group">
