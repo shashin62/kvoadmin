@@ -7,9 +7,9 @@ $(function () {
      if( $(this).index() !== 0 && $(this).index() != 5) {
             var title = $('#getFamilyGroup thead th').eq( $(this).index() ).text();
             if( title == 'DOB' ) {
-               $(this).html( '<input size="7" id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="Search" />' ); 
+               $(this).html( '<input id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="" />' ); 
             } else {
-        $(this).html( '<input size="7" class="form-control" type="text" placeholder="Search" />' );
+        $(this).html( '<input class="form-control" type="text" placeholder="Search" />' );
     }
      } 
      
