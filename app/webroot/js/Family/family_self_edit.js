@@ -57,6 +57,9 @@ showmaidensurname('Female');
              'data[People][village]': {
                 required: true
             },
+            'data[People][main_surname]': {
+                required: true
+            },
         },
         messages: {
             'sect': {
@@ -85,6 +88,9 @@ showmaidensurname('Female');
             },            
             'data[People][village]': {
                 required: 'Please select village'
+            },
+            'data[People][main_surname]': {
+                required: 'Please select main surname',
             },
         },
         submitHandler: function (form) {
