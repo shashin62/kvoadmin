@@ -38,7 +38,7 @@ Class FamilyController extends AppController {
     public $uses = array(
                         'User', 'Aro', 'Role',
                         'People', 'Village', 'Education', 'State', 'BloodGroup', 
-                        'Group','Address','PeopleGroup','Suburb'
+                        'Group','Address','PeopleGroup','Suburb','Surname'
                         );
 
     /**
@@ -156,6 +156,9 @@ Class FamilyController extends AppController {
         $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
 
+        $main_surnames = $this->Surname->find('list', array('fields' => array('Surname.name', 'Surname.name')));
+        $this->set(compact('main_surnames'));
+
         $bloodgroups = $this->BloodGroup->find('list', array('fields' => array('BloodGroup.name', 'BloodGroup.name')));
         $this->set(compact('bloodgroups'));
 
@@ -169,6 +172,7 @@ Class FamilyController extends AppController {
             $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
             $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
             $this->set('address_id', $getPeopleData['People']['address_id']);
+            $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('is_late', $getPeopleData['People']['is_late']);
             $this->set('mobile_number', $getPeopleData['People']['mobile_number'] ? $getPeopleData['People']['mobile_number'] : $sessionData['mobile_number'] );
