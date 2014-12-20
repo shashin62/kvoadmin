@@ -35,9 +35,10 @@ $('.addspouse').click(function () {
     var id = $this.data('id');
     var first_name = $this.data('first_name');
     var gid = $this.data('gid');
-    doFormPost(baseUrl + "/family/index?type=addspouse",
-            '{ "type":"addspouse","fid":"' + id + '","name_parent":"' + first_name + '","gid":"' + gid + '"}');
-
+    doFormPost(baseUrl + "/family/searchPeople?type=addspouse",
+            '{ "type":"addspouse","fid":"' + id + '","gid":"' + gid + '","name_parent":"' + first_name + '"}');
+       
+    
 });
 
 $('.addfather').click(function () {
@@ -65,9 +66,10 @@ $('.addchild').click(function () {
     var id = $this.data('id');
     var first_name = $this.data('first_name');
     var gid = $this.data('gid');
-
-    doFormPost(baseUrl + "/family/index?type=addchilld",
-            '{ "type":"addchilld","fid":"' + id + '","name_parent":"' + first_name + '","gid":"' + gid + '"}');
+doFormPost(baseUrl + "/family/searchPeople?type=addchilld",
+            '{ "type":"addchilld","fid":"' + id + '","gid":"' + gid + '","name_parent":"' + first_name + '"}');
+            
+   
 
 
 });
