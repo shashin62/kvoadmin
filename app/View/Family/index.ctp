@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="main_surname">Maiden Surname</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="main_surname">Main Surname</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                           <?php
                         
