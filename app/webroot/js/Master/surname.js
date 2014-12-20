@@ -72,7 +72,6 @@ $('.addsurname').click(function () {
 
 function deleteSurname(id)
 {
-
     $.ajax({
         url: baseUrl + '/surname/delete',
         dataType: 'json',
