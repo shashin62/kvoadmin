@@ -2,33 +2,33 @@
     <h3 class="heading">Add/Edit Business</h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
     <div class="row-fuild">
-        <div class="btn-group" data-toggle="">
-            <label class="btn btn-default">
+        <div class="btn-group occupations" data-toggle="buttons">
+            <label class="btn btn-default <?php echo $occupation == 'Business' ? 'active' : '';?>">
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Business' ? 'checked=checked' : '';?> value="Business">Business
             </label>
-            <label class="btn btn-default">
+            <label class="btn btn-default <?php echo $occupation == 'Service' ? 'active' : '';?>">
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Service' ? 'checked=checked' : '';?> value="Service">Service
             </label>
-            <label class="btn btn-default">
+            <label class="btn btn-default <?php echo $occupation == 'House Wife' ? 'active' : '';?>">
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'House Wife' ? 'checked=checked' : '';?> value="House Wife">House Wife
             </label>
-            <label class="btn btn-default">
+            <label class="btn btn-default <?php echo $occupation == 'Retired' ? 'active' : '';?>">
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Retired' ? 'checked=checked' : '';?> value="Retired">Retired
             </label>
-            <label class="btn btn-default">
+            <label class="btn btn-default <?php echo $occupation == 'Studying' ? 'active' : '';?>">
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Studying' ? 'checked=checked' : '';?> value="Studying">Studying
             </label>
-            <label class="btn btn-default">
+            <label class="btn btn-default <?php echo $occupation == 'Other' ? 'active' : '';?>">
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Other' ? 'checked=checked' : '';?> value="Other">Other
             </label>
         </div>
     </div>
     <br>
     <div class="tohidecontainer">
-    <div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-12" >
             <div class="form-group">
-                <label class="col-lg-6 col-md-6 col-xs-6 control-label" for="first_name">Business/Service</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Business/Service</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php
                         $busniessOptions = array(
