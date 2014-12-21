@@ -95,6 +95,22 @@ Class People extends AppModel
                 }
                     $sWhere .= ' p.gender = "female"  AND p.is_late = 0 AND p.first_name is not null';
                     break;
+                   case 'addchilld':
+                    if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= ' AND ';
+                }
+                    $sWhere .= ' (p.gender = "female" OR p.gender = "male") AND p.is_late = 0 AND p.first_name is not null';
+                    break; 
+                    case 'addspouse':
+                    if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= ' AND ';
+                }
+                    $sWhere .= ' (p.gender = "female" ) AND p.is_late = 0 AND p.first_name is not null';
+                    break; 
                 case 'global' :
                      if ($sWhere == "") {
                     $sWhere = "WHERE ";
