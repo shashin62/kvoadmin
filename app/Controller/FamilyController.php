@@ -200,6 +200,10 @@ Class FamilyController extends AppController {
         $idToBeUpdated = $_REQUEST['id'];
         $gid = $_REQUEST['gid'];
         $peopleId = $_REQUEST['peopleid'];
+        if ('addchilld' == $type )  {
+            $_REQUEST['peopleid'] = $idToBeUpdated;
+        }
+                
         
         $getPeopleDetail = $this->People->find('all', array(
             'conditions' => array('People.id' => $_REQUEST['peopleid']))
@@ -208,7 +212,7 @@ Class FamilyController extends AppController {
         $updatePeople = array();
         switch ($type) {
             case 'addfather':   
-                
+               
                 $data = $this->Group->find('all',array('fields' => array('Group.id'),
                             'conditions' => array('Group.people_id' => $peopleId)));
                
@@ -251,6 +255,35 @@ Class FamilyController extends AppController {
                 $this->People->save($updateMotherDetails);
                 $msg['group_id'] = $gid;
                 $message = 'Mother has been added';
+                break;
+            case 'addchilld':
+               
+                $data = $this->Group->find('all',array('fields' => array('Group.id'),
+                            'conditions' => array('Group.people_id' => $peopleId)));
+                
+                 $peopleGroup = array();
+                $peopleGroup['PeopleGroup']['group_id'] = $gid;
+                $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;                
+                $this->PeopleGroup->save($peopleGroup);
+                //check if member has his own family
+                 if (!isset($data[0]) && !count($data)) {
+                    $updatePeople = array();
+                    $updatePeople['People']['group_id'] = $gid;
+                    $updatePeople['People']['id'] = $peopleId;
+                }
+                
+                $updateFatherDetails = array();
+                $updateFatherDetails['People']['f_id'] = $idToBeUpdated;
+                $updateFatherDetails['People']['m_id'] = $getPeopleDetail[0]['People']['partner_id'];
+                $updateFatherDetails['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
+                $updateFatherDetails['People']['mother'] = $getPeopleDetail[0]['People']['partner_name'];
+                $updateFatherDetails['People']['id'] = $peopleId;
+                $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+                $this->People->save($updateFatherDetails);
+                $msg['group_id'] = $gid;
+                $message = 'Father has been added';
+                break;
                 break;
             case 'addnew':
                 
