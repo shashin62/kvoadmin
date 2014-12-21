@@ -211,8 +211,8 @@ Class FamilyController extends AppController {
         $this->request->data = $getPeopleDetail[0];
         $updatePeople = array();
         switch ($type) {
-            case 'addfather':   
-               
+            case 'addfather':
+                
                 $data = $this->Group->find('all',array('fields' => array('Group.id'),
                             'conditions' => array('Group.people_id' => $peopleId)));
                
@@ -256,12 +256,11 @@ Class FamilyController extends AppController {
                 $msg['group_id'] = $gid;
                 $message = 'Mother has been added';
                 break;
-            case 'addchilld':
-               
+            case 'addchilld':               
                 $data = $this->Group->find('all',array('fields' => array('Group.id'),
                             'conditions' => array('Group.people_id' => $peopleId)));
                 
-                 $peopleGroup = array();
+                $peopleGroup = array();
                 $peopleGroup['PeopleGroup']['group_id'] = $gid;
                 $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;                
@@ -282,16 +281,34 @@ Class FamilyController extends AppController {
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 $this->People->save($updateFatherDetails);
                 $msg['group_id'] = $gid;
-                $message = 'Father has been added';
+                $message = 'Child has been added';
                 break;
+            case 'addspouse':
+                $data = $this->Group->find('all', array('fields' => array('Group.id'),
+                    'conditions' => array('Group.people_id' => $peopleId)));
+
+                $peopleGroup = array();
+                $peopleGroup['PeopleGroup']['group_id'] = $gid;
+                $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
+                $this->PeopleGroup->save($peopleGroup);
+                
+                $updatePeople = array();
+                $updatePeople['People']['group_id'] = $gid;
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                //update spouse details
+                $updateMotherDetails = array();
+                $updateMotherDetails['People']['partner_id'] = $_REQUEST['peopleid'];
+                $updateMotherDetails['People']['partner_name'] = $getPeopleDetail[0]['People']['first_name'];               
+                $updateMotherDetails['People']['id'] = $idToBeUpdated;                
+                $this->People->save($updateMotherDetails);
+                $msg['group_id'] = $gid;                
+                $message = 'Spouse has been added';
                 break;
             case 'addnew':
-                
-               
-                $peopleData = $_REQUEST['data'];
-               
-                $data = $this->People->checkExistingOwner($peopleData); 
-              
+
+                $peopleData = $_REQUEST['data'];               
+                $data = $this->People->checkExistingOwner($peopleData);              
                 
                 if( count($data) > 0) {
                     $message  = $peopleData['first_name'] . ' ' . $peopleData['last_name'] . ' is already owner';
@@ -339,8 +356,7 @@ Class FamilyController extends AppController {
                     $this->PeopleGroup->saveAll($allData);
                     
                     $msg['group_id'] = $this->Group->id;
-                    $message = 'Family has been created';
-                    
+                    $message = 'Family has been created';                   
                     
                 }
                 break;
