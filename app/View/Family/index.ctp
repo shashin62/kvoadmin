@@ -1,78 +1,35 @@
  <div class="container-fluid">
     <h3 class="heading"><?php echo $pageTitle;?></h3>
     <?php echo $this->Form->create('People', array('class' => 'form-horizontal peopleForm', 'id' => 'createFamily', 'name' => 'register')); ?>
-    <?php 
-   
-    if( $userType == 'addnew' || ($call_again === false || $call_again === true)) { ?>
     
-    <div class="row-fuild">
-        <div class="btn-group ">
-                <div class=" control-label"></div>
-                <div class="checkbox">
-                    <label>
-                    <?php echo $this->Form->input("call_again", array('type' => "checkbox", 'checked' => $call_again == 1 ? 'checked' : '','div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Call Again?')))); ?>
-                    </label>
-                </div>
-            </div>
-    </div>
-    <br/>
-    <?php } ?>
-    <div class="row-fuild">
-        <div class="btn-group " data-toggle="buttons">
-            <label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
-                <input type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
-            </label>
-            <label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
-                <input type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
-            </label>
-            <label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
-                <input type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
-            </label>
-        </div>
-    </div>
-    <br>
-    <div class="row-fuild">
-        <div class="btn-group genders" data-toggle="buttons">
-            <label class="btn btn-default <?php echo $gender == 'male' ? 'active' : '';?>">
-                <input type="radio" name="gender" class="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
-            </label>
-            <label class="btn btn-default <?php echo $gender == 'female' ? 'active' : '';?>">
-                <input type="radio" name="gender" class="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
-            </label>
-        </div>
-    </div>
-    <br>
-    <div class="row-fuild">
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default <?php echo $martial_status == 'Unmarried' ? 'active' : '';?>">
-                <input type="radio" name="martial_status" <?php echo $martial_status == 'Unmarried' ? 'checked=checked' : '';?> value="unmarried">Unmarried
-            </label>
-            <label class="btn btn-default <?php echo $martial_status == 'Married' ? 'active' : '';?>">
-                <input type="radio" name="martial_status" <?php echo $martial_status == 'Married' ? 'checked=checked' : '';?> value="Married">Married
-            </label>
-            <label class="btn btn-default <?php echo $martial_status == 'Divorced' ? 'active' : '';?>">
-                <input type="radio" name="martial_status" <?php echo $martial_status == 'Divorced' ? 'checked=checked' : '';?> value="Divorced">Divorced
-            </label>
-            <label class="btn btn-default <?php echo $martial_status == 'Separated' ? 'active' : '';?>">
-                <input type="radio" name="martial_status" <?php echo $martial_status == 'Separated' ? 'checked=checked' : '';?> value="Separated">Separated
-            </label>
-            <label class="btn btn-default <?php echo $martial_status == 'Widow' ? 'active' : '';?>">
-                <input type="radio" name="martial_status" <?php echo $martial_status == 'Widow' ? 'checked=checked' : '';?> value="Widow">Widow
-            </label>
-            <label class="btn btn-default <?php echo $martial_status == 'Single' ? 'active' : '';?>">
-                <input type="radio" name="status" <?php echo $martial_status == 'Single' ? 'checked=checked' : '';?> value="single">Single
-            </label>
-        </div>
-    </div>
-    <br>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
-            
+              <?php    
+    if( $userType == 'addnew' || ($call_again === false || $call_again === true)) { ?>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="call_again">Call Again</label>
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                       <?php echo $this->Form->input("call_again", array('type' => "checkbox", 'checked' => $call_again == 1 ? 'checked' : '','div' => false, "label" => false)); ?>
+                </div>
+            </div>
+             <?php } ?>
+            <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Gender</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <div class="btn-group genders" data-toggle="buttons">
+                            <label class="btn btn-default <?php echo $gender == 'male' ? 'active' : '';?>">
+                                <input type="radio" name="gender" class="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
+                            </label>
+                            <label class="btn btn-default <?php echo $gender == 'female' ? 'active' : '';?>">
+                                <input type="radio" name="gender" class="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
+                            </label>
+                        </div>                        
+                    </div>
+                </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('first_name', array('id' => 'first_name', 'value'=> $first_name,'placeholder' => 'Enter First Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-
                 </div>
             </div>
             <div class="form-group">
@@ -95,6 +52,47 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-xs-12">
+            <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb_zone">Sect</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <div class="btn-group " data-toggle="buttons">
+                            <label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
+                                <input type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
+                            </label>
+                            <label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
+                                <input type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
+                            </label>
+                            <label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
+                                <input type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
+                            </label>
+                        </div>                        
+                    </div>
+                </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Martial status</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default <?php echo $martial_status == 'Unmarried' ? 'active' : '';?>">
+                        <input type="radio" name="martial_status" <?php echo $martial_status == 'Unmarried' ? 'checked=checked' : '';?> value="unmarried">Unmarried
+                    </label>
+                    <label class="btn btn-default <?php echo $martial_status == 'Married' ? 'active' : '';?>">
+                        <input type="radio" name="martial_status" <?php echo $martial_status == 'Married' ? 'checked=checked' : '';?> value="Married">Married
+                    </label>
+                    <label class="btn btn-default <?php echo $martial_status == 'Divorced' ? 'active' : '';?>">
+                        <input type="radio" name="martial_status" <?php echo $martial_status == 'Divorced' ? 'checked=checked' : '';?> value="Divorced">Divorced
+                    </label>
+                    <label class="btn btn-default <?php echo $martial_status == 'Separated' ? 'active' : '';?>">
+                        <input type="radio" name="martial_status" <?php echo $martial_status == 'Separated' ? 'checked=checked' : '';?> value="Separated">Separated
+                    </label>
+                    <label class="btn btn-default <?php echo $martial_status == 'Widow' ? 'active' : '';?>">
+                        <input type="radio" name="martial_status" <?php echo $martial_status == 'Widow' ? 'checked=checked' : '';?> value="Widow">Widow
+                    </label>
+                    <label class="btn btn-default <?php echo $martial_status == 'Single' ? 'active' : '';?>">
+                        <input type="radio" name="status" <?php echo $martial_status == 'Single' ? 'checked=checked' : '';?> value="single">Single
+                    </label>
+                </div>
+                    </div>
+            </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mobile_number">Mobile Number</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
