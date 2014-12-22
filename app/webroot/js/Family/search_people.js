@@ -102,7 +102,7 @@ function insertUser(id, data)
             showJsSuccessMessage(displayMsg);
             setTimeout(function () {
                 $('.jssuccessMessage').hide('slow');
-              //  window.location = baseUrl + '/family/details/'+ response.group_id;
+                window.location = baseUrl + '/family/details/'+ response.group_id;
             }, 2500);
         }
     });
