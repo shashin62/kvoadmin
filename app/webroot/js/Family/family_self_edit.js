@@ -4,7 +4,7 @@ $('.selectpicker').selectpicker();
 
 $( ".combobox" ).combobox();
 
- late();
+ late(is_late);
 if( userType =='addmother') {
 showmaidensurname('Female');
 } else if(userType == 'addfather') {
@@ -131,6 +131,9 @@ $(".editOwnButton").click(function () {
     if( userType != 'addnew') {
         $('.phone_number').rules('remove', 'required');
     }
+    if ($("#PeopleIsLate").is(':checked') ==  false) {
+        $('.date_of_death').rules('remove', 'required');
+    }
     $("#createFamily").submit();
     return false;
 });
@@ -164,17 +167,18 @@ $(".female").click(function () {
 
 $("#PeopleIsLate").click(function () {
    
-    late();
+    late(1);
 });
 
-function late() {
+function late(is_late) {
    
     if ($("#PeopleIsLate").is(':checked') ==  true) {
         $(".dd").show();
         $('.date_of_death').rules('add', 'required');
     } else {
         $(".dd").hide();
-        $('.date_of_death').rules('remove', 'required');
+       
+        //$('.date_of_death').rules('remove', 'required');
     }   
 }
 
