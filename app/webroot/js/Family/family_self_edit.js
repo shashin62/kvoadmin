@@ -160,4 +160,15 @@ $(".female").click(function () {
     return false;
 });
 
+$("#PeopleIsLate").click(function () {
+   
+    if ($(this).is(':checked') ==  true) {
+        $(".dd").show();
+        $('.date_of_death').rules('add', 'required');
+    } else {
+        $(".dd").hide();
+        $('.date_of_death').rules('remove', 'required');
+    }   
+});
+
 
