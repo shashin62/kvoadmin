@@ -2,7 +2,11 @@
     <h3 class="heading">Add/Edit Business</h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
     <div class="row-fuild">
-        <div class="btn-group occupations" data-toggle="buttons">
+        <div class="col-lg-6 col-md-6 col-xs-12" >
+             <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Occupation</label>  
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                         <div class="btn-group occupations" data-toggle="buttons">
             <label class="btn btn-default <?php echo $occupation == 'Business' ? 'active' : '';?>">
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Business' ? 'checked=checked' : '';?> value="Business">Business
             </label>
@@ -22,6 +26,10 @@
                 <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Other' ? 'checked=checked' : '';?> value="Other">Other
             </label>
         </div>
+                    </div>
+                    </div>
+        </div>
+       
     </div>
     <br>
     <div class="tohidecontainer">
