@@ -235,6 +235,7 @@
     var pid = '<?php echo $pid; ?>';
     var userType = '<?php echo $userType; ?>';
     var grpid = '<?php echo $gid; ?>';
+    var is_late = '<?php echo $is_late; ?>';
 </script>
 <script>
     $(function () {
