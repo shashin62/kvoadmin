@@ -4,7 +4,7 @@
     <div class="row-fuild">
         <div class="col-lg-6 col-md-6 col-xs-12" >
              <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Occupation</label>  
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Current Occupation</label>  
                     <div class="col-lg-8 col-md-8 col-xs-8">
                          <div class="btn-group occupations" data-toggle="buttons">
             <label class="btn btn-default <?php echo $occupation == 'Business' ? 'active' : '';?>">
