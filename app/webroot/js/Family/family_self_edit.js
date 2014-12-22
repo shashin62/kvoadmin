@@ -1,8 +1,10 @@
 $(document).ready(function () {
-
+   
 $('.selectpicker').selectpicker();
 
 $( ".combobox" ).combobox();
+
+ late();
 if( userType =='addmother') {
 showmaidensurname('Female');
 } else if(userType == 'addfather') {
@@ -162,13 +164,17 @@ $(".female").click(function () {
 
 $("#PeopleIsLate").click(function () {
    
-    if ($(this).is(':checked') ==  true) {
+    late();
+});
+
+function late() {
+   
+    if ($("#PeopleIsLate").is(':checked') ==  true) {
         $(".dd").show();
         $('.date_of_death').rules('add', 'required');
     } else {
         $(".dd").hide();
         $('.date_of_death').rules('remove', 'required');
     }   
-});
-
+}
 
