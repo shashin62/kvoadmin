@@ -171,7 +171,9 @@ $missingData = array();?>
                          
                          echo '<select class="owner combobox">';
 foreach($owners as $key => $value){
-    echo "<option data-peopleid='{$value['id']}' value='{$value['group_id']}'>{$value['name']}</option>";
+if( $groupId != $value['group_id']) {
+    echo "<option data-peopleid='{$value['id']}' value='{$value['group_id']}'>{$value['name']} ({$value['group_id']})</option>";
+}
 }
 echo '</select>';
                         
