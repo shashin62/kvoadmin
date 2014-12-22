@@ -218,7 +218,7 @@ Class People extends AppModel
         if( $groupId) {
             $options['conditions']['People.group_id'] = $groupId;
         }
-        $options['fields'] = array('concat(People.first_name,People.last_name) as childname','People.id');
+        $options['fields'] = array('concat(People.first_name,"  ",People.last_name) as childname','People.id');
         try {
             $userData = $this->find('all', $options);
 
