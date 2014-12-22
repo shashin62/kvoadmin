@@ -94,7 +94,23 @@ $(document).ready(function () {
 
 function transferUser()
 {
-    
+   
+   
+     $.ajax({
+        url: baseUrl + '/family/transfer',
+        dataType: 'json',
+        data: {id: $(this).data('id'),ownergroupid:$('.owner').val()},
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                window.location.href = baseUrl + '/family/familiyGroups';
+                
+            }, 2500);
+        }
+    });
     
 }
 
