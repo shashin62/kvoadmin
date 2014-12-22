@@ -67,7 +67,7 @@
                                     }
                                     
                                     ?>
-            <div>Children: <?php echo implode(',',$childs); ?></div>
+            <div>Children: <?php echo implode(', ',$childs); ?></div>
                                 <?php } ?>
                                     <?php if( $roleId == 1 && $value['Group']['tree_level'] != '') { ?>
             <a data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
