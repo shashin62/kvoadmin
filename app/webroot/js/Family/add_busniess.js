@@ -94,9 +94,14 @@ showoccupation(occupation);
 });
 
 $(".addressButton").click(function () {
-     if ( $('.same_as').is(':checked') == true) {
-        
-        $('.city').rules('remove', 'required');
+    
+    var occupation = $.trim($('.occupations > label.active').text());
+     var occupations = ['House Wife','Retired','Studying','Other'];
+  
+   
+    if ( $('.same_as').is(':checked') == true || $.inArray(occupation,occupations) == 0) {
+       
+        $('.city').rules('remove', 'required'); 
         $('.zipcode').rules('remove', 'required');
         $('.state').rules('remove', 'required');
         $('.road').rules('remove', 'required');
@@ -114,14 +119,14 @@ $('.same_as').click(function(){
         $('.addresscontainer').show();
     }
 });
-function showoccupation(occupation)
+function showoccupation($this)
 {
     var occp ;
-   
+   console.log($this);
     if( typeof occupation != 'undefined') {
        occp = occupation;
     } else {
-        occp = $('.occupation:checked').val();
+        occp = $this;
     }
    
     var occupation = ['House Wife','Retired','Studying','Other'];
@@ -132,7 +137,7 @@ function showoccupation(occupation)
    }
     
 }
-$('.occupation').click(function(){
-    showoccupation();
+$('.occupations > label').click(function(){
+    showoccupation($.trim($(this).text()));
 });
 

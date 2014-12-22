@@ -80,40 +80,56 @@ Class People extends AppModel
         if ($type) {
             switch ($type) {
                 case 'addfather':
-                     if ($sWhere == "") {
-                    $sWhere = "WHERE ";
-                } else {
-                    $sWhere .= ' AND ';
-                }
-                $sWhere .= ' p.gender = "male" AND p.is_late = 0 AND p.first_name is not null';
+                    if ($sWhere == "") {
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
+                    $sWhere .= ' p.gender = "male" AND p.is_late = 0 AND p.first_name is not null';
                     break;
                 case 'addmother':
                     if ($sWhere == "") {
-                    $sWhere = "WHERE ";
-                } else {
-                    $sWhere .= ' AND ';
-                }
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
                     $sWhere .= ' p.gender = "female"  AND p.is_late = 0 AND p.first_name is not null';
                     break;
+                case 'addchilld':
+                    if ($sWhere == "") {
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
+                    $sWhere .= ' (p.gender = "female" OR p.gender = "male") AND p.is_late = 0 AND p.first_name is not null';
+                    break;
+                case 'addspouse':
+                    if ($sWhere == "") {
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
+                    $sWhere .= ' (p.gender = "female" ) AND p.is_late = 0 AND p.first_name is not null';
+                    break;
                 case 'global' :
-                     if ($sWhere == "") {
-                    $sWhere = "WHERE ";
-                } else {
-                    $sWhere .= ' AND ';
-                }
-                $sWhere .= ' p.first_name is not null';
+                    if ($sWhere == "") {
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
+                    $sWhere .= ' p.first_name is not null';
                     break;
                 default:
                     if ($sWhere == "") {
-                    $sWhere = "WHERE ";
-                } else {
-                    $sWhere .= ' AND ';
-                }
-                $sWhere .= ' p.gender = "male"  AND p.is_late = 0 AND p.first_name is not null';
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
+                    $sWhere .= ' p.gender = "male"  AND p.is_late = 0 AND p.first_name is not null';
                     break;
             }
         } else {
-             
+            
         }
 
         /*

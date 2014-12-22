@@ -38,7 +38,7 @@ Class FamilyController extends AppController {
     public $uses = array(
                         'User', 'Aro', 'Role',
                         'People', 'Village', 'Education', 'State', 'BloodGroup', 
-                        'Group','Address','PeopleGroup','Suburb'
+                        'Group','Address','PeopleGroup','Suburb','Surname'
                         );
 
     /**
@@ -65,6 +65,8 @@ Class FamilyController extends AppController {
                         ? $this->request->data['date_of_birth'] : '');
                 $this->set('mobile_number',isset($this->request->data['mobile_number'])  ?
                         $this->request->data['mobile_number'] : '');
+                 $this->set('village',isset($this->request->data['village'])  ?
+                        $this->request->data['village'] : '');
         
         if ($requestData['type'] == 'self') {
            $userId = $requestData['fid'];//$this->Session->read('User.user_id');
@@ -154,6 +156,9 @@ Class FamilyController extends AppController {
         $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
 
+        $main_surnames = $this->Surname->find('list', array('fields' => array('Surname.name', 'Surname.name')));
+        $this->set(compact('main_surnames'));
+
         $bloodgroups = $this->BloodGroup->find('list', array('fields' => array('BloodGroup.name', 'BloodGroup.name')));
         $this->set(compact('bloodgroups'));
 
@@ -167,6 +172,7 @@ Class FamilyController extends AppController {
             $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
             $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
             $this->set('address_id', $getPeopleData['People']['address_id']);
+            $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('is_late', $getPeopleData['People']['is_late']);
             $this->set('mobile_number', $getPeopleData['People']['mobile_number'] ? $getPeopleData['People']['mobile_number'] : $sessionData['mobile_number'] );
@@ -194,6 +200,10 @@ Class FamilyController extends AppController {
         $idToBeUpdated = $_REQUEST['id'];
         $gid = $_REQUEST['gid'];
         $peopleId = $_REQUEST['peopleid'];
+        if ('addchilld' == $type )  {
+            $_REQUEST['peopleid'] = $idToBeUpdated;
+        }
+                
         
         $getPeopleDetail = $this->People->find('all', array(
             'conditions' => array('People.id' => $_REQUEST['peopleid']))
@@ -201,7 +211,7 @@ Class FamilyController extends AppController {
         $this->request->data = $getPeopleDetail[0];
         $updatePeople = array();
         switch ($type) {
-            case 'addfather':   
+            case 'addfather':
                 
                 $data = $this->Group->find('all',array('fields' => array('Group.id'),
                             'conditions' => array('Group.people_id' => $peopleId)));
@@ -246,13 +256,59 @@ Class FamilyController extends AppController {
                 $msg['group_id'] = $gid;
                 $message = 'Mother has been added';
                 break;
-            case 'addnew':
+            case 'addchilld':               
+                $data = $this->Group->find('all',array('fields' => array('Group.id'),
+                            'conditions' => array('Group.people_id' => $peopleId)));
                 
-               
-                $peopleData = $_REQUEST['data'];
-               
-                $data = $this->People->checkExistingOwner($peopleData); 
-              
+                $peopleGroup = array();
+                $peopleGroup['PeopleGroup']['group_id'] = $gid;
+                $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;                
+                $this->PeopleGroup->save($peopleGroup);
+                //check if member has his own family
+                 if (!isset($data[0]) && !count($data)) {
+                    $updatePeople = array();
+                    $updatePeople['People']['group_id'] = $gid;
+                    $updatePeople['People']['id'] = $peopleId;
+                }
+                
+                $updateFatherDetails = array();
+                $updateFatherDetails['People']['f_id'] = $idToBeUpdated;
+                $updateFatherDetails['People']['m_id'] = $getPeopleDetail[0]['People']['partner_id'];
+                $updateFatherDetails['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
+                $updateFatherDetails['People']['mother'] = $getPeopleDetail[0]['People']['partner_name'];
+                $updateFatherDetails['People']['id'] = $peopleId;
+                $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+                $this->People->save($updateFatherDetails);
+                $msg['group_id'] = $gid;
+                $message = 'Child has been added';
+                break;
+            case 'addspouse':
+                $data = $this->Group->find('all', array('fields' => array('Group.id'),
+                    'conditions' => array('Group.people_id' => $peopleId)));
+
+                $peopleGroup = array();
+                $peopleGroup['PeopleGroup']['group_id'] = $gid;
+                $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
+                $this->PeopleGroup->save($peopleGroup);
+                
+                $updatePeople = array();
+                $updatePeople['People']['group_id'] = $gid;
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                //update spouse details
+                $updateMotherDetails = array();
+                $updateMotherDetails['People']['partner_id'] = $_REQUEST['peopleid'];
+                $updateMotherDetails['People']['partner_name'] = $getPeopleDetail[0]['People']['first_name'];               
+                $updateMotherDetails['People']['id'] = $idToBeUpdated;                
+                $this->People->save($updateMotherDetails);
+                $msg['group_id'] = $gid;                
+                $message = 'Spouse has been added';
+                break;
+            case 'addnew':
+
+                $peopleData = $_REQUEST['data'];               
+                $data = $this->People->checkExistingOwner($peopleData);              
                 
                 if( count($data) > 0) {
                     $message  = $peopleData['first_name'] . ' ' . $peopleData['last_name'] . ' is already owner';
@@ -300,8 +356,7 @@ Class FamilyController extends AppController {
                     $this->PeopleGroup->saveAll($allData);
                     
                     $msg['group_id'] = $this->Group->id;
-                    $message = 'Family has been created';
-                    
+                    $message = 'Family has been created';                   
                     
                 }
                 break;
@@ -858,6 +913,7 @@ Class FamilyController extends AppController {
          $this->set('gid',$gid ? $gid : '');
          $this->set('name',$getOwnerDetails['first_name']);
           $this->set('parentid',$getOwnerDetails['id']);
+         
           $this->set('parentaddressid',$getOwnerDetails['business_address_id']);
         
     }
@@ -1087,6 +1143,9 @@ Class FamilyController extends AppController {
         $this->set('type',$_REQUEST['type']);
         $this->set('fid',$_REQUEST['fid']);
         $this->set('gid',$_REQUEST['gid']);
+        $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
+        $this->set(compact('villages'));
+
         $this->set('name_parent',$_REQUEST['name_parent']);
     }
     

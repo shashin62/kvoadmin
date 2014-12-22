@@ -46,7 +46,20 @@
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>
                     <div class="col-lg-4 col-md-4 col-xs-4">
-                        <input type="text" class="form-control village search_username" name="village" placeholder="Village" custom="5"/>
+                         <?php
+                        
+            echo $this->Form->input('village', array('id' => 'village',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'empty' => __d('label', '--Select--'),
+                'class' => 'village selectpicker',
+                'style' => '',
+                'options' => $villages,
+                'custom' => 5
+            ));
+            ?>
+                        
                     </div>
                 </div>
             </form>
@@ -111,6 +124,6 @@
  
    doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'",\n\
 "fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'","first_name":"'+ firstname +'",\n\
-"last_name":"'+ lastname +'","date_of_birth":"'+ dob +'","mobile_number":"'+ phone +'"}');
+"last_name":"'+ lastname +'","date_of_birth":"'+ dob +'","mobile_number":"'+ phone +'","village":"'+ village +'"}');
 });
 </script>

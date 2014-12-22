@@ -122,7 +122,9 @@ $missingData = array();?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
     <div class="row">
         <div class="col-md-2"><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
-        <div class="col-md-3"><a href="#">View Detail</a></div>
+        <div class="col-md-3">
+<a class="self" data-gid="<?php echo $groupId;?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
+</div>
 <?php 
                                    if (empty($value['People']['f_id'])) {
             $missingData[] = '<span style="color:orange">Father</span><br/>';
@@ -176,6 +178,7 @@ echo '</select>';
             
             ?>
                 </div>
+
             </div>
         </div>
     </div>

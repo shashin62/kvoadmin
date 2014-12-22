@@ -2,6 +2,7 @@ var oTable;
 
 
 $(function () {
+    $('.selectpicker').selectpicker();
     oTable = $('#all_users').DataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
@@ -51,6 +52,15 @@ $(function () {
                 .draw();
     });
     
+     $(".village").bind("change", function () {
+       
+        var table = $('#all_users').DataTable();
+        table
+                .column($(this).attr('custom'))
+                .search($.trim(this.value))
+                .draw();
+    });
+    
 });
 
 $('#all_users tbody').on('click', 'td.details-control', function () {
@@ -81,7 +91,7 @@ function insertUser(id, data)
     peopleData['phone_number'] = data[5];
     peopleData['village'] = data[4];
     peopleData['email'] = data[9];
-   
+  
     $.ajax({
         url: baseUrl + '/family/insertUser',
         dataType: 'json',
@@ -92,7 +102,7 @@ function insertUser(id, data)
             showJsSuccessMessage(displayMsg);
             setTimeout(function () {
                 $('.jssuccessMessage').hide('slow');
-                window.location = baseUrl + '/family/details/'+ response.group_id;
+              //  window.location = baseUrl + '/family/details/'+ response.group_id;
             }, 2500);
         }
     });
