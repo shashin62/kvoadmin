@@ -81,7 +81,7 @@
 <script>
     $(function () {
         $("#date_of_birth").datepicker({
-            format: "yyyy-mm-dd",
+            format: "dd/mm/yyyy",
         });
         $('.dp').on('change', function () {
             $('.datepicker').hide();
