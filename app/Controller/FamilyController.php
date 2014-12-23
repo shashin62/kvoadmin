@@ -411,11 +411,11 @@ Class FamilyController extends AppController {
         //insert in translation tables to track missing transaltions
         $getalltranslations = $this->Translation->find('all', array('fields' => array('Translation.id'),
             'conditions' => array('Translation.name' => $this->request->data['People']['first_name'])));
-        $translation = array();
-        $translation['Translation']['name'] = $this->request->data['People']['first_name'];
-        $translation['Translation']['created'] = date('Y-m-d H:i:s');
+        $translation1 = array();
+        $translation1['Translation']['name'] = $this->request->data['People']['first_name'];
+        $translation1['Translation']['created'] = date('Y-m-d H:i:s');
         if (count($getalltranslations) == 0) {
-            $this->Translation->save($translation);
+            $this->Translation->save($translation1);
         }
         $getalltranslation = $this->Translation->find('all', array('fields' => array('Translation.id'),
             'conditions' => array('Translation.name' => $this->request->data['People']['last_name'])));
