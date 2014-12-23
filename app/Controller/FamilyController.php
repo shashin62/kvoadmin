@@ -1194,6 +1194,8 @@ Class FamilyController extends AppController {
         $getOwnerId = $this->Group->find('all', array('fields' => array('Group.people_id'),'conditions'
                 => array('Group.id' => $ownerGroupId)));
         
+        $this->PeopleGroup->deleteAll(array('people_id' => $idToTransfer,'group_id' =>$ownerGroupId ));
+        
         $peopleGroup = array();
         $peopleGroup['PeopleGroup']['group_id'] = $ownerGroupId;
         $peopleGroup['PeopleGroup']['people_id'] = $idToTransfer;
