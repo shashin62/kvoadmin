@@ -356,6 +356,33 @@ Class People extends AppModel
         }
     }
     
+    public function updateAfterDeletion($id)
+    {
+        $this->recursive = -1;
+
+       $query = "UPDATE {$this->tablePrefix}people
+                  SET partner_id = '', partner_name = ''            
+                  WHERE partner_id = {$id}";
+        $update = "UPDATE {$this->tablePrefix}people
+                  SET f_id = '', father = ''            
+                  WHERE f_id = {$id}";
+        $updateMother = "UPDATE {$this->tablePrefix}people
+                  SET m_id = '', mother = ''            
+                  WHERE m_id = {$id}";
+                  
+        try {
+            $this->query($query);
+            $this->query($update);
+            $this->query($updateMother);
+                    
+            return true;
+        } catch (ErrorException $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+
+
     public function updateSpouseDetails($data) {
         $this->recursive = -1;
 
