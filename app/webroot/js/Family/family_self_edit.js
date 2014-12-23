@@ -133,6 +133,11 @@ $(".editOwnButton").click(function () {
     }
     if ($("#PeopleIsLate").is(':checked') ==  false) {
         $('.date_of_death').rules('remove', 'required');
+    } 
+    if (userType == 'addnew' && $("#PeopleIsLate").is(':checked') ==  true) {
+            $('.phone_number').rules('remove', 'required');
+    } else {
+        $('.phone_number').rules('add', 'required');
     }
     $("#createFamily").submit();
     return false;
