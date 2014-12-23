@@ -38,7 +38,7 @@ Class FamilyController extends AppController {
     public $uses = array(
                         'User', 'Aro', 'Role',
                         'People', 'Village', 'Education', 'State', 'BloodGroup', 
-                        'Group','Address','PeopleGroup','Suburb','Surname'
+                        'Group','Address','PeopleGroup','Suburb','Surname','Translation'
                         );
 
     /**
@@ -407,6 +407,22 @@ Class FamilyController extends AppController {
          $this->request->data['People']['sect'] = $this->request->data['sect'];
          $this->request->data['People']['gender'] = $this->request->data['gender'];
         $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
+        $getalltranslations = $this->Translation->find('all', array('fields' => array('Translation.id'),
+            'conditions' => array('Translation.name' => $this->request->data['People']['first_name'])));
+        $translation = array();
+        $translation['Translation']['name'] = $this->request->data['People']['first_name'];
+        $translation['Translation']['created'] = date('Y-m-d H:i:s');
+        if (count($getalltranslations) == 0) {
+            $this->Translation->save($translation);
+        }
+        $getalltranslation = $this->Translation->find('all', array('fields' => array('Translation.id'),
+            'conditions' => array('Translation.name' => $this->request->data['People']['last_name'])));
+        $translation = array();
+        $translation['Translation']['name'] = $this->request->data['People']['last_name'];
+        $translation['Translation']['created'] = date('Y-m-d H:i:s');
+        if (count($getalltranslation) == 0) {
+            $this->Translation->save($translation);
+        }
         switch ($_REQUEST['type']) {
             
             case 'addnew':
@@ -438,7 +454,8 @@ Class FamilyController extends AppController {
                     $this->request->data['People']['group_id'] = $this->Group->id;
                     $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                     if ($this->People->save($this->request->data)) {
-
+                        
+                        
                         $msg['status'] = 1;
                         $message = 'Family has been created';
                         $peopleGroup = array();
