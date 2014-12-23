@@ -119,3 +119,24 @@ $(".transfer-family").on("click", function () {
     $("#dialog-form").data('id',$(this).data('id')).dialog("open");
     return false;
 });
+
+$('.deletemember').click(function(){
+     var $this = $(this);
+    var id = $this.data('id');
+    var gid = $this.data('gid');
+     $.ajax({
+        url: baseUrl + '/family/deleteMember',
+        dataType: 'json',
+        data: {id: id,groupid:gid},
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                window.location.href = baseUrl + '/family/details/' + gid;
+                
+            }, 2500);
+        }
+    });
+});
