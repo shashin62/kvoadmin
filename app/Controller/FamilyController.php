@@ -1210,5 +1210,28 @@ Class FamilyController extends AppController {
         $this->render("/Elements/json_messages");
         
     }
+    
+    public function deleteMember()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $id = $_REQUEST['id'];
+        $groupId = $_REQUEST['groupid'];
+        
+         if ($this->People->delete(array('id' =>$id)) &&
+                 $this->PeopleGroup->deleteAll(array('people_id' => $id))) {
+             
+             $this->People->updateAfterDeletion($id);
+             
+         $msg['success'] = 1;
+            $msg['message'] = 'Member has been deleted';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
 
 }
