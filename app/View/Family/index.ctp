@@ -4,7 +4,7 @@
     
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
-              <?php    
+              <?php 
     if( $userType == 'addnew' || ($call_again === false || $call_again === true)) { ?>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="call_again">Call Again</label>
@@ -202,13 +202,18 @@
                 </div>
             </div>
             <div class="form-group">
-							<div class="col-lg-4 col-md-4 col-xs-4 control-label"></div>
-							<div class="checkbox col-lg-8 col-md-8 col-xs-8">
-								<label>
-                                                                    <?php echo $this->Form->input("is_late", array('type' => "checkbox", 'checked' => $is_late == 1 ? 'checked' : '','div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Late')))); ?>
-								</label>
-							</div>
-						</div>
+               <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Late</label>
+                <div class="checkbox col-lg-8 col-md-8 col-xs-8">                   
+                <?php echo $this->Form->input("is_late", array('type' => "checkbox", 'checked' => $is_late == 1 ? 'checked' : '','div' => false, 'label' => false,)); ?>
+                   
+                </div>
+            </div>           
+            <div style="display: none;" class="form-group dd"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_death">Death Date</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+               <?php echo $this->Form->input('date_of_death', 
+                       array('id' => 'date_of_death', 'type' => 'text','value'=> $date_of_death,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control date_of_death')); ?>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -230,6 +235,7 @@
     var pid = '<?php echo $pid; ?>';
     var userType = '<?php echo $userType; ?>';
     var grpid = '<?php echo $gid; ?>';
+    var is_late = '<?php echo $is_late; ?>';
 </script>
 <script>
     $(function () {
@@ -240,6 +246,10 @@
             $('.datepicker').hide();
         });
         $("#date_of_marriage").datepicker({
+            format: "yyyy-mm-dd"
+        });
+        
+        $("#date_of_death").datepicker({
             format: "yyyy-mm-dd"
         });
     });

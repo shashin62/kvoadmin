@@ -171,6 +171,7 @@ Class FamilyController extends AppController {
             $this->set('first_name', $getPeopleData['People']['first_name']);
             $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
             $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
+            $this->set('date_of_death', $getPeopleData['People']['date_of_death']);
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
