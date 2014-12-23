@@ -111,7 +111,9 @@
 
                                     ?>
         <div class="col-md-3"> 
+        <?php if ( $value['People']['is_late'] == 0 )  { ?>
                                     <?php echo implode(',',$missingData);?>                                    
+<?php } ?>
         </div>
     </div><br>
                         <?php } ?>
@@ -153,7 +155,9 @@ $missingData = array();?>
 
                                     ?>
         <div class="col-md-1">
+<?php if ( $value['People']['is_late'] == 0) { ?>
                                  <?php echo implode(', ',$missingData);?> 
+<?php } ?>
         </div>
     </div>
 
