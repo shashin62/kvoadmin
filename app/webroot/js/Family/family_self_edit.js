@@ -177,9 +177,10 @@ $("#PeopleIsLate").click(function () {
 
 function late(is_late) {
    
-    if ($("#PeopleIsLate").is(':checked') ==  true) {
+    if ($("#PeopleIsLate").is(':checked') ==  true || is_late == 1) {
+       
         $(".dd").show();
-        $('.date_of_death').rules('add', 'required');
+        //$('.date_of_death').rules('add', 'required');
     } else {
         $(".dd").hide();
        
