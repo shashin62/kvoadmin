@@ -128,17 +128,19 @@ showmaidensurname('Female');
 });
 
 $(".editOwnButton").click(function () {
+    
+    if (userType == 'addnew' && $("#PeopleIsLate").is(':checked') ==  true) {
+            $('.phone_number').rules('remove', 'required');
+    } else {
+        $('.phone_number').rules('add', 'required');
+    }
     if( userType != 'addnew') {
         $('.phone_number').rules('remove', 'required');
     }
     if ($("#PeopleIsLate").is(':checked') ==  false) {
         $('.date_of_death').rules('remove', 'required');
     } 
-    if (userType == 'addnew' && $("#PeopleIsLate").is(':checked') ==  true) {
-            $('.phone_number').rules('remove', 'required');
-    } else {
-        $('.phone_number').rules('add', 'required');
-    }
+    
     $("#createFamily").submit();
     return false;
 });
