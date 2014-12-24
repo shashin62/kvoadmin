@@ -57,7 +57,7 @@
             <div>Mother : <?php echo $value['People']['mother'];?></div>
                                     <?php } ?>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
                                  <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'male') { ?>
             <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br>
                                     <?php $children = $People->getChildren($value['People']['id'],'male');
@@ -85,34 +85,34 @@
 
                                 <?php 
                                    if (empty($value['People']['f_id'])) {
-            $missingData[] = '<span style="color:orange">Father</span><br/>';
+            $missingData[] = 'Father';
         }
         if (empty($value['People']['m_id'])) {
-            $missingData[] = '<span style="color:orange">Mother</span><br/>';
+            $missingData[] = 'Mother';
         }
         if (empty($value['People']['gender'])) {
-            $missingData[] = '<span style="color:orange">Gender</span><br/>';
+            $missingData[] = 'Gender';
         }
         if (empty($value['People']['address_id'])) {
-            $missingData[] = '<span style="color:orange">Address</span><br/>';
+            $missingData[] = 'Address';
         }
         if (empty($value['People']['mobile_number'])) {
-            $missingData[] = '<span style="color:orange">Mobile</span><br/>';
+            $missingData[] = 'Mobile';
         }
         if (empty($value['People']['date_of_birth'])) {
-            $missingData[] = '<span style="color:orange">DOB</span><br/>';
+            $missingData[] = 'DOB';
         }
         if (empty($value['People']['village'])) {
-            $missingData[] = '<span style="color:orange">village</span><br/>';
+            $missingData[] = 'Village';
         }
         if (empty($value[0]['grandfather'])) {
-            $missingData[] = '<span style="color:orange">grandfather</span><br/>';
+            $missingData[] = 'Grandfather';
         }
 
                                     ?>
         <div class="col-md-3"> 
         <?php if ( $value['People']['is_late'] == 0 )  { ?>
-                                    <?php echo implode(',',$missingData);?>                                    
+                                    <?php echo "<span class=\"bg-info\">" . implode(', ',$missingData) . "</span>";?>                                    
 <?php } ?>
         </div>
     </div><br>
