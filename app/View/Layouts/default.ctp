@@ -78,7 +78,9 @@
                         </li>
                         <?php } ?>
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/family/familiyGroups">Family Groups</a></li>
+                      <?php  if ($this->Session->read('User.role_id') == 1) {?>
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/report/reports">Reports</a></li>
+            <?php } ?>
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/people/search">People Search</a></li>
                     </ul>
               <?php } ?>
