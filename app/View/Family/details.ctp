@@ -112,7 +112,7 @@
                                     ?>
         <div class="col-md-3"> 
         <?php if ( $value['People']['is_late'] == 0 )  { ?>
-                                    <?php echo "<span class=\"text-warning\">" . implode(', ',$missingData) . "</span>";?>                                    
+                                    <?php echo "Missing: <span class=\"text-danger bg-danger\">" . implode(', ',$missingData) . "</span>";?>                                    
 <?php } ?>
         </div>
     </div><br>
@@ -156,7 +156,7 @@ $missingData = array();?>
                                     ?>
         <div class="col-md-1">
 <?php if ( $value['People']['is_late'] == 0) { ?>
-                                   <?php echo "<span class=\"text-warning\">" . implode(', ',$missingData) . "</span>";?>  
+                                   <?php echo "Missing: <span class=\"text-danger bg-danger\">" . implode(', ',$missingData) . "</span>";?>  
 <?php } ?>
         </div>
     </div>
