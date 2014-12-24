@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6"><h3>Add/Edit User Detail</h3></div>
+        <div class="col-md-6"><h3>Family details</h3></div>
         <div class="col-md-6 pull-right">
             <button type="button" class="btn btn-sm btn-primary">Show Names: English</button>
             <button type="button" class="btn btn-sm btn-primary">Show Names: Hindi</button>
@@ -10,7 +10,7 @@
 
 	<br>
 
-    <u><h3>Primary Family</h3></u>
+    <u><h4>Primary Family</h4></u>
 
                         <?php
                        App::import('Model', 'People');
@@ -25,7 +25,7 @@
                             $missingData = array();?>
                     <?php if( $groupId == $value['People']['group_id']) { ?>
     <div class="row">
-        <div class="col-md-1" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?> ><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
+        <div class="col-md-1" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?> ><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>) (HOF)</div>
         <div class="col-md-1">
             <a class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
                                     <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
@@ -43,7 +43,7 @@
                                     <?php if( empty($value['People']['f_id'])) { ?>
             <a class="addfather" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Father</a>
                                     <?php }  else { ?>
-            <div>Father : <?php echo $value['People']['father'];?></div>
+            <div>Father: <?php echo $value['People']['father'];?></div>
                                     <?php } ?>
         </div>
         <div class="col-md-2">
@@ -54,10 +54,10 @@
                                     <?php if( empty($value['People']['m_id'])) { ?>
             <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
                                     <?php } else { ?>
-            <div>Mother : <?php echo $value['People']['mother'];?></div>
+            <div>Mother: <?php echo $value['People']['mother'];?></div>
                                     <?php } ?>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
                                  <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'male') { ?>
             <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br>
                                     <?php $children = $People->getChildren($value['People']['id'],'male');
@@ -85,78 +85,78 @@
 
                                 <?php 
                                    if (empty($value['People']['f_id'])) {
-            $missingData[] = '<span style="color:orange">Father</span><br/>';
+            $missingData[] = 'Father';
         }
         if (empty($value['People']['m_id'])) {
-            $missingData[] = '<span style="color:orange">Mother</span><br/>';
+            $missingData[] = 'Mother';
         }
         if (empty($value['People']['gender'])) {
-            $missingData[] = '<span style="color:orange">Gender</span><br/>';
+            $missingData[] = 'Gender';
         }
         if (empty($value['People']['address_id'])) {
-            $missingData[] = '<span style="color:orange">Address</span><br/>';
+            $missingData[] = 'Address';
         }
         if (empty($value['People']['mobile_number'])) {
-            $missingData[] = '<span style="color:orange">Mobile</span><br/>';
+            $missingData[] = 'Mobile';
         }
         if (empty($value['People']['date_of_birth'])) {
-            $missingData[] = '<span style="color:orange">DOB</span><br/>';
+            $missingData[] = 'DOB';
         }
         if (empty($value['People']['village'])) {
-            $missingData[] = '<span style="color:orange">village</span><br/>';
+            $missingData[] = 'Village';
         }
         if (empty($value[0]['grandfather'])) {
-            $missingData[] = '<span style="color:orange">grandfather</span><br/>';
+            $missingData[] = 'Grandfather';
         }
 
                                     ?>
         <div class="col-md-3"> 
         <?php if ( $value['People']['is_late'] == 0 )  { ?>
-                                    <?php echo implode(',',$missingData);?>                                    
+                                    <?php echo "Missing: <span class=\"text-danger bg-danger\">" . implode(', ',$missingData) . "</span>";?>                                    
 <?php } ?>
         </div>
     </div><br>
                         <?php } ?>
                         <?php } ?>
-    <u><h3>Secondary Family</h3></u>
+    <u><h4>Secondary Family</h4></u>
 <?php foreach( $data as $key => $value ) { 
 $missingData = array();?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
     <div class="row">
-        <div class="col-md-2" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?>><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
-        <div class="col-md-3">
+        <div class="col-md-1" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?>><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
+        <div class="col-md-1">
 <a class="self" data-gid="<?php echo $groupId;?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
 </div>
 <?php 
                                    if (empty($value['People']['f_id'])) {
-            $missingData[] = '<span style="color:orange">Father</span><br/>';
+            $missingData[] = 'Father';
         }
         if (empty($value['People']['m_id'])) {
-            $missingData[] = '<span style="color:orange">Mother</span><br/>';
+            $missingData[] = 'Mother';
         }
         if (empty($value['People']['gender'])) {
-            $missingData[] = '<span style="color:orange">Gender</span><br/>';
+            $missingData[] = 'Gender';
         }
         if (empty($value['People']['address_id'])) {
-            $missingData[] = '<span style="color:orange">Address</span><br/>';
+            $missingData[] = 'Address';
         }
         if (empty($value['People']['mobile_number'])) {
-            $missingData[] = '<span style="color:orange">Mobile</span><br/>';
+            $missingData[] = 'Mobile';
         }
         if (empty($value['People']['date_of_birth'])) {
-            $missingData[] = '<span style="color:orange">DOB</span><br/>';
+            $missingData[] = 'DOB';
         }
         if (empty($value['People']['village'])) {
-            $missingData[] = '<span style="color:orange">Village</span><br/>';
+            $missingData[] = 'Village';
         }
         if (empty($value[0]['grandfather'])) {
-            $missingData[] = '<span style="color:orange">Grandfather</span><br/>';
+            $missingData[] = 'Grandfather';
         }
 
                                     ?>
-        <div class="col-md-1">
+        <div class="col-md-3">
 <?php if ( $value['People']['is_late'] == 0) { ?>
-                                 <?php echo implode(', ',$missingData);?> 
+                                   <?php echo "Missing: <span class=\"text-danger bg-danger\">" . implode(', ',$missingData) . "</span>";?>  
 <?php } ?>
         </div>
     </div>
