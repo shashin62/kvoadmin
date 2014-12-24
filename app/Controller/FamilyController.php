@@ -411,20 +411,20 @@ Class FamilyController extends AppController {
         //insert in translation tables to track missing transaltions
         $getalltranslations = $this->Translation->find('all', array('fields' => array('Translation.id'),
             'conditions' => array('Translation.name' => $this->request->data['People']['first_name'])));
-        $translation1 = array();
-        $translation1['Translation']['name'] = $this->request->data['People']['first_name'];
-        $translation1['Translation']['created'] = date('Y-m-d H:i:s');
+        $translation = array();
         if (count($getalltranslations) == 0) {
-            $this->Translation->save($translation1);
+            $translation[0]['Translation']['name'] = $this->request->data['People']['first_name'];
+            $translation[0]['Translation']['created'] = date('Y-m-d H:i:s');
         }
         $getalltranslation = $this->Translation->find('all', array('fields' => array('Translation.id'),
             'conditions' => array('Translation.name' => $this->request->data['People']['last_name'])));
-        $translation = array();
-        $translation['Translation']['name'] = $this->request->data['People']['last_name'];
-        $translation['Translation']['created'] = date('Y-m-d H:i:s');
+
+
         if (count($getalltranslation) == 0) {
-            $this->Translation->save($translation);
+            $translation[1]['Translation']['name'] = $this->request->data['People']['last_name'];
+            $translation[1]['Translation']['created'] = date('Y-m-d H:i:s');
         }
+        $this->Translation->saveAll($translation);
         switch ($_REQUEST['type']) {
             
             case 'addnew':
