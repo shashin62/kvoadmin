@@ -32,8 +32,12 @@ class Translation extends AppModel {
     }
     
      
-     public function getAllTranslations() {
-       $aColumns = array('id', 'name','gujurathi_text','hindi_text', 'status',);
+     public function getAllTranslations($missing = false) {
+         if( $missing) {
+             $aColumns = array('id', 'name','created');
+         } else {
+        $aColumns = array('id', 'name','gujurathi_text','hindi_text', 'status',);
+         }
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "id";
@@ -94,6 +98,15 @@ class Translation extends AppModel {
                 }
                 $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
+        }
+        
+        if ($missing) {
+            if ($sWhere == "") {
+                $sWhere = "WHERE ";
+            } else {
+                $sWhere .= ' AND ';
+            }
+            $sWhere .= ' gujurathi_text IS NULL OR  hindi_text IS NULL';
         }
 
         /*
@@ -164,6 +177,11 @@ class Translation extends AppModel {
             $output['aaData'][] = $row;
         }
         return $output;
+    }
+    
+    public function getAllMissingData()
+    {
+        
     }
     
 }
