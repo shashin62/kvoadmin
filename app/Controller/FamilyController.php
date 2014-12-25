@@ -95,6 +95,7 @@ Class FamilyController extends AppController {
                 // set surname and village to read only mode
                 $this->set('village',$getPeopleData['People']['village']);
                 $this->set('readonly',true);
+                $this->set('main_surname', $getPeopleData['People']['main_surname']);
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
