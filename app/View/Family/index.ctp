@@ -71,10 +71,7 @@
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Marital status</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default <?php echo $martial_status == 'Unmarried' ? 'active' : '';?>">
-                        <input type="radio" name="martial_status" <?php echo $martial_status == 'Unmarried' ? 'checked=checked' : '';?> value="unmarried">Unmarried
-                    </label>
+                <div class="btn-group" data-toggle="buttons">                    
                     <label class="btn btn-default <?php echo $martial_status == 'Married' ? 'active' : '';?>">
                         <input type="radio" name="martial_status" <?php echo $martial_status == 'Married' ? 'checked=checked' : '';?> value="Married">Married
                     </label>
