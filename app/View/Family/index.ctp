@@ -29,13 +29,28 @@
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
+                    
                         <?php echo $this->Form->input('first_name', array('id' => 'first_name', 'value'=> $first_name,'placeholder' => 'Enter First Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'readonly' => $readonly,'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    <?php
+                        
+            echo $this->Form->input('last_name', array('id' => 'last_name',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'empty' => __d('label', '--Select--'),
+                'class' => 'last_name combobox',
+                'style' => '',
+                'disabled' => $readonly,
+                'options' => $main_surnames,
+                'value' => $last_name
+            ));
+            ?>
+                      
                 </div>
             </div>
             <div class="form-group"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">DOB</label>   
