@@ -75,11 +75,12 @@ doFormPost(baseUrl + "/family/searchPeople?type=addchilld",
 });
 var dialog;
 $(document).ready(function () {
+    $( ".combobox" ).combobox({width: '180px'});
     dialog = $("#dialog-form").dialog({
         autoOpen: false,
         height: 'auto',
         width: 'auto',
-        modal: true,
+        modal: false,
         buttons: {
         "Submit": transferUser,
         Cancel: function () {
