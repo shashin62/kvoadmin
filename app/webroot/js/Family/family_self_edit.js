@@ -6,7 +6,7 @@ $( ".combobox" ).combobox();
 
  late(is_late);
  console.log(userType);
-if( userType =='addmother' || userType == 'addspouse') {
+if( userType =='addmother' || userType == 'addspouse' || gender == 'female') {
 showmaidensurname('Female');
 showmaidenvillage('Female');
 } else if(userType == 'addfather') {
