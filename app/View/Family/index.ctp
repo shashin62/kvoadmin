@@ -29,13 +29,28 @@
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
+                    
                         <?php echo $this->Form->input('first_name', array('id' => 'first_name', 'value'=> $first_name,'placeholder' => 'Enter First Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('last_name', array('id' => 'last_name', 'readonly' => $readonly,'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    <?php
+                        
+            echo $this->Form->input('last_name', array('id' => 'last_name',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'empty' => __d('label', '--Select--'),
+                'class' => 'last_name combobox',
+                'style' => '',
+                //'disabled' => $readonly,
+                'options' => $main_surnames,
+                'value' => $last_name
+            ));
+            ?>
+                      
                 </div>
             </div>
             <div class="form-group"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">DOB</label>   
@@ -71,10 +86,7 @@
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Marital status</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default <?php echo $martial_status == 'Unmarried' ? 'active' : '';?>">
-                        <input type="radio" name="martial_status" <?php echo $martial_status == 'Unmarried' ? 'checked=checked' : '';?> value="unmarried">Unmarried
-                    </label>
+                <div class="btn-group" data-toggle="buttons">                    
                     <label class="btn btn-default <?php echo $martial_status == 'Married' ? 'active' : '';?>">
                         <input type="radio" name="martial_status" <?php echo $martial_status == 'Married' ? 'checked=checked' : '';?> value="Married">Married
                     </label>
@@ -102,7 +114,20 @@
             <div class="form-group maidensurname">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_surname">Maiden Surname</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname','value'=> $maiden_surname, 'placeholder' => 'Enter Maiden Surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    <?php
+                        
+            echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'empty' => __d('label', '--Select--'),
+                'class' => 'maiden_surname combobox',
+                'style' => '',
+               // 'disabled' => $readonly,
+                'options' => $main_surnames,
+                'value' => $maiden_surname
+            ));
+            ?>
                 </div>
             </div>
             <div class="form-group">
@@ -117,7 +142,7 @@
                 'empty' => __d('label', '--Select--'),
                 'class' => 'main_surname combobox',
                 'style' => '',
-                'disabled' => $readonly,
+                //'disabled' => $readonly,
                 'options' => $main_surnames,
                 'value' => $main_surname
             ));

@@ -419,7 +419,8 @@ Class People extends AppModel
         $this->recursive = -1;
 
       $query = "UPDATE {$this->tablePrefix}people
-                  SET occupation = '{$data['occupation']}' , business_name = '{$data['business_name']}'           
+                  SET occupation = '{$data['occupation']}' , business_name = '{$data['business_name']}'   
+                      , business_service_name = '{$data['business_service_name']}'   
                   WHERE id = {$data['id']}";
                   
         try {

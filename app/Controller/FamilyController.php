@@ -95,6 +95,8 @@ Class FamilyController extends AppController {
                 // set surname and village to read only mode
                 $this->set('village',$getPeopleData['People']['village']);
                 $this->set('readonly',true);
+                $this->set('main_surname', $getPeopleData['People']['main_surname']);
+                $this->set('sect', $getPeopleData['People']['sect']);
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
@@ -224,9 +226,9 @@ Class FamilyController extends AppController {
                 $this->PeopleGroup->save($peopleGroup);
                 //check if father has his own family
                 if (!isset($data[0]) && !count($data)) {
-                    $updatePeople = array();
-                    $updatePeople['People']['group_id'] = $gid;
-                    $updatePeople['People']['id'] = $peopleId;
+                   // $updatePeople = array();
+                   // $updatePeople['People']['group_id'] = $gid;
+                   // $updatePeople['People']['id'] = $peopleId;
                 }
                 //update father details
                 $updateFatherDetails = array();
@@ -244,9 +246,9 @@ Class FamilyController extends AppController {
                 $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
                 $this->PeopleGroup->save($peopleGroup);
-                $updatePeople = array();
-                $updatePeople['People']['group_id'] = $gid;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                //$updatePeople = array();
+                //$updatePeople['People']['group_id'] = $gid;
+                //$updatePeople['People']['id'] = $_REQUEST['peopleid'];
                 //update mother details
                 $updateMotherDetails = array();
                 $updateMotherDetails['People']['m_id'] = $_REQUEST['peopleid'];
@@ -268,9 +270,9 @@ Class FamilyController extends AppController {
                 $this->PeopleGroup->save($peopleGroup);
                 //check if member has his own family
                  if (!isset($data[0]) && !count($data)) {
-                    $updatePeople = array();
-                    $updatePeople['People']['group_id'] = $gid;
-                    $updatePeople['People']['id'] = $peopleId;
+                    //$updatePeople = array();
+                   // $updatePeople['People']['group_id'] = $gid;
+                   // $updatePeople['People']['id'] = $peopleId;
                 }
                 
                 $updateFatherDetails = array();
@@ -294,9 +296,9 @@ Class FamilyController extends AppController {
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
                 $this->PeopleGroup->save($peopleGroup);
                 
-                $updatePeople = array();
-                $updatePeople['People']['group_id'] = $gid;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                //$updatePeople = array();
+                //$updatePeople['People']['group_id'] = $gid;
+                //$updatePeople['People']['id'] = $_REQUEST['peopleid'];
                 //update spouse details
                 $updateMotherDetails = array();
                 $updateMotherDetails['People']['partner_id'] = $_REQUEST['peopleid'];
@@ -404,13 +406,14 @@ Class FamilyController extends AppController {
             );
         }
         
-         $this->request->data['People']['sect'] = $this->request->data['sect'];
-         $this->request->data['People']['gender'] = $this->request->data['gender'];
+        $this->request->data['People']['sect'] = $this->request->data['sect'];
+        $this->request->data['People']['gender'] = $this->request->data['gender'];
         $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
-        
+       
         //insert in translation tables to track missing transaltions
         $getalltranslations = $this->Translation->find('all', array('fields' => array('Translation.id'),
             'conditions' => array('Translation.name' => $this->request->data['People']['first_name'])));
+       
         $translation = array();
         if (count($getalltranslations) == 0) {
             $translation[0]['Translation']['name'] = $this->request->data['People']['first_name'];
@@ -913,6 +916,7 @@ Class FamilyController extends AppController {
         $groupData  = $data[0]['Group'];
         $this->set('show',$groupData['tree_level'] == "" ? false : true);
         $this->set('occupation',$peopleData['occupation']);
+        $this->set('business_service_name',$peopleData['business_service_name']);
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
@@ -951,6 +955,7 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['id'] = $peopleId;
         $updatePeopleBusniessDetails['occupation'] = $this->request->data['occupation'];
         $updatePeopleBusniessDetails['business_name'] = $this->request->data['Address']['business_name'];
+        $updatePeopleBusniessDetails['business_service_name'] = $this->request->data['Address']['business_service_name'];
         
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife','Retired','Studying','Other');

@@ -1,3 +1,8 @@
+<style>
+ul.ui-menu {
+    z-index:9999 ; /* The default is 100. !important overrides the default. */
+}
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6"><h3>Family details</h3></div>
@@ -124,9 +129,54 @@ $missingData = array();?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
     <div class="row">
         <div class="col-md-1" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?>><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
-        <div class="col-md-1">
-<a class="self" data-gid="<?php echo $groupId;?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
-</div>
+        
+ <div class="col-md-1">
+            <a class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
+                                    <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
+            <a class="addspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Spouse</a><br>
+                                    <?php } else  { ?> 
+            <div>Spouse: <?php echo $value['People']['partner_name'];?></div>
+                                    <?php } ?>
+
+        </div>
+        <div class="col-md-2">
+            <?php if ($value['People']['is_late'] != '1') {?>
+            <a class="editaddress" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['address_id'];?>" href="javascript:void(0);">
+                                <?php echo $value['People']['address_id'] ? 'Edit Home Address' : 'Add Home Address';?></a><br>
+                    <?php } ?>
+                                    <?php if( empty($value['People']['f_id'])) { ?>
+            <a class="addfather" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Father</a>
+                                    <?php }  else { ?>
+            <div>Father: <?php echo $value['People']['father'];?></div>
+                                    <?php } ?>
+        </div>
+        <div class="col-md-2">
+             <?php if ($value['People']['is_late'] != '1') {?>
+            <a class="editbusiness" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['business_address_id'];?>" href="#">
+                            <?php echo $value['People']['business_address_id'] ? 'Edit Business Details' : 'Add Business Details';?></a><br>
+             <?php } ?>
+                                    <?php if( empty($value['People']['m_id'])) { ?>
+            <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
+                                    <?php } else { ?>
+            <div>Mother: <?php echo $value['People']['mother'];?></div>
+                                    <?php } ?>
+        </div>
+        <div class="col-md-2">
+                                 <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'male') { ?>
+            <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br>
+                                    <?php $children = $People->getChildren($value['People']['id'],'male');
+                                    $childs = array();
+                                    foreach ( $children as $k => $v ) {
+                                        $childs[] = $v[0]['childname'];
+                                    }
+                                    
+                                    ?>
+            <div>Children: <?php echo implode(', ',$childs); ?></div>
+                                <?php } ?>
+                                    <?php if( $roleId == 1 && $value['Group']['tree_level'] != '') { ?>
+            <a class="deletemember" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
+                                     <?php } ?>
+        </div>       
 <?php 
                                    if (empty($value['People']['f_id'])) {
             $missingData[] = 'Father';
@@ -190,3 +240,6 @@ echo '</select>';
     </div>
 </div>
 <?php echo $this->Html->script(array('Family/details')); ?>
+<script type="text/javascript">
+var groupid = '<?php echo $groupId;?>';
+</script>
