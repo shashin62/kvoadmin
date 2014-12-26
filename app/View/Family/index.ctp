@@ -281,6 +281,7 @@
     var userType = '<?php echo $userType; ?>';
     var grpid = '<?php echo $gid; ?>';
     var is_late = '<?php echo $is_late; ?>';
+    var gender = '<?php echo $gender;?>';
 </script>
 <script>
     $(function () {
