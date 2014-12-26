@@ -338,6 +338,7 @@ Class People extends AppModel
         }
           
           $options['order'] = array('Group.tree_level' => 'asc');
+          $options['group'] = array('People.id');
         try {
             $familyData = $this->find('all', $options);
             
