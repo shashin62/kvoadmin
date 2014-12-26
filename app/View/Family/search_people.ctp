@@ -17,35 +17,35 @@
     ?>
 <h3 class="heading"><?php echo $title; ?></h3>
     <div class="row">
-        <div class="col-xs-12 col-md-6">	
+        <div class="col-md-4">	
             <form class="form-horizontal addUser">
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
-                    <div class="col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-lg-8 col-md-8 col-xs-8">
                         <input type="text" class="form-control first_name search_username" name="first_name" placeholder="First Name" custom="1" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
-                    <div class="col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-lg-8 col-md-8 col-xs-8">
                         <input type="text" class="form-control last_name search_username" name="last_name" placeholder="Last Name" custom="2" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mobile_number">Mobile Number</label>
-                    <div class="col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-lg-8 col-md-8 col-xs-8">
                         <input type="text" class="form-control mobile_number search" name="mobile_number" placeholder="Mobile number" custom="3"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_birth">DOB</label>
-                    <div class="col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-lg-8 col-md-8 col-xs-8">
                         <input id = "date_of_birth" type="text" class="dob form-control dp search_DOB" name="date_of_birth" placeholder="DOB" custom="4"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>
-                    <div class="col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
                         
             echo $this->Form->input('village', array('id' => 'village',
@@ -64,17 +64,16 @@
                 </div>
             </form>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-xs-12">
-                <div class="form-actions">
-                    <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>"><?php echo $buttonLabel;?></button>
-                    </div>
-                </div>
-            </div>
+			<div class="form-actions">
+				<div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>"><?php echo $buttonLabel;?></button>
+				</div>
+			</div>
+
         </div>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-8">
             <table id="all_users" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
