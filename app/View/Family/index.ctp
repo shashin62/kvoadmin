@@ -176,6 +176,26 @@
                 </div>
                 
             </div>
+            <div class="form-group maidenvillage">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_village">Maiden Village</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                         <?php
+                        
+            echo $this->Form->input('maiden_village', array('id' => 'maiden_village',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'empty' => __d('label', '--Select--'),
+                'class' => 'maiden_village combobox',
+                'style' => '',
+                'disabled' => $readonly,
+                'options' => $villages,
+                'value' => $maiden_village
+            ));
+            ?>
+                </div>
+                
+            </div>
         </div>
     </div>
     <div class="row">
