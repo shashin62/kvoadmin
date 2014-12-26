@@ -226,9 +226,9 @@ Class FamilyController extends AppController {
                 $this->PeopleGroup->save($peopleGroup);
                 //check if father has his own family
                 if (!isset($data[0]) && !count($data)) {
-                    $updatePeople = array();
-                    $updatePeople['People']['group_id'] = $gid;
-                    $updatePeople['People']['id'] = $peopleId;
+                   // $updatePeople = array();
+                   // $updatePeople['People']['group_id'] = $gid;
+                   // $updatePeople['People']['id'] = $peopleId;
                 }
                 //update father details
                 $updateFatherDetails = array();
@@ -246,9 +246,9 @@ Class FamilyController extends AppController {
                 $peopleGroup['PeopleGroup']['people_id'] = $_REQUEST['peopleid'];
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
                 $this->PeopleGroup->save($peopleGroup);
-                $updatePeople = array();
-                $updatePeople['People']['group_id'] = $gid;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                //$updatePeople = array();
+                //$updatePeople['People']['group_id'] = $gid;
+                //$updatePeople['People']['id'] = $_REQUEST['peopleid'];
                 //update mother details
                 $updateMotherDetails = array();
                 $updateMotherDetails['People']['m_id'] = $_REQUEST['peopleid'];
@@ -270,9 +270,9 @@ Class FamilyController extends AppController {
                 $this->PeopleGroup->save($peopleGroup);
                 //check if member has his own family
                  if (!isset($data[0]) && !count($data)) {
-                    $updatePeople = array();
-                    $updatePeople['People']['group_id'] = $gid;
-                    $updatePeople['People']['id'] = $peopleId;
+                    //$updatePeople = array();
+                   // $updatePeople['People']['group_id'] = $gid;
+                   // $updatePeople['People']['id'] = $peopleId;
                 }
                 
                 $updateFatherDetails = array();
@@ -296,9 +296,9 @@ Class FamilyController extends AppController {
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
                 $this->PeopleGroup->save($peopleGroup);
                 
-                $updatePeople = array();
-                $updatePeople['People']['group_id'] = $gid;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                //$updatePeople = array();
+                //$updatePeople['People']['group_id'] = $gid;
+                //$updatePeople['People']['id'] = $_REQUEST['peopleid'];
                 //update spouse details
                 $updateMotherDetails = array();
                 $updateMotherDetails['People']['partner_id'] = $_REQUEST['peopleid'];
