@@ -45,7 +45,7 @@
                 'empty' => __d('label', '--Select--'),
                 'class' => 'last_name combobox',
                 'style' => '',
-                'disabled' => $readonly,
+                //'disabled' => $readonly,
                 'options' => $main_surnames,
                 'value' => $last_name
             ));
@@ -123,7 +123,7 @@
                 'empty' => __d('label', '--Select--'),
                 'class' => 'maiden_surname combobox',
                 'style' => '',
-                'disabled' => $readonly,
+               // 'disabled' => $readonly,
                 'options' => $main_surnames,
                 'value' => $maiden_surname
             ));
@@ -142,7 +142,7 @@
                 'empty' => __d('label', '--Select--'),
                 'class' => 'main_surname combobox',
                 'style' => '',
-                'disabled' => $readonly,
+                //'disabled' => $readonly,
                 'options' => $main_surnames,
                 'value' => $main_surname
             ));
