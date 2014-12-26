@@ -5,7 +5,8 @@ $('.selectpicker').selectpicker();
 $( ".combobox" ).combobox();
 
  late(is_late);
-if( userType =='addmother') {
+ console.log(userType);
+if( userType =='addmother' || userType == 'addspouse') {
 showmaidensurname('Female');
 } else if(userType == 'addfather') {
     showmaidensurname('Male');
