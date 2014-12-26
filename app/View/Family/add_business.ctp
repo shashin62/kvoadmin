@@ -28,6 +28,12 @@
 					</div>
 				</div>
 			</div>
+                    <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="business_service_name">Business/Service Name</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <?php echo $this->Form->input('business_service_name', array('id' => 'business_service_name', 'value'=> $business_service_name,'placeholder' => 'Enter business/service name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    </div>
+                </div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
 	</div>
