@@ -406,8 +406,8 @@ Class FamilyController extends AppController {
             );
         }
         
-         $this->request->data['People']['sect'] = $this->request->data['sect'];
-         $this->request->data['People']['gender'] = $this->request->data['gender'];
+        $this->request->data['People']['sect'] = $this->request->data['sect'];
+        $this->request->data['People']['gender'] = $this->request->data['gender'];
         $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
        
         //insert in translation tables to track missing transaltions
@@ -916,6 +916,7 @@ Class FamilyController extends AppController {
         $groupData  = $data[0]['Group'];
         $this->set('show',$groupData['tree_level'] == "" ? false : true);
         $this->set('occupation',$peopleData['occupation']);
+        $this->set('business_service_name',$peopleData['business_service_name']);
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
@@ -954,6 +955,7 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['id'] = $peopleId;
         $updatePeopleBusniessDetails['occupation'] = $this->request->data['occupation'];
         $updatePeopleBusniessDetails['business_name'] = $this->request->data['Address']['business_name'];
+        $updatePeopleBusniessDetails['business_service_name'] = $this->request->data['Address']['business_service_name'];
         
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife','Retired','Studying','Other');
