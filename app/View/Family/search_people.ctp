@@ -17,7 +17,7 @@
     ?>
 <h3 class="heading"><?php echo $title; ?></h3>
     <div class="row">
-        <div class="col-xs-12 col-md-6">	
+        <div class="col-md-4">	
             <form class="form-horizontal addUser">
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
@@ -74,7 +74,7 @@
             </div>
         </div>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-8">
             <table id="all_users" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
