@@ -240,3 +240,6 @@ echo '</select>';
     </div>
 </div>
 <?php echo $this->Html->script(array('Family/details')); ?>
+<script type="text/javascript">
+var groupid = '<?php echo $groupId;?>';
+</script>
