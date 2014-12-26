@@ -8,10 +8,13 @@ $( ".combobox" ).combobox();
  console.log(userType);
 if( userType =='addmother' || userType == 'addspouse') {
 showmaidensurname('Female');
+showmaidenvillage('Female');
 } else if(userType == 'addfather') {
     showmaidensurname('Male');
+    showmaidenvillage('Male');
 } else {
     showmaidensurname('Male');
+    showmaidenvillage('Male');
 }
 
     $("#createFamily").validate({
@@ -100,8 +103,9 @@ showmaidensurname('Female');
             var queryString = $('#createFamily').serialize();
             var type = userType;
             var peopleid = pid;
+            var groupid = grpid;
             
-            $.post(baseUrl + '/family/editOwnDetails?type=' + type + '&peopleid=' + peopleid, queryString, function (data) {
+            $.post(baseUrl + '/family/editOwnDetails?type=' + type + '&peopleid=' + peopleid + '&gid=' + groupid, queryString, function (data) {
                  if (0 == data.status) {
                 if (data.error.name.length > 0) {
                     for (var i = 0; i < data.error.name.length; i++) {
@@ -149,6 +153,7 @@ $(".editOwnButton").click(function () {
 $('.genders > label').click(function()
 {
    showmaidensurname($(this).text());
+   showmaidenvillage($(this).text());
 });
 
 function showmaidensurname($this)
@@ -158,6 +163,15 @@ function showmaidensurname($this)
        $(".maidensurname").hide();
    } else {
         $(".maidensurname").show();
+   }
+}
+function showmaidenvillage($this)
+{
+    
+    if( $.trim($this) == "Male") {
+       $(".maidenvillage").hide();
+   } else {
+        $(".maidenvillage").show();
    }
 }
 $(".male").click(function () {
