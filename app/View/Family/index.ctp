@@ -114,7 +114,20 @@
             <div class="form-group maidensurname">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_surname">Maiden Surname</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname','value'=> $maiden_surname, 'placeholder' => 'Enter Maiden Surname' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    <?php
+                        
+            echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'empty' => __d('label', '--Select--'),
+                'class' => 'maiden_surname combobox',
+                'style' => '',
+                'disabled' => $readonly,
+                'options' => $main_surnames,
+                'value' => $maiden_surname
+            ));
+            ?>
                 </div>
             </div>
             <div class="form-group">
