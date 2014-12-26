@@ -409,10 +409,11 @@ Class FamilyController extends AppController {
          $this->request->data['People']['sect'] = $this->request->data['sect'];
          $this->request->data['People']['gender'] = $this->request->data['gender'];
         $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
-        
+       
         //insert in translation tables to track missing transaltions
         $getalltranslations = $this->Translation->find('all', array('fields' => array('Translation.id'),
             'conditions' => array('Translation.name' => $this->request->data['People']['first_name'])));
+       
         $translation = array();
         if (count($getalltranslations) == 0) {
             $translation[0]['Translation']['name'] = $this->request->data['People']['first_name'];
