@@ -187,6 +187,7 @@ Class FamilyController extends AppController {
             $this->set('state', $getPeopleData['People']['state']);
             $this->set('education', $getPeopleData['People']['education']);
             $this->set('village', $getPeopleData['People']['village']);
+            $this->set('maiden_village', $getPeopleData['People']['maiden_village']);
             $this->set('blood_group', $getPeopleData['People']['blood_group']);
             $this->set('tree_level',$getPeopleData['Group']['tree_level']);
             $this->set('call_again',$getPeopleData['People']['call_again']);
