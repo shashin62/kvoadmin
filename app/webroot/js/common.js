@@ -86,6 +86,7 @@ function format(d) {
     var maiden_surname = d['11'] ? d['11'] : '-';
     var grand_father = d['15'] ? d['15'] : '-';
     var grand_mother = d['16'] ? d['16'] : '-';
+    var spouse = d['9'] != null ? d['9'] : '-';
     return '<table cellpadding="5" cellspacing="0" border="0" style="">' +
             '<tr>' +
             '<td>&nbsp<b>Father</b>:' +
@@ -97,7 +98,7 @@ function format(d) {
             '<td>&nbsp<b>Email</b>: ' +
             '' + d['12'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Spouse</b>: ' +
-            '' + d['9'] + '</td></tr><tr>&nbsp;' +
+            '' + spouse + '</td></tr><tr>&nbsp;' +
             '<td>&nbsp<b>Maiden Village</b>: ' +
             '' + maiden_village + '</td>&nbsp;' +
             '<td>&nbsp<b>Maiden Surname</b>: ' +
