@@ -84,6 +84,8 @@ function format(d) {
     console.log(d);
     var maiden_village = d['10'] ? d['10'] : '-';
     var maiden_surname = d['11'] ? d['11'] : '-';
+    var grand_father = d['15'] ? d['15'] : '-';
+    var grand_mother = d['16'] ? d['16'] : '-';
     return '<table cellpadding="5" cellspacing="0" border="0" style="">' +
             '<tr>' +
             '<td>&nbsp<b>Father</b>:' +
@@ -101,9 +103,9 @@ function format(d) {
             '<td>&nbsp<b>Maiden Surname</b>: ' +
             '' + maiden_surname + '</td>&nbsp;' +
             '<td>&nbsp<b>Grand Father</b>: ' +
-            '' + d[15] + '</td>&nbsp;' +
+            '' + grand_father + '</td>&nbsp;' +
             '<td>&nbsp<b>Grand Father(Mother)</b>: ' +
-            '' + d[16] + '</td>&nbsp;' +
+            '' + grand_mother + '</td>&nbsp;' +
             '</tr>' +
             '</table>';
 }
