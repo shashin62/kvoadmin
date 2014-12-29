@@ -138,6 +138,8 @@ Class People extends AppModel
          */
         $sJoin = "  LEFT JOIN people as parent ON (parent.id = p.f_id)
                     LEFT JOIN people as parent2 ON (parent2.id = p.m_id) 
+                    LEFT JOIN people AS parent3 ON parent3.id = parent.f_id
+                    LEFT JOIN people as parent4 ON parent4.id = parent2.f_id
                     ";
                     
         //$sGroup = " group by p.mobile_number";
@@ -145,7 +147,12 @@ Class People extends AppModel
       $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number, p.date_of_birth, p.m_id, p.f_id, 
     IF( p.f_id = parent.id ,parent.first_name, '') as father
-              , IF( p.m_id = parent2.id, parent2.first_name, '') as mother,
+              , IF( p.m_id = parent2.id, parent2.first_name, '') as mother
+              , p.partner_name as spouse
+              , p.maiden_village as maiden_village
+              , p.maiden_surname as maiden_surname
+              , concat_ws(' ',parent3.first_name,parent3.last_name) as grandfather,
+              concat_ws(' ',parent4.first_name,parent4.last_name) as grandfather_mother,
               p.village,p.email
             FROM   $sTable
                 $sJoin
@@ -156,7 +163,7 @@ Class People extends AppModel
             ";
 
         $rResult = $this->query($sQuery);
-
+ 
         /* Data set length after filtering */
         $sQuery = "
     SELECT FOUND_ROWS() as total
