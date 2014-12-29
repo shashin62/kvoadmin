@@ -325,6 +325,20 @@ Class People extends AppModel
                 'conditions' => array(
                     'grandfather.id = parent1.f_id'
                 )
+            ),
+              array('table' => 'people',
+                'alias' => 'grandfatherm',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'grandfatherm.id = parent2.f_id'
+                )
+            ),
+                  array('table' => 'address',
+                'alias' => 'Address',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'Address.people_id = People.id'
+                )
             )
              );
         } else {
@@ -339,7 +353,11 @@ Class People extends AppModel
                  );
         }
         if ( $getAllDetails) {
-            $options['fields'] = array('People.*','Group.tree_level','Group.people_id','concat_ws(" ",grandfather.first_name,grandfather.last_name) as grandfather');
+            $options['fields'] = array('People.*','Group.tree_level','Group.people_id',
+                'concat_ws(" ",grandfather.first_name,grandfather.last_name) as grandfather',
+                'concat_ws(" ",grandfatherm.first_name,grandfatherm.last_name) as grandfather_mother',
+                'Address.phone1'
+                );
         } else {
             $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
         }
@@ -348,9 +366,7 @@ Class People extends AppModel
           $options['group'] = array('People.id');
         try {
             $familyData = $this->find('all', $options);
-            
-            //exit;
-
+           
             if (!empty($familyData) && isset($familyData[0])) {
                 $familyData = $familyData;
 
