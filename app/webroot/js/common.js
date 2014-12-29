@@ -81,17 +81,29 @@ function displayErrors(ename,etype,error, callType, marginLeft)
     }
 }
 function format(d) {
-    
-    return '<table cellpadding="2" cellspacing="0" border="0" style="">' +
+    console.log(d);
+    var maiden_village = d['10'] ? d['10'] : '-';
+    var maiden_surname = d['11'] ? d['11'] : '-';
+    return '<table cellpadding="5" cellspacing="0" border="0" style="">' +
             '<tr>' +
             '<td>&nbsp<b>Father</b>:' +
-            '' + d['10'] + '</td>&nbsp;' +
+            '' + d['13'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Mother</b>: ' +
-            '' + d['11'] + '</td>&nbsp;' +
+            '' + d['14'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Village</b>: ' +
             '' + d['4'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Email</b>: ' +
-            '' + d['9'] + '</td>' +
+            '' + d['12'] + '</td>&nbsp;' +
+            '<td>&nbsp<b>Spouse</b>: ' +
+            '' + d['9'] + '</td></tr><tr>&nbsp;' +
+            '<td>&nbsp<b>Maiden Village</b>: ' +
+            '' + maiden_village + '</td>&nbsp;' +
+            '<td>&nbsp<b>Maiden Surname</b>: ' +
+            '' + maiden_surname + '</td>&nbsp;' +
+            '<td>&nbsp<b>Grand Father</b>: ' +
+            '' + d[15] + '</td>&nbsp;' +
+            '<td>&nbsp<b>Grand Father(Mother)</b>: ' +
+            '' + d[16] + '</td>&nbsp;' +
             '</tr>' +
             '</table>';
 }
