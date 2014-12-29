@@ -7,6 +7,8 @@ $(function () {
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
+        "bLengthChange": false,
+        "bFilter": false,
         "sAjaxSource": baseUrl + "/family/getAjaxSearch?type=" + actiontype,
         "columns": [
             {
