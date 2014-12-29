@@ -21,7 +21,7 @@ ul.ui-menu {
                        App::import('Model', 'People');
                         $People = new People();
                         $hofId ;
-                        ?>
+                  ?>
                         
 			<?php foreach( $data as $key => $value ) {
                             if( $value['Group']['tree_level'] == '') {
@@ -89,6 +89,7 @@ ul.ui-menu {
                                 <?php } ?>
 
                                 <?php 
+
                                    if (empty($value['People']['f_id'])) {
             $missingData[] = 'Father';
         }
@@ -113,7 +114,12 @@ ul.ui-menu {
         if (empty($value[0]['grandfather'])) {
             $missingData[] = 'Grandfather';
         }
-
+         if (empty($value[0]['grandfather_mother'])) {
+            $missingData[] = 'Grandfather-Mother';
+        }
+  if (empty($value['Address']['phone1'])) {
+            $missingData[] = 'Home Phone';
+        }
                                     ?>
         <div class="col-md-3"> 
         <?php if ( $value['People']['is_late'] == 0 )  { ?>
@@ -201,6 +207,12 @@ $missingData = array();?>
         }
         if (empty($value[0]['grandfather'])) {
             $missingData[] = 'Grandfather';
+        }
+  if (empty($value[0]['grandfather_mother'])) {
+            $missingData[] = 'Grandfather-Mother';
+        } 
+if (empty($value['Address']['phone1'])) {
+            $missingData[] = 'Home Phone';
         }
 
                                     ?>
