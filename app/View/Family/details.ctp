@@ -2,6 +2,9 @@
 ul.ui-menu {
     z-index:9999 ; /* The default is 100. !important overrides the default. */
 }
+.ui-dialog{
+z-index: 0 !important
+}
 </style>
 <div class="container-fluid">
     <div class="row">
