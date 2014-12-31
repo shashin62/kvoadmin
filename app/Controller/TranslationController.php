@@ -17,6 +17,7 @@ Class TranslationController extends AppController {
     }
 
     public function add() {
+        
         $this->layout = 'ajax';
         $this->autoRender = false;
         $msg = array();
