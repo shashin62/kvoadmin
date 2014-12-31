@@ -60,7 +60,7 @@
                         <li><a href="<?php echo $this->base.'/user/welcome';?>">Community App</a></li>
                         <?php 
                         
-                        if ($this->Session->read('User.role_id') != 2) {?>
+                        if ($this->Session->read('User.role_id') == 1 ) {?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Masters <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
