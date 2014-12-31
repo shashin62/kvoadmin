@@ -8,7 +8,7 @@ $(function () {
         "bProcessing": true,
         "bServerSide": true,
         "bLengthChange": false,
-        "bFilter": false,
+        "bFilter": true,
         "sAjaxSource": baseUrl + "/family/getAjaxSearch?type=" + actiontype,
         "columns": [
             {
