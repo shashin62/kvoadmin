@@ -1,4 +1,7 @@
 <style type="text/css">
+    #all_users_filter{
+        display: none;
+    }
 </style>
 <div class="container-fluid">
     
@@ -110,16 +113,16 @@
     
     $('.addnew').click(function(){
    
-   var id = user_id;
-   var gid = group_id;
+ var id = user_id;
+ var gid = group_id;
  var first_name = $(this).data('first_name');
  var firstname = $.trim($('.first_name').val());
  var lastname = $.trim($('.last_name').val());
  var village = $.trim($('.village').val());
  var phone = $.trim($('.mobile_number').val());
- var dob = $.trim($('.dob').val());
+ var dob = $.trim($('.dob').val()); 
  
-
+ 
  
    doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'",\n\
 "fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'","first_name":"'+ firstname +'",\n\
