@@ -106,7 +106,7 @@ class Translation extends AppModel {
             } else {
                 $sWhere .= ' AND ';
             }
-            $sWhere .= ' gujurathi_text IS NULL OR  hindi_text IS NULL';
+            $sWhere .= ' name != "" AND (gujurathi_text IS NULL OR  hindi_text IS NULL )';
         }
 
         /*
