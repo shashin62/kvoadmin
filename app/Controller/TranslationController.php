@@ -55,6 +55,7 @@ Class TranslationController extends AppController {
     }
 
     public function getAjaxData() {
+        
         $this->autoRender = false;
         header('Content-Type: text/html; charset=utf-8');
 
