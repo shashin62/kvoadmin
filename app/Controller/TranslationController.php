@@ -13,8 +13,7 @@ Class TranslationController extends AppController {
         parent::beforeFilter();
     }
 
-    public function index() {
-        
+    public function index() {        
     }
 
     public function add() {
@@ -35,6 +34,10 @@ Class TranslationController extends AppController {
         $data = $this->request->data;
         if ($msg['status'] == 1) {
             if ($this->Translation->save($data)) {
+                
+                //back update people table
+                //$this->People->update('');
+                
                 $msg['success'] = 1;
                 $msg['message'] = 'Translation has been saved';
                 if ($this->request->data['Translation']['id'] != '') {
