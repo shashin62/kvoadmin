@@ -601,14 +601,7 @@ EUS(false,null,null,true,true);
 }
 }
 function EPU(e){
-if((!Esc)&&(!staticMode)){
-if(GV("newscript").length||GV("importcacheid")){
-e=e||window.event;
-var m="If you leave this page before saving, your changes to this family will be lost.";
-e.returnValue=m;
-return m;
-}
-}
+
 }
 function ESC(){
 Esc=true;
