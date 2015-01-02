@@ -20,6 +20,7 @@ class Note extends AppModel {
                 )
             )
              );
+        $options['order'] = array('Note.created DESC');
         try {
             $data = $this->find('all', $options);
             if ($data && isset($data[0]['Note']) && $data[0]['Note'] != "") {
