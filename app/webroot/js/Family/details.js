@@ -1,3 +1,31 @@
+$('.noteSave').click(function() {
+    var groupid = $(this).data('gid');
+    var queryString = $('#addNote').serialize();
+    $.post(baseUrl + '/family/addNote?gid=' + groupid, queryString, function (data) {
+            if (0 == data.status) {
+                if (data.error.name.length > 0) {
+                    for (var i = 0; i < data.error.name.length; i++) {
+                        displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
+                    }
+                }
+            } else {
+                var displayMsg = data.message;
+                showJsSuccessMessage(displayMsg);
+                $('.addNoteForm').toggle('slow');
+                setTimeout(function () {
+                    $('.jssuccessMessage').hide('slow');
+                     $('.noteid').val('');
+                    $('.comment').val('');
+                    oTable.fnDraw(true);
+                }, 2500);
+            }
+        }, "json");    
+    
+});
+$('.addnote').click(function () {
+    $('.noteid').val('');
+    $('.addNoteForm').toggle('slow');
+});
 $('.self').click(function () {
     var $this = $(this);
     var id = $this.data('id');
