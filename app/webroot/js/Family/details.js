@@ -1,4 +1,7 @@
 $('.noteSave').click(function() {
+    if( $.trim($('.comment').val()) == '') {
+        return false;
+    }
     var groupid = $(this).data('gid');
     var queryString = $('#addNote').serialize();
     $.post(baseUrl + '/family/addNote?gid=' + groupid, queryString, function (data) {
