@@ -10,12 +10,37 @@ z-index: 0 !important
     <div class="row">
         <div class="col-md-6"><h3>Family details</h3></div>
         <div class="col-md-6 pull-right">
+            <a href="<?php echo $this->base;?>/family/viewNote?gid=<?php echo $groupId;?>" target="_blank"class="btn btn-sm btn-link viewnote">View notes</a>
+            <button type="button"  class="btn btn-sm btn-primary addnote">Add Note</button>
             <button type="button" class="btn btn-sm btn-primary">Show Names: English</button>
             <button type="button" class="btn btn-sm btn-primary">Show Names: Hindi</button>
             <button type="button" class="btn btn-sm btn-primary">Show Names: Gujarati</button>
         </div>
     </div>
-
+<div class="container-fluid addNoteForm" style="display: none;">
+    <?php echo $this->Form->create('Note', array('class' => 'form-horizontal noteForm', 'id' => 'addNote', 'name' => 'bloodgroup')); ?>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-12">
+            <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="note">Note</label>
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                        <?php echo $this->Form->input('comment', array('id' => 'comment','type' => 'textarea', 'placeholder' => 'Enter Comment' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control comment')); ?>
+                    </div>
+                </div>
+            <?php echo $this->Form->input('id', array('type' => 'hidden',  'id' => 'id', 'placeholder' => 'Enter Blood group name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control noteid')); ?>
+        </div>
+    
+    
+            <div class="col-lg-2 col-md-1 col-xs-2">
+                <div class="form-actions">
+                    <div class="col-lg-2 col-md-1 col-xs-1">
+                        <button type="button" data-gid="<?php echo $groupId;?>" class="btn btn-primary noteSave">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php echo $this->Form->end(); ?>
+</div>
 	<br>
 
     <u><h4>Primary Family</h4></u>
