@@ -36,7 +36,7 @@ Class FamilyController extends AppController {
      * @var array 
      */
     public $uses = array(
-                        'User', 'Aro', 'Role',
+                        'User', 'Aro', 'Role','Note',
                         'People', 'Village', 'Education', 'State', 'BloodGroup', 
                         'Group','Address','PeopleGroup','Suburb','Surname','Translation'
                         );
@@ -1250,7 +1250,7 @@ Class FamilyController extends AppController {
              
              $this->People->updateAfterDeletion($id);
              
-         $msg['success'] = 1;
+            $msg['success'] = 1;
             $msg['message'] = 'Member has been deleted';
         } else {
             $msg['success'] = 0;
@@ -1259,6 +1259,38 @@ Class FamilyController extends AppController {
         
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
+    }
+    
+    public function addNote()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';  
+       
+        $groupId = $_REQUEST['gid'];
+        
+        $this->request->data['Note']['user_id'] = $this->Session->read('User.user_id');
+        $this->request->data['Note']['user_name'] = $this->Session->read('User.first_name');
+        $this->request->data['Note']['created'] = date('Y-m-d H:i:s');
+        $this->request->data['Note']['group_id'] = $groupId;
+        if( $this->Note->save($this->request->data) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'Note has been saved';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+        
+    }
+    
+    public function viewNote()
+    {
+        $groupId = $_REQUEST['gid'];
+        $getAllNotes = $this->Note->getAllNotes($groupId);
+        $this->set('data', $getAllNotes);
+        $this->set('familyName',$getAllNotes[0]['Group']['name']);
     }
 
 }
