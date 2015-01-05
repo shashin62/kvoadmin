@@ -102,8 +102,8 @@ z-index: 0 !important
                                     ?>
             <div>Children: <?php echo implode(', ',$childs); ?></div>
                                 <?php } ?>
-                                    <?php if( $roleId == 1 && $value['Group']['tree_level'] != '') { ?>
-            <a class="deletemember" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="#" style="color: red">Delete</a>
+                                    <?php if( ($roleId == 1 || $this->Session->read('User.user_id') == $value['People']['created_by'] ) && $value['Group']['tree_level'] != '') { ?>
+            <a class="deletemember" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);" style="color: red">Delete</a>
                                      <?php } ?>
         </div>                                 
                                 <?php if($value['Group']['tree_level'] != '') { ?>
