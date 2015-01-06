@@ -6,7 +6,7 @@ $( ".combobox" ).combobox();
 
  late(is_late);
  console.log(userType);
-if( userType =='addmother' || userType == 'addspouse' || gender == 'female') {
+if(  gender == 'female') {
 showmaidensurname('Female');
 showmaidenvillage('Female');
 } else if(userType == 'addfather') {
@@ -100,6 +100,7 @@ showmaidenvillage('Female');
             },
         },
         submitHandler: function (form) {
+            $('.editOwnButton').attr('disabled','disabled');
             var queryString = $('#createFamily').serialize();
             var type = userType;
             var peopleid = pid;
@@ -112,7 +113,9 @@ showmaidenvillage('Female');
                         displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
                     }
                 }
+                $('.editOwnButton').attr('disabled',false);
             } else {
+                $('.editOwnButton').attr('disabled','disabled');
                  var displayMsg = data.message;
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
