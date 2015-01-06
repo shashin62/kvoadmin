@@ -1087,13 +1087,8 @@ Class FamilyController extends AppController {
         $userID = $this->Session->read('User.user_id');
         $same = $this->request->data['Address']['is_same'];
         $parentId = $_REQUEST['parentid'];
-        if ($same == 1) {            
-            if ( $this->Session->read('User.role_id') == 2) {
-                $conditions = array('Address.people_id' => $parentId);
-            } else {
-                 $conditions = array('Address.user_id' => $userID);
-            }
-            
+        if ($same == 1) {
+            $conditions = array('Address.people_id' => $parentId);
             $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
             
             unset($getParentAddress[0]['Address']['id']);
