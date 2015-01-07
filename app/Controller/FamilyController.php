@@ -97,6 +97,7 @@ Class FamilyController extends AppController {
                 $this->set('readonly',true);
                 $this->set('main_surname', $getPeopleData['People']['main_surname']);
                 $this->set('sect', $getPeopleData['People']['sect']);
+                $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
