@@ -434,6 +434,13 @@ Class FamilyController extends AppController {
             $translation[1]['Translation']['created'] = date('Y-m-d H:i:s');
         }
         $this->Translation->saveAll($translation);
+        
+        $same = $this->request->data['People']['is_same'];
+        $array = array();
+        $array['gid'] = $getPeopleDetail[0]['People']['group_id'];
+        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+        $parentId = $getOwnerDetails['id'];
+        
         switch ($_REQUEST['type']) {
             
             case 'addnew':
@@ -530,6 +537,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        }                        
                     }
                 } else {
                     $msg['success'] = 0;
@@ -598,6 +608,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        } 
                     }
                 } else {
                      $msg['success'] = 0;
@@ -643,6 +656,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        } 
                     }
                 } else {
                     $msg['success'] = 0;
@@ -709,6 +725,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        } 
                 }
                  }else {
                     $msg['success'] = 0;
@@ -747,7 +766,31 @@ Class FamilyController extends AppController {
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
     }
-
+    
+    private function _copyAddress($parentId, $peopleid) {    
+            
+           
+            $conditions = array('Address.people_id' => $parentId);
+            $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
+            
+            unset($getParentAddress[0]['Address']['id']);
+            unset($getParentAddress[0]['Address']['people_id']);
+            $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
+            $getParentAddress[0]['Address']['people_id'] = $peopleid;
+            
+            $this->request->data = $getParentAddress[0];
+            
+            if ($this->Address->save($this->request->data)) {
+                
+                $addressId = $this->Address->id;
+                $updatePeople = array();
+                $updatePeople['People']['address_id'] = $addressId;
+                $updatePeople['People']['id'] = $peopleid;
+                $this->People->save($updatePeople);
+                
+            }            
+       
+}
     public function details() 
     {
         $userID = $this->Session->read('User.user_id');
