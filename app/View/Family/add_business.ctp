@@ -111,6 +111,7 @@
                 'label' => false,
                 'div' => false,
                 'legend' => false,
+                'empty' => __d('label', '--Select--'),
                 'class' => 'combobox suburb',
                 'tabindex'=> '10',
                 'style' => '',
