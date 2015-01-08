@@ -279,6 +279,7 @@
                 <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                     <button type="button" class="btn btn-primary editOwnButton">Save and Continue</button>
+                    <button type="button" style="color: red" class="btn btn-link cancel">Cancel</button>
                 </div>
             </div>
         </div>
@@ -309,6 +310,9 @@
         $("#date_of_death").datepicker({
             format: "dd/mm/yyyy"
         });
+    });
+     $('.cancel').click(function(){
+        window.location.href = baseUrl +"/family/familiyGroups";
     });
 </script>
 <?php echo $this->Html->script(array('Family/family_self_edit')); ?>
