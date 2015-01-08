@@ -167,15 +167,21 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="std_code">STD Code</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <?php echo $this->Form->input('std_code', array('id' => 'std_code','tabindex'=> '14', 'value'=> $std_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone1">Home Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '14', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter Home phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '15', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter Home phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone2">Other Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone2', array('id' => 'phone2', 'tabindex'=> '15','value'=> $phone2,'type' => 'text','placeholder' => 'Enter Other phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone2', array('id' => 'phone2', 'tabindex'=> '16','value'=> $phone2,'type' => 'text','placeholder' => 'Enter Other phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 
