@@ -223,7 +223,7 @@ Class People extends AppModel
         }
         
         if( $groupId) {
-            $options['conditions']['People.group_id'] = $groupId;
+           // $options['conditions']['People.group_id'] = $groupId;
         }
         $options['fields'] = array('concat(People.first_name,"  ",People.last_name) as childname','People.id');
         try {
@@ -286,7 +286,7 @@ Class People extends AppModel
      * @param type $groupId
      * @return boolean
      */
-    public function getFamilyDetails($groupId , $pid = false,$getAllDetails = false)
+    public function getFamilyDetails($groupId , $pid = false,$getAllDetails = false, $flag = false)
     {
         
         $this->recursive = -1;
@@ -360,6 +360,9 @@ Class People extends AppModel
                 );
         } else {
             $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
+            if ( $flag) {
+                //$options['fields'][] = array('secondary as secondary');
+            }
         }
           
           $options['order'] = array('Group.tree_level' => 'asc');
@@ -825,6 +828,8 @@ GROUP BY p.created_by");
             return false;
         } 
     }
+    
+   
     
 
     
