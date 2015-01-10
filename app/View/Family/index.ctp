@@ -312,7 +312,12 @@
         });
     });
      $('.cancel').click(function(){
-        window.location.href = baseUrl +"/family/familiyGroups";
+         if(  userType == 'addnew') {
+              window.location.href = baseUrl +"/family/familiyGroups";
+         } else {
+             window.location.href = baseUrl +"/family/details/"+ grpid;
+         }
+       
     });
 </script>
 <?php echo $this->Html->script(array('Family/family_self_edit')); ?>
