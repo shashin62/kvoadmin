@@ -117,8 +117,14 @@
     var group_id = '<?php echo $gid;?>';
     
     $('.cancel').click(function(){
-        window.location.href = baseUrl +"/family/familiyGroups";
+         if(  actiontype == 'addnew') {
+              window.location.href = baseUrl +"/family/familiyGroups";
+         } else {
+             window.location.href = baseUrl +"/family/details/"+ group_id;
+         }
     });
+    
+    
     $('.addnew').click(function(){
    
  var id = user_id;
