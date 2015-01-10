@@ -27,7 +27,7 @@ $(function () {
 
         ],
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="insertUser(' + aData[1] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
+            $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success insert" onclick="insertUser(' + aData[1] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Insert</a> \n');
         },
         "rowCallback": function (row, data) {
         },
@@ -93,7 +93,8 @@ function insertUser(id, data)
     peopleData['phone_number'] = data[5];
     peopleData['village'] = data[4];
     peopleData['email'] = data[9];
-  
+    $('.insert').attr('disabled',true);  
+    
     $.ajax({
         url: baseUrl + '/family/insertUser',
         dataType: 'json',
@@ -106,6 +107,10 @@ function insertUser(id, data)
                 $('.jssuccessMessage').hide('slow');
                 window.location = baseUrl + '/family/details/'+ response.group_id;
             }, 2500);
+        },
+        error: function()
+        {
+          $('.insert').attr('disabled',false);  
         }
     });
 }

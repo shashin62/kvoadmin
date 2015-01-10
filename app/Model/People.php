@@ -85,7 +85,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "male" AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' p.gender = "male" AND p.first_name is not null';
                     break;
                 case 'addmother':
                     if ($sWhere == "") {
@@ -93,7 +93,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "female"  AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' p.gender = "female"  AND p.first_name is not null';
                     break;
                 case 'addchilld':
                     if ($sWhere == "") {
@@ -101,7 +101,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' (p.gender = "female" OR p.gender = "male") AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' (p.gender = "female" OR p.gender = "male")  AND p.first_name is not null';
                     break;
                 case 'addspouse':
                     if ($sWhere == "") {
@@ -109,7 +109,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' (p.gender = "female" ) AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' (p.gender = "female" )  AND p.first_name is not null';
                     break;
                 case 'global' :
                     if ($sWhere == "") {
@@ -125,7 +125,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "male"  AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' p.gender = "male"  AND p.first_name is not null';
                     break;
             }
         } else {
@@ -223,7 +223,7 @@ Class People extends AppModel
         }
         
         if( $groupId) {
-            $options['conditions']['People.group_id'] = $groupId;
+           // $options['conditions']['People.group_id'] = $groupId;
         }
         $options['fields'] = array('concat(People.first_name,"  ",People.last_name) as childname','People.id');
         try {
@@ -286,7 +286,7 @@ Class People extends AppModel
      * @param type $groupId
      * @return boolean
      */
-    public function getFamilyDetails($groupId , $pid = false,$getAllDetails = false)
+    public function getFamilyDetails($groupId , $pid = false,$getAllDetails = false, $flag = false)
     {
         
         $this->recursive = -1;
@@ -360,6 +360,9 @@ Class People extends AppModel
                 );
         } else {
             $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
+            if ( $flag) {
+                //$options['fields'][] = array('secondary as secondary');
+            }
         }
           
           $options['order'] = array('Group.tree_level' => 'asc');
@@ -825,6 +828,8 @@ GROUP BY p.created_by");
             return false;
         } 
     }
+    
+   
     
 
     

@@ -18,7 +18,9 @@
         $buttonLabel = 'Add New Family Owner';
     }
     ?>
+    
 <h3 class="heading"><?php echo $title; ?></h3>
+
     <div class="row">
         <div class="col-md-4">	
             <form class="form-horizontal addUser">
@@ -71,6 +73,7 @@
 				<div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>"><?php echo $buttonLabel;?></button>
+                                        <button type="button" style="color: red" class="btn btn-link cancel">Cancel</button>
 				</div>
 			</div>
 
@@ -107,9 +110,20 @@
         });
        
     });
+    
+    
     var actiontype = '<?php echo $type;?>';
     var user_id = '<?php echo $fid;?>';
     var group_id = '<?php echo $gid;?>';
+    
+    $('.cancel').click(function(){
+         if(  actiontype == 'addnew') {
+              window.location.href = baseUrl +"/family/familiyGroups";
+         } else {
+             window.location.href = baseUrl +"/family/details/"+ group_id;
+         }
+    });
+    
     
     $('.addnew').click(function(){
    

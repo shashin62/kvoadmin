@@ -12,7 +12,9 @@
                        <?php echo $this->Form->input("call_again", array('type' => "checkbox", 'checked' => $call_again == 1 ? 'checked' : '','div' => false, "label" => false)); ?>
                 </div>
             </div>
-             <?php } ?>
+             <?php } else  { ?>
+            
+            <?php } ?>
             <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Gender</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
@@ -252,7 +254,16 @@
                 <?php echo $this->Form->input("is_late", array('type' => "checkbox", 'checked' => $is_late == 1 ? 'checked' : '','div' => false, 'label' => false,)); ?>
                    
                 </div>
-            </div>           
+            </div> 
+            <?php if( $userType != 'addnew') { ?>
+             <div class="form-group">
+               <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Home Address</label>
+                <div class="checkbox col-lg-8 col-md-8 col-xs-8">                   
+                <?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
+                </div>
+            </div> 
+            <?php } ?>
+            
             <div style="display: none;" class="form-group dd"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_death">Death Date</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                <?php echo $this->Form->input('date_of_death', 
@@ -268,6 +279,7 @@
                 <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                     <button type="button" class="btn btn-primary editOwnButton">Save and Continue</button>
+                    <button type="button" style="color: red" class="btn btn-link cancel">Cancel</button>
                 </div>
             </div>
         </div>
@@ -298,6 +310,14 @@
         $("#date_of_death").datepicker({
             format: "dd/mm/yyyy"
         });
+    });
+     $('.cancel').click(function(){
+         if(  userType == 'addnew') {
+              window.location.href = baseUrl +"/family/familiyGroups";
+         } else {
+             window.location.href = baseUrl +"/family/details/"+ grpid;
+         }
+       
     });
 </script>
 <?php echo $this->Html->script(array('Family/family_self_edit')); ?>

@@ -78,8 +78,12 @@ Class FamilyController extends AppController {
             $peopleId = $requestData['fid'];
         }
         
-        $getPeopleData = $this->People->getPeopleData($peopleId, true ,$_REQUEST['gid']);        
+        $getPeopleData = $this->People->getPeopleData($peopleId, true ,$_REQUEST['gid']);   
+        $array = array();
+        $array['gid'] = $_REQUEST['gid'];
         
+        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+        $this->set('name',$getOwnerDetails['first_name']);
         // add primary relationships to user- spouse, father, mother and childrens
         switch ($requestData['type']) 
         {   
@@ -97,6 +101,7 @@ Class FamilyController extends AppController {
                 $this->set('readonly',true);
                 $this->set('main_surname', $getPeopleData['People']['main_surname']);
                 $this->set('sect', $getPeopleData['People']['sect']);
+                $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
@@ -429,6 +434,13 @@ Class FamilyController extends AppController {
             $translation[1]['Translation']['created'] = date('Y-m-d H:i:s');
         }
         $this->Translation->saveAll($translation);
+        
+        $same = $this->request->data['People']['is_same'];
+        $array = array();
+        $array['gid'] = $getPeopleDetail[0]['People']['group_id'];
+        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+        $parentId = $getOwnerDetails['id'];
+        
         switch ($_REQUEST['type']) {
             
             case 'addnew':
@@ -525,6 +537,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        }                        
                     }
                 } else {
                     $msg['success'] = 0;
@@ -593,6 +608,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        } 
                     }
                 } else {
                      $msg['success'] = 0;
@@ -638,6 +656,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        } 
                     }
                 } else {
                     $msg['success'] = 0;
@@ -704,6 +725,9 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        } 
                 }
                  }else {
                     $msg['success'] = 0;
@@ -721,6 +745,9 @@ Class FamilyController extends AppController {
                     
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
+                         if ($same == 1) {
+                            $this->_copyAddress($parentId, $_REQUEST['peopleid']);
+                        } 
                     } else {
                         $msg['status'] = 0;
                     }
@@ -742,7 +769,31 @@ Class FamilyController extends AppController {
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
     }
-
+    
+    private function _copyAddress($parentId, $peopleid) {    
+            
+           
+            $conditions = array('Address.people_id' => $parentId);
+            $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
+            
+            unset($getParentAddress[0]['Address']['id']);
+            unset($getParentAddress[0]['Address']['people_id']);
+            $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
+            $getParentAddress[0]['Address']['people_id'] = $peopleid;
+            
+            $this->request->data = $getParentAddress[0];
+            
+            if ($this->Address->save($this->request->data)) {
+                
+                $addressId = $this->Address->id;
+                $updatePeople = array();
+                $updatePeople['People']['address_id'] = $addressId;
+                $updatePeople['People']['id'] = $peopleid;
+                $this->People->save($updatePeople);
+                
+            }            
+       
+}
     public function details() 
     {
         $userID = $this->Session->read('User.user_id');
@@ -795,39 +846,51 @@ Class FamilyController extends AppController {
         $groupId = $_REQUEST['gid'];
         $uid = $_REQUEST['uid'];
         $data = $this->People->getFamilyDetails($groupId);
-        $parentName = $data[0]['People']['first_name'] . ' ' .$data[0]['People']['last_name'];
-        $rootId;
+        //check each id exists in other group then get all gamily detials for this group also
+
+        foreach ($data as $key => $value) {
+            $groupData[] = $this->PeopleGroup->checkExistsInOtherGroup($groupId, $value['People']['id']);
+        }
+
+        foreach ($groupData as $k => $v) {
+            if (count($v)) {
+                foreach ($v as $k1 => $v1) {
+                    $data1 = $this->People->getFamilyDetails($v1['PeopleGroup']['group_id'], false, false, true);
+                    $data = array_merge($data, $data1);
+                }
+            }
+        }
+
+        $parentName = $data[0]['People']['first_name'] . ' ' . $data[0]['People']['last_name'];
+        $treelevel = 0;
         $tree = array();
         foreach ($data as $key => $value) {
             $peopleData = $value['People'];
             $peopleGroup = $value['Group'];
-            $children = $this->People->getChildren($peopleData['id'], $peopleData['gender'],$groupId);
-//            echo '<pre>';
-//            print_r($children);
-//            echo '</pre>';
+            $children = $this->People->getChildren($peopleData['id'], $peopleData['gender'], $groupId);
             $childids = array();
             foreach ($children as $k => $v) {
                 $childids[] = $v['People']['id'];
             }
-            
-            if ( $peopleGroup['tree_level'] == "") {
+
+            if ($peopleGroup['tree_level'] == "" && $treelevel == 0) {
                 $rootId = $peopleGroup['people_id'];
                 $peopleData['id'] = 'START';
-                
+                $treelevel = 1;
             }
             if ($peopleGroup['tree_level'] != '') {
-                if ( $peopleGroup['tree_level'] == $rootId) {
+                if ($peopleGroup['tree_level'] == $rootId) {
                     $tree[$peopleData['id']]['^'] = 'START';
                 } else {
                     $tree[$peopleData['id']]['^'] = $peopleGroup['tree_level'];
                 }
             }
-            
+
             $tree[$peopleData['id']]['n'] = $peopleData['first_name'] . ' ' . $peopleData['last_name'];
             $tree[$peopleData['id']]['ai'] = $peopleData['id'];
 
             if (count($children)) {
-                if ( $peopleGroup['tree_level'] == $rootId) {
+                if ($peopleGroup['tree_level'] == $rootId) {
                     
                 }
                 $tree[$peopleData['id']]['c'] = $childids;
@@ -836,11 +899,11 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['c'] = array();
                 $tree[$peopleData['id']]['cp'] = false;
             }
-            
+
             $tree[$peopleData['id']]['e'] = $peopleData['email'];
             $tree[$peopleData['id']]['u'] = $peopleData['mobile_number'];
             if ($peopleGroup['tree_level'] != '') {
-                if ( $peopleData['f_id'] == $rootId) {
+                if ($peopleData['f_id'] == $rootId) {
                     $tree[$peopleData['id']]['f'] = 'START';
                 } else {
                     $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
@@ -848,48 +911,45 @@ Class FamilyController extends AppController {
             } else {
                 $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
             }
-            
+
             $tree[$peopleData['id']]['m'] = $peopleData['m_id'];
-            
+
             $tree[$peopleData['id']]['fg'] = true;
             $tree[$peopleData['id']]['g'] = $peopleData['gender'] == 'male' ? 'm' : 'f';
             $tree[$peopleData['id']]['hp'] = true;
             $tree[$peopleData['id']]['i'] = $peopleData['id'];
             $tree[$peopleData['id']]['l'] = $peopleData['last_name'];
             $tree[$peopleData['id']]['p'] = $peopleData['first_name'];
-           
-            if ( $peopleData['partner_id'] == $rootId) {
-           
-                if ($peopleData['partner_id'] != '' ) {
+
+            if ($peopleData['partner_id'] == $rootId) {
+
+                if ($peopleData['partner_id'] != '') {
+                    $tree[$peopleData['id']]['pc'] = array(
+                        'START' => true
+                    );
+                    $tree[$peopleData['id']]['es'] = 'START';
+                    $tree[$peopleData['id']]['s'] = 'START';
+                }
+            } else if ($peopleData['partner_id'] != '') {
                 $tree[$peopleData['id']]['pc'] = array(
-                    'START' => true
-                );
-                $tree[$peopleData['id']]['es'] = 'START';
-                $tree[$peopleData['id']]['s'] = 'START';
-            }
-            } else if( $peopleData['partner_id'] != '') {
-                 $tree[$peopleData['id']]['pc'] = array(
                     $peopleData['partner_id'] => true
                 );
-                 $tree[$peopleData['id']]['es'] = $peopleData['partner_id'];
-                 $tree[$peopleData['id']]['s'] = $peopleData['partner_id'];
+                $tree[$peopleData['id']]['es'] = $peopleData['partner_id'];
+                $tree[$peopleData['id']]['s'] = $peopleData['partner_id'];
             } else {
                 $tree[$peopleData['id']]['pc'] = array();
                 $tree[$peopleData['id']]['es'] = null;
             }
             $tree[$peopleData['id']]['q'] = $peopleData['maiden_surname'];
         }
-//         echo '<pre>';
-//        print_r($tree);
-//        echo '</pre>';
-//        exit;
+
         $jsonData['tree'] = $tree;
         $jsonData['parent_name'] = $parentName;
-        
+
         echo json_encode($jsonData);
         exit;
     }
-    
+
     public function addBusiness()
     {
         $userID = $this->Session->read('User.user_id');
@@ -1061,7 +1121,7 @@ Class FamilyController extends AppController {
         $data = $this->People->getFamilyDetails($gid, $pid);
         
         
-        $peopleData = $data[0]['People'];
+        
         $groupData  = $data[0]['Group'];
         $this->set('show',$groupData['tree_level'] == "" ? false : true);
         if( isset($getParentAddress[0]) && count($getParentAddress)) {
@@ -1087,13 +1147,8 @@ Class FamilyController extends AppController {
         $userID = $this->Session->read('User.user_id');
         $same = $this->request->data['Address']['is_same'];
         $parentId = $_REQUEST['parentid'];
-        if ($same == 1) {            
-            if ( $this->Session->read('User.role_id') == 2) {
-                $conditions = array('Address.people_id' => $parentId);
-            } else {
-                 $conditions = array('Address.user_id' => $userID);
-            }
-            
+        if ($same == 1) {
+            $conditions = array('Address.people_id' => $parentId);
             $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
             
             unset($getParentAddress[0]['Address']['id']);
