@@ -194,6 +194,7 @@
                     <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <button type="button" class="btn btn-primary addressButton">Submit</button>
+                         <button type="button" style="color: red" class="btn btn-link cancel">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -207,5 +208,11 @@
      var pid = '<?php echo $peopleid; ?>';
      var prntid = '<?php echo $parentid; ?>';
      var grpid = '<?php echo $gid; ?>';
+     $('.cancel').click(function(){
+        
+             window.location.href = baseUrl +"/family/details/"+ grpid;
+        
+       
+    });
 </script>
 <?php echo $this->Html->script(array('Family/add_address')); ?>
