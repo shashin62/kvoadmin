@@ -85,7 +85,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "male" AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' p.gender = "male" AND p.first_name is not null';
                     break;
                 case 'addmother':
                     if ($sWhere == "") {
@@ -93,7 +93,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "female"  AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' p.gender = "female"  AND p.first_name is not null';
                     break;
                 case 'addchilld':
                     if ($sWhere == "") {
@@ -101,7 +101,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' (p.gender = "female" OR p.gender = "male") AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' (p.gender = "female" OR p.gender = "male")  AND p.first_name is not null';
                     break;
                 case 'addspouse':
                     if ($sWhere == "") {
@@ -109,7 +109,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' (p.gender = "female" ) AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' (p.gender = "female" )  AND p.first_name is not null';
                     break;
                 case 'global' :
                     if ($sWhere == "") {
@@ -125,7 +125,7 @@ Class People extends AppModel
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "male"  AND p.is_late = 0 AND p.first_name is not null';
+                    $sWhere .= ' p.gender = "male"  AND p.first_name is not null';
                     break;
             }
         } else {
