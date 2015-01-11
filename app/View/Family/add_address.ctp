@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <h3 class="heading">Add/Edit Address</h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
-    <?php if ( $show & $aid == '') { ?>
+    <?php if ( $show ) { ?>
     <div class="row-fuild">
-        <?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
+        <?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
     </div>
     <?php } ?>
     <br>
