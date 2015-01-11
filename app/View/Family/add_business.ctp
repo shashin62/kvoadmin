@@ -67,9 +67,9 @@
         </div>
     </div>
     <div>
-        <?php if ( $show & $aid == '') { ?>
+        <?php if ( $show ) { ?>
         <div class="row-fuild">
-        <?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
+        <?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaddressid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
         </div>
     <?php } ?> 
     </div>
