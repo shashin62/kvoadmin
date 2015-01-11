@@ -174,6 +174,9 @@ Class FamilyController extends AppController {
         if ($requestData['type'] == 'self') {
            
             //$getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
+      //      echo '<pre>';
+      //  print_r($getPeopleData);
+       // exit;
             $this->set('readonly',false);
             $this->set('first_name', $getPeopleData['People']['first_name']);
             $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
@@ -190,7 +193,16 @@ Class FamilyController extends AppController {
             $this->set('maiden_surname', $getPeopleData['People']['maiden_surname']);
             $this->set('sect', $getPeopleData['People']['sect']);
             $this->set('state', $getPeopleData['People']['state']);
-            $this->set('education', $getPeopleData['People']['education']);
+            $this->set('education_1', $getPeopleData['People']['education_1']);
+            $this->set('education_2', $getPeopleData['People']['education_2']);
+            $this->set('education_3', $getPeopleData['People']['education_3']);
+            $this->set('education_4', $getPeopleData['People']['education_4']);
+            $this->set('education_5', $getPeopleData['People']['education_5']);
+            $this->set('year_of_passing_1', $getPeopleData['People']['year_of_passing_1']);
+            $this->set('year_of_passing_2', $getPeopleData['People']['year_of_passing_2']);
+            $this->set('year_of_passing_3', $getPeopleData['People']['year_of_passing_3']);
+            $this->set('year_of_passing_4', $getPeopleData['People']['year_of_passing_4']);
+            $this->set('year_of_passing_5', $getPeopleData['People']['year_of_passing_5']);
             $this->set('village', $getPeopleData['People']['village']);
             $this->set('maiden_village', $getPeopleData['People']['maiden_village']);
             $this->set('blood_group', $getPeopleData['People']['blood_group']);
