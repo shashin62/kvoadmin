@@ -162,7 +162,7 @@
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="vsillage">Village</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
-                        
+                         
             echo $this->Form->input('village', array('id' => 'village',
                 'label' => false,
                 'div' => false,
@@ -209,11 +209,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 1</label>   
+                <div class="col-lg-4 col-md-4 col-xs-4">
                          <?php
                         
-            echo $this->Form->input('education', array('id' => 'education',
+            echo $this->Form->input('education_1', array('id' => 'education_1',
                 'label' => false,
                 'div' => false,
                 'legend' => false,
@@ -221,9 +221,95 @@
                 'style' => '',
                 'empty' => __d('label', '--Select--'),
                 'options' => $educations,
-                'value' => $education
+                'value' => $education_1
             ));
             ?>
+                </div><div class="col-lg-4 col-md-4 col-xs-4">
+                    <?php echo $this->Form->input('year_of_passing_1', array('id' => 'year_of_passing_1','type' => 'tetfield', 'value'=> $year_of_passing_1,'placeholder' => 'Enter Year of passing' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 2</label>   
+                <div class="col-lg-4 col-md-4 col-xs-4">
+                         <?php
+                        
+            echo $this->Form->input('education_2', array('id' => 'education_2',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'class' => 'combobox',
+                'style' => '',
+                'empty' => __d('label', '--Select--'),
+                'options' => $educations,
+                'value' => $education_2
+            ));
+            ?>
+                </div><div class="col-lg-4 col-md-4 col-xs-4">
+                     <?php echo $this->Form->input('year_of_passing_2', array('id' => 'year_of_passing_2','type' => 'tetfield', 'value'=> $year_of_passing_2,'placeholder' => 'Enter Year of passing' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 3</label>   
+                <div class="col-lg-4 col-md-4 col-xs-4">
+                         <?php
+                        
+            echo $this->Form->input('education_3', array('id' => 'education_3',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'class' => 'combobox',
+                'style' => '',
+                'empty' => __d('label', '--Select--'),
+                'options' => $educations,
+                'value' => $education_3
+            ));
+            ?>
+                </div><div class="col-lg-4 col-md-4 col-xs-4">
+                    <?php echo $this->Form->input('year_of_passing_2', array('id' => 'year_of_passing_2','type' => 'tetfield', 'value'=> $year_of_passing_2,'placeholder' => 'Enter Year of passing' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 4</label>   
+                <div class="col-lg-4 col-md-4 col-xs-4">
+                         <?php
+                        
+            echo $this->Form->input('education_4', array('id' => 'education_4',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'class' => 'combobox',
+                'style' => '',
+                'empty' => __d('label', '--Select--'),
+                'options' => $educations,
+                'value' => $education_4
+            ));
+            ?></div><div class="col-lg-4 col-md-4 col-xs-4">
+                    <?php echo $this->Form->input('year_of_passing_4', array('id' => 'year_of_passing_4','type' => 'tetfield', 'value'=> $year_of_passing_4,'placeholder' => 'Enter Year of passing' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 5</label>   
+                <div class="col-lg-4 col-md-4 col-xs-4">
+                         <?php
+                        
+            echo $this->Form->input('education_5', array('id' => 'education_5',
+                'label' => false,
+                'div' => false,
+                'legend' => false,
+                'class' => 'combobox',
+                'style' => '',
+                'empty' => __d('label', '--Select--'),
+                'options' => $educations,
+                'value' => $education_5
+            ));
+            ?>
+                </div><div class="col-lg-4 col-md-4 col-xs-4">
+                    <?php echo $this->Form->input('year_of_passing_5', array('id' => 'year_of_passing_5','type' => 'tetfield', 'value'=> $year_of_passing_5,'placeholder' => 'Enter Year of passing' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control')); ?>
+                    
                 </div>
             </div>
         </div>
