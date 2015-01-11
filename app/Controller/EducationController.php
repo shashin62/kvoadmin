@@ -1,6 +1,4 @@
 <?php
-
-
 App::uses('AppController', 'Controller');
 
 Class EducationController extends AppController {
@@ -34,10 +32,10 @@ Class EducationController extends AppController {
             $msg['error']['name'][] = "name";
             $msg['error']['errormsg'][] = __('This name already exists.');
         }
-        
+       
         $data = $this->request->data;
          if ($msg['status'] == 1) {
-            if ($this->Education->save($data)) {
+            if ($this-Education->save($data)) {
                 $msg['success'] = 1;
                 $msg['message'] = 'Education has been saved';
                 if ($this->request->data['Education']['id'] != '') {
