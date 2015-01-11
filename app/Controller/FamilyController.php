@@ -981,7 +981,7 @@ Class FamilyController extends AppController {
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
-                                                'Address.people_id' => $pid,
+                                                
                                                 'Address.id' => $aid
                                             )
                                         )
@@ -998,7 +998,7 @@ Class FamilyController extends AppController {
          $this->set('gid',$gid ? $gid : '');
          $this->set('name',$getOwnerDetails['first_name']);
           $this->set('parentid',$getOwnerDetails['id']);
-         
+         //$this->set('parentaid',$getOwnerDetails['address_id']);
           $this->set('parentaddressid',$getOwnerDetails['business_address_id']);
         
     }
@@ -1026,30 +1026,21 @@ Class FamilyController extends AppController {
             $parentId = $_REQUEST['parentid'];
             $paddressid = $_REQUEST['paddressid'];
             if ($same == 1) {
-                if ($this->Session->read('User.role_id') == 2) {
+                
                     $conditions = array('Address.id' => $paddressid);
-                } else {
-                    $conditions = array('Address.user_id' => $userID);
-                }
+               
 
                 $getParentAddress = $this->Address->find('all', array('conditions' => $conditions));
 
-                unset($getParentAddress[0]['Address']['id']);
-                unset($getParentAddress[0]['Address']['people_id']);
-                $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
-                $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
-                $this->request->data['Address']['suburb_zone'] = $this->request->data['suburb_zone'];
-                $this->request->data = $getParentAddress[0];
-               
-                if ($this->Address->save($this->request->data)) {
-                    $msg['status'] = 1;
+               $msg['status'] = 1;
                     $addressId = $this->Address->id;
                     $updatePeople = array();
-                    $updatePeople['People']['business_address_id'] = $addressId;
+                    $updatePeople['People']['business_address_id'] = $getParentAddress[0]['Address']['id'];
                     $updatePeople['People']['id'] = $_REQUEST['peopleid'];
                     $this->People->save($updatePeople);
                     $message = 'Information has been saved';
-                }
+               
+               
             } else {
                 $getParentAddress = $this->Address->find('all', array(
                     'conditions' => array(
@@ -1101,29 +1092,29 @@ Class FamilyController extends AppController {
         $suburbs = $this->Suburb->find('list', array('fields' => array('Suburb.name', 'Suburb.name')));
         $this->set(compact('suburbs'));
         
-        $pid = $_REQUEST['id'];
+         $pid = $_REQUEST['id'];
         $aid = $_REQUEST['aid'];        
         $gid = $_REQUEST['gid'];
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
-                                                'Address.people_id' => $pid
+                                                'Address.id' => $aid
                                             )
                                         )
                                    );
         
         $array = array();
         $array['gid'] = $gid;
-        
-        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
-        
         $array['pid'] = $pid;
+        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+//        echo '<pre>';
+//        print_r($getOwnerDetails);
+//        exit;
         $data = $this->People->getFamilyDetails($gid, $pid);
         
-        
-        
         $groupData  = $data[0]['Group'];
-        $this->set('show',$groupData['tree_level'] == "" ? false : true);
+        
+        $this->set('show',$groupData['tree_level'] == ""  ? false : true);
         if( isset($getParentAddress[0]) && count($getParentAddress)) {
             $data = $getParentAddress[0]['Address'];
             foreach ( $data as $key => $value ) {
@@ -1134,6 +1125,7 @@ Class FamilyController extends AppController {
         $this->set('peopleid',$pid);
         $this->set('name',$getOwnerDetails['first_name']);
         $this->set('parentid',$getOwnerDetails['id']);
+        $this->set('parentaid',$getOwnerDetails['address_id']);
         $this->set('aid',$aid ? $aid : '');
         $this->set('gid',$gid ? $gid : '');
         
@@ -1150,23 +1142,29 @@ Class FamilyController extends AppController {
         if ($same == 1) {
             $conditions = array('Address.people_id' => $parentId);
             $getParentAddress = $this->Address->find('all',array('conditions' => $conditions));
+             $msg['status'] = 1;
+            $updatePeople = array();
+            $updatePeople['People']['address_id'] = $getParentAddress[0]['Address']['id'];
+            $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+            $this->People->save($updatePeople);
+            $message = 'Information has been saved';
+
+//            unset($getParentAddress[0]['Address']['id']);
+//            unset($getParentAddress[0]['Address']['people_id']);
+//            $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
+//            $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
+//            
+//            $this->request->data = $getParentAddress[0];
             
-            unset($getParentAddress[0]['Address']['id']);
-            unset($getParentAddress[0]['Address']['people_id']);
-            $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
-            $getParentAddress[0]['Address']['people_id'] = $_REQUEST['peopleid'];
-            
-            $this->request->data = $getParentAddress[0];
-            
-            if ($this->Address->save($this->request->data)) {
-                $msg['status'] = 1;
-                $addressId = $this->Address->id;
-                $updatePeople = array();
-                $updatePeople['People']['address_id'] = $addressId;
-                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
-                $this->People->save($updatePeople);
-                $message = 'Information has been saved';
-            }            
+//            if ($this->Address->save($this->request->data)) {
+//                $msg['status'] = 1;
+//                $addressId = $this->Address->id;
+//                $updatePeople = array();
+//                $updatePeople['People']['address_id'] = $addressId;
+//                $updatePeople['People']['id'] = $getParentAddress[0]['Address']['id'];
+//                $this->People->save($updatePeople);
+//                $message = 'Information has been saved';
+//            }            
         } else {
            
             $peopleId = $_REQUEST['peopleid'];        
