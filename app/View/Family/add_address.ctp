@@ -6,7 +6,10 @@
 	<?php if ( $show ) { ?>
     <div class="row">
 		<div class="col-lg-6 col-md-6 col-xs-12">
-			<?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
+			<div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
+			<div class="col-lg-8 col-md-8 col-xs-8">
+				<?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name . ' HOF')))); ?>
+			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
     </div>
