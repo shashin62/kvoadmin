@@ -33,7 +33,7 @@
 			</div>
 
 
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Gender</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<div class="btn-group genders" data-toggle="buttons">
@@ -47,15 +47,15 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">First Name</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input('first_name', array('id' => 'first_name', 'value'=> $first_name,'placeholder' => 'Enter First Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
+			<div class="form-group required">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Used Surname</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 				<?php
 
@@ -75,7 +75,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="main_surname">Main Surname</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 
@@ -112,7 +112,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Marital status</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<div class="btn-group" data-toggle="buttons">                    
@@ -141,89 +141,135 @@
                        array('id' => 'date_of_marriage', 'type' => 'text','value'=> $date_of_marriage,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
                 </div>
             </div>
-
-
         </div>
-        <div class="col-lg-6 col-md-6 col-xs-12">
+
+		<div class="col-lg-6 col-md-6 col-xs-12">
+
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Late</label>
+				<div class="checkbox col-lg-8 col-md-8 col-xs-8">
+					<?php echo $this->Form->input("is_late", array('type' => "checkbox", 'checked' => $is_late == 1 ? 'checked' : '','div' => false, 'label' => false,)); ?>
+				</div>
+			</div>
+
+			<div style="display: none;" class="form-group dd">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_death">Death Date</label>   
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<?php echo $this->Form->input('date_of_death', 
+						array('id' => 'date_of_death', 'type' => 'text','value'=> $date_of_death,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control date_of_death')); ?>
+				</div>
+			</div>
 
 
-            <div class="form-group maidensurname">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_surname">Maiden Surname</label>
-                <div class="col-lg-8 col-md-8 col-xs-8">
-                    <?php
-                        
-            echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname',
-                'label' => false,
-                'div' => false,
-                'legend' => false,
-                'empty' => __d('label', '--Select--'),
-                'class' => 'maiden_surname combobox',
-                'style' => '',
-               // 'disabled' => $readonly,
-                'options' => $main_surnames,
-                'value' => $maiden_surname
-            ));
-            ?>
-                </div>
-            </div>
+			<div class="form-group maidensurname">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_surname">Maiden Surname</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+
+				<?php
+
+				echo $this->Form->input('maiden_surname', array('id' => 'maiden_surname',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'maiden_surname combobox',
+				'style' => '',
+				// 'disabled' => $readonly,
+				'options' => $main_surnames,
+				'value' => $maiden_surname
+
+				));
+				
+				?>
+				</div>
+			</div>
             
-            <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mahajan_membership_number">Mahajan #</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-               <?php echo $this->Form->input('mahajan_membership_number', 
-                       array('id' => 'mahajan_membership_number', 'value'=> $mahajan_membership_number,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="vsillage">Village</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-                         <?php
-                         
-            echo $this->Form->input('village', array('id' => 'village',
-                'label' => false,
-                'div' => false,
-                'legend' => false,
-                'empty' => __d('label', '--Select--'),
-                'class' => 'village combobox',
-                'style' => '',
-                'disabled' => $readonly,
-                'options' => $villages,
-                'value' => $village
-            ));
-            ?>
-                </div>
-                
-            </div>
-            <div class="form-group maidenvillage">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_village">Maiden Village</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-                         <?php
-                        
-            echo $this->Form->input('maiden_village', array('id' => 'maiden_village',
-                'label' => false,
-                'div' => false,
-                'legend' => false,
-                'empty' => __d('label', '--Select--'),
-                'class' => 'maiden_village combobox',
-                'style' => '',
-                'disabled' => $readonly,
-                'options' => $villages,
-                'value' => $maiden_village
-            ));
-            ?>
-                </div>
-                
-            </div>
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mahajan_membership_number">Mahajan #</label>   
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<?php echo $this->Form->input('mahajan_membership_number', 
+						array('id' => 'mahajan_membership_number', 'value'=> $mahajan_membership_number,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="vsillage">Village</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+
+				<?php
+
+				echo $this->Form->input('village', array('id' => 'village',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'village combobox',
+				'style' => '',
+				'disabled' => $readonly,
+				'options' => $villages,
+				'value' => $village
+				));
+				?>
+				</div>
+			</div>
+
+			<div class="form-group maidenvillage">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_village">Maiden Village</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+
+				<?php
+
+				echo $this->Form->input('maiden_village', array('id' => 'maiden_village',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'maiden_village combobox',
+				'style' => '',
+				'disabled' => $readonly,
+				'options' => $villages,
+				'value' => $maiden_village
+				));
+				?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="email">Email ID</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<?php echo $this->Form->input('email', array('id' => 'email', 'value'=> $email,'placeholder' => 'Enter Email ID' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="blood_group">Blood Group</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+
+				<?php
+
+				$array = array('' => '--select--');
+				$bloodgroups = array_merge($array, $bloodgroups);
+				echo $this->Form->input('blood_group', array('id' => 'blood_group',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'class' => 'combobox',
+				'style' => 'width:50px;',
+				'width' => '50%',
+				'empty' => __d('label', '--Select--'),
+				'options' => $bloodgroups,
+				'value' => $blood_group
+				));
+
+				?>
+				</div>
+			</div>
+
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
-            <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="email">Email ID</label>
-                <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('email', array('id' => 'email', 'value'=> $email,'placeholder' => 'Enter Email ID' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-                </div>
-            </div>
+
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 1</label>   
                 <div class="col-lg-4 col-md-4 col-xs-4">
@@ -330,33 +376,7 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-xs-12">
-            <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="blood_group">Blood Group</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-                         <?php
-                        $array = array('' => '--select--');
-            $bloodgroups = array_merge($array, $bloodgroups);
-            echo $this->Form->input('blood_group', array('id' => 'blood_group',
-                'label' => false,
-                'div' => false,
-                'legend' => false,
-                'class' => 'combobox',
-                'style' => 'width:50px;',
-                'width' => '50%',
-                'empty' => __d('label', '--Select--'),
-                'options' => $bloodgroups,
-                'value' => $blood_group
-            ));
-            ?>
-                </div>
-            </div>
-            <div class="form-group">
-               <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Late</label>
-                <div class="checkbox col-lg-8 col-md-8 col-xs-8">
-                <?php echo $this->Form->input("is_late", array('type' => "checkbox", 'checked' => $is_late == 1 ? 'checked' : '','div' => false, 'label' => false,)); ?>
-                   
-                </div>
-            </div> 
+
             <?php if( $userType != 'addnew') { ?>
              <div class="form-group">
                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Home Address</label>
@@ -366,12 +386,7 @@
             </div> 
             <?php } ?>
             
-            <div style="display: none;" class="form-group dd"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_death">Death Date</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-               <?php echo $this->Form->input('date_of_death', 
-                       array('id' => 'date_of_death', 'type' => 'text','value'=> $date_of_death,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control date_of_death')); ?>
-                </div>
-            </div>
+
         </div>
     </div>
 
