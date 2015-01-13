@@ -174,14 +174,12 @@ Class FamilyController extends AppController {
         if ($requestData['type'] == 'self') {
            
             //$getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
-      //      echo '<pre>';
-      //  print_r($getPeopleData);
-       // exit;
+            
             $this->set('readonly',false);
             $this->set('first_name', $getPeopleData['People']['first_name']);
-            $this->set('date_of_birth', $getPeopleData['People']['date_of_birth']);
-            $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
-            $this->set('date_of_death', $getPeopleData['People']['date_of_death']);
+            $this->set('date_of_birth', date("d/m/Y", strtotime($getPeopleData['People']['date_of_birth'])));
+            $this->set('date_of_marriage', date("d/m/Y", strtotime($getPeopleData['People']['date_of_marriage'])));
+            $this->set('date_of_death', date("d/m/Y", strtotime($getPeopleData['People']['date_of_death'])));
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
@@ -452,11 +450,15 @@ Class FamilyController extends AppController {
         $array['gid'] = $getPeopleDetail[0]['People']['group_id'];
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
         $parentId = $getOwnerDetails['id'];
-        
+      
+        $this->request->data['People']['date_of_birth'] =  date('Y-m-d', strtotime($this->request->data['People']['date_of_birth']));
+       $this->request->data['People']['date_of_death'] =  date('Y-m-d', strtotime($this->request->data['People']['date_of_death']));
+       $this->request->data['People']['date_of_marriage'] =  date('Y-m-d', strtotime($this->request->data['People']['date_of_marriage']));
+       
+       
         switch ($_REQUEST['type']) {
             
-            case 'addnew':
-                
+            case 'addnew':                
                 $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
@@ -484,8 +486,6 @@ Class FamilyController extends AppController {
                     $this->request->data['People']['group_id'] = $this->Group->id;
                     $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                     if ($this->People->save($this->request->data)) {
-                        
-                        
                         $msg['status'] = 1;
                         $message = 'Family has been created';
                         $peopleGroup = array();
