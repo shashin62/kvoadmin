@@ -171,10 +171,10 @@
             </div>
         </div>
 
-		<div class="form-group">
+		<div class="col-lg-6 col-md-6 col-xs-12">
 			<div class="form-group">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Late</label>
-				<div class="checkbox col-lg-8 col-md-8 col-xs-8">
+				<div class="col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input("is_late", array('type' => "checkbox", 'checked' => $is_late == 1 ? 'checked' : '','div' => false, 'label' => false,)); ?>
 				</div>
 			</div>
@@ -185,7 +185,6 @@
 					<?php echo $this->Form->input('date_of_death', array('id' => 'date_of_death', 'type' => 'text','value'=> $date_of_death,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control date_of_death')); ?>
 				</div>
 			</div>
-
 
 			<div class="form-group maidensurname">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_surname">Maiden Surname</label>
@@ -217,7 +216,6 @@
 						array('id' => 'mahajan_membership_number', 'value'=> $mahajan_membership_number,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
 				</div>
 			</div>
-
 
 
 			<div class="form-group maidenvillage">
