@@ -208,15 +208,6 @@
 				?>
 				</div>
 			</div>
-            
-			<div class="form-group">
-				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mahajan_membership_number">Mahajan #</label>   
-				<div class="col-lg-8 col-md-8 col-xs-8">
-					<?php echo $this->Form->input('mahajan_membership_number', 
-						array('id' => 'mahajan_membership_number', 'value'=> $mahajan_membership_number,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
-				</div>
-			</div>
-
 
 			<div class="form-group maidenvillage">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_village">Maiden Village</label>
@@ -238,6 +229,15 @@
 				?>
 				</div>
 			</div>
+            
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mahajan_membership_number">Mahajan #</label>   
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<?php echo $this->Form->input('mahajan_membership_number', 
+						array('id' => 'mahajan_membership_number', 'value'=> $mahajan_membership_number,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
+				</div>
+			</div>
+
 
 			<div class="form-group">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="blood_group">Blood Group</label>
@@ -263,16 +263,16 @@
 				</div>
 			</div>
 
+			<?php if( $userType != 'addnew') { ?>
 			<div class="form-group">
-				<?php if( $userType != 'addnew') { ?>
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Home Address</label>
 					<div class="checkbox col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
 					</div>
 				</div>
-				<?php } ?>
 			</div>
+			<?php } ?>
 
 			<div class="form-group">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 1</label>   
