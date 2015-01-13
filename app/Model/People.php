@@ -49,7 +49,7 @@ Class People extends AppModel
             }
         }
         
-        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.mobile_number','p.date_of_birth','p.village');
+        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.mobile_number','DATE_FORMAT(p.date_of_birth,   "%m/%d/%Y"  )','p.village');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -145,7 +145,7 @@ Class People extends AppModel
         //$sGroup = " group by p.mobile_number";
 
       $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number, p.date_of_birth, p.m_id, p.f_id, 
+    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number,p.date_of_birth, p.m_id, p.f_id, 
     IF( p.f_id = parent.id ,parent.first_name, '') as father
               , IF( p.m_id = parent2.id, parent2.first_name, '') as mother
               , p.partner_name as spouse
@@ -190,7 +190,9 @@ Class People extends AppModel
             "aaData" => array()
         );
 
-       
+      //// echo '<pre>';
+      //  print_r($rResult);
+      //  exit;
         foreach ($rResult as $key => $value) {
 
             $row = array();
@@ -200,15 +202,28 @@ Class People extends AppModel
                 $row[] = '';
             //}
             foreach ( $value['p'] as $k => $v) {
-                $row[] = $v;
+               
+                if ($k  == 'date_of_birth' && $v != '0000-00-00 00:00:00') {
+                     $row[] = date("d/m/Y", strtotime($v));
+                } else if ($k  == 'date_of_birth' && $v == '0000-00-00 00:00:00'){
+                    $row[] = '-';
+                 }  else {
+                     $row[] = $v;
+                }
             }
+            $row[] = $value[0]['date_of_birth'];
             foreach ( $value[0] as $kP => $parents) {
-                $row[] = $value[0][$kP];
+                if ($kP  != 'date_of_birth') {
+                    $row[] = $value[0][$kP];
+                }
+                
             }
             $row[] = '';
             $output['aaData'][] = $row;
         }
-        
+        //echo '<pre>';
+      //  print_r($output);
+      //  exit;
         return $output;
         
     }
