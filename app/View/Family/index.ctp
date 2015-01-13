@@ -97,7 +97,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group required">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="vsillage">Village</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 
