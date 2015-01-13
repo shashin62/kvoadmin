@@ -4,7 +4,7 @@
 	<?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
     
 	<?php if ( $show ) { ?>
-    <div class="row">
+    <div class="row form-group">
 		<div class="col-lg-6 col-md-6 col-xs-12">
 			<div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
 			<div class="col-lg-8 col-md-8 col-xs-8">
@@ -13,6 +13,7 @@
 		</div>
 		<div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
     </div>
+	<br />
     <?php } ?>
 
 
