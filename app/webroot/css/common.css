@@ -35,6 +35,6 @@ tr.shown td.details-control {
 	content:"*";
 	color:red;
 	position: absolute;
-    margin-left: 8px;
-    top:7px;
+    margin-left: 12px;
+    top:4px;
 }
