@@ -9,7 +9,7 @@ class Group extends AppModel {
      public function getAllFamilyGroups($userId, $roleId) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
-           'parent.last_name','parent.mobile_number',' DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  )' ,'grp.created');
+           'parent.last_name','parent.mobile_number',' DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,'grp.created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "grp.id";
@@ -44,7 +44,7 @@ class Group extends AppModel {
             }
         }
         
-        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.date_of_birth','parent.mobile_number',);
+        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  )');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -80,7 +80,7 @@ class Group extends AppModel {
 //        }
 //        
          $sJoin = "  INNER JOIN people as parent ON (parent.id = grp.people_id)";
-         
+        // echo $sWhere;
         /*
          * SQL queries
          * Get data to display
