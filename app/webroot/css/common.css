@@ -29,3 +29,9 @@ h1.heading , h2.heading , h3.heading {
 tr.shown td.details-control {
     background: url('../img/details_close.png') no-repeat center center;
 }
+
+/* For asterisk */
+.form-group.required .control-label:after {
+	content:"*";
+	color:red;
+}
