@@ -2,9 +2,10 @@
 	<h3 class="heading">Add/Edit Address</h3>
     
 	<?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
-    <?php if ( $show ) { ?>
-    <div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-12">
+    
+	<?php if ( $show ) { ?>
+    <div class="row">
+		<div class="col-lg-12 col-md-12 col-xs-12">
 			<?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
 		</div>
     </div>
@@ -178,6 +179,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-xs-12">
 			<div class="form-actions">
