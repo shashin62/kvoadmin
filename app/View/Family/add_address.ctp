@@ -5,9 +5,10 @@
     
 	<?php if ( $show ) { ?>
     <div class="row">
-		<div class="col-lg-12 col-md-12 col-xs-12">
+		<div class="col-lg-6 col-md-6 col-xs-12">
 			<?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
 		</div>
+		<div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
     </div>
     <?php } ?>
 
@@ -18,19 +19,20 @@
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="ownership_type">Home Status</label>
 					<div class="col-lg-8 col-md-8 col-xs-8">
-					<div class="btn-group" data-toggle="buttons">
-						<label class="btn btn-default <?php echo $ownership_type == 1 ? 'active' : '';?>">
-							<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 1 ? 'checked=checked' : '';?> value="1">Ownership
-						</label>
-						<label class="btn btn-default <?php echo $ownership_type == 2 ? 'active' : '';?>">
-							<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 2 ? 'checked=checked' : '';?> value="2">Leave & License
-						</label>
-						<label class="btn btn-default <?php echo $ownership_type == 3 ? 'active' : '';?>">
-							<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 3 ? 'checked=checked' : '';?> value="3">Pagadi
-						</label>
-						<label class="btn btn-default <?php echo $ownership_type == 4 ? 'active' : '';?>">
-							<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 4 ? 'checked=checked' : '';?> value="4">Other
-						</label>
+						<div class="btn-group" data-toggle="buttons">
+							<label class="btn btn-default <?php echo $ownership_type == 1 ? 'active' : '';?>">
+								<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 1 ? 'checked=checked' : '';?> value="1">Ownership
+							</label>
+							<label class="btn btn-default <?php echo $ownership_type == 2 ? 'active' : '';?>">
+								<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 2 ? 'checked=checked' : '';?> value="2">Leave & License
+							</label>
+							<label class="btn btn-default <?php echo $ownership_type == 3 ? 'active' : '';?>">
+								<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 3 ? 'checked=checked' : '';?> value="3">Pagadi
+							</label>
+							<label class="btn btn-default <?php echo $ownership_type == 4 ? 'active' : '';?>">
+								<input type="radio" class=ownership_type name="ownership_type" <?php echo $ownership_type == 4 ? 'checked=checked' : '';?> value="4">Other
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
