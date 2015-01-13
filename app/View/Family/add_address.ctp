@@ -3,7 +3,7 @@
     
 	<?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
     <?php if ( $show ) { ?>
-    <div class="row">
+    <div class="row form-group">
 		<div class="col-lg-6 col-md-6 col-xs-12">
 			<?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
 		</div>
@@ -32,7 +32,6 @@
 						</label>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Total Number of Rooms</label>
 					<div class="col-lg-8 col-md-8 col-xs-8">
@@ -51,7 +50,6 @@
 						<?php echo $this->Form->input('room_number', array('id' => 'room_number','tabindex'=> '3','value'=> $room_number,'type' => 'text','placeholder' => 'Enter Apartment No.' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="building_name">Building Name</label>
 					<div class="col-lg-8 col-md-8 col-xs-8">
@@ -84,14 +82,12 @@
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-xs-12">
-
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip Code</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 						<?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">Suburb</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
@@ -131,21 +127,18 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="city">City</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 						<?php echo $this->Form->input('city', array('id' => 'city','tabindex'=> '10','value'=> $city, 'placeholder' => 'Enter City' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control city')); ?>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="district">District</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 						<?php echo $this->Form->input('district', array('id' => 'district','tabindex'=> '11', 'value'=> $district,'placeholder' => 'Enter District' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">State</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
