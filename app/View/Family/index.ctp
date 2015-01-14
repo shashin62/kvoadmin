@@ -143,7 +143,7 @@
 						<input type="radio" name="martial_status" <?php echo $martial_status == 'Widow' ? 'checked=checked' : '';?> value="Widow">Widow
 						</label>
 						<label class="btn btn-default <?php echo $martial_status == 'Single' ? 'active' : '';?>">
-						<input type="radio" name="status" <?php echo $martial_status == 'Single' ? 'checked=checked' : '';?> value="Single">Single
+						<input type="radio" name="martial_status" <?php echo $martial_status == 'Single' ? 'checked=checked' : '';?> value="Single">Single
 						</label>
 					</div>
 				</div>
