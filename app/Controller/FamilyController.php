@@ -38,7 +38,8 @@ Class FamilyController extends AppController {
     public $uses = array(
                         'User', 'Aro', 'Role','Note',
                         'People', 'Village', 'Education', 'State', 'BloodGroup', 
-                        'Group','Address','PeopleGroup','Suburb','Surname','Translation'
+                        'Group','Address','PeopleGroup','Suburb','Surname','Translation',
+                        'ZipCode'
                         );
 
     /**
@@ -1420,6 +1421,30 @@ Class FamilyController extends AppController {
             }
             echo json_encode($row_set);
             exit;
+    }
+    
+    public function getZipCodesData()  {
+        $this->autoRender = false;
+        $this->layout = 'ajax';  
+        $term = $_GET[ "term" ];
+        $list = $this->ZipCode->getZipCodesData($term);
+       // echo '<pre>';
+       //    print_r($list);
+        $lists = array();
+         foreach ( $list as $key => $value ) {
+                $row['value']=$value['ZipCode']['zip_code'];
+		$row['id']=(int)$value['ZipCode']['id'];;
+		$row_set[] = $row;//build an array
+            }
+            echo json_encode($row_set);
+            exit;
+    }
+    
+    public function populateZipCodeData()  {
+        $this->autoRender = false;
+        $this->layout = 'ajax';  
+        $zipcode = $_REQUEST[ "zipcode" ];
+        
     }
 
 }
