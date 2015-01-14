@@ -174,7 +174,15 @@ Class FamilyController extends AppController {
         if ($requestData['type'] == 'self') {
            
             //$getPeopleData = $this->People->getPeopleData($userId, $toFetchData);
-            
+            if ($getPeopleData['People']['date_of_marriage'] == '0000-00-00 00:00:00') {
+                $getPeopleData['People']['date_of_marriage'] = '';
+            }
+            if ($getPeopleData['People']['date_of_birth'] == '0000-00-00 00:00:00') {
+                $getPeopleData['People']['date_of_birth'] = '';
+            }
+            if ($getPeopleData['People']['date_of_death'] == '0000-00-00 00:00:00') {
+                $getPeopleData['People']['date_of_death'] = '';
+            }
             $this->set('readonly',false);
             $this->set('first_name', $getPeopleData['People']['first_name']);
             $this->set('date_of_birth', date("m/d/Y", $getPeopleData['People']['date_of_birth'] ? strtotime($getPeopleData['People']['date_of_birth']): '') );
