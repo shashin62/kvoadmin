@@ -209,18 +209,14 @@
                source: baseUrl + "/family/getZipCodesData",
                select: function(e, ui) {
             var sname = ui.item.value;
+            
             $.ajax({
         url: baseUrl + '/family/populateZipCodeData',
         dataType: 'json',
-        data: {id: id},
+        data: {zipcode: sname},
         type: "POST",
         success: function (response) {
-            var displayMsg = response.message;
-            showJsSuccessMessage(displayMsg);
-            setTimeout(function () {
-                $('.jssuccessMessage').hide('slow');
-                oTable.fnDraw(true);
-            }, 2500);
+           $( ".city" ).val(response.city);
 
 
         }
