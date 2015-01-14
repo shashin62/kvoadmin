@@ -8,13 +8,20 @@ Class ZipCode extends AppModel
      
      public $useTable = 'zip_codes';
      
-      public function getZipCodesData($term) {
+      public function getZipCodesData($term, $data = false) {
          $this->recursive = -1;
         
         $options['conditions'] = array('ZipCode.zip_code like' => '%'.$term.'%');
-        
         $options['fields'] = array('ZipCode.zip_code','ZipCode.id');
-        $options['group']  = array('ZipCode.zip_code');
+        if ($data) {
+           $options['conditions'] = array('ZipCode.zip_code' => $term);  
+           $options['fields'] = array('ZipCode.zip_code','ZipCode.id','ZipCode.state',
+               'ZipCode.city','ZipCode.suburb','ZipCode.zone','ZipCode.std');
+        } else {
+            $options['group']  = array('ZipCode.zip_code');
+        }
+        
+        
         try {
             $userData = $this->find('all', $options);
             if ($userData && isset($userData[0])) {
