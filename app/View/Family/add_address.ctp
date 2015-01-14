@@ -202,7 +202,34 @@
 </div>
 
 <script type="text/javascript">
-   
+    $(function () {
+        alert('hhh');
+            
+             $( "#zip_code" ).autocomplete({
+               source: baseUrl + "/family/getZipCodesData",
+               select: function(e, ui) {
+            var sname = ui.item.value;
+            $.ajax({
+        url: baseUrl + '/family/populateZipCodeData',
+        dataType: 'json',
+        data: {id: id},
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                oTable.fnDraw(true);
+            }, 2500);
+
+
+        }
+    });
+           //TODO: Add AJAX webmethod call here and fill out entire form.
+
+        }
+            });
+             });
     var aid = '<?php echo $addressid ? $addressid : ''; ?>';   
      var pid = '<?php echo $peopleid; ?>';
      var prntid = '<?php echo $parentid; ?>';
@@ -213,5 +240,7 @@
         
        
     });
+    
+    
 </script>
 <?php echo $this->Html->script(array('Family/add_address')); ?>
