@@ -32,7 +32,7 @@
 <?php
   echo $this->Html->script(array('jquery','common','bootstrap.min','jquery.validate','jquery-ui.min','combobox','autotab'));      
 ?>
-        <script type="text/javascript" language="javascript" src="<?php echo $this->base; ?> /js/datatables/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="<?php echo $this->base; ?>/js/datatables/js/jquery.dataTables.min.js"></script>
         
         <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
        <!-- 
@@ -40,7 +40,7 @@
        
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
         -->
-        <script src="<?php echo $this->base; ?> /js/bootstrap-select.min.js"></script>
+        <script src="<?php echo $this->base; ?>/js/bootstrap-select.min.js"></script>
        
     </head>
     <body>
