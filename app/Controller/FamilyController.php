@@ -1379,5 +1379,22 @@ Class FamilyController extends AppController {
         $this->set('data', $getAllNotes);
         $this->set('familyName',$getAllNotes[0]['Group']['name']);
     }
+    
+    public function getAutoCompleteFirstName()  {
+        $this->autoRender = false;
+        $this->layout = 'ajax';  
+        $term = $_GET[ "term" ];
+        $list = $this->People->getAutoCompleteFirstName($term);
+       // echo '<pre>';
+       //    print_r($list);
+        $lists = array();
+         foreach ( $list as $key => $value ) {
+                $row['value']=$value['People']['first_name'];
+		$row['id']=(int)$value['People']['id'];;
+		$row_set[] = $row;//build an array
+            }
+            echo json_encode($row_set);
+            exit;
+    }
 
 }
