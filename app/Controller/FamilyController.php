@@ -1442,9 +1442,17 @@ Class FamilyController extends AppController {
     
     public function populateZipCodeData()  {
         $this->autoRender = false;
-        $this->layout = 'ajax';  
-        $zipcode = $_REQUEST[ "zipcode" ];
-        
+        $this->layout = 'ajax';
+        $zipcode = $_REQUEST["zipcode"];
+        $data = $this->ZipCode->getZipCodesData($zipcode, true);
+        $array = array();
+        $array['city'] = $data[0]['ZipCode']['city'];
+        $array['state'] = $data[0]['ZipCode']['state'];
+        $array['suburb'] = $data[0]['ZipCode']['suburb'];
+        $array['zone'] = $data[0]['ZipCode']['zone'];
+        $array['std'] = $data[0]['ZipCode']['std'];
+        echo json_encode($array);
+        exit;
     }
 
 }
