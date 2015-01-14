@@ -450,11 +450,19 @@ Class FamilyController extends AppController {
         $array['gid'] = $getPeopleDetail[0]['People']['group_id'];
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
         $parentId = $getOwnerDetails['id'];
-      
-        $this->request->data['People']['date_of_birth'] =  date('Y-m-d', strtotime($this->request->data['People']['date_of_birth']));
-       $this->request->data['People']['date_of_death'] =  date('Y-m-d', strtotime($this->request->data['People']['date_of_death']));
-       $this->request->data['People']['date_of_marriage'] =  date('Y-m-d', strtotime($this->request->data['People']['date_of_marriage']));
-       
+        $dt = new DateTime($this->request->data['People']['date_of_birth']);
+        $dt1 = new DateTime($this->request->data['People']['date_of_death']);
+        $dt2 = new DateTime($this->request->data['People']['date_of_marriage']);
+        
+        if( $this->request->data['People']['date_of_birth'] != '') {
+        $this->request->data['People']['date_of_birth'] =  $dt->format('Y-m-d');//date('Y-m-d', strtotime($this->request->data['People']['date_of_birth']));
+        }
+       if( $this->request->data['People']['date_of_death'] != '') {
+           $this->request->data['People']['date_of_death'] =   $dt1->format('Y-m-d');//date('Y-m-d', strtotime($this->request->data['People']['date_of_death']));
+       }
+       if( $this->request->data['People']['date_of_marriage'] != '') {
+           $this->request->data['People']['date_of_marriage'] =   $dt2->format('Y-m-d');;//date('Y-m-d', strtotime($this->request->data['People']['date_of_marriage']));
+       }
        
         switch ($_REQUEST['type']) {
             
