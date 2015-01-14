@@ -455,8 +455,7 @@ Class FamilyController extends AppController {
         
         
         if( $this->request->data['People']['date_of_birth'] != '') {
-            $dt = new DateTime();
-            
+            $dt = new DateTime();            
             $dt->setTimestamp(strtotime($this->request->data['People']['date_of_birth']));
             
         $this->request->data['People']['date_of_birth'] =  $dt->format('Y-m-d');//date('Y-m-d', strtotime($this->request->data['People']['date_of_birth']));
