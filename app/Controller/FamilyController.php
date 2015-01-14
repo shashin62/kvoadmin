@@ -177,9 +177,9 @@ Class FamilyController extends AppController {
             
             $this->set('readonly',false);
             $this->set('first_name', $getPeopleData['People']['first_name']);
-            $this->set('date_of_birth', date("d/m/Y", $getPeopleData['People']['date_of_birth'] ? strtotime($getPeopleData['People']['date_of_birth']): '') );
-            $this->set('date_of_marriage', date("d/m/Y", $getPeopleData['People']['date_of_marriage'] ? strtotime($getPeopleData['People']['date_of_marriage']): ''));
-            $this->set('date_of_death', date("d/m/Y", $getPeopleData['People']['date_of_death'] ? strtotime($getPeopleData['People']['date_of_death']): ''));
+            $this->set('date_of_birth', date("m/d/Y", $getPeopleData['People']['date_of_birth'] ? strtotime($getPeopleData['People']['date_of_birth']): '') );
+            $this->set('date_of_marriage', date("m/d/Y", $getPeopleData['People']['date_of_marriage'] ? strtotime($getPeopleData['People']['date_of_marriage']): ''));
+            $this->set('date_of_death', date("m/d/Y", $getPeopleData['People']['date_of_death'] ? strtotime($getPeopleData['People']['date_of_death']): ''));
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
@@ -451,24 +451,28 @@ Class FamilyController extends AppController {
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
         $parentId = $getOwnerDetails['id'];
         
-        
-        
+         //echo '<pre>';
+        //print_r($this->request->data['People']);
         
         if( $this->request->data['People']['date_of_birth'] != '') {
-            $dt = new DateTime();            
-            $dt->setTimestamp(strtotime($this->request->data['People']['date_of_birth']));
+            $date = date_parse_from_format("m/d/Y", $this->request->data['People']['date_of_birth']);
             
-        $this->request->data['People']['date_of_birth'] =  $dt->format('Y-m-d');//date('Y-m-d', strtotime($this->request->data['People']['date_of_birth']));
+            
+            //$dt = new DateTime(strtotime($this->request->data['People']['date_of_birth']));
+            
+           // $dt->setTimestamp($date1);
+            
+            $this->request->data['People']['date_of_birth'] =  "$date[year]-$date[month]-$date[day]";
         }
        if( $this->request->data['People']['date_of_death'] != '') {
            $dt1 = new DateTime();
            $dt1->setTimestamp(strtotime($this->request->data['People']['date_of_death']));
-           $this->request->data['People']['date_of_death'] =   $dt1->format('Y-m-d');//date('Y-m-d', strtotime($this->request->data['People']['date_of_death']));
+           $this->request->data['People']['date_of_death'] =   $dt1->format('Y-m-d');
        }
        if( $this->request->data['People']['date_of_marriage'] != '') {
            $dt2 = new DateTime();
            $dt2->setTimestamp(strtotime($this->request->data['People']['date_of_marriage']));
-           $this->request->data['People']['date_of_marriage'] =   $dt2->format('Y-m-d');;//date('Y-m-d', strtotime($this->request->data['People']['date_of_marriage']));
+           $this->request->data['People']['date_of_marriage'] =   $dt2->format('Y-m-d');
        }
        
         switch ($_REQUEST['type']) {
@@ -766,7 +770,10 @@ Class FamilyController extends AppController {
                 $checkExistingUser = $this->People->find('all', array('fields' => array('People.id'),
                     'conditions' => array('People.id' => $_REQUEST['peopleid']))
                 );
-
+               // echo '<pre>';
+        //print_r($this->request->data['People']);
+       // exit;
+        
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
                     
