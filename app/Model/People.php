@@ -864,6 +864,26 @@ GROUP BY p.created_by");
         }
     }
     
+    
+    public function getAutoCompleteLastName($term) {
+         $this->recursive = -1;
+        
+        $options['conditions'] = array('People.last_name like' => '%'.$term.'%');
+        
+        $options['fields'] = array('People.last_name','People.id');
+        $options['group']  = array('People.last_name');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0])) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
    
     
 
