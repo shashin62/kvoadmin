@@ -1178,8 +1178,6 @@ Class FamilyController extends AppController {
     {
         $this->autoRender = false;
         $this->layout = 'ajax';
-        
-        $userID = $this->Session->read('User.user_id');
         $same = $this->request->data['Address']['is_same'];
         $parentId = $_REQUEST['parentid'];
         if ($same == 1) {
@@ -1449,7 +1447,7 @@ Class FamilyController extends AppController {
         $array['city'] = $data[0]['ZipCode']['city'];
         $array['state'] = $data[0]['ZipCode']['state'];
         $array['suburb'] = $data[0]['ZipCode']['suburb'];
-        $array['zone'] = $data[0]['ZipCode']['zone'];
+        $array['zone'] = strtolower($data[0]['ZipCode']['zone']);
         $array['std'] = $data[0]['ZipCode']['std'];
         echo json_encode($array);
         exit;
