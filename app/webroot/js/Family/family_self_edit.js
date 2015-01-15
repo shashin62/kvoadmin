@@ -197,16 +197,17 @@ $(".female").click(function () {
 
 $("#PeopleIsLate").click(function () {
    
-    late(1);
+    late();
 });
 
 function late(is_late) {
    
     if ($("#PeopleIsLate").is(':checked') ==  true || is_late == 1) {
-       
+       $(".sameaddress").hide();
         $(".dd").show();
         //$('.date_of_death').rules('add', 'required');
     } else {
+        $(".sameaddress").show();
         $(".dd").hide();
        
         //$('.date_of_death').rules('remove', 'required');
