@@ -95,7 +95,7 @@
 						<?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group subrb">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">Suburb</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 					
@@ -118,18 +118,18 @@
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb_zone">Suburb Zone</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default <?php echo $suburb_zone == 'east' ? 'active' : '';?>">
-							<input tabindex= '9' type="radio" name="suburb_zone" <?php echo $suburb_zone == 'east' ? 'checked=checked' : '';?> value="east">East
+						<div class="btn-group zones" data-toggle="buttons">
+							<label  class="btn btn-default <?php echo $suburb_zone == 'east' ? 'active' : '';?>">
+							<input data-zone="east" tabindex= '9' type="radio" name="suburb_zone" <?php echo $suburb_zone == 'east' ? 'checked=checked' : '';?> value="east">East
 							</label>
-							<label class="btn btn-default <?php echo $suburb_zone == 'west' ? 'active' : '';?>">
-							<input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'west' ? 'checked=checked' : '';?> value="west">West
+							<label  class="btn btn-default <?php echo $suburb_zone == 'west' ? 'active' : '';?>">
+							<input data-zone="west" type="radio" name="suburb_zone" <?php echo $suburb_zone == 'west' ? 'checked=checked' : '';?> value="west">West
 							</label>
-							<label class="btn btn-default <?php echo $suburb_zone == 'central' ? 'active' : '';?>">
-							<input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'central' ? 'checked=checked' : '';?> value="central">Central
+							<label  class="btn btn-default <?php echo $suburb_zone == 'central' ? 'active' : '';?>">
+							<input data-zone="central" type="radio" name="suburb_zone" <?php echo $suburb_zone == 'central' ? 'checked=checked' : '';?> value="central">Central
 							</label>
-							<label class="btn btn-default <?php echo $suburb_zone == 'other' ? 'active' : '';?>">
-							<input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'other' ? 'checked=checked' : '';?> value="other">Other
+							<label  class="btn btn-default <?php echo $suburb_zone == 'other' ? 'active' : '';?>">
+							<input data-zone="other" type="radio" name="suburb_zone" <?php echo $suburb_zone == 'other' ? 'checked=checked' : '';?> value="other">Other
 							</label>
 						</div>
 					</div>
@@ -146,7 +146,7 @@
 						<?php echo $this->Form->input('district', array('id' => 'district','tabindex'=> '11', 'value'=> $district,'placeholder' => 'Enter District' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group statediv">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">State</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 					<?php
@@ -167,7 +167,7 @@
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="std_code">STD Code</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
-						<?php echo $this->Form->input('std_code', array('id' => 'std_code','tabindex'=> '14', 'value'=> $std_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
+						<?php echo $this->Form->input('std_code', array('id' => 'std_code','tabindex'=> '14', 'value'=> $std_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode std_code')); ?>
 					</div>
 				</div>
 				<div class="form-group">
@@ -216,8 +216,15 @@
         type: "POST",
         success: function (response) {
            $( ".city" ).val(response.city);
-
-
+           $( ".std_code" ).val(response.std);
+           $( ".suburb" ).val(response.suburb);
+           $( ".std_code" ).val(response.std);
+           $('.state').val(response.state);
+            $('.subrb').find('.ui-autocomplete-input').val(response.suburb);
+            $('.statediv').find('.ui-autocomplete-input').val(response.state);
+            
+            $('.zones').find('[data-zone='+ response.zone +']').parent().addClass('active').attr('checked','checked');
+            $('[data-zone='+ response.zone +']').attr('checked','checked');
         }
     });
            //TODO: Add AJAX webmethod call here and fill out entire form.
