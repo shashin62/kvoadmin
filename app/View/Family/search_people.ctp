@@ -37,6 +37,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="father">Fathers Name</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <input type="text" class="form-control father search_username" name="father_name" placeholder="Fathers Name" custom="6" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mother_name">Mothers Name</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <input type="text" class="form-control mother search_username" name="mother_name" placeholder="Mothers Name" custom="7" />
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mobile_number">Mobile Number</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <input type="text" class="form-control mobile_number search" name="mobile_number" placeholder="Mobile number" custom="3"/>
