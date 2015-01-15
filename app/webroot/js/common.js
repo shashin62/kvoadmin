@@ -84,15 +84,15 @@ function format(d) {
     console.log(d);
     var maiden_village = d['10'] ? d['10'] : '-';
     var maiden_surname = d['11'] ? d['11'] : '-';
-    var grand_father = d['15'] ? d['15'] : '-';
-    var grand_mother = d['16'] ? d['16'] : '-';
+    var grand_father = d['15'] ? d['16'] : '-';
+    var grand_mother = d['16'] ? d['17'] : '-';
     var spouse = d['9'] != null ? d['9'] : '-';
     return '<table cellpadding="5" cellspacing="0" border="0" style="">' +
             '<tr>' +
             '<td>&nbsp<b>Father</b>:' +
-            '' + d['13'] + '</td>&nbsp;' +
-            '<td>&nbsp<b>Mother</b>: ' +
             '' + d['14'] + '</td>&nbsp;' +
+            '<td>&nbsp<b>Mother</b>: ' +
+            '' + d['15'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Village</b>: ' +
             '' + d['4'] + '</td>&nbsp;' +
             '<td>&nbsp<b>Email</b>: ' +
