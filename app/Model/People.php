@@ -8,7 +8,7 @@ Class People extends AppModel
     
     public function getAllPeoples($type = false)
     {
-       
+        
         $aColumns = array('p.id','p.first_name','p.last_name', 'p.village','p.mobile_number','p.m_id','p.f_id',
             'IF( p.f_id = parent.id, parent.first_name, "") as father',
             'IF( p.m_id = parent2.id, parent2.first_name, "") as mother'
@@ -49,7 +49,7 @@ Class People extends AppModel
             }
         }
         
-        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.mobile_number','DATE_FORMAT(p.date_of_birth,   "%m/%d/%Y"  )','p.village');
+        $aSearchCollumns = array('p.id','p.first_name','p.last_name','p.mobile_number','DATE_FORMAT(p.date_of_birth,   "%m/%d/%Y"  )','p.village','p.father','p.mother');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -131,7 +131,7 @@ Class People extends AppModel
         } else {
             
         }
-
+//cho $sWhere;exit;
         /*
          * SQL queries
          * Get data to display
