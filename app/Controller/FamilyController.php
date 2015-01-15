@@ -82,9 +82,10 @@ Class FamilyController extends AppController {
         $getPeopleData = $this->People->getPeopleData($peopleId, true ,$_REQUEST['gid']);   
         $array = array();
         $array['gid'] = $_REQUEST['gid'];
-        
+        $this->set('main_surname', $getPeopleData['People']['main_surname']);
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
         $this->set('name',$getOwnerDetails['first_name']);
+        
         // add primary relationships to user- spouse, father, mother and childrens
         switch ($requestData['type']) 
         {   
