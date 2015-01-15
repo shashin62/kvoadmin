@@ -138,6 +138,9 @@ $(".editOwnButton").click(function () {
     if(typeof $('.main_surname ').val() == 'object'){
         $('.main_surname').rules('remove', 'required');
     }
+    if(typeof $('.village ').val() == 'object'){
+        $('.village').rules('remove', 'required');
+    }
     
     if (userType == 'addnew' && $("#PeopleIsLate").is(':checked') ==  true) {
             $('.phone_number').rules('remove', 'required');
