@@ -103,7 +103,7 @@ Class FamilyController extends AppController {
                 $this->set('readonly',true);
                 $this->set('main_surname', $getPeopleData['People']['main_surname']);
                 $this->set('sect', $getPeopleData['People']['sect']);
-                $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage']);
+                $this->set('date_of_marriage', date("m/d/Y", strtotime($getPeopleData['People']['date_of_marriage'])));
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
@@ -187,9 +187,9 @@ Class FamilyController extends AppController {
             }
             $this->set('readonly',false);
             $this->set('first_name', $getPeopleData['People']['first_name']);
-            $this->set('date_of_birth', date("m/d/Y", $getPeopleData['People']['date_of_birth'] ? strtotime($getPeopleData['People']['date_of_birth']): '') );
-            $this->set('date_of_marriage', date("m/d/Y", $getPeopleData['People']['date_of_marriage'] ? strtotime($getPeopleData['People']['date_of_marriage']): ''));
-            $this->set('date_of_death', date("m/d/Y", $getPeopleData['People']['date_of_death'] ? strtotime($getPeopleData['People']['date_of_death']): ''));
+            $this->set('date_of_birth',$getPeopleData['People']['date_of_birth'] ?  date("m/d/Y", strtotime($getPeopleData['People']['date_of_birth'])): '' );
+            $this->set('date_of_marriage',$getPeopleData['People']['date_of_marriage'] ?  date("m/d/Y", strtotime($getPeopleData['People']['date_of_marriage'])): '');
+            $this->set('date_of_death', $getPeopleData['People']['date_of_death'] ? date("m/d/Y", strtotime($getPeopleData['People']['date_of_death'])): '');
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
@@ -216,6 +216,7 @@ Class FamilyController extends AppController {
             $this->set('blood_group', $getPeopleData['People']['blood_group']);
             $this->set('tree_level',$getPeopleData['Group']['tree_level']);
             $this->set('call_again',$getPeopleData['People']['call_again']);
+            $this->set('village',$getPeopleData['People']['village']);
             $this->set('mahajan_membership_number', $getPeopleData['People']['mahajan_membership_number']);
         }
     }
@@ -423,7 +424,7 @@ Class FamilyController extends AppController {
         $userID = $this->Session->read('User.user_id');
         
         $data = $this->request->data['People'];
-       
+        
         if ($_REQUEST['peopleid'] != '') {
             $getPeopleDetail = $this->People->find('all', array('fields' => array('People.first_name',
                     'People.last_name', 'People.maiden_surname', 'People.group_id',
@@ -467,10 +468,6 @@ Class FamilyController extends AppController {
         if( $this->request->data['People']['date_of_birth'] != '') {
             $date = date_parse_from_format("m/d/Y", $this->request->data['People']['date_of_birth']);
             
-            
-            //$dt = new DateTime(strtotime($this->request->data['People']['date_of_birth']));
-            
-           // $dt->setTimestamp($date1);
             
             $this->request->data['People']['date_of_birth'] =  "$date[year]-$date[month]-$date[day]";
         }
@@ -538,8 +535,8 @@ Class FamilyController extends AppController {
                 $this->request->data['People']['partner_id'] = $_REQUEST['peopleid'];
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
                 $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
-                unset($this->request->data['People']['village']);
-                $this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
+                //unset($this->request->data['People']['village']);
+               // $this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
                 $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
@@ -592,8 +589,8 @@ Class FamilyController extends AppController {
 
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
                 $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
-                unset($this->request->data['People']['village']);
-                $this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
+                //unset($this->request->data['People']['village']);
+                //$this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
                 $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
@@ -667,8 +664,8 @@ Class FamilyController extends AppController {
                 $this->request->data['People']['m_id'] = $getPeopleDetail[0]['People']['partner_id'];
                 $this->request->data['People']['father']  = $getPeopleDetail[0]['People']['first_name'];
                 $this->request->data['People']['mother']  = $getPeopleDetail[0]['People']['partner_name'];
-                unset($this->request->data['People']['village']);
-                $this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
+               // unset($this->request->data['People']['village']);
+               // $this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
                  $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
@@ -711,8 +708,8 @@ Class FamilyController extends AppController {
 
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
                 $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
-                unset($this->request->data['People']['village']);
-                $this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
+                //unset($this->request->data['People']['village']);
+                //$this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
                 $msg['status'] = 1;
                 $result = $this->People->checkEmailExists($this->request->data['People']['email']);
 
@@ -783,7 +780,7 @@ Class FamilyController extends AppController {
                // echo '<pre>';
         //print_r($this->request->data['People']);
        // exit;
-        
+               
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
                     
@@ -985,11 +982,11 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['es'] = null;
             }
             $tree[$peopleData['id']]['q'] = $peopleData['maiden_surname'];
-        }
+              }
 
         $jsonData['tree'] = $tree;
         $jsonData['parent_name'] = $parentName;
-
+ 
         echo json_encode($jsonData);
         exit;
     }
