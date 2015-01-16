@@ -61,7 +61,7 @@
 				</div>
 			</div>
 
-			<div class="form-group required">
+			<div class="form-group required main_surnamediv">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="main_surname">Main Surname</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 
-			<div class="form-group required">
+			<div class="form-group villagediv">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="vsillage">Village</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 
@@ -225,7 +225,7 @@
 			</div>
 
 
-			<div class="form-group">
+			<div class="form-group blood_groupdiv">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="blood_group">Blood Group</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 
@@ -260,7 +260,7 @@
 			</div>
 			<?php } ?>
 
-			<div class="form-group">
+			<div class="form-group education1_div">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 1</label>   
 				<div class="col-lg-4 col-md-4 col-xs-4">
 
@@ -284,7 +284,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group education2_div">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 2</label>
 				<div class="col-lg-4 col-md-4 col-xs-4">
 
@@ -307,7 +307,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group education3_div">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 3</label>   
 				<div class="col-lg-4 col-md-4 col-xs-4">
 
@@ -331,7 +331,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group education4_div">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 4</label>
 				<div class="col-lg-4 col-md-4 col-xs-4">
 				
@@ -355,7 +355,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group education5_div">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">Education 5</label>
 				<div class="col-lg-4 col-md-4 col-xs-4">
 				
