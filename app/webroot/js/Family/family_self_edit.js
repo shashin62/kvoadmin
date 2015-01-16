@@ -3,7 +3,7 @@ $(document).ready(function () {
 $('.selectpicker').selectpicker();
 
 $( ".combobox" ).combobox();
-
+$( ".combobox1" ).combobox();
  late(is_late);
  console.log(userType);
 if(  gender == 'female') {
@@ -99,8 +99,20 @@ showmaidenvillage('Female');
             },
         },
         submitHandler: function (form) {
-            $('.editOwnButton').attr('disabled','disabled');
+           //$('.editOwnButton').attr('disabled','disabled');
             var queryString = $('#createFamily').serialize();
+            queryString += '&data[People][village]='+ $('.villagediv').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][main_surname]='+ $('.main_surnamediv').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][maiden_surname]='+ $('.maidensurname').find('.ui-autocomplete-input').val();             
+            queryString += '&data[People][maiden_village]=' + $('.maidenvillage').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][blood_group]=' + $('.blood_groupdiv').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][education_1]=' + $('.education1_div').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][education_2]=' + $('.education2_div').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][education_3]=' + $('.education3_div').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][education_4]=' + $('.education4_div').find('.ui-autocomplete-input').val();
+            queryString += '&data[People][education_5]=' + $('.education5_div').find('.ui-autocomplete-input').val();
+            
+           
             var type = userType;
             var peopleid = pid;
             var groupid = grpid;
@@ -112,9 +124,9 @@ showmaidenvillage('Female');
                         displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
                     }
                 }
-                $('.editOwnButton').attr('disabled',false);
+              //  $('.editOwnButton').attr('disabled',false);
             } else {
-                $('.editOwnButton').attr('disabled','disabled');
+             //   $('.editOwnButton').attr('disabled','disabled');
                  var displayMsg = data.message;
                 showJsSuccessMessage(displayMsg);
                 setTimeout(function () {
@@ -135,6 +147,7 @@ showmaidenvillage('Female');
 });
 
 $(".editOwnButton").click(function () {
+    //console.log(  $('.villagediv').find('.ui-autocomplete-input').val());return;
     if(typeof $('.main_surname ').val() == 'object'){
         $('.main_surname').rules('remove', 'required');
     }
