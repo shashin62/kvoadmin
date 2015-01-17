@@ -27,7 +27,7 @@ showoccupation(occupation);
                 maxlength: 25
             },
             'data[Address][suburb]': {
-                required: true,
+                required: false,
                 maxlength: 25
             },
             'data[Address][city]': {
@@ -35,7 +35,7 @@ showoccupation(occupation);
                 maxlength: 25
             },
             'data[Address][state]': {
-                required: true,
+                required: false,
                 maxlength: 25
             },
             'data[Address][zip_code]': {
@@ -67,6 +67,9 @@ showoccupation(occupation);
         },
         submitHandler: function (form) {
             var queryString = $('#addressForm').serialize();
+             queryString += '&data[Address][suburb]='+ $('.suburbdiv').find('.ui-autocomplete-input').val();
+            queryString += '&data[Address][state]='+ $('.statesdiv').find('.ui-autocomplete-input').val();
+           
             var peopleid = pid;
              var addressid = aid;
            
@@ -95,6 +98,12 @@ showoccupation(occupation);
 
 $(".addressButton").click(function () {
     
+    if(typeof $('.state ').val() == 'object'){
+        $('.state').rules('remove', 'required');
+    }
+    if(typeof $('.suburb ').val() == 'object'){
+        $('.suburb').rules('remove', 'required');
+    }
     var occupation = $.trim($('.occupations > label.active').text());
      var occupations = ['House Wife','Retired','Studying','Other'];
   
