@@ -842,17 +842,22 @@ Class FamilyController extends AppController {
         $roleID = $this->Session->read('User.role_id');
         
         $getOwners = $this->Group->getOwners();
-       
+      
         $ownerData = array();
         foreach ( $getOwners as $key => $value ) {
-            $ownerData[$key]['name'] = $value['People']['first_name'] . ' ' . $value['People']['last_name'];
-            $ownerData[$key]['group_id'] = $value['Group']['id'];
-            $ownerData[$key]['id'] = $value['People']['id'];
+            $ownerData[$value['Group']['id']]['name'] = $value['People']['first_name'] . ' ' . $value['People']['last_name'];
+            $ownerData[$value['Group']['id']]['group_id'] = $value['Group']['id'];
+            $ownerData[$value['Group']['id']]['id'] = $value['People']['id'];
+            $ownerData[$value['Group']['id']]['owner'] = $value['User']['first_name']. ' ' . $value['User']['last_name'];
         }
         
         $this->set('owners',$ownerData);
         
         $id = $this->request->params['pass'][0];
+        
+        if (array_key_exists($id, $ownerData))  {
+             $this->set('ownername', $ownerData[$id]['owner']);
+        }
         $getDetails = $this->People->getFamilyDetails($id, false, true);
        
         $this->set('userId', $userID);
