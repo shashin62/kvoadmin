@@ -462,7 +462,7 @@ Class People extends AppModel
 
       $query = "UPDATE {$this->tablePrefix}people
                   SET occupation = '{$data['occupation']}' , business_name = '{$data['business_name']}'   
-                      , business_service_name = '{$data['business_service_name']}'   
+                      , nature_of_business = '{$data['nature_of_business']}', specialty_business_service = '{$data['specialty_business_service']}'     
                   WHERE id = {$data['id']}";
                   
         try {
@@ -884,10 +884,67 @@ GROUP BY p.created_by");
             return false;
         }
     }
-   
     
+    public function getSpecialBusinessData($term) {
+         $this->recursive = -1;
+        
+        $options['conditions'] = array('People.specialty_business_service like' => '%' . $term . '%');
+        $options['fields'] = array('People.specialty_business_service', 'People.id');
 
+        $options['group'] = array('People.specialty_business_service');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0])) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
     
+    public function getTypeBusinessData($term) {
+         $this->recursive = -1;
+        
+        $options['conditions'] = array('People.business_name like' => '%' . $term . '%');
+        $options['fields'] = array('People.business_name', 'People.id');
+
+        $options['group'] = array('People.business_name');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0])) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function getNatureBusinessData($term) {
+         $this->recursive = -1;
+        
+        $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
+        $options['fields'] = array('People.nature_of_business', 'People.id');
+
+        $options['group'] = array('People.nature_of_business');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData && isset($userData[0])) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+
 }
 /* 
  * To change this license header, choose License Headers in Project Properties.
