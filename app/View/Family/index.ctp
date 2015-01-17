@@ -414,19 +414,19 @@
              $( "#last_name" ).autocomplete({
                source: baseUrl + "/family/getAutoCompleteLastName"
             });
-        $("#date_of_birth").datepicker({
-            format: "mm/dd/yyyy",
-        });
-        $('.dp').on('change', function () {
-            $('.datepicker').hide();
-        });
-        $("#date_of_marriage").datepicker({
-            format: "mm/dd/yyyy"
-        });
-        
-        $("#date_of_death").datepicker({
-            format: "mm/dd/yyyy"
-        });
+//        $("#date_of_birth").datepicker({
+//            format: "mm/dd/yyyy",
+//        });
+//        $('.dp').on('change', function () {
+//            $('.datepicker').hide();
+//        });
+//        $("#date_of_marriage").datepicker({
+//            format: "mm/dd/yyyy"
+//        });
+//        
+//        $("#date_of_death").datepicker({
+//            format: "mm/dd/yyyy"
+//        });
     });
      $('.cancel').click(function(){
          if(  userType == 'addnew') {
