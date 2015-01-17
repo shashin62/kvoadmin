@@ -20,11 +20,11 @@ $( ".combobox" ).combobox({width: '200px'});
                 maxlength: 25
             },
             'data[Address][road]': {
-                required: true,
+                required: false,
                 maxlength: 25
             },
             'data[Address][suburb]': {
-                required: true,
+                required: false,
                 maxlength: 25
             },
             'data[Address][city]': {
