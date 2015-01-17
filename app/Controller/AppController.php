@@ -50,7 +50,8 @@ class AppController extends Controller {
             'authError' => 'You are not authorized to view this page',
             'allowedActions' => array('logout','register','doRegisterUser','buildTreeJson',
                 'rebuildARO','callAgain','addNote','viewNote','getAutoCompleteFirstName',
-                'getAutoCompleteLastName','populateZipCodeData','getZipCodesData'),
+                'getAutoCompleteLastName','populateZipCodeData','getZipCodesData',
+                'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData'),
 //            'authenticate' => array(
 //                'all' => array('userModel' => 'User'),
 //                'Form' => array(),
