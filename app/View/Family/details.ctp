@@ -43,8 +43,8 @@ z-index: 0 !important
 </div>
 	<br>
 
-    <u><h4>Primary Family</h4></u>
-
+   <div class="row"> <h4>Primary Family , Created by - <?php echo $ownername; ?></h4></div>
+    <br>
                         <?php
                        App::import('Model', 'People');
                         $People = new People();
