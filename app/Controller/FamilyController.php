@@ -1057,8 +1057,8 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['id'] = $peopleId;
         $updatePeopleBusniessDetails['occupation'] = $this->request->data['occupation'];
         $updatePeopleBusniessDetails['business_name'] = $this->request->data['Address']['business_name'];
-        $updatePeopleBusniessDetails['business_service_name'] = $this->request->data['Address']['business_service_name'];
-        
+        $updatePeopleBusniessDetails['specialty_business_service'] = $this->request->data['Address']['specialty_business_service'];
+                $updatePeopleBusniessDetails['nature_of_business'] = $this->request->data['Address']['nature_of_business'];
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife','Retired','Studying','Other');
          
@@ -1430,6 +1430,57 @@ Class FamilyController extends AppController {
          foreach ( $list as $key => $value ) {
                 $row['value']=$value['ZipCode']['zip_code'];
 		$row['id']=(int)$value['ZipCode']['id'];;
+		$row_set[] = $row;//build an array
+            }
+            echo json_encode($row_set);
+            exit;
+    }
+    
+    public function getSpecialBusinessData()  {
+        $this->autoRender = false;
+        $this->layout = 'ajax';  
+        $term = $_GET[ "term" ];
+        $list = $this->People->getSpecialBusinessData($term);
+       // echo '<pre>';
+       //    print_r($list);
+        $lists = array();
+         foreach ( $list as $key => $value ) {
+                $row['value']=$value['People']['specialty_business_service'];
+		$row['id']=(int)$value['People']['id'];;
+		$row_set[] = $row;//build an array
+            }
+            echo json_encode($row_set);
+            exit;
+    }
+    
+    public function getTypeBusinessData()  {
+        $this->autoRender = false;
+        $this->layout = 'ajax';  
+        $term = $_GET[ "term" ];
+        $list = $this->People->getTypeBusinessData($term);
+       // echo '<pre>';
+       //    print_r($list);
+        $lists = array();
+         foreach ( $list as $key => $value ) {
+                $row['value']=$value['People']['business_name'];
+		$row['id']=(int)$value['People']['id'];;
+		$row_set[] = $row;//build an array
+            }
+            echo json_encode($row_set);
+            exit;
+    }
+    
+    public function getNatureBusinessData()  {
+        $this->autoRender = false;
+        $this->layout = 'ajax';  
+        $term = $_GET[ "term" ];
+        $list = $this->People->getNatureBusinessData($term);
+       // echo '<pre>';
+       //    print_r($list);
+        $lists = array();
+         foreach ( $list as $key => $value ) {
+                $row['value']=$value['People']['nature_of_business'];
+		$row['id']=(int)$value['People']['id'];;
 		$row_set[] = $row;//build an array
             }
             echo json_encode($row_set);
