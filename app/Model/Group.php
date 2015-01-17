@@ -154,10 +154,18 @@ class Group extends AppModel {
                     'People.id = Group.people_id'
                 )
             ),
+            array('table' => 'users',
+                'alias' => 'User',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'People.created_by = User.id'
+                )
+            ),
              );
         
         
-        $options['fields'] = array('People.id','People.first_name','People.last_name','Group.id');
+        $options['fields'] = array('People.id','People.first_name','People.last_name',
+            'Group.id','User.first_name','User.last_name');
         try {
             $userData = $this->find('all', $options);
             if ($userData ) {
