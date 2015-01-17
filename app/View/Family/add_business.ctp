@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <h3 class="heading">Add/Edit Business</h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
-	<div class="row-fluid">
+<div class="row-fluid">
 		<div class="col-lg-6 col-md-6 col-xs-12">
 			<div class="form-group">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Current Occupation</label>
@@ -29,39 +29,35 @@
 				</div>
 			</div>
                     <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="business_service_name">Business/Service Name</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty of Business / Service</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('business_service_name', array('id' => 'business_service_name', 'value'=> $business_service_name,'placeholder' => 'Enter business/service name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $business_service_name,'placeholder' => 'Enter specialty ofbusiness/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
 	</div>
-
     <br>
 
     <div class="tohidecontainer">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12" >
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Business/Service</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Type of Business/Service</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php
-                        $busniessOptions = array(
-                            'Enginner' => 'Enginner',
-                            'Construction' => 'Construction',
-                            'Other' => 'Other'
-                        );
-            echo $this->Form->input('business_name', array('id' => 'business_name',
-                'label' => false,
-                'div' => false,
-                'legend' => false,
-                'class' => 'combobox',
-                'style' => '',
-                'options' => $busniessOptions,
-                'value' => $business_name
-            ));
-            ?>
+                    <?php echo $this->Form->input('business_name', array('id' => 'business_name', 
+                        'value'=> $business_name,'placeholder' => 'Enter type of business/service' ,'title' => '','div' => false, 
+                        'label' => false, 'class' => 'form-control')); ?>
+                       
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Nature of Business/Service</label>
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                    <?php echo $this->Form->input('nature_of_business', array('id' => 'nature_of_business', 
+                        'value'=> $nature_of_business,'placeholder' => 'Enter nature of business/service' ,'title' => '','div' => false, 
+                        'label' => false, 'class' => 'form-control')); ?>
+                       
                 </div>
             </div>
         </div>
@@ -103,7 +99,7 @@
                 
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">	
-                <div class="form-group">
+                <div class="form-group  suburbdiv">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
@@ -153,7 +149,7 @@
                         <?php echo $this->Form->input('district', array('id' => 'district','tabindex'=> '9', 'value'=> $district,'placeholder' => 'Enter District' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group statesdiv">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="education">State</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
@@ -255,5 +251,18 @@
         
        
     });
+     $(function () {
+    $( "#business_name" ).autocomplete({
+               source: baseUrl + "/family/getTypeBusinessData"
+            });
+            
+             $( "#nature_of_business" ).autocomplete({
+               source: baseUrl + "/family/getNatureBusinessData"
+            });
+               $( "#specialty_business_service" ).autocomplete({
+               source: baseUrl + "/family/getSpecialBusinessData"
+            });
+            });
+            
 </script>
 <?php echo $this->Html->script(array('Family/add_busniess')); ?>
