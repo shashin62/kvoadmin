@@ -115,7 +115,7 @@
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">DOB</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input('date_of_birth', 
-						array('id' => 'date_of_birth', 'value'=> $date_of_birth,'type' => 'text','title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
+						array('id' => 'date_of_birth', 'value'=> $date_of_birth,'type' => 'text','title' => '','placeholder' => 'enter in dd/mm/yyyy format' ,'div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
 				</div>
 			</div>
 
@@ -152,7 +152,7 @@
 			<div class="form-group"><label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Marraige Date</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                <?php echo $this->Form->input('date_of_marriage', 
-                       array('id' => 'date_of_marriage', 'type' => 'text','value'=> $date_of_marriage,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
+                       array('id' => 'date_of_marriage', 'type' => 'text','value'=> $date_of_marriage,'placeholder' => 'enter in dd/mm/yyyy format' ,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control')); ?>
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@
 			<div style="display: none;" class="form-group dd">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="date_of_death">Death Date</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">
-					<?php echo $this->Form->input('date_of_death', array('id' => 'date_of_death', 'type' => 'text','value'=> $date_of_death,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control date_of_death')); ?>
+					<?php echo $this->Form->input('date_of_death', array('id' => 'date_of_death', 'placeholder' => 'enter in dd/mm/yyyy format' ,'type' => 'text','value'=> $date_of_death,'title' => '','div' => false, 'label' => false, 'class' => 'dp form-control date_of_death')); ?>
 				</div>
 			</div>
 
