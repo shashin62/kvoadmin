@@ -103,7 +103,7 @@ Class FamilyController extends AppController {
                 $this->set('readonly',true);
                 $this->set('main_surname', $getPeopleData['People']['main_surname']);
                 $this->set('sect', $getPeopleData['People']['sect']);
-                $this->set('date_of_marriage', date("m/d/Y", strtotime($getPeopleData['People']['date_of_marriage'])));
+                $this->set('date_of_marriage', date("d/m/Y", strtotime($getPeopleData['People']['date_of_marriage'])));
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
@@ -187,9 +187,9 @@ Class FamilyController extends AppController {
             }
             $this->set('readonly',false);
             $this->set('first_name', $getPeopleData['People']['first_name']);
-            $this->set('date_of_birth',$getPeopleData['People']['date_of_birth'] ?  date("m/d/Y", strtotime($getPeopleData['People']['date_of_birth'])): '' );
-            $this->set('date_of_marriage',$getPeopleData['People']['date_of_marriage'] ?  date("m/d/Y", strtotime($getPeopleData['People']['date_of_marriage'])): '');
-            $this->set('date_of_death', $getPeopleData['People']['date_of_death'] ? date("m/d/Y", strtotime($getPeopleData['People']['date_of_death'])): '');
+            $this->set('date_of_birth',$getPeopleData['People']['date_of_birth'] ?  date("d/m/Y", strtotime($getPeopleData['People']['date_of_birth'])): '' );
+            $this->set('date_of_marriage',$getPeopleData['People']['date_of_marriage'] ?  date("d/m/Y", strtotime($getPeopleData['People']['date_of_marriage'])): '');
+            $this->set('date_of_death', $getPeopleData['People']['date_of_death'] ? date("d/m/Y", strtotime($getPeopleData['People']['date_of_death'])): '');
             $this->set('address_id', $getPeopleData['People']['address_id']);
             $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
@@ -466,7 +466,7 @@ Class FamilyController extends AppController {
         //print_r($this->request->data['People']);
         
         if( $this->request->data['People']['date_of_birth'] != '') {
-            $date = date_parse_from_format("m/d/Y", $this->request->data['People']['date_of_birth']);
+            $date = date_parse_from_format("d/m/Y", $this->request->data['People']['date_of_birth']);
             
             
             $this->request->data['People']['date_of_birth'] =  "$date[year]-$date[month]-$date[day]";
