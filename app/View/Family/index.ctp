@@ -248,8 +248,8 @@
 				?>
 				</div>
 			</div>
-
-			<?php if( $userType != 'addnew' && $is_late != 1) { ?>
+ 
+			<?php if( $userType != 'addnew' && $is_late != 1 && $address_id != 0) { ?>
 			<div class="form-group sameaddress">
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Home Address</label>
