@@ -1016,9 +1016,12 @@ Class FamilyController extends AppController {
         
         $peopleData = $data[0]['People'];
         $groupData  = $data[0]['Group'];
+       
         $this->set('show',$groupData['tree_level'] == "" ? false : true);
         $this->set('occupation',$peopleData['occupation']);
-        $this->set('business_service_name',$peopleData['business_service_name']);
+        $this->set('business_name',$peopleData['business_name']);
+        $this->set('specialty_business_service',$peopleData['specialty_business_service']);
+        $this->set('nature_of_business',$peopleData['nature_of_business']);
         $getParentAddress = $this->Address->find('all',
                                     array(
                                             'conditions' => array(
