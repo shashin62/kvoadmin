@@ -31,7 +31,7 @@
                     <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty of Business / Service</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $business_service_name,'placeholder' => 'Enter specialty ofbusiness/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $specialty_business_service,'placeholder' => 'Enter specialty ofbusiness/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
 		</div>
