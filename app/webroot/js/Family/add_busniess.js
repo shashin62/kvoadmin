@@ -23,7 +23,7 @@ showoccupation(occupation);
                 maxlength: 25
             },
             'data[Address][road]': {
-                required: true,
+                required: false,
                 maxlength: 25
             },
             'data[Address][suburb]': {
