@@ -84,7 +84,9 @@ Class FamilyController extends AppController {
         $array['gid'] = $_REQUEST['gid'];
         $this->set('main_surname', $getPeopleData['People']['main_surname']);
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+       
         $this->set('name',$getOwnerDetails['first_name']);
+        $this->set('address_id',$getOwnerDetails['address_id']);
         
         // add primary relationships to user- spouse, father, mother and childrens
         switch ($requestData['type']) 
@@ -103,7 +105,7 @@ Class FamilyController extends AppController {
                 $this->set('readonly',true);
                 $this->set('main_surname', $getPeopleData['People']['main_surname']);
                 $this->set('sect', $getPeopleData['People']['sect']);
-                $this->set('date_of_marriage', date("d/m/Y", strtotime($getPeopleData['People']['date_of_marriage'])));
+                $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage'] ? date("d/m/Y", strtotime($getPeopleData['People']['date_of_marriage'])): ''  );
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
