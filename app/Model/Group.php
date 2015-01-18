@@ -9,7 +9,8 @@ class Group extends AppModel {
      public function getAllFamilyGroups($userId, $roleId) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
-           'parent.last_name','parent.mobile_number',' DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,'grp.created');
+           'parent.last_name','parent.mobile_number',' DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
+           'grp.created','user.first_name','user.last_name');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "grp.id";
@@ -44,7 +45,9 @@ class Group extends AppModel {
             }
         }
         
-        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  )');
+        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name',
+            'parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  ),'
+            . 'grp.created,user.first_name,user.last_name');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -79,7 +82,8 @@ class Group extends AppModel {
 //                }
 //        }
 //        
-         $sJoin = "  INNER JOIN people as parent ON (parent.id = grp.people_id)";
+         $sJoin = "  INNER JOIN people as parent ON (parent.id = grp.people_id)
+                 INNER JOIN users as user ON (user.id = parent.created_by)";
         // echo $sWhere;
         /*
          * SQL queries
@@ -87,7 +91,8 @@ class Group extends AppModel {
          */
     $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
-    parent.last_name,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,parent.mobile_number,grp.created
+    parent.last_name,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
+    parent.mobile_number,grp.created,user.first_name,user.last_name
             FROM   $sTable
                 $sJoin
             $sWhere
@@ -132,7 +137,9 @@ class Group extends AppModel {
                 $row[] = ucfirst(strtolower($v));
             }
             $row[] = $value[0]['date_of_birth'];
+            $row[] = $value['user']['first_name'] . ' ' . $value['user']['last_name'];
             $row[] = $value['grp']['created'];
+            
 
             $row[] = '';
             $output['aaData'][] = $row;
