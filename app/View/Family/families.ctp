@@ -25,7 +25,9 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Mobile</th>
-                <th>DOB</th>                
+                <th>DOB</th>  
+                <th></th> 
+                <th></th>  
                 <th></th>
             </tr>
         </tfoot>
@@ -35,7 +37,9 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Mobile</th>  
-                <th>DOB</th>                             
+                <th>DOB</th>
+                <th>Created by</th> 
+                <th>Created On</th> 
                 <th>Action</th>
             </tr>
         </thead>
