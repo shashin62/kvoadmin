@@ -4,17 +4,14 @@ $(function () {
 
  $('#getFamilyGroup tfoot th').each( function () {
      
-     if( $(this).index() !== 0 && $(this).index() != 5) {
+     if( $(this).index() !== 0 && $(this).index() != 5 && $(this).index() != 6 && $(this).index() != 7) {
             var title = $('#getFamilyGroup thead th').eq( $(this).index() ).text();
             if( title == 'DOB' ) {
-               $(this).html( '<input id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="" />' ); 
+               $(this).html( '<input  size="10" id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="" />' ); 
             } else {
-        $(this).html( '<input class="form-control" type="text" placeholder="Search" />' );
+        $(this).html( '<input size="10"  class="form-control" type="text" placeholder="Search" />' );
     }
      } 
-     
-     
-        
     } );
 
     oTable = $('#getFamilyGroup').DataTable({
@@ -24,10 +21,10 @@ $(function () {
         "sAjaxSource": baseUrl + "/family/getAjaxGroups",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             console.log(aData);
-            $('td:eq(5)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
+            $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
 ');
-          if( roleid == 1 || userid == aData[5]) {
-                $('td:eq(5)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
+          if( roleid == 1 || userid == aData[6]) {
+                $('td:eq(7)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
             }
         },
         "rowCallback": function (row, data) {
@@ -41,7 +38,7 @@ $(function () {
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
     
     oTable.columns().eq( 0 ).each( function ( colIdx ) {
-        if( colIdx != 0 && colIdx != 5) {
+        if( colIdx != 0 && colIdx != 5 && colIdx != 6 && colIdx != 7) {
         $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
             oTable
                 .column( colIdx )
