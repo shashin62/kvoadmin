@@ -95,7 +95,7 @@
 						<?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
 					</div>
 				</div>
-				<div class="form-group subrb">
+				<div class="form-group subrb suburbdiv">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">Suburb</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 					
