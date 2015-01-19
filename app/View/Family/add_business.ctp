@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <h3 class="heading">Add/Edit Business</h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
-<div class="row-fluid">
+<div class="row-fuild">
 		<div class="col-lg-6 col-md-6 col-xs-12">
 			<div class="form-group">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Current Occupation</label>
@@ -29,16 +29,14 @@
 				</div>
 			</div>
                     <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty of Business / Service</label>
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty Business/Service</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $specialty_business_service,'placeholder' => 'Enter specialty ofbusiness/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $specialty_business_service,'placeholder' => 'Enter specialty of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
-		</div>
-		<div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
 	</div>
-    <br>
-
+    </div>
+    
     <div class="tohidecontainer">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12" >
@@ -96,10 +94,33 @@
                         <?php echo $this->Form->input('complex_name', array('id' => 'complex_name','tabindex'=> '4','value'=> $complex_name,'type' => 'text', 'placeholder' => 'Enter Complex Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
-                
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Plot No.</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <?php echo $this->Form->input('plot_number', array('id' => 'plot_number','tabindex'=> '5', 'value'=> $plot_number,'type' => 'text','placeholder' => 'Enter Plot No' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Road</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control road')); ?>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="cross_road">Cross Road</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                       <?php echo $this->Form->input('cross_road', array('id' => 'cross_road','tabindex'=> '7', 'value'=> $cross_road,'type' => 'text','placeholder' => 'Enter Cross Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-xs-12">	
-                <div class="form-group  suburbdiv">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Zip Code</label>   
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
+                    </div>
+                </div>
+                <div class="form-group  subrb suburbdiv">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
@@ -120,18 +141,18 @@
                  <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb_zone">Suburb Zone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <div class="btn-group" data-toggle="buttons">
+                        <div class="btn-group zones" data-toggle="buttons">
                             <label class="btn btn-default <?php echo $suburb_zone == 'east' ? 'active' : '';?>">
-                                <input type="radio" name="suburb_zone" <?php echo $suburb == 'east' ? 'checked=checked' : '';?> value="east">East
+                                <input data-zone="east" type="radio" name="suburb_zone" <?php echo $suburb == 'east' ? 'checked=checked' : '';?> value="east">East
                             </label>
                             <label class="btn btn-default <?php echo $suburb_zone == 'west' ? 'active' : '';?>">
-                                <input type="radio" name="suburb_zone" <?php echo $suburb == 'west' ? 'checked=checked' : '';?> value="west">West
+                                <input data-zone="west" type="radio" name="suburb_zone" <?php echo $suburb == 'west' ? 'checked=checked' : '';?> value="west">West
                             </label>
                             <label class="btn btn-default <?php echo $suburb_zone == 'central' ? 'active' : '';?>">
-                                <input type="radio" name="suburb_zone" <?php echo $suburb == 'central' ? 'checked=checked' : '';?> value="central">Central
+                                <input data-zone="central"  type="radio" name="suburb_zone" <?php echo $suburb == 'central' ? 'checked=checked' : '';?> value="central">Central
                             </label>
                             <label class="btn btn-default <?php echo $suburb_zone == 'other' ? 'active' : '';?>">
-                                <input type="radio" name="suburb_zone" <?php echo $suburb_zone == 'other' ? 'checked=checked' : '';?> value="other">Other
+                                <input data-zone="other" type="radio" name="suburb_zone" <?php echo $suburb_zone == 'other' ? 'checked=checked' : '';?> value="other">Other
                             </label>
                         </div>
                         
@@ -167,30 +188,16 @@
             ?>
                 </div>
             </div>
+                <div class="form-group">
+					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="std_code">STD Code</label>   
+					<div class="col-lg-8 col-md-8 col-xs-8">
+						<?php echo $this->Form->input('std_code', array('id' => 'std_code','tabindex'=> '14', 'value'=> $std_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode std_code')); ?>
+					</div>
+				</div>
             </div>
         </div>
       <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
-                
-                
-               <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Plot No.</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('plot_number', array('id' => 'plot_number','tabindex'=> '5', 'value'=> $plot_number,'type' => 'text','placeholder' => 'Enter Plot No' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Road</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                       <?php echo $this->Form->input('road', array('id' => 'road', 'value'=> $road,'tabindex'=> '6','type' => 'text','placeholder' => 'Enter Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control road')); ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="cross_road">Cross Road</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                       <?php echo $this->Form->input('cross_road', array('id' => 'cross_road','tabindex'=> '7', 'value'=> $cross_road,'type' => 'text','placeholder' => 'Enter Cross Road' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-                    </div>
-                </div>
 <!--                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="district">District:</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
@@ -200,12 +207,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">
                
-                <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Zip Code</label>   
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
-                    </div>
-                </div>
+                
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label">Home Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
@@ -223,7 +225,7 @@
         </div>
     </div>
     </div>
-</div>
+
 <div class="row">
     <div class="col-lg-6 col-md-6 col-xs-12">
         <div class="form-actions">
@@ -252,6 +254,35 @@
        
     });
      $(function () {
+           $( "#zip_code" ).autocomplete({
+               source: baseUrl + "/family/getZipCodesData",
+               select: function(e, ui) {
+            var sname = ui.item.value;
+            
+            $.ajax({
+        url: baseUrl + '/family/populateZipCodeData',
+        dataType: 'json',
+        data: {zipcode: sname},
+        type: "POST",
+        success: function (response) {
+            
+            $('.zones').find('.btn-default').removeClass('active')
+           $( ".city" ).val(response.city);
+           $( ".std_code" ).val(response.std);
+           $( ".suburb" ).val(response.suburb);
+           $( ".std_code" ).val(response.std);
+           $('.state').val(response.state);
+            $('.subrb').find('.ui-autocomplete-input').val(response.suburb);
+            $('.statesdiv').find('.ui-autocomplete-input').val(response.state);
+            
+            $('.zones').find('[data-zone='+ response.zone +']').parent().addClass('active').attr('checked','checked');
+            $('[data-zone='+ response.zone +']').attr('checked','checked');
+        }
+    });
+           //TODO: Add AJAX webmethod call here and fill out entire form.
+
+        }
+            });
     $( "#business_name" ).autocomplete({
                source: baseUrl + "/family/getTypeBusinessData"
             });
