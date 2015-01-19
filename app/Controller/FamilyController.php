@@ -474,14 +474,12 @@ Class FamilyController extends AppController {
             $this->request->data['People']['date_of_birth'] =  "$date[year]-$date[month]-$date[day]";
         }
        if( $this->request->data['People']['date_of_death'] != '') {
-           $dt1 = new DateTime();
-           $dt1->setTimestamp(strtotime($this->request->data['People']['date_of_death']));
-           $this->request->data['People']['date_of_death'] =   $dt1->format('Y-m-d');
+           $date1 = date_parse_from_format("d/m/Y", $this->request->data['People']['date_of_death']);
+           $this->request->data['People']['date_of_death'] =   "$date1[year]-$date1[month]-$date1[day]";
        }
        if( $this->request->data['People']['date_of_marriage'] != '') {
-           $dt2 = new DateTime();
-           $dt2->setTimestamp(strtotime($this->request->data['People']['date_of_marriage']));
-           $this->request->data['People']['date_of_marriage'] =   $dt2->format('Y-m-d');
+            $date2 = date_parse_from_format("d/m/Y", $this->request->data['People']['date_of_marriage']);
+           $this->request->data['People']['date_of_marriage'] =  "$date2[year]-$date2[month]-$date2[day]";
        }
        
         switch ($_REQUEST['type']) {
@@ -861,7 +859,9 @@ Class FamilyController extends AppController {
              $this->set('ownername', $ownerData[$id]['owner']);
         }
         $getDetails = $this->People->getFamilyDetails($id, false, true);
-       
+//        echo '<pre>';
+//        print_r($getDetails);
+//        exit;
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('roleId', $roleID);
@@ -1025,7 +1025,7 @@ Class FamilyController extends AppController {
         $groupData  = $data[0]['Group'];
        
         $this->set('show',$groupData['tree_level'] == "" ? false : true);
-        $this->set('occupation',$peopleData['occupation']);
+        $this->set('occupation',$peopleData['occupation'] ? $peopleData['occupation']: '');
         $this->set('business_name',$peopleData['business_name']);
         $this->set('specialty_business_service',$peopleData['specialty_business_service']);
         $this->set('nature_of_business',$peopleData['nature_of_business']);
