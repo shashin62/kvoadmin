@@ -90,6 +90,14 @@ $( ".combobox" ).combobox({width: '200px'});
 });
 
 $(".addressButton").click(function () {
+    
+    if(typeof $('.state ').val() == 'object'){
+        $('.state').rules('remove', 'required');
+    }
+    
+    if(typeof $('.suburb ').val() == 'object'){
+        $('.suburb').rules('remove', 'required');
+    }
     if ( $('.same_as').is(':checked') == true) {
         $('.ownership_type').rules('remove', 'required');
         $('.city').rules('remove', 'required');
