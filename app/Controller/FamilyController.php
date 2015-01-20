@@ -884,6 +884,8 @@ Class FamilyController extends AppController {
         $treelevel = 0;
         $tree = array();
         $ids = array();
+       
+        $data = array_map("unserialize", array_unique(array_map("serialize", $data)));
         foreach ($data as $key => $value) {
             $peopleData = $value['People'];
             $peopleGroup = $value['Group'];
@@ -916,7 +918,7 @@ Class FamilyController extends AppController {
                 if ($peopleGroup['tree_level'] == $rootId) {
                     
                 }
-                $tree[$peopleData['id']]['c'] = $childids;
+                $tree[$peopleData['id']]['c'] = array_unique($childids);
                 $tree[$peopleData['id']]['cp'] = true;
             } else {
                 $tree[$peopleData['id']]['c'] = array();
@@ -966,7 +968,8 @@ Class FamilyController extends AppController {
             $tree[$peopleData['id']]['q'] = $peopleData['maiden_surname'];
             }
               }
-             
+        //     echo '<pre>';
+        //print_r($tree);exit;
         $jsonData['tree'] = $tree;
         $jsonData['parent_name'] = $parentName;
  
