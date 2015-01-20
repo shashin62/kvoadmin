@@ -12,7 +12,7 @@ Class PeopleGroup extends AppModel
         
           $options['conditions']['PeopleGroup.group_id !='] = $groupId;
           $options['conditions']['PeopleGroup.people_id '] = $peopleId;
-        $options['fields'] = array('PeopleGroup.group_id');
+        $options['fields'] = array('PeopleGroup.group_id','PeopleGroup.tree_level');
         
         try {
             $userData = $this->find('all', $options);
