@@ -67,7 +67,7 @@
         </div>
     <?php } ?> 
     </div>
-    <div class="addresscontainer">
+    <div class="addresscontainer" style='<?php echo  $parentaid == $aid ? "display:none" : "display:block";?>'>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="form-group">
