@@ -82,14 +82,14 @@ class Group extends AppModel {
 //                }
 //        }
 //        
-         $sJoin = "  INNER JOIN people as parent ON (parent.id = grp.people_id)
+         $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id )
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         // echo $sWhere;
         /*
          * SQL queries
          * Get data to display
          */
-    $sQuery = "
+   $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
     parent.last_name,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
     parent.mobile_number,grp.created,user.first_name,user.last_name
