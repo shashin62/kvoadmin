@@ -39,7 +39,7 @@ Class FamilyController extends AppController {
                         'User', 'Aro', 'Role','Note',
                         'People', 'Village', 'Education', 'State', 'BloodGroup', 
                         'Group','Address','PeopleGroup','Suburb','Surname','Translation',
-                        'ZipCode'
+                        'ZipCode','Spouse'
                         );
 
     /**
@@ -107,6 +107,18 @@ Class FamilyController extends AppController {
                 $this->set('sect', $getPeopleData['People']['sect']);
                 $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage'] ? date("d/m/Y", strtotime($getPeopleData['People']['date_of_marriage'])): ''  );
                 break;
+		 case 'addexspouse':
+		 $this->set('gender', 'female');
+                $this->set('martial_status', 'Married');
+                $this->set('sect','deravasi');
+                $this->set('parent_name',$_REQUEST['first_name']);
+                $this->set('last_name',$getPeopleData['People']['last_name']);
+                // set surname and village to read only mode
+                $this->set('village',$getPeopleData['People']['village']);
+                $this->set('readonly',true);
+                $this->set('main_surname', $getPeopleData['People']['main_surname']);
+                $this->set('sect', $getPeopleData['People']['sect']);
+		break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
                 $this->set('gender', 'male');
@@ -336,7 +348,7 @@ Class FamilyController extends AppController {
                 $this->People->save($updateMotherDetails);
                 $msg['group_id'] = $gid;                
                 $message = 'Spouse has been added';
-                break;
+                break;	    
             case 'addnew':
 
                 $peopleData = $_REQUEST['data'];               
@@ -525,6 +537,55 @@ Class FamilyController extends AppController {
                     }
                 }
                 break;
+	   case 'addexspouse':
+		 $this->request->data['People']['partner_id'] = $_REQUEST['peopleid'];
+                $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
+                $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
+		$msg['status'] = 1;
+                $result = $this->People->checkEmailExists($this->request->data['People']['email']);
+
+                if (!empty($result) && !empty($this->request->data['People']['email']) && $this->request->data['People']['id'] == '') {
+                    $msg['status'] = 0;
+                    $msg['error']['name'][] = "email";
+                    $msg['error']['errormsg'][] = __('This Email already exists.');
+                }
+
+                if (isset($this->request->data['People']['mobile_number']) && !empty($this->request->data['People']['mobile_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['mobile_number']);
+                    if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
+                        $msg['status'] = 0;
+                        $msg['error']['name'][] = "mobile_number";
+                        $msg['error']['errormsg'][] = __('This Phone already exists.');
+                    }
+                }
+                $name = $getPeopleDetail[0]['People']['first_name'] . '' . $getPeopleDetail[0]['People']['lastname'];
+		$this->request->data['People']['partner_name'] = $name;
+                $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+		if ($msg['status'] == 1) {
+			if ($this->People->save($this->request->data)) {
+			$msg['status'] = 1;
+                        $partnerId = $this->People->id;
+			$updateParentUser = array();
+                        $updateParentUser['spouse_id'] = $partnerId;
+                        $updateParentUser['spouse_name'] = $this->request->data['People']['first_name'];
+                        $updateParentUser['people_id'] = $_REQUEST['peopleid'];
+			$updateParentUser['created'] = date('Y-m-d H:i:s');
+			$this->Spouse->save($updateParentUser);
+			$message = 'Ex- Spouse has been added';                        
+                        $peopleGroup = array();
+                        $peopleGroup['PeopleGroup']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
+                        $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
+                        $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
+                        $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id);
+                        }     
+		 }
+		}  else {
+                    $msg['success'] = 0;
+                    $msg['message'] = 'System Error, Please trye again';
+                }
+		break;
             case 'addspouse':
                 $this->request->data['People']['partner_id'] = $_REQUEST['peopleid'];
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
@@ -865,6 +926,8 @@ Class FamilyController extends AppController {
         $groupId = $_REQUEST['gid'];
         $uid = $_REQUEST['uid'];
         $data = $this->People->getFamilyDetails($groupId);
+//echo '<pre>';
+//print_r($data);exit;
         //check each id exists in other group then get all gamily detials for this group also
         foreach ($data as $key => $value) {
             $groupData[] = $this->PeopleGroup->checkExistsInOtherGroup($groupId, $value['People']['id']);
@@ -889,6 +952,7 @@ Class FamilyController extends AppController {
         foreach ($data as $key => $value) {
             $peopleData = $value['People'];
             $peopleGroup = $value['Group'];
+	    $exSpouses = $value[0];
             if (!in_array($peopleData['id'],$ids)) {
                 
             
@@ -965,7 +1029,13 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['pc'] = array();
                 $tree[$peopleData['id']]['es'] = null;
             }
-            $tree[$peopleData['id']]['q'] = $peopleData['maiden_surname'];
+            if( $exSpouses['exspouses'] != '') {
+                    foreach ( explode(',', $exSpouses['exspouses']) as $eKey => $eValue) {
+                        $tree[$peopleData['id']]['ep'][$eValue] = "1";
+                        $tree[$peopleData['id']]['pc'][$eValue] = true;
+                    }
+                }
+                $tree[$peopleData['id']]['q'] = $peopleData['maiden_surname'];
             }
               }
         //     echo '<pre>';

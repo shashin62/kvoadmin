@@ -72,6 +72,17 @@ $('.addspouse').click(function () {
     
 });
 
+$('.addexspouse').click(function () {
+    var $this = $(this);
+    var id = $this.data('id');
+    var first_name = $this.data('first_name');
+    var gid = $this.data('gid');
+    doFormPost(baseUrl + "/family/index?type=addexspouse",
+            '{ "type":"addexspouse","fid":"' + id + '","gid":"' + gid + '","name_parent":"' + first_name + '"}');
+       
+    
+});
+
 $('.addfather').click(function () {
     var $this = $(this);
     var id = $this.data('id');
