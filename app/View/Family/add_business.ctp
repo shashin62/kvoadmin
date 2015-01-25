@@ -37,9 +37,9 @@
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty Business/Service</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $specialty_business_service,'placeholder' => 'Enter specialty of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-					<br />
-					E.g. Dentist, Children Clothing, 
 				</div>
+				<br />
+				E.g. Dentist, Children Clothing, 
 			</div>
 		</div>
 
@@ -55,23 +55,25 @@
 		</div>
 	</div>
 
-						<div class="form-group">
-							<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Nature of Business/Service</label>
-							<div class="col-lg-8 col-md-8 col-xs-8">
-								<?php echo $this->Form->input('nature_of_business', array('id' => 'nature_of_business', 'value'=> $nature_of_business,'placeholder' => 'Enter nature of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-								<br />
-								E.g. Readymade Garments, CA, Doctore
-							</div>
-						</div>
-					</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-xs-12">
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Nature of Business/Service</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<?php echo $this->Form->input('nature_of_business', array('id' => 'nature_of_business', 'value'=> $nature_of_business,'placeholder' => 'Enter nature of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
 				</div>
-			<div>
-        <?php if ( $show ) { ?>
-        <div class="row-fuild">
-        <?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaddressid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
-        </div>
+				<br />
+				E.g. Readymade Garments, CA, Doctore
+			</div>
+		</div>
+	</div>
+
+	<?php if ( $show ) { ?>
+	<div class="row">
+		<?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaddressid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
+	</div>
     <?php } ?> 
-    </div>
+
     <div class="addresscontainer" style='<?php echo  $parentaid == $aid ? "display:none" : "display:block";?>'>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
