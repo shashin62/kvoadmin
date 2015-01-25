@@ -4,8 +4,8 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-xs-12">
 			<div class="form-group">
-				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Current Occupation</label>
-					<div class="col-lg-8 col-md-8 col-xs-8">
+				<label class="col-lg-2 col-md-2 col-xs-2 control-label" for="Occupation">Current Occupation</label>
+					<div class="col-lg-10 col-md-10 col-xs-10">
 						<div class="btn-group occupations" data-toggle="buttons">
 							<label class="btn btn-default <?php echo $occupation == 'Business' ? 'active' : '';?>">
 							<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Business' ? 'checked=checked' : '';?> value="Business">Business
@@ -66,6 +66,16 @@
 				E.g. Readymade Garments, CA, Doctore
 			</div>
 		</div>
+		<div class="col-lg-6 col-md-6 col-xs-12">
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Name of Business/Service</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<?php  ?>
+				</div>
+				<br />
+				E.g. Readymade Garments, CA, Doctore
+			</div>
+		</div>
 	</div>
 
 	<?php if ( $show ) { ?>
@@ -74,7 +84,7 @@
 	</div>
     <?php } ?> 
 
-    <div class="addresscontainer" style='<?php echo  $parentaid == $aid ? "display:none" : "display:block";?>'>
+    <div class="addresscontainer" style='<?php echo $parentaid == $aid ? "display:none" : "display:block";?>'>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="form-group">
@@ -122,9 +132,9 @@
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Zip Code</label>   
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Pincode</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Pincode' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
                     </div>
                 </div>
                 <div class="form-group  subrb suburbdiv">
