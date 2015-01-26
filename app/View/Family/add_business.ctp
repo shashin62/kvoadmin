@@ -61,9 +61,9 @@
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Nature of Business/Service</label>
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input('nature_of_business', array('id' => 'nature_of_business', 'value'=> $nature_of_business,'placeholder' => 'Enter nature of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+					<br />
+					E.g. Readymade Garments, CA, Doctor
 				</div>
-				<br />
-				E.g. Readymade Garments, CA, Doctore
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-xs-12">
@@ -73,7 +73,7 @@
 					<?php  ?>
 				</div>
 				<br />
-				E.g. Readymade Garments, CA, Doctore
+				E.g. Bawari, Babubhai Jagjivandas
 			</div>
 		</div>
 	</div>
