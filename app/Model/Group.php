@@ -6,7 +6,7 @@ class Group extends AppModel {
     
      var $name = 'Group';
      
-     public function getAllFamilyGroups($userId, $roleId) {
+     public function getAllFamilyGroups($userId, $roleId, $showhof = false) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
            'parent.last_name','parent.mobile_number',' DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
@@ -82,8 +82,14 @@ class Group extends AppModel {
 //                }
 //        }
 //        
-         $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id )
+        if ( $showhof == 'true'){
+             $sJoin = "  INNER JOIN people as parent ON (grp.people_id = parent.id )
                  INNER JOIN users as user ON (user.id = parent.created_by)";
+        } else {
+             $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id )
+                 INNER JOIN users as user ON (user.id = parent.created_by)";
+        }
+        
         // echo $sWhere;
         /*
          * SQL queries

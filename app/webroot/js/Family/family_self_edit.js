@@ -157,8 +157,10 @@ $(".editOwnButton").click(function () {
     
     if (userType == 'addnew' && $("#PeopleIsLate").is(':checked') ==  true) {
             $('.phone_number').rules('remove', 'required');
+             $('.martial_status').rules('remove', 'required');
     } else {
         $('.phone_number').rules('add', 'required');
+        $('.martial_status').rules('add', 'required');
     }
     if( userType != 'addnew') {
         $('.phone_number').rules('remove', 'required');

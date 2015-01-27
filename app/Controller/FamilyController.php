@@ -910,9 +910,11 @@ Class FamilyController extends AppController {
 
     public function getAjaxGroups() {
         $this->autoRender = false;
+       
         $userID = $this->Session->read('User.user_id');
         $roleId = $this->Session->read('User.role_id');
-        $data = $this->Group->getAllFamilyGroups($userID, $roleId);
+        $_REQUEST['showhof'] = $_REQUEST['showhof'] ? $_REQUEST['showhof'] : 'true';
+        $data = $this->Group->getAllFamilyGroups($userID, $roleId, $_REQUEST['showhof']);
         echo json_encode($data);
     }
 

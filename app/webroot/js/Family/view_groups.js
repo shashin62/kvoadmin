@@ -1,5 +1,22 @@
 var oTable;
-
+var showhof  = '';
+$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams ) {
+ if(oSettings.oFeatures.bServerSide) {
+ if ( typeof sNewSource != 'undefined' && sNewSource != null ) {
+ oSettings.sAjaxSource = sNewSource;
+ }
+ oSettings.aoServerParams = [];
+ oSettings.aoServerParams.push({"sName": "user",
+ "fn": function (aoData) {
+ for(var index in myParams) {
+ aoData.push( { "name" : index, "value" : myParams[index] });
+ }
+ }
+ });
+ this.fnClearTable(oSettings);
+ return;
+ }
+};
 $(function () {
 
  $('#getFamilyGroup tfoot th').each( function () {
@@ -18,7 +35,7 @@ $(function () {
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": baseUrl + "/family/getAjaxGroups",
+        "sAjaxSource": baseUrl + "/family/getAjaxGroups?showhof="+ showhof,
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             console.log(aData);
             $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
@@ -74,6 +91,24 @@ $('.addfamily').click(function(){
    doFormPost(baseUrl+"/family/searchPeople?type=addnew",'{ "type":"addnew"}');
    
 });
+$('.showhof').click(function () {
+    if ($(".showhof").is(':checked') == true) {
+        showhof = 1;
+
+        var myArray = {
+            "showhof": true
+        };
+
+      
+    } else {
+         var myArray = {
+            "showhof": false
+        };
+    }
+      var oTable = $("#getFamilyGroup").dataTable();
+        oTable.fnReloadAjax(oTable.oSettings, myArray);
+});
+
 
 function deleteFamilyGroup(id)
 {

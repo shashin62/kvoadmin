@@ -131,19 +131,19 @@
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<div class="btn-group" data-toggle="buttons">                    
 						<label class="btn btn-default <?php echo $martial_status == 'Married' ? 'active' : '';?>">
-						<input type="radio" name="martial_status" <?php echo $martial_status == 'Married' ? 'checked=checked' : '';?> value="Married">Married
+						<input class="martial_status" type="radio" name="martial_status" <?php echo $martial_status == 'Married' ? 'checked=checked' : '';?> value="Married">Married
 						</label>
 						<label class="btn btn-default <?php echo $martial_status == 'Divorced' ? 'active' : '';?>">
-						<input type="radio" name="martial_status" <?php echo $martial_status == 'Divorced' ? 'checked=checked' : '';?> value="Divorced">Divorced
+						<input class="martial_status" type="radio" name="martial_status" <?php echo $martial_status == 'Divorced' ? 'checked=checked' : '';?> value="Divorced">Divorced
 						</label>
 						<label class="btn btn-default <?php echo $martial_status == 'Separated' ? 'active' : '';?>">
-						<input type="radio" name="martial_status" <?php echo $martial_status == 'Separated' ? 'checked=checked' : '';?> value="Separated">Separated
+						<input class="martial_status" type="radio" name="martial_status" <?php echo $martial_status == 'Separated' ? 'checked=checked' : '';?> value="Separated">Separated
 						</label>
 						<label class="btn btn-default <?php echo $martial_status == 'Widow' ? 'active' : '';?>">
-						<input type="radio" name="martial_status" <?php echo $martial_status == 'Widow' ? 'checked=checked' : '';?> value="Widow">Widow
+						<input class="martial_status" type="radio" name="martial_status" <?php echo $martial_status == 'Widow' ? 'checked=checked' : '';?> value="Widow">Widow
 						</label>
 						<label class="btn btn-default <?php echo $martial_status == 'Single' ? 'active' : '';?>">
-						<input type="radio" name="martial_status" <?php echo $martial_status == 'Single' ? 'checked=checked' : '';?> value="Single">Single
+						<input class="martial_status" type="radio" name="martial_status" <?php echo $martial_status == 'Single' ? 'checked=checked' : '';?> value="Single">Single
 						</label>
 					</div>
 				</div>
