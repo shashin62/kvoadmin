@@ -29,7 +29,7 @@ Class ZipController extends AppController {
         if (!empty($result) && $this->request->data['ZipCode']['id'] == '') {
             $msg['status'] = 0;
             $msg['error']['name'][] = "zip_code";
-            $msg['error']['errormsg'][] = __('This name has already been translated.');
+            $msg['error']['errormsg'][] = __('This ZipCode already exists.');
         }
         
         $data = $this->request->data;
