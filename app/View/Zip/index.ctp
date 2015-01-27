@@ -1,16 +1,16 @@
 <?php
 echo $this->Html->charset('utf-8');?>
 <div class="container-fluid">
-    <a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addZipCode"><span class="glyphicon glyphicon-edit"></span>Add Zip Codes</a>
+    <a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addZipCode"><span class="glyphicon glyphicon-edit"></span>Add Pincodes</a>
 </div>
 <div class="container-fluid addZipcodeForm" style="display: none;">
     <?php echo $this->Form->create('ZipCode', array('class' => 'form-horizontal ZipCodeForm', 'id' => 'addZipCodes', 'name' => 'zipcode')); ?>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip code:</label>
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Pincode:</label>
                 <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code', 'placeholder' => 'Enter zip code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control bname')); ?>
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code', 'placeholder' => 'Enter Pincode' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control bname')); ?>
                 </div>
             </div>
             <div class="form-group">
@@ -59,12 +59,12 @@ echo $this->Html->charset('utf-8');?>
         <?php echo $this->Form->end(); ?>
 </div>
 <div class="container-fluid">   
-    <h3 class="heading">Zip Codes</h3>
+    <h3 class="heading">Pincodes</h3>
     <table id="getZipcode" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Zip Code</th>
+                <th>Pincode</th>
                 <th>suburb</th>
                 <th>zone</th>
                 <th>city</th>

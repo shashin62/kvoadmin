@@ -90,9 +90,9 @@
 			</div>
 			<div class="col-lg-6 col-md-6 col-xs-12">
 				<div class="form-group">
-					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Zip Code</label>   
+					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zip_code">Pincode</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
-						<?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
+						<?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '13', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Pincode' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
 					</div>
 				</div>
 				<div class="form-group subrb suburbdiv">
@@ -167,7 +167,7 @@
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="std_code">STD Code</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
-						<?php echo $this->Form->input('std_code', array('id' => 'std_code','tabindex'=> '14', 'value'=> $std_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode std_code')); ?>
+						<?php echo $this->Form->input('std_code', array('id' => 'std_code','tabindex'=> '14', 'value'=> $std_code,'type' => 'text','placeholder' => 'Enter STD Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode std_code')); ?>
 					</div>
 				</div>
 				<div class="form-group">
