@@ -16,31 +16,31 @@ echo $this->Html->charset('utf-8');?>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">suburb:</label>
                 <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('suburb', array('id' => 'suburb', 'placeholder' => 'Enter suburb' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control gujurathiname')); ?>
+                        <?php echo $this->Form->input('suburb', array('id' => 'suburb', 'placeholder' => 'Enter suburb' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control suburb')); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="zone">zone:</label>
                 <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('zone', array('id' => 'zone', 'placeholder' => 'Enter zone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control hindiname')); ?>
+                        <?php echo $this->Form->input('zone', array('id' => 'zone', 'placeholder' => 'Enter zone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zone')); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="city">city:</label>
                 <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('city', array('id' => 'city', 'placeholder' => 'Enter city' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control hindiname')); ?>
+                        <?php echo $this->Form->input('city', array('id' => 'city', 'placeholder' => 'Enter city' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control city')); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">state:</label>
                 <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('state', array('id' => 'state', 'placeholder' => 'Enter state' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control hindiname')); ?>
+                        <?php echo $this->Form->input('state', array('id' => 'state', 'placeholder' => 'Enter state' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control state')); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="std">std:</label>
                 <div class="col-lg-6 col-md-6 col-xs-6">
-                        <?php echo $this->Form->input('std', array('id' => 'std', 'placeholder' => 'Enter std' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control hindiname')); ?>
+                        <?php echo $this->Form->input('std', array('id' => 'std', 'placeholder' => 'Enter std' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control std')); ?>
                 </div>
             </div>
             <?php echo $this->Form->input('id', array('type' => 'hidden',  'id' => 'id', 'placeholder' => 'Enter Education name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcodeid')); ?>
