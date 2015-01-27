@@ -77,20 +77,26 @@ $('.addfamily').click(function(){
 
 function deleteFamilyGroup(id)
 {
-    $.ajax({
-        url: baseUrl + '/family/deleteFamily',
-        dataType: 'json',
-        data: {gid: id},
-        type: "POST",
-        success: function (response) {
-            var displayMsg = response.message;
-            showJsSuccessMessage(displayMsg);
-            setTimeout(function () {
-                $('.jssuccessMessage').hide('slow');
-                oTable.draw();
-            }, 2500);
+    var result = confirm("Want to delete?");
+    if (result === true) {
+        $.ajax({
+            url: baseUrl + '/family/deleteFamily',
+            dataType: 'json',
+            data: {gid: id},
+            type: "POST",
+            success: function (response) {
+                var displayMsg = response.message;
+                showJsSuccessMessage(displayMsg);
+                setTimeout(function () {
+                    $('.jssuccessMessage').hide('slow');
+                    oTable.draw();
+                }, 2500);
 
 
-        }
-    });
+            }
+        });
+    } else {
+        return;
+    }
+   
 }
