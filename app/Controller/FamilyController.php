@@ -1119,7 +1119,8 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['occupation'] = $this->request->data['occupation'];
         $updatePeopleBusniessDetails['business_name'] = $this->request->data['Address']['business_name'];
         $updatePeopleBusniessDetails['specialty_business_service'] = $this->request->data['Address']['specialty_business_service'];
-                $updatePeopleBusniessDetails['nature_of_business'] = $this->request->data['Address']['nature_of_business'];
+        $updatePeopleBusniessDetails['nature_of_business'] = $this->request->data['Address']['nature_of_business'];
+        $updatePeopleBusniessDetails['name_of_business'] = $this->request->data['Address']['name_of_business'];
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife','Retired','Studying','Other');
          
