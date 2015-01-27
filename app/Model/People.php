@@ -470,7 +470,8 @@ Class People extends AppModel
 
       $query = "UPDATE {$this->tablePrefix}people
                   SET occupation = '{$data['occupation']}' , business_name = '{$data['business_name']}'   
-                      , nature_of_business = '{$data['nature_of_business']}', specialty_business_service = '{$data['specialty_business_service']}'     
+                      , nature_of_business = '{$data['nature_of_business']}', specialty_business_service = '{$data['specialty_business_service']}' ,
+                          name_of_business = '{$data['name_of_business']}'
                   WHERE id = {$data['id']}";
                   
         try {
