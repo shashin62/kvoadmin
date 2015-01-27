@@ -94,8 +94,13 @@ $(function () {
                     $('.jssuccessMessage').hide('slow');
                     $('.zipcodeid').val('');
                     $('.bname').val('');
-                    $('.gujurathiname').val('');
-                    $('.hindiname').val('');
+                    $('.suburb').val('');
+                    
+                    $('.zone').val('');
+                    $('.city').val('');
+                    $('.state').val('');
+                    $('.std').val('');
+                    
                    oTable.fnDraw(true);
                 }, 2500);
             }
@@ -135,11 +140,15 @@ function deleteTranslation(id)
 function editTranslation(id, aData)
 {
    aData = aData.split(',');
-    var gujuname = aData[2];
-    var hindiname = aData[3];
+   
    $('.bname').val(aData[1]);
-   $('.gujurathiname').val(gujuname).text();
-   $('.hindiname').val(hindiname);
+   $('.suburb').val(aData[2]);
+                    
+                    $('.zone').val( aData[3]);
+                    $('.city').val( aData[4]);
+                    $('.state').val( aData[5]);
+                    $('.std').val(aData[6]);
+   
     $('.zipcodeid').val(id);
    $('.addZipcodeForm').show();
 }
