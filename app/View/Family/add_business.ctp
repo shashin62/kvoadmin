@@ -1,90 +1,77 @@
 <div class="container-fluid">
     <h3 class="heading">Add/Edit Business</h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-xs-12">
+<div class="row-fuild">
+		<div class="col-lg-6 col-md-6 col-xs-12">
 			<div class="form-group">
-				<label class="col-lg-2 col-md-2 col-xs-2 control-label" for="Occupation">Current Occupation</label>
-					<div class="col-lg-10 col-md-10 col-xs-10">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Current Occupation</label>
+					<div class="col-lg-8 col-md-8 col-xs-8">
 						<div class="btn-group occupations" data-toggle="buttons">
-							<label class="btn btn-default <?php echo $occupation == 'Business' ? 'active' : '';?>">
-							<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Business' ? 'checked=checked' : '';?> value="Business">Business
-							</label>
-							<label class="btn btn-default <?php echo $occupation == 'Service' ? 'active' : '';?>">
-							<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Service' ? 'checked=checked' : '';?> value="Service">Service
-							</label>
-							<label class="btn btn-default <?php echo $occupation == 'House Wife' ? 'active' : '';?>">
-							<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'House Wife' ? 'checked=checked' : '';?> value="House Wife">House Wife
-							</label>
-							<label class="btn btn-default <?php echo $occupation == 'Retired' ? 'active' : '';?>">
-							<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Retired' ? 'checked=checked' : '';?> value="Retired">Retired
-							</label>
-							<label class="btn btn-default <?php echo $occupation == 'Studying' ? 'active' : '';?>">
-							<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Studying' ? 'checked=checked' : '';?> value="Studying">Studying
-							</label>
-							<label class="btn btn-default <?php echo $occupation == 'Other' ? 'active' : '';?>">
-							<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Other' ? 'checked=checked' : '';?> value="Other">Other
-							</label>
-						</div>
+						<label class="btn btn-default <?php echo $occupation == 'Business' ? 'active' : '';?>">
+						<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Business' ? 'checked=checked' : '';?> value="Business">Business
+						</label>
+						<label class="btn btn-default <?php echo $occupation == 'Service' ? 'active' : '';?>">
+						<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Service' ? 'checked=checked' : '';?> value="Service">Service
+						</label>
+						<label class="btn btn-default <?php echo $occupation == 'House Wife' ? 'active' : '';?>">
+						<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'House Wife' ? 'checked=checked' : '';?> value="House Wife">House Wife
+						</label>
+						<label class="btn btn-default <?php echo $occupation == 'Retired' ? 'active' : '';?>">
+						<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Retired' ? 'checked=checked' : '';?> value="Retired">Retired
+						</label>
+						<label class="btn btn-default <?php echo $occupation == 'Studying' ? 'active' : '';?>">
+						<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Studying' ? 'checked=checked' : '';?> value="Studying">Studying
+						</label>
+						<label class="btn btn-default <?php echo $occupation == 'Other' ? 'active' : '';?>">
+						<input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Other' ? 'checked=checked' : '';?> value="Other">Other
+						</label>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-6 col-md-6 col-xs-12">
-			<div class="form-group">
-				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty Business/Service</label>
-				<div class="col-lg-8 col-md-8 col-xs-8">
-					<?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $specialty_business_service,'placeholder' => 'Enter specialty of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-				</div>
-				<br />
+                    <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty Business/Service</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $specialty_business_service,'placeholder' => 'Enter specialty of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <br />
 				E.g. Dentist, Children Clothing, 
-			</div>
-		</div>
-
-		<div class="col-lg-6 col-md-6 col-xs-12">
-			<div class="form-group">
-				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Type of Business/Service</label>
-				<div class="col-lg-8 col-md-8 col-xs-8">
-					<?php echo $this->Form->input('business_name', array('id' => 'business_name', 'value'=> $business_name,'placeholder' => 'Enter type of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-				</div>
-				<br />
+                    </div>
+                </div>
+	</div>
+    </div>
+    
+    <div class="tohidecontainer">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-12" >
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Type of Business/Service</label>
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                    <?php echo $this->Form->input('business_name', array('id' => 'business_name', 
+                        'value'=> $business_name,'placeholder' => 'Enter type of business/service' ,'title' => '','div' => false, 
+                        'label' => false, 'class' => 'form-control')); ?>
+                    <br />
 				E.g. Wholesale, Retail, Manufacturing, Agent, Professional
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-6 col-md-6 col-xs-12">
-			<div class="form-group">
-				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Nature of Business/Service</label>
-				<div class="col-lg-8 col-md-8 col-xs-8">
-					<?php echo $this->Form->input('nature_of_business', array('id' => 'nature_of_business', 'value'=> $nature_of_business,'placeholder' => 'Enter nature of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-					<br />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Nature of Business/Service</label>
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                    <?php echo $this->Form->input('nature_of_business', array('id' => 'nature_of_business', 
+                        'value'=> $nature_of_business,'placeholder' => 'Enter nature of business/service' ,'title' => '','div' => false, 
+                        'label' => false, 'class' => 'form-control')); ?>
+                       <br />
 					E.g. Readymade Garments, CA, Doctor
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-6 col-md-6 col-xs-12">
-			<div class="form-group">
-				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Name of Business/Service</label>
-				<div class="col-lg-8 col-md-8 col-xs-8">
-					<?php  ?>
-				</div>
-				<br />
-				E.g. Bawari, Babubhai Jagjivandas
-			</div>
-		</div>
-	</div>
-
-	<?php if ( $show ) { ?>
-	<div class="row">
-		<?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaddressid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <?php if ( $show ) { ?>
+        <div class="row-fuild">
+        <?php echo $this->Form->input("is_same", array('type' => "checkbox",'checked' => $parentaddressid == $aid ? 'checked' : '','class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
+        </div>
     <?php } ?> 
-
-    <div class="addresscontainer" style='<?php echo $parentaid == $aid ? "display:none" : "display:block";?>'>
+    </div>
+    <div class="addresscontainer">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="form-group">
@@ -132,9 +119,9 @@
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Pincode</label>   
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Zip Code</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Pincode' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
+                        <?php echo $this->Form->input('zip_code', array('id' => 'zip_code','tabindex'=> '11', 'value'=> $zip_code,'type' => 'text','placeholder' => 'Enter Zip Code' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcode')); ?>
                     </div>
                 </div>
                 <div class="form-group  subrb suburbdiv">
