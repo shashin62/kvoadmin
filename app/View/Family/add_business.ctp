@@ -62,6 +62,16 @@
 					E.g. Readymade Garments, CA, Doctor
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="name_of_business">Name of Business/Service</label>
+                <div class="col-lg-8 col-md-8 col-xs-8">
+                    <?php echo $this->Form->input('name_of_business', array('id' => 'name_of_business', 
+                        'value'=> $nature_of_business,'placeholder' => 'Enter name of business/service' ,'title' => '','div' => false, 
+                        'label' => false, 'class' => 'form-control')); ?>
+                       <br />
+					E.g. Readymade Garments, CA, Doctor
+                </div>
+            </div>
         </div>
     </div>
     <div>
