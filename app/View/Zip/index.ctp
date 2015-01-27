@@ -45,7 +45,6 @@ echo $this->Html->charset('utf-8');?>
             </div>
             <?php echo $this->Form->input('id', array('type' => 'hidden',  'id' => 'id', 'placeholder' => 'Enter Education name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control zipcodeid')); ?>
         </div>
-
     </div>
 
     <div class="row">
