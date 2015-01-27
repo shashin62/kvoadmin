@@ -77,10 +77,26 @@
 
                             </ul>
                         </li>
-                        <?php } ?>
+                        <?php } else   {?> 
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Masters <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                               
+                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Zip codes</a></li>
+
+                            </ul>
+                        </li>
+                        <?php } ?> 
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/family/familiyGroups">Family Groups</a></li>
                       
-                        <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/report/reports">Reports</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" href="<?php echo FULL_BASE_URL . $this->base; ?>/report/reports">Reports</a>
+                            <ul class="dropdown-menu" role="menu">
+                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/report/reports">Missing translations codes</a></li>
+                                 <li><a style="display: none" href="<?php echo FULL_BASE_URL . $this->base; ?>/report/records">Missing records</a></li>
+
+                            </ul>
+                        </li>
            
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/people/search">People Search</a></li>
                     </ul>
