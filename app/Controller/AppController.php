@@ -51,7 +51,8 @@ class AppController extends Controller {
             'allowedActions' => array('logout','register','doRegisterUser','buildTreeJson',
                 'rebuildARO','callAgain','addNote','viewNote','getAutoCompleteFirstName',
                 'getAutoCompleteLastName','populateZipCodeData','getZipCodesData',
-                'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData'),
+                'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData','getZipAjaxData'
+                ,'index','addZip','deleteZip'),
 //            'authenticate' => array(
 //                'all' => array('userModel' => 'User'),
 //                'Form' => array(),
