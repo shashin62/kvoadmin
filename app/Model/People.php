@@ -657,8 +657,9 @@ Class People extends AppModel
         }
     }
     
-    public function getCallAgainMembers()
+    public function getCallAgainMembers($userID)
     {
+        
         $aColumns = array('id', 'first_name', 'last_name','mobile_number');
 
         /* Indexed column (used for fast and accurate table cardinality) */
@@ -723,9 +724,9 @@ Class People extends AppModel
         }
         
         if ($sWhere == "") {
-            $sWhere = "WHERE call_again = 1";
+            $sWhere = "WHERE call_again = 1 and created_by = {$userID}";
         } else {
-            $sWhere .= ' AND call_again = 1';
+            $sWhere .= " AND call_again = 1 and created_by = {$userID}";
         }
 
         /*

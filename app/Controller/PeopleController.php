@@ -55,8 +55,9 @@ Class PeopleController extends AppController {
     
     public function callAgain()
     {
+         $userID = $this->Session->read('User.user_id');
         $this->autoRender = false;
-        $data = $this->People->getCallAgainMembers();
+        $data = $this->People->getCallAgainMembers($userID);
 //        echo '<pre>';
 //        print_r($data);
 //        echo '</pre>';
