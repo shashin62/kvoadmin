@@ -786,6 +786,150 @@ Class People extends AppModel
         }
         return $output;
     }
+
+public function getMissingData()
+{
+	$aColumns = array('id', 'first_name', 'last_name','mobile_number');
+
+        /* Indexed column (used for fast and accurate table cardinality) */
+        $sIndexColumn = "id";
+
+        /* DB table to use */
+        $sTable = "people as p";
+
+        /*
+
+         * Paging
+         */
+        $sLimit = "";
+        if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+            $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
+                    intval($_GET['iDisplayLength']);
+        }
+
+
+        /*
+         * Ordering
+         */
+        $sOrder = "";
+        if (isset($_GET['iSortCol_0'])) {
+            $sOrder = "ORDER BY  ";
+            for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
+                if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
+                    $sOrder .= "`" . $aColumns[intval($_GET['iSortCol_' . $i])] . "` " .
+                            ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+                }
+            }
+
+            $sOrder = substr_replace($sOrder, "", -2);
+            if ($sOrder == "ORDER BY") {
+                $sOrder = "";
+            }
+        }
+        /*
+         * Filtering
+         * NOTE this does not match the built-in DataTables filtering which does it
+         * word by word on any field. It's possible to do here, but concerned about efficiency
+         * on very large tables, and MySQL's regex functionality is very limited
+         */
+        $sWhere = "";
+        if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+            $sWhere = "WHERE (";
+            for ($i = 0; $i < count($aColumns); $i++) {
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch']) . "%' OR ";
+            }
+            $sWhere = substr_replace($sWhere, "", -3);
+            $sWhere .= ')';
+        }
+        /* Individual column filtering */
+        for ($i = 0; $i < count($aColumns); $i++) {
+            if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
+                if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= " AND ";
+                }
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
+            }
+        }
+        
+        $sJoin = "  LEFT JOIN people as parent1 ON parent1.id = p.f_id
+LEFT JOIN people as parent2 ON parent2.id = p.m_id
+LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
+LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.m_id
+                    ";
+
+        /*
+         * SQL queries
+         * Get data to display
+
+         */
+
+
+        $sQuery = "
+
+    SELECT SQL_CALC_FOUND_ROWS p.id,p.first_name,p.last_name,
+REPLACE(CONCAT(if(p.m_id = '' OR p.m_id IS NULL,'Mother','-'), ', ',
+if(p.f_id = '' OR p.f_id IS NULL,'Father','-'),', ',if(p.address_id = '' OR p.address_id IS NULL,'Home Address','-')
+,', ',if(p.mobile_number = '' OR p.mobile_number IS NULL,'Mobile','-')
+,', ',if(p.date_of_birth = '' OR p.date_of_birth IS NULL,'DOB','-')
+,', ',if(p.village = '' OR p.village IS NULL,'Village','-')
+,', ',if(grandfather.first_name = '' OR grandfather.first_name IS NULL,'GrandFather' , '-')
+,', ',if(grandfatherm.first_name = '' OR grandfatherm.first_name IS NULL,'GrandFather-Mother' , '-')
+),'-,','') as missingdata
+            FROM   $sTable
+$sJoin
+            $sWhere
+            $sOrder
+
+            $sLimit
+            ";
+
+        $rResult = $this->query($sQuery);
+
+        /* Data set length after filtering */
+        $sQuery = "
+    SELECT FOUND_ROWS() as total
+";
+        $rResultFilterTotal = $this->query($sQuery);
+
+        $iFilteredTotal = $rResultFilterTotal[0][0]['total'];
+
+        /* Total data set length */
+        $sQuery = "
+    SELECT COUNT(`" . $sIndexColumn . "`) as countid
+            FROM   $sTable
+            ";
+        $rResultTotal = $this->query($sQuery);
+
+        $iTotal = $rResultTotal[0][0]['countid'];
+
+
+        /*
+         * Output
+         */
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iFilteredTotal,
+            "aaData" => array()
+        );
+
+        foreach ($rResult as $key => $value) {
+
+            $row = array();
+	foreach ( $value['p'] as $k => $v) {
+            $row[] = $v;
+		}
+	$row[] = $value[0]['missingdata'];
+            
+            $row[] = '';
+            $output['aaData'][] = $row;
+        }
+
+        return $output;
+
+}
     
     public function getCompletedCountLastWeek($userId)
     {

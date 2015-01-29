@@ -26,7 +26,7 @@ App::uses('AppController', 'Controller');
 Class ReportController extends AppController {
     
      public $name = 'Report';
-    public $uses = array('User','Translation');
+    public $uses = array('User','Translation','People');
     public $helpers = array('Session');
     public $components = array('Session');
     
@@ -42,4 +42,19 @@ Class ReportController extends AppController {
         echo json_encode($data);
         
     }
+
+public function records()
+{
+
+
+}
+
+public function getMissingRecords() {
+
+        $this->autoRender = false;
+        $data = $this->People->getMissingData();
+echo json_encode($data);
+
+
+}
 }
