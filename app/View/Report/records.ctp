@@ -4,6 +4,7 @@
     <thead>
     <tr>
         <th>ID</th>
+        <th>Group ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Missing Data</th>
