@@ -24,37 +24,33 @@ App::uses('AppController', 'Controller');
  * @since     1.0
  */
 Class ReportController extends AppController {
-    
-     public $name = 'Report';
-    public $uses = array('User','Translation','People');
+
+    public $name = 'Report';
+    public $uses = array('User', 'Translation', 'People');
     public $helpers = array('Session');
     public $components = array('Session');
-    
-    public function reports()
-    {
+
+    public function reports() {
         
     }
-    
-    public function getReportsData()
-    {
+
+    public function getReportsData() {
+        $userID = $this->Session->read('User.user_id');
         $this->autoRender = false;
         $data = $this->Translation->getAllTranslations(true);
         echo json_encode($data);
+    }
+
+    public function records() {
         
     }
 
-public function records()
-{
-
-
-}
-
-public function getMissingRecords() {
-
+    public function getMissingRecords() {
+        $userID = $this->Session->read('User.user_id');
+        $roleID = $this->Session->read('User.role_id');
         $this->autoRender = false;
-        $data = $this->People->getMissingData();
-echo json_encode($data);
+        $data = $this->People->getMissingData($userID, $roleID);
+        echo json_encode($data);
+    }
 
-
-}
 }
