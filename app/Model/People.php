@@ -787,7 +787,7 @@ Class People extends AppModel
         return $output;
     }
 
-public function getMissingData()
+public function getMissingData($userID, $roleID)
 {
 	$aColumns = array('id', 'first_name', 'last_name','mobile_number');
 
@@ -852,6 +852,20 @@ public function getMissingData()
                 $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
         }
+        if ($roleID == 1) {
+             if ($sWhere == "") {
+            $sWhere = "WHERE p.is_late = 0 ";
+        } else {
+            $sWhere .= " AND p.is_late = 0 ";
+        }
+        } else {
+             if ($sWhere == "") {
+            $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID}";
+        } else {
+            $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID}";
+        }
+        }
+       
         
         $sJoin = "  LEFT JOIN people as parent1 ON parent1.id = p.f_id
 LEFT JOIN people as parent2 ON parent2.id = p.m_id
@@ -916,7 +930,9 @@ $sJoin
         );
 
         foreach ($rResult as $key => $value) {
-
+          
+if ( trim($value[0]['missingdata']) != '-') {
+    
             $row = array();
 	foreach ( $value['p'] as $k => $v) {
             $row[] = $v;
@@ -925,6 +941,7 @@ $sJoin
             
             $row[] = '';
             $output['aaData'][] = $row;
+          }  
         }
 
         return $output;
