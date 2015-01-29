@@ -856,7 +856,7 @@ public function getMissingData()
         $sJoin = "  LEFT JOIN people as parent1 ON parent1.id = p.f_id
 LEFT JOIN people as parent2 ON parent2.id = p.m_id
 LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
-LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.m_id
+LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     ";
 
         /*
