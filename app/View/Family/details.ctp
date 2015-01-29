@@ -134,7 +134,7 @@ z-index: 0 !important
         if (empty($value['People']['address_id'])) {
             $missingData[] = 'Address';
         }
-        if (empty($value['People']['mobile_number'])) {
+        if ($value['Group']['tree_level'] == '' && empty($value['People']['mobile_number'])) {
             $missingData[] = 'Mobile';
         }
         if (empty($value['People']['date_of_birth'])) {
@@ -149,7 +149,7 @@ z-index: 0 !important
          if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         }
-  if (empty($value['Address']['phone1'])) {
+  if ( empty($value['Address']['phone1'])  ) {
             $missingData[] = 'Home Phone';
         }
                                     ?>
@@ -228,7 +228,7 @@ $missingData = array();?>
         if (empty($value['People']['address_id'])) {
             $missingData[] = 'Address';
         }
-        if (empty($value['People']['mobile_number'])) {
+        if ($value['Group']['tree_level'] == '' && empty($value['People']['mobile_number'])) {
             $missingData[] = 'Mobile';
         }
         if (empty($value['People']['date_of_birth'])) {
@@ -243,7 +243,7 @@ $missingData = array();?>
   if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         } 
-if (empty($value['Address']['phone1'])) {
+if ( empty($value['Address']['phone1'])) {
             $missingData[] = 'Home Phone';
         }
 
