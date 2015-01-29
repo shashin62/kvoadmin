@@ -54,6 +54,7 @@ z-index: 0 !important
 			<?php foreach( $data as $key => $value ) {
                             if( $value['Group']['tree_level'] == '') {
                                 $hofId = $value['People']['id'];
+$hofAddressId = $value['People']['address_id'];
                             }
                             $missingData = array();?>
                     <?php if( $groupId == $value['People']['group_id']) { ?>
@@ -149,7 +150,9 @@ z-index: 0 !important
          if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         }
-  if ( empty($value['Address']['phone1'])  ) {
+if ( $value['Group']['tree_level'] == '' && empty($value['Address']['phone1']) ){
+ $missingData[] = 'Home Phone';
+ } else if ( $hofAddressId != $value['People']['address_id'] && empty($value['Address']['phone1'])  ) {
             $missingData[] = 'Home Phone';
         }
                                     ?>
@@ -243,7 +246,9 @@ $missingData = array();?>
   if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         } 
-if ( empty($value['Address']['phone1'])) {
+if ( $value['Group']['tree_level'] == '' && empty($value['Address']['phone1']) ){
+ $missingData[] = 'Home Phone';
+ } else if ( $hofAddressId != $value['People']['address_id'] && empty($value['Address']['phone1'])  ) {
             $missingData[] = 'Home Phone';
         }
 
