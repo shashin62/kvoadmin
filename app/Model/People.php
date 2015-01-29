@@ -366,13 +366,13 @@ Class People extends AppModel
                     'People.id = Group.people_id'
                 )
             ),
-	 array('table' => 'spouses',
-		        'alias' => 'exspouse',
-		        'type' => 'LEFT',
-		        'conditions' => array(
-		            'exspouse.people_id = People.id'
-		        )
-		    )
+//	 array('table' => 'spouses',
+//		        'alias' => 'exspouse',
+//		        'type' => 'LEFT',
+//		        'conditions' => array(
+//		            'People.id  = exspouse.people_id '
+//		        )
+//		    )
                  );
         }
         if ( $getAllDetails) {
@@ -382,7 +382,8 @@ Class People extends AppModel
                 'Address.phone1'
                 );
         } else {
-            $options['fields'] = array('People.*','Group.tree_level','Group.people_id','group_concat(exspouse.spouse_id) as exspouses');
+           // $options['fields'] = array('People.*','Group.tree_level','Group.people_id','group_concat(exspouse.spouse_id) as exspouses');
+            $options['fields'] = array('People.*','Group.tree_level','Group.people_id');
             if ( $flag) {
                 //$options['fields'][] = array('secondary as secondary');
             }
