@@ -215,6 +215,7 @@
         data: {zipcode: sname},
         type: "POST",
         success: function (response) {
+ $('.zones').find('.btn-default').removeClass('active');
            $( ".city" ).val(response.city);
            $( ".std_code" ).val(response.std);
            $( ".suburb" ).val(response.suburb);

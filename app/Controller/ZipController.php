@@ -21,6 +21,8 @@ Class ZipController extends AppController {
         $this->layout = 'ajax';
         $this->autoRender = false;
         $msg = array();
+
+	$this->request->data['ZipCode']['zone'] = ucfirst($this->request->data['zone']);
         $this->request->data['ZipCode']['created'] = date('Y-m-d H:i:s');
         //$this->request->data['Translation']['status'] = 1;
         //print_r($this->request->data);

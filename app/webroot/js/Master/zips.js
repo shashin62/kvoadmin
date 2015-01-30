@@ -28,14 +28,7 @@ $(function () {
                 required: true,
                 maxlength: 25
             },
-            'data[ZipCode][suburb]': {
-                required: true,
-                maxlength: 25
-            },
-            'data[ZipCode][zone]': {
-                required: true,
-                maxlength: 25
-            },
+           
             'data[ZipCode][city]': {
                 required: true,
                 maxlength: 25
@@ -54,14 +47,7 @@ $(function () {
                 required: 'Please enter zip code',
                 maxlength: 'Length exceeds 25 charaters'
             },
-            'data[ZipCode][suburb]': {
-                required: 'Please enter suburb',
-                maxlength: 'Length exceeds 25 charaters'
-            },
-            'data[ZipCode][zone]': {
-                required: 'Please enter zone',
-                maxlength: 'Length exceeds 25 charaters'
-            },
+           
             'data[ZipCode][city]': {
                 required: 'Please enter city',
                 maxlength: 'Length exceeds 25 charaters'
@@ -140,11 +126,13 @@ function deleteTranslation(id)
 function editTranslation(id, aData)
 {
    aData = aData.split(',');
-   
+    $('.zones').find('.btn-default').removeClass('active');
    $('.bname').val(aData[1]);
    $('.suburb').val(aData[2]);
-                    
-                    $('.zone').val( aData[3]);
+                
+                   
+$('.zones').find('[data-zone='+ aData[3] +']').parent().addClass('active').attr('checked','checked');
+            $('[data-zone='+ aData[3] +']').attr('checked','checked');
                     $('.city').val( aData[4]);
                     $('.state').val( aData[5]);
                     $('.std').val(aData[6]);
