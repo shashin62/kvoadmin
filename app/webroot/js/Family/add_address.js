@@ -67,7 +67,7 @@ $( ".combobox" ).combobox({width: '200px'});
             var peopleid = pid;
             var addressid = aid;
              queryString += '&data[Address][suburb]='+ $('.suburbdiv').find('.ui-autocomplete-input').val();
-            queryString += '&data[Address][state]='+ $('.statesdiv').find('.ui-autocomplete-input').val();
+           // queryString += '&data[Address][state]='+ $('.statediv').find('.ui-autocomplete-input').val();
             $.post(baseUrl + '/family/doProcessAddress?peopleid=' + peopleid + '&addressid=' + addressid + '&parentid=' + prntid, queryString, function (data) {
                  if (0 == data.status) {
                 if (data.error.name.length > 0) {
