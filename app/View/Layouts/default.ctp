@@ -94,6 +94,7 @@
                             <ul class="dropdown-menu" role="menu">
                                  <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/report/reports">Missing translations codes</a></li>
                                  <li><a style="display: block" href="<?php echo FULL_BASE_URL . $this->base; ?>/report/records">Missing records</a></li>
+                                    <li><a style="display: block" href="<?php echo FULL_BASE_URL . $this->base; ?>/report/completedrecords">Completed records</a></li>
 
                             </ul>
                         </li>
