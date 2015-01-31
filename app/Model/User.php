@@ -51,7 +51,25 @@ class User extends AppModel {
     public function bindNode($user) {
         return array('model' => 'Role', 'foreign_key' => $user['User']['role_id']);
     }
-
+    public function changestatus($id, $status) {
+         $this->recursive = -1;
+         if ($status == 'Active') {
+             $status = 2;
+         } else {
+             $status = 1;
+         }
+          $query = "UPDATE {$this->tablePrefix}users
+                  SET status = '{$status}'           
+                  WHERE id = {$id}";
+          try {
+            $this->query($query);
+           
+            return true;
+        } catch (ErrorException $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }         
+    }
     public function getUserData($email, $checkActive = true, $checkPass = '') {
 
         
@@ -60,6 +78,7 @@ class User extends AppModel {
         $options['conditions']['User.email'] = $email;
 
         $options['conditions']['User.password'] = $checkPass;
+        $options['conditions']['User.status'] = 1;
 //        
 //         $options['joins'] = array(
 //            array('table' => 'people',
@@ -212,7 +231,10 @@ class User extends AppModel {
                             $status = 'Active';
 
                             break;
+                        case 2:
+                            $status = 'Inactive';
 
+                            break;
                         default:
                             break;
                     }
