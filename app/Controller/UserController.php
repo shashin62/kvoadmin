@@ -315,6 +315,22 @@ Class UserController extends AppController {
            $this->Session->write('User.education', !empty($userAllData['People']['education']) ? $userAllData['People']['education'] : '');
            $this->Session->write('User.blood_group', !empty($userAllData['People']['blood_group']) ? $userAllData['People']['blood_group'] : '');
     }
+    
+    public function changestatus() {
+        $this->autoRender = false;
+        $id = $_REQUEST['id'];
+         $status = $_REQUEST['status'];
+         if ($this->User->changestatus($id,  $status) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'User status has been changed';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
 }
 
 /* 
