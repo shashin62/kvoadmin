@@ -7,11 +7,16 @@ $(function () {
         "bServerSide": true,
         "sAjaxSource": baseUrl + "/user/getUserAjaxData",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            
+            if (aData[6] == 'Active') {
+                statuslabel = 'Deactivate';
+            } else {
+                statuslabel = 'Activate';
+            }
             $('td:eq(6)', nRow).html('<a href="#" class="btn btn-xs btn-succes" >' + aData[6] + '</a>');
             $('td:eq(7)', nRow).html('<a class="edit_row btn btn-xs btn-success" \n\
 onclick="editUser(' + aData[0] + ', \'' + aData + '\')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
-<a class="delete_row btn btn-xs btn-danger" onclick="deleteUser(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash"></span>Delete</a>');
+<a class="delete_row btn btn-xs btn-danger" onclick="deleteUser(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash"></span>Delete</a>\n\
+<a class="active_row " onclick="changestatus(' + aData[0] + ', \'' + aData[6] + '\')" data-rowid=' + aData[0] + '><span class=""></span>' +statuslabel+ '</a>');
 
         },
         "rowCallback": function (row, data) {
@@ -128,7 +133,23 @@ function deleteUser(id)
         }
     });
 }
-
+function changestatus(id, status)
+{
+      $.ajax({
+        url: baseUrl + '/user/changestatus',
+        dataType: 'json',
+        data: {id: id,status :status},
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                oTable.fnDraw(true);
+            }, 2500);
+        }
+    });
+}
 function editUser(id, adata)
 {
     $('.passwordField').hide();
