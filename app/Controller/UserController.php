@@ -248,8 +248,8 @@ Class UserController extends AppController {
 
             if ($this->User->validates()) {
 
-                $userAllData = $this->User->getUserData($this->request->data['User']['email'], '', trim(Security::hash(Configure::read('Security.salt') . $this->request->data['User']['password'])));
-               
+                $userAllData = $this->User->getUserData($this->request->data['User']['email'], true, trim(Security::hash(Configure::read('Security.salt') . $this->request->data['User']['password'])));
+               if ($userAllData['User']['status'] == 1) {
                 if ($this->Auth->login($userAllData['User'])) {
                     $cookie['email'] = $userAllData['User']['email'];
                     $cookie['password'] = $userAllData['User']['password'];
@@ -260,10 +260,16 @@ Class UserController extends AppController {
                     } else {
                         $this->redirect($this->Auth->redirect('/family/familiyGroups'));
                     }
+                } else {
+                    $this->Session->setFlash(__('Invalid username or password, try again'), 'default', array(), 'authlogin');
+                   } 
+                } else {
+                    $this->Session->setFlash(__d('message', 'Sorry! Currently your account is inactive. Please, contact admin.'), 'default', array(), 'authlogin');
                 }
                 
-                $this->Session->setFlash(__('Invalid username or password, try again'), 'default', array(), 'authlogin');
+                
             }
+            
         }
     }
 
