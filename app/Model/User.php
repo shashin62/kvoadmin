@@ -78,7 +78,7 @@ class User extends AppModel {
         $options['conditions']['User.email'] = $email;
 
         $options['conditions']['User.password'] = $checkPass;
-        $options['conditions']['User.status'] = 1;
+       // $options['conditions']['User.status'] = '1';
 //        
 //         $options['joins'] = array(
 //            array('table' => 'people',
