@@ -881,7 +881,7 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
          */
 
 
-     echo   $sQuery = "
+       $sQuery = "
 
     SELECT SQL_CALC_FOUND_ROWS p.id,p.group_id,p.first_name,p.last_name,
 REPLACE(CONCAT(if(p.m_id = '' OR p.m_id IS NULL,'Mother','-'), ', ',
