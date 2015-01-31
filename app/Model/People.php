@@ -881,7 +881,7 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
          */
 
 
-        $sQuery = "
+     echo   $sQuery = "
 
     SELECT SQL_CALC_FOUND_ROWS p.id,p.group_id,p.first_name,p.last_name,
 REPLACE(CONCAT(if(p.m_id = '' OR p.m_id IS NULL,'Mother','-'), ', ',
@@ -948,6 +948,40 @@ if ( trim($value[0]['missingdata']) != '-') {
         return $output;
 
 }
+ public function getCompletedRecords ($userId, $roleId, $fromdate = false, $todate = false) {
+     $this->recursive = -1;
+        $dbh = $this->getDataSource();
+         if ($roleId == 1) {           
+            $sWhere = " p.is_late = 0 ";       
+        } else {  
+            $sWhere = " p.is_late = 0 and p.created_by = {$userId}";
+       
+        }
+		if ($fromdate &&  $todate) {
+		$sdate = " and DATE_FORMAT( p.created,  '%d/%m/%Y' ) 
+BETWEEN  '$fromdate'
+AND  '$todate'";
+		 }
+		
+       
+        $result = $dbh->fetchAll("SELECT COUNT(*) as completedrecords
+
+            FROM   people as p
+  LEFT JOIN people as parent1 ON parent1.id = p.f_id
+LEFT JOIN people as parent2 ON parent2.id = p.m_id
+LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
+LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
+                    
+            WHERE $sWhere and (p.f_id IS NOT NULL) and 
+			( p.m_id IS NOT NULL) and 
+			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
+			and (  grandfatherm.first_name IS NOT NULL)
+			$sdate
+			");
+        
+        return $result[0][0];
+ }
+
     
     public function getCompletedCountLastWeek($userId)
     {
