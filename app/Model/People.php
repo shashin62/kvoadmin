@@ -886,7 +886,7 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
     SELECT SQL_CALC_FOUND_ROWS p.id,p.group_id,p.first_name,p.last_name,
 REPLACE(CONCAT(if(p.m_id = '' OR p.m_id IS NULL,'Mother','-'), ', ',
 if(p.f_id = '' OR p.f_id IS NULL,'Father','-'),', ',if(p.address_id = '' OR p.address_id IS NULL,'Home Address','-')
-,', ',if(p.mobile_number = '' OR p.mobile_number IS NULL,'Mobile','-')
+,', ',if(p.tree_level = '' and (p.mobile_number = '' OR p.mobile_number IS NULL),'Mobile','-')
 ,', ',if(p.date_of_birth = '' OR p.date_of_birth IS NULL,'DOB','-')
 ,', ',if(p.village = '' OR p.village IS NULL,'Village','-')
 ,', ',if(grandfather.first_name = '' OR grandfather.first_name IS NULL,'GrandFather' , '-')
