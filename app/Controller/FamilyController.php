@@ -276,6 +276,7 @@ Class FamilyController extends AppController {
                 $updateFatherDetails['People']['f_id'] = $peopleId;
                 $updateFatherDetails['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateFatherDetails['People']['id'] = $idToBeUpdated;
+				$updateMotherDetails['People']['modified'] = date('Y-m-d H:i:s');	
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 $this->People->save($updateFatherDetails);
                 $msg['group_id'] = $gid;
@@ -295,7 +296,7 @@ Class FamilyController extends AppController {
                 $updateMotherDetails['People']['m_id'] = $_REQUEST['peopleid'];
                 $updateMotherDetails['People']['mother'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateMotherDetails['People']['id'] = $idToBeUpdated;
-                
+                $updateMotherDetails['People']['modified'] = date('Y-m-d H:i:s');	
                 $this->People->save($updateMotherDetails);
                 $msg['group_id'] = $gid;
                 $message = 'Mother has been added';
@@ -322,6 +323,7 @@ Class FamilyController extends AppController {
                 $updateFatherDetails['People']['father'] = $getPeopleDetail[0]['People']['first_name'];
                 $updateFatherDetails['People']['mother'] = $getPeopleDetail[0]['People']['partner_name'];
                 $updateFatherDetails['People']['id'] = $peopleId;
+				$updateMotherDetails['People']['modified'] = date('Y-m-d H:i:s');	
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 $this->People->save($updateFatherDetails);
                 $msg['group_id'] = $gid;
@@ -344,7 +346,8 @@ Class FamilyController extends AppController {
                 $updateMotherDetails = array();
                 $updateMotherDetails['People']['partner_id'] = $_REQUEST['peopleid'];
                 $updateMotherDetails['People']['partner_name'] = $getPeopleDetail[0]['People']['first_name'];               
-                $updateMotherDetails['People']['id'] = $idToBeUpdated;                
+                $updateMotherDetails['People']['id'] = $idToBeUpdated;      
+				$updateMotherDetails['People']['modified'] = date('Y-m-d H:i:s');				
                 $this->People->save($updateMotherDetails);
                 $msg['group_id'] = $gid;                
                 $message = 'Spouse has been added';
