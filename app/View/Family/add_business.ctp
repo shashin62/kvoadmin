@@ -212,20 +212,10 @@
         </div>
       <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
-<!--                <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="district">District:</label>   
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('district', array('id' => 'district', 'value'=> $district,'placeholder' => 'Enter district' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
-                    </div>
-                </div>-->
-            </div>
-            <div class="col-lg-6 col-md-6 col-xs-12">
-               
-                
                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Home Phone</label>   
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label">Business Phone</label>   
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '12', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter Home Phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('phone1', array('id' => 'phone1','tabindex'=> '12', 'value'=> $phone1,'type' => 'text','placeholder' => 'Enter Business Phone' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
                     </div>
                 </div>
                 <div class="form-group">
