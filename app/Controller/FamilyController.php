@@ -518,6 +518,7 @@ Class FamilyController extends AppController {
                     $this->Group->save($groupData);
                     $this->request->data['People']['group_id'] = $this->Group->id;
                     $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+					 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                         $message = 'Family has been created';
@@ -561,6 +562,7 @@ Class FamilyController extends AppController {
                 $name = $getPeopleDetail[0]['People']['first_name'] . '' . $getPeopleDetail[0]['People']['lastname'];
 		$this->request->data['People']['partner_name'] = $name;
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+				 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
 		if ($msg['status'] == 1) {
 			if ($this->People->save($this->request->data)) {
 			$msg['status'] = 1;
@@ -569,7 +571,7 @@ Class FamilyController extends AppController {
                         $updateParentUser['spouse_id'] = $partnerId;
                         $updateParentUser['spouse_name'] = $this->request->data['People']['first_name'];
                         $updateParentUser['people_id'] = $_REQUEST['peopleid'];
-			$updateParentUser['created'] = date('Y-m-d H:i:s');
+						$updateParentUser['created'] = date('Y-m-d H:i:s');
 			$this->Spouse->save($updateParentUser);
 			$message = 'Ex- Spouse has been added';                        
                         $peopleGroup = array();
@@ -612,6 +614,7 @@ Class FamilyController extends AppController {
                 $name = $getPeopleDetail[0]['People']['first_name'] . '' . $getPeopleDetail[0]['People']['lastname'];
                 $this->request->data['People']['partner_name'] = $name;
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+				 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
                 if ($msg['status'] == 1) {
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
@@ -661,6 +664,7 @@ Class FamilyController extends AppController {
                 }
                 if ($msg['status'] == 1) {
                     $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+					 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                         $fatherId = $this->People->id;
@@ -734,6 +738,7 @@ Class FamilyController extends AppController {
                 } 
                 if ($msg['status'] == 1) {
                     $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+					 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                         $message = 'Child has been added';
@@ -778,6 +783,7 @@ Class FamilyController extends AppController {
                 }
                  if ($msg['status'] == 1) {
                      $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+					 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
                 if ($this->People->save($this->request->data)) {
                     $msg['status'] = 1;
                     $motherId = $this->People->id;
@@ -831,7 +837,7 @@ Class FamilyController extends AppController {
                
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
-                    
+                    $this->request->data['People']['modified'] = date('Y-m-d H:i:s');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                          if ($same == 1) {
@@ -1214,7 +1220,9 @@ Class FamilyController extends AppController {
 //        print_r($getOwnerDetails);
 //        exit;
         $data = $this->People->getFamilyDetails($gid, $pid);
-        
+        // echo '<pre>';
+      //  print_r($data);
+     //   exit;
         $groupData  = $data[0]['Group'];
         
         $this->set('show',$groupData['tree_level'] == ""  ? false : true);
