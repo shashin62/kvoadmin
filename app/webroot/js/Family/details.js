@@ -175,6 +175,8 @@ $(".transfer-family").on("click", function () {
 });
 
 $('.deletemember').click(function(){
+ var result = confirm("Want to delete?");
+    if (result === true) {
      var $this = $(this);
     var id = $this.data('id');
     var gid = $this.data('gid');
@@ -193,4 +195,7 @@ $('.deletemember').click(function(){
             }, 2500);
         }
     });
+} else {
+return;
+}
 });
