@@ -2,7 +2,16 @@ var oTable;
 
 
 $(function () {
-    $('.selectpicker').selectpicker();
+    $( ".combobox" ).combobox({ 
+    select: function (event, ui) { 
+
+         var table = $('#all_users').DataTable();
+        table
+                .column($(this).attr('custom'))
+                .search($.trim(ui.item.innerHTML))
+                .draw();
+    } 
+});
     oTable = $('#all_users').DataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
@@ -54,13 +63,10 @@ $(function () {
                 .draw();
     });
     
-     $(".village").bind("change", function () {
-       
-        var table = $('#all_users').DataTable();
-        table
-                .column($(this).attr('custom'))
-                .search($.trim(this.value))
-                .draw();
+     $(".ui-menu-item").bind("click", function () {
+      
+
+        
     });
     
 });
