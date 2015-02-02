@@ -958,7 +958,13 @@ if ( trim($value[0]['missingdata']) != '-') {
        
         }
 		if ($fromdate &&  $todate) {
-		$sdate = " and DATE_FORMAT( p.created,  '%d/%m/%Y' ) 
+$fromDate = date_parse_from_format("d/m/Y", $fromdate);
+
+$fromdate  = "$fromDate[year]-$fromDate[month]-$fromDate[day]";
+
+$toDate = date_parse_from_format("d/m/Y", $todate);
+$todate = "$toDate[year]-$toDate[month]-$toDate[day]";
+		$sdate = " and p.modified 
 BETWEEN  '$fromdate'
 AND  '$todate'";
 		 }
