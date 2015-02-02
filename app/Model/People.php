@@ -333,7 +333,13 @@ Class People extends AppModel
                     'parent2.id = People.m_id'
                 )
             ),
-             
+             array('table' => 'people',
+                'alias' => 'parent3',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'parent3.id = People.partner_id'
+                )
+            ),
              array('table' => 'people',
                 'alias' => 'grandfather',
                 'type' => 'LEFT',
@@ -348,20 +354,20 @@ Class People extends AppModel
                     'grandfatherm.id = parent2.f_id'
                 )
             ),
-  array('table' => 'translations',
-                'alias' => 't',
-                'type' => 'INNER',
-                'conditions' => array(
-                    't.name = People.last_name'
-                )
-            ),
-array('table' => 'translations',
-                'alias' => 't1',
-                'type' => 'INNER',
-                'conditions' => array(
-                    't1.name = People.first_name'
-                )
-            ),
+		  array('table' => 'translations',
+				'alias' => 't',
+				'type' => 'INNER',
+				'conditions' => array(
+				    't.name = People.last_name'
+				)
+			    ),
+		array('table' => 'translations',
+				'alias' => 't1',
+				'type' => 'INNER',
+				'conditions' => array(
+				    't1.name = People.first_name'
+				)
+			    ),
                   array('table' => 'address',
                 'alias' => 'Address',
                 'type' => 'LEFT',
@@ -392,7 +398,8 @@ array('table' => 'translations',
             $options['fields'] = array('People.*','Group.tree_level','Group.people_id',
                 'concat_ws(" ",grandfather.first_name,grandfather.last_name) as grandfather',
                 'concat_ws(" ",grandfatherm.first_name,grandfatherm.last_name) as grandfather_mother',
-                'Address.phone1','t.gujurathi_text','t.hindi_text','t1.gujurathi_text','t1.hindi_text'
+                'Address.phone1','t.gujurathi_text','t.hindi_text','t1.gujurathi_text','t1.hindi_text',
+		'parent3.first_name as partner_name','parent1.first_name as father','parent2.first_name as mother'
                 );
         } else {
            // $options['fields'] = array('People.*','Group.tree_level','Group.people_id','group_concat(exspouse.spouse_id) as exspouses');
