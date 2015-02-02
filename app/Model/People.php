@@ -348,20 +348,20 @@ Class People extends AppModel
                     'grandfatherm.id = parent2.f_id'
                 )
             ),
- /* array('table' => 'translations',
+  array('table' => 'translations',
                 'alias' => 't',
-                'type' => 'LEFT',
+                'type' => 'INNER',
                 'conditions' => array(
                     't.name = People.last_name'
                 )
             ),
 array('table' => 'translations',
                 'alias' => 't1',
-                'type' => 'LEFT',
+                'type' => 'INNER',
                 'conditions' => array(
                     't1.name = People.first_name'
                 )
-            ),*/
+            ),
                   array('table' => 'address',
                 'alias' => 'Address',
                 'type' => 'LEFT',
@@ -392,7 +392,7 @@ array('table' => 'translations',
             $options['fields'] = array('People.*','Group.tree_level','Group.people_id',
                 'concat_ws(" ",grandfather.first_name,grandfather.last_name) as grandfather',
                 'concat_ws(" ",grandfatherm.first_name,grandfatherm.last_name) as grandfather_mother',
-                'Address.phone1',//'t.gujurathi_text','t.hindi_text','t1.gujurathi_text','t1.hindi_text'
+                'Address.phone1','t.gujurathi_text','t.hindi_text','t1.gujurathi_text','t1.hindi_text'
                 );
         } else {
            // $options['fields'] = array('People.*','Group.tree_level','Group.people_id','group_concat(exspouse.spouse_id) as exspouses');
