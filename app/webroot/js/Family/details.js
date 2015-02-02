@@ -1,3 +1,14 @@
+$('.guju').click(function () {
+window.location.href = baseUrl + '/family/details/'+ groupid + '?type=gujurathi';
+});
+
+$('.english').click(function () {
+window.location.href = baseUrl + '/family/details/'+ groupid + '?type=english';
+});
+
+$('.hindi').click(function () {
+window.location.href = baseUrl + '/family/details/'+ groupid + '?type=hindi';
+});
 $('.noteSave').click(function() {
     if( $.trim($('.comment').val()) == '') {
         return false;

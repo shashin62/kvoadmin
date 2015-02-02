@@ -900,13 +900,14 @@ Class FamilyController extends AppController {
         }
         
         $this->set('owners',$ownerData);
-        
+        $this->set('type',isset($_REQUEST['type']) ? $_REQUEST['type'] : 'english');
         $id = $this->request->params['pass'][0];
         
         if (array_key_exists($id, $ownerData))  {
              $this->set('ownername', $ownerData[$id]['owner']);
         }
         $getDetails = $this->People->getFamilyDetails($id, false, true);
+	
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('roleId', $roleID);

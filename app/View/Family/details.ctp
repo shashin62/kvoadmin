@@ -12,9 +12,9 @@ z-index: 0 !important
         <div class="col-md-6 pull-right">
             <a href="<?php echo $this->base;?>/family/viewNote?gid=<?php echo $groupId;?>" target="_blank"class="btn btn-sm btn-link viewnote">View notes</a>
             <button type="button"  class="btn btn-sm btn-primary addnote">Add Note</button>
-            <button type="button" class="btn btn-sm btn-primary">Show Names: English</button>
-            <button type="button" class="btn btn-sm btn-primary">Show Names: Hindi</button>
-            <button type="button" class="btn btn-sm btn-primary">Show Names: Gujarati</button>
+            <button type="button" class="btn btn-sm btn-primary english">Show Names: English</button>
+            <button type="button" class="btn btn-sm btn-primary hindi">Show Names: Hindi</button>
+            <button type="button" class="btn btn-sm btn-primary guju">Show Names: Gujarati</button>
         </div>
     </div>
 <div class="container-fluid addNoteForm" style="display: none;">
@@ -57,9 +57,29 @@ z-index: 0 !important
 $hofAddressId = $value['People']['address_id'];
                             }
                             $missingData = array();?>
-                    <?php if( $groupId == $value['People']['group_id']) { ?>
+                    <?php if( $groupId == $value['People']['group_id']) { 
+	switch( $type) {
+	case 'english':
+	$firstName = $value['People']['first_name'];
+	$lastName = $value['People']['last_name'];
+	break;
+	case 'gujurathi':
+	$firstName = $value['t1']['gujurathi_text'] ? $value['t1']['gujurathi_text'] : $value['People']['first_name'];
+	$lastName = $value['t']['gujurathi_text'] ? $value['t']['gujurathi_text'] : $value['People']['last_name'];
+	break;
+case 'hindi':
+	$firstName = $value['t1']['hindi_text'] ? $value['t1']['hindi_text'] :$value['People']['first_name'];
+	$lastName = $value['t']['hindi_text'] ? $value['t']['hindi_text'] :  $value['People']['last_name'];
+	break;
+	default :
+$firstName = $value['People']['first_name'];
+	$lastName = $value['People']['last_name'];
+	break;
+}
+
+?>
     <div class="row">
-        <div class="col-md-1" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?> ><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
+        <div class="col-md-1" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?> ><?php echo $firstName . ' ' . $lastName;?> (<?php echo $value['People']['id'];?>)</div>
         <div class="col-md-1">
             <a class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
                                     <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
