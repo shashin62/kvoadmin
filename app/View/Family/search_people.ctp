@@ -86,6 +86,7 @@
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>"><?php echo $buttonLabel;?></button>
                                         <button type="button" style="color: red" class="btn btn-link cancel">Cancel</button>
+					<button type="button" style="color: red" class="btn btn-link clearfilter">Clear Filters</button>
 				</div>
 			</div>
 

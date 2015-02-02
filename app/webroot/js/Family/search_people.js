@@ -70,7 +70,13 @@ $(function () {
     });
     
 });
-
+$('.clearfilter').click(function(){
+ var table = $('#all_users').DataTable();
+ table.column(1).search('').column(2).search('').column(3).search('').column(4).search('').
+                column(5).search('').draw(true);
+$('.search_username').val('');
+$('.villagediv').find('.ui-autocomplete-input').val('');
+});
 $('#all_users tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
 
