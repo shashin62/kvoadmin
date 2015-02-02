@@ -46,6 +46,7 @@ z-index: 0 !important
    <div class="row"> <h4>Primary Family , Created by - <?php echo $ownername; ?></h4></div>
     <br>
                         <?php
+
                        App::import('Model', 'People');
                         $People = new People();
                         $hofId ;
