@@ -837,9 +837,7 @@ Class FamilyController extends AppController {
                 $checkExistingUser = $this->People->find('all', array('fields' => array('People.id'),
                     'conditions' => array('People.id' => $_REQUEST['peopleid']))
                 );
-               // echo '<pre>';
-        //print_r($this->request->data['People']);
-       // exit;
+              
                
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
@@ -903,13 +901,14 @@ Class FamilyController extends AppController {
         }
         
         $this->set('owners',$ownerData);
-        
+        $this->set('type',isset($_REQUEST['type']) ? $_REQUEST['type'] : 'english');
         $id = $this->request->params['pass'][0];
         
         if (array_key_exists($id, $ownerData))  {
              $this->set('ownername', $ownerData[$id]['owner']);
         }
         $getDetails = $this->People->getFamilyDetails($id, false, true);
+	//echo '<pre>';print_r($getDetails);exit;
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('roleId', $roleID);

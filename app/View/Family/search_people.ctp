@@ -60,7 +60,7 @@
                         <input id = "date_of_birth" type="text" class="dob form-control dp search_DOB" name="date_of_birth" placeholder="DOB" custom="4"/>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group villagediv">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
                          <?php
@@ -70,7 +70,7 @@
                 'div' => false,
                 'legend' => false,
                 'empty' => __d('label', '--Select--'),
-                'class' => 'village selectpicker',
+                'class' => 'village combobox',
                 'style' => '',
                 'options' => $villages,
                 'custom' => 5
@@ -86,6 +86,7 @@
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<button type="button" class="btn btn-primary addnew" data-first_name="<?php echo $name_parent;?>"><?php echo $buttonLabel;?></button>
                                         <button type="button" style="color: red" class="btn btn-link cancel">Cancel</button>
+					<button type="button" style="color: red" class="btn btn-link clearfilter">Clear Filters</button>
 				</div>
 			</div>
 

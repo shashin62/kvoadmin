@@ -17,7 +17,7 @@
     <?php } ?>
 
 
-	<div class="addresscontainer">
+	<div class="addresscontainer" style="<?php echo $parentaid == $aid ? 'display:none': 'display:block';?>">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-xs-12">
 				<div class="form-group">
@@ -96,7 +96,7 @@
 					</div>
 				</div>
 				<div class="form-group subrb suburbdiv">
-					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="state">Suburb</label>   
+					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="suburb">Suburb</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 					
 					<?php
