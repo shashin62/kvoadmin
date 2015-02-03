@@ -958,7 +958,7 @@ if ( trim($value[0]['missingdata']) != '-') {
        
         }
 		if ($fromdate &&  $todate) {
-		$sdate = " and DATE_FORMAT( p.created,  '%d/%m/%Y' ) 
+		$sdate = " and DATE_FORMAT( p.modified,  '%d/%m/%Y' ) 
 BETWEEN  '$fromdate'
 AND  '$todate'";
 		 }
