@@ -356,14 +356,14 @@ Class People extends AppModel
             ),
 		  array('table' => 'translations',
 				'alias' => 't',
-				'type' => 'INNER',
+				'type' => 'left',
 				'conditions' => array(
 				    't.name = People.last_name'
 				)
 			    ),
 		array('table' => 'translations',
 				'alias' => 't1',
-				'type' => 'INNER',
+				'type' => 'left',
 				'conditions' => array(
 				    't1.name = People.first_name'
 				)
