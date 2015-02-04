@@ -210,7 +210,7 @@ Class FamilyController extends AppController {
             $this->set('is_late', $getPeopleData['People']['is_late']);
             $this->set('mobile_number', $getPeopleData['People']['mobile_number'] ? $getPeopleData['People']['mobile_number'] : $sessionData['mobile_number'] );
             $this->set('email', $getPeopleData['People']['email']);
-            $this->set('gender', $getPeopleData['Peissameople']['gender']);
+            $this->set('gender', $getPeopleData['People']['gender']);
             $this->set('martial_status', $getPeopleData['People']['martial_status']);
             $this->set('maiden_surname', $getPeopleData['People']['maiden_surname']);
             $this->set('sect', $getPeopleData['People']['sect']);
