@@ -43,11 +43,6 @@ Class ReportController extends AppController {
 
     public function records() {
        $operators =   $this->User->getOperatorsList();
-//       $data = array();
-//      foreach ($operators as $k => $v) {
-//          $data[]['id'] = $v['User']['id'];
-//          $data[]['first_name'] = $v['User']['id'];
-//      }
          $this->set(compact('operators'));
     }
     
