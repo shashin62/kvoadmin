@@ -356,14 +356,14 @@ Class People extends AppModel
             ),
 		  array('table' => 'translations',
 				'alias' => 't',
-				'type' => 'INNER',
+				'type' => 'left',
 				'conditions' => array(
 				    't.name = People.last_name'
 				)
 			    ),
 		array('table' => 'translations',
 				'alias' => 't1',
-				'type' => 'INNER',
+				'type' => 'left',
 				'conditions' => array(
 				    't1.name = People.first_name'
 				)
@@ -978,6 +978,7 @@ if ( trim($value[0]['missingdata']) != '-') {
        
         }
 		if ($fromdate &&  $todate) {
+
 $fromDate = date_parse_from_format("d/m/Y", $fromdate);
 
 $fromdate  = "$fromDate[year]-$fromDate[month]-$fromDate[day]";

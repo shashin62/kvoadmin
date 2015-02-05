@@ -254,7 +254,7 @@
 				<div class="form-group">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="is_late">Home Address</label>
 					<div class="checkbox col-lg-8 col-md-8 col-xs-8">
-					<?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
+					<?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_as', 'checked' => $same == true ? 'checked' : '','div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as ' . $name)))); ?>
 					</div>
 				</div>
 			</div>
