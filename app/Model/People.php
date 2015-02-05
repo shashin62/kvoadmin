@@ -928,7 +928,6 @@ if(p.f_id = '' OR p.f_id IS NULL,'Father','-'),', ',if(p.address_id = '' OR p.ad
 $sJoin
             $sWhere
             $sOrder
-
             $sLimit
             ";
 
@@ -963,51 +962,105 @@ $sJoin
         );
 
         foreach ($rResult as $key => $value) {
-          
-        if ( trim($value[0]['missingdata']) != '-') {
-    
-            $row = array();
-	foreach ( $value['p'] as $k => $v) {
-            $row[] = $v;
-		}
-	$row[] = $value[0]['missingdata'];
-            
-            $row[] = '';
-            $output['aaData'][] = $row;
-          } else   {
-              //$output['aaData'][] =  array();
-          }
+
+            if (trim($value[0]['missingdata']) != '-') {
+
+                $row = array();
+                foreach ($value['p'] as $k => $v) {
+                    $row[] = $v;
+                }
+                $row[] = $value[0]['missingdata'];
+
+                $row[] = '';
+                $output['aaData'][] = $row;
+            } else {
+                //$output['aaData'][] =  array();
+            }
         }
 
         return $output;
 
 }
  public function getCompletedRecords ($userId, $roleId, $fromdate = false, $todate = false) {
-     $this->recursive = -1;
-        $dbh = $this->getDataSource();
+     $aColumns = array('p.id', 'p.first_name', 'p.last_name','p.mobile_number','p.date_of_birth','grandfather.first_name');
+
+        /* Indexed column (used for fast and accurate table cardinality) */
+        $sIndexColumn = "id";
+
+        /* DB table to use */
+        $sTable = "people as p";
+
+        /*
+         * Paging
+         */
+        $sLimit = "";
+        if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+            $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
+                    intval($_GET['iDisplayLength']);
+        }
+
+
+        /*
+         * Ordering
+         */
+        $sOrder = "";
+        if (isset($_GET['iSortCol_0'])) {
+            $sOrder = "ORDER BY  ";
+            for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
+                if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
+                    $sOrder .= "" . $aColumns[intval($_GET['iSortCol_' . $i])] . " " .
+                            ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+                }
+            }
+
+            $sOrder = substr_replace($sOrder, "", -2);
+            if ($sOrder == "ORDER BY") {
+                $sOrder = "";
+            }
+        }
+        /*
+         * Filtering
+         * NOTE this does not match the built-in DataTables filtering which does it
+         * word by word on any field. It's possible to do here, but concerned about efficiency
+         * on very large tables, and MySQL's regex functionality is very limited
+         */
+        $sWhere = "";
+        if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+            $sWhere = "WHERE (";
+            for ($i = 0; $i < count($aColumns); $i++) {
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch']) . "%' OR ";
+            }
+            $sWhere = substr_replace($sWhere, "", -3);
+            $sWhere .= ')';
+        }
+        /* Individual column filtering */
+        for ($i = 0; $i < count($aColumns); $i++) {
+            if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
+                if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= " AND ";
+                }
+                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
+            }
+        }
          if ($roleId == 1) {           
-            $sWhere = " p.is_late = 0 ";       
+            $sWhere = "  p.is_late = 0 ";       
         } else {  
-            $sWhere = " p.is_late = 0 and p.created_by = {$userId}";
+            $sWhere = "  p.is_late = 0 and p.created_by = {$userId}";
        
         }
-		if ($fromdate &&  $todate) {
+        
 
-$fromDate = date_parse_from_format("d/m/Y", $fromdate);
+        /*
+         * SQL queries
+         * Get data to display
+         */
 
-$fromdate  = "$fromDate[year]-$fromDate[month]-$fromDate[day]";
 
-$toDate = date_parse_from_format("d/m/Y", $todate);
-$todate = "$toDate[year]-$toDate[month]-$toDate[day]";
-		$sdate = " and p.modified 
-BETWEEN  '$fromdate'
-AND  '$todate'";
-		 }
-		
-       
-        $result = $dbh->fetchAll("SELECT COUNT(*) as completedrecords
-
-            FROM   people as p
+        $sQuery = "
+   SELECT SQL_CALC_FOUND_ROWS p.id,p.first_name,p.last_name,p.mother,p.father,grandfather.first_name,p.mobile_number,p.date_of_birth
+            FROM   $sTable
   LEFT JOIN people as parent1 ON parent1.id = p.f_id
 LEFT JOIN people as parent2 ON parent2.id = p.m_id
 LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
@@ -1017,10 +1070,83 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
 			( p.m_id IS NOT NULL) and 
 			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
 			and (  grandfatherm.first_name IS NOT NULL)
-			$sdate
-			");
-        
-        return $result[0][0];
+                        $sOrder
+            $sLimit
+            ";
+
+        $rResult = $this->query($sQuery);
+
+        /* Data set length after filtering */
+        $sQuery = "
+    SELECT FOUND_ROWS() as total
+";
+        $rResultFilterTotal = $this->query($sQuery);
+
+        $iFilteredTotal = $rResultFilterTotal[0][0]['total'];
+
+        /* Total data set length */
+        $sQuery = "
+    SELECT COUNT(" . $sIndexColumn . ") as countid
+            FROM   $sTable
+            ";
+        $rResultTotal = $this->query($sQuery);
+
+        $iTotal = $rResultTotal[0][0]['countid'];
+
+
+        /*
+         * Output
+         */
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iFilteredTotal,
+            "aaData" => array()
+        );
+ 
+         foreach ($rResult as $key => $value) {
+             $row = array();
+                foreach ($value['p'] as $k => $v) {
+                    $row[] = $v;
+                }
+                $row[]= $value['grandfather']['first_name'];
+                $output['aaData'][] = $row;
+         }
+         
+        return $output;
+     
+//     $this->recursive = -1;
+//        $dbh = $this->getDataSource();
+//        
+//		if ($fromdate &&  $todate) {
+//
+//$fromDate = date_parse_from_format("d/m/Y", $fromdate);
+//
+//$fromdate  = "$fromDate[year]-$fromDate[month]-$fromDate[day]";
+//
+//$toDate = date_parse_from_format("d/m/Y", $todate);
+//$todate = "$toDate[year]-$toDate[month]-$toDate[day]";
+//		$sdate = " and p.modified 
+//BETWEEN  '$fromdate'
+//AND  '$todate'";
+//		 }
+		
+       
+//        $result = $dbh->fetchAll("SELECT p.first_name,p.last_name,p.mother,p.father,grandfather.first_name,p.mobile_number,p.date_of_birth
+//            FROM   people as p
+//  LEFT JOIN people as parent1 ON parent1.id = p.f_id
+//LEFT JOIN people as parent2 ON parent2.id = p.m_id
+//LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
+//LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
+//                    
+//            WHERE $sWhere and (p.f_id IS NOT NULL) and 
+//			( p.m_id IS NOT NULL) and 
+//			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
+//			and (  grandfatherm.first_name IS NOT NULL)
+//			$sdate
+//			");
+//        
+//        return $result;
  }
 
     
