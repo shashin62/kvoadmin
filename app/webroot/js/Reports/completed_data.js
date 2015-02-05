@@ -22,6 +22,7 @@ $(function () {
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
+        "bFilter": false,
         "sAjaxSource": baseUrl + "/report/getCompletedRecords",
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
           //  $('td:eq(5)', nRow).html('<a onclick="editMissingRecords(' + aData[0] + ', \'' + aData[1] + '\')" data-rowid=' + aData[0] + ' class="edit_row btn btn-xs btn-success" onclick=""><span class="glyphicon glyphicon-edit"></span>Edit</a>');
