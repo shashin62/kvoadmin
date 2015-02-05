@@ -1,4 +1,6 @@
-<div style="display: none" class="form-group subrb suburbdiv">
+<?php if ($roleID == 1) { ?>
+
+<div style="display: block" class="form-group subrb suburbdiv">
 					<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="operators">Created By</label>   
 					<div class="col-lg-8 col-md-8 col-xs-8">
 					
@@ -17,6 +19,7 @@
 					?>
 					</div>
 				</div>
+<?php } ?>
 <div class="container-fluid">   
 <h3 class="heading">Missing People Data</h3>
 
