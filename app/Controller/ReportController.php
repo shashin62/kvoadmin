@@ -42,7 +42,8 @@ Class ReportController extends AppController {
     }
 
     public function records() {
-        
+       $operators =   $this->User->getOperatorsList();
+         $this->set(compact('operators'));
     }
     
     public function completedrecords() {

@@ -42,6 +42,22 @@ class User extends AppModel {
             return array('Role' => array('id' => $roleId));
         }
     }
+    
+    public function getOperatorsList() {
+        $this->recursive = -1;
+        $options['conditions']['User.status'] = '1';
+        $options['conditions']['User.role_id'] = '2';
+        $options['fields'] = array('User.id', 'User.first_name');
+        try {
+            $userData = $this->find('list', $options);
+            $userData = $userData;
+            return $userData;
+            return false;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
 
     /**
      * In case we want simplified per-group only permissions, we need to implement bindNode() in User model. 
