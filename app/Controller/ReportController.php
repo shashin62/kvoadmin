@@ -42,6 +42,8 @@ Class ReportController extends AppController {
     }
 
     public function records() {
+        $roleID = $this->Session->read('User.role_id');
+        $this->set('roleID',$roleID);
        $operators =   $this->User->getOperatorsList();
          $this->set(compact('operators'));
     }
@@ -70,7 +72,8 @@ Class ReportController extends AppController {
         $userID = $this->Session->read('User.user_id');
         $roleID = $this->Session->read('User.role_id');
         $this->autoRender = false;
-        $data = $this->People->getMissingData($userID, $roleID);
+         $_REQUEST['userid'] = $_REQUEST['userid'] ? $_REQUEST['userid'] : '';
+        $data = $this->People->getMissingData($userID, $roleID, $_REQUEST['userid']);
         echo json_encode($data);
     }
     
