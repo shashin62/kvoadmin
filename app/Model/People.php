@@ -881,9 +881,15 @@ public function getMissingData($userID, $roleID)
         }
         } else {
              if ($sWhere == "") {
-            $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID}";
+            $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID} and p.created_by = {$userID} and (p.f_id IS  NULL) and 
+			( p.m_id IS  NULL) and 
+			( p.date_of_birth IS  NULL) and (  p.village IS  NULL or  p.village = '') and (  grandfather.first_name IS  NULL)
+			and (  grandfatherm.first_name IS  NULL)";
         } else {
-            $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID}";
+            $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID} and (p.f_id IS  NULL) and 
+			( p.m_id IS  NULL) and 
+			( p.date_of_birth IS  NULL) and (  p.village IS  NULL) and (  grandfather.first_name IS  NULL)
+			and (  grandfatherm.first_name IS  NULL)";
         }
         }
        
@@ -952,7 +958,7 @@ $sJoin
 
         foreach ($rResult as $key => $value) {
           
-if ( trim($value[0]['missingdata']) != '-') {
+        if ( trim($value[0]['missingdata']) != '-') {
     
             $row = array();
 	foreach ( $value['p'] as $k => $v) {
@@ -962,7 +968,9 @@ if ( trim($value[0]['missingdata']) != '-') {
             
             $row[] = '';
             $output['aaData'][] = $row;
-          }  
+          } else   {
+              //$output['aaData'][] =  array();
+          }
         }
 
         return $output;
