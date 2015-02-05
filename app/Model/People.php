@@ -808,7 +808,7 @@ Class People extends AppModel
         return $output;
     }
 
-public function getMissingData($userID, $roleID)
+public function getMissingData($userID, $roleID, $operatorid)
 {
 	$aColumns = array('id', 'first_name', 'last_name','mobile_number');
 
@@ -874,26 +874,32 @@ public function getMissingData($userID, $roleID)
             }
         }
         if ($roleID == 1) {
-             if ($sWhere == "") {
-            $sWhere = "WHERE p.is_late = 0 ";
+            
+            if ($operatorid ) {
+                $sWhere = "WHERE p.is_late = 0 and p.created_by = {$operatorid} ";
+                $sWhere .= "and  ((p.f_id IS  NULL) or 
+			( p.m_id IS  NULL) or 
+			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
+			or (  grandfatherm.first_name IS  NULL))";
+            } else {
+                $sWhere = " WHERE p.is_late = 0";
+            }
+            
         } else {
-            $sWhere .= " AND p.is_late = 0 ";
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID} and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
+			( p.m_id IS  NULL) or 
+			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
+			or (  grandfatherm.first_name IS  NULL))";
+            } else {
+                $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
+			( p.m_id IS  NULL) or 
+			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
+			or (  grandfatherm.first_name IS  NULL))";
+            }
         }
-        } else {
-             if ($sWhere == "") {
-            $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID} and p.created_by = {$userID} and (p.f_id IS  NULL) and 
-			( p.m_id IS  NULL) and 
-			( p.date_of_birth IS  NULL) and (  p.village IS  NULL or  p.village = '') and (  grandfather.first_name IS  NULL)
-			and (  grandfatherm.first_name IS  NULL)";
-        } else {
-            $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID} and (p.f_id IS  NULL) and 
-			( p.m_id IS  NULL) and 
-			( p.date_of_birth IS  NULL) and (  p.village IS  NULL) and (  grandfather.first_name IS  NULL)
-			and (  grandfatherm.first_name IS  NULL)";
-        }
-        }
-       
-        
+
+
         $sJoin = "  LEFT JOIN people as parent1 ON parent1.id = p.f_id
 LEFT JOIN people as parent2 ON parent2.id = p.m_id
 LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
