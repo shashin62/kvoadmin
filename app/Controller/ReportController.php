@@ -49,25 +49,17 @@ Class ReportController extends AppController {
     }
     
     public function completedrecords() {
-          $userID = $this->Session->read('User.user_id');
-        $roleID = $this->Session->read('User.role_id');
-       $fromdate = $_REQUEST['fromdate'];
-	   $todate = $_REQUEST['todate'];
-	    if ($this->request->is('post')) {
-		
-		$data = $this->People->getCompletedRecords($userID, $roleID, $fromdate,  $todate );
-		$this->set('fromdate', $fromdate);
-		$this->set('todate', $todate);
-		} else {
-			$this->set('fromdate', '');
-		$this->set('todate', '');
-		$data = $this->People->getCompletedRecords($userID, $roleID);
-		}
-		
-       
-		$this->set('count', $data['completedrecords']);
-		
+        
     }
+    
+     public function getCompletedRecords() {
+        $userID = $this->Session->read('User.user_id');
+        $roleID = $this->Session->read('User.role_id');
+        $this->autoRender = false;
+        $data = $this->People->getCompletedRecords($userID, $roleID);
+        echo json_encode($data);
+    }
+
     public function getMissingRecords() {
         $userID = $this->Session->read('User.user_id');
         $roleID = $this->Session->read('User.role_id');
@@ -77,12 +69,5 @@ Class ReportController extends AppController {
         echo json_encode($data);
     }
     
-    public function getCompletedRecords() {
-         $userID = $this->Session->read('User.user_id');
-        $roleID = $this->Session->read('User.role_id');
-        $this->autoRender = false;
-        $data = $this->People->getCompletedRecords($userID, $roleID);
-        echo json_encode($data);
-    }
-
+  
 }
