@@ -1,5 +1,5 @@
 <div class="container-fluid">   
-    <h3 class="heading">Completed records count</h3>
+    <h3 class="heading">Completed records</h3>
     <table id="getCompletedData" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
