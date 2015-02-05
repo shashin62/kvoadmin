@@ -1070,7 +1070,7 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
 			( p.m_id IS NOT NULL) and 
 			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
 			and (  grandfatherm.first_name IS NOT NULL)
-                        
+                        $sOrder
             $sLimit
             ";
 
