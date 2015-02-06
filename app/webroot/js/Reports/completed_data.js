@@ -41,3 +41,15 @@ $(function () {
     $('#getCompletedData').removeClass('display').addClass('table table-striped table-bordered');
 });
 
+$('.search').click(function () {
+    
+    var $fromdate = $('.fromdate').val();
+    var $todate = $('.todate').val();
+     var myArray = {
+            "fromdate": $fromdate,
+            "todate": $todate
+        };
+     var oTable = $("#getCompletedData").dataTable();
+        oTable.fnReloadAjax(oTable.oSettings, myArray);
+});
+

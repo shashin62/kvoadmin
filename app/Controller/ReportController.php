@@ -55,8 +55,10 @@ Class ReportController extends AppController {
      public function getCompletedRecords() {
         $userID = $this->Session->read('User.user_id');
         $roleID = $this->Session->read('User.role_id');
+        $_REQUEST['fromdate'] = $_REQUEST['fromdate'] ? $_REQUEST['fromdate'] : '';
+        $_REQUEST['todate'] = $_REQUEST['todate'] ? $_REQUEST['todate'] : '';
         $this->autoRender = false;
-        $data = $this->People->getCompletedRecords($userID, $roleID);
+        $data = $this->People->getCompletedRecords($userID, $roleID, $_REQUEST['fromdate'],$_REQUEST['todate'] );
         echo json_encode($data);
     }
 
