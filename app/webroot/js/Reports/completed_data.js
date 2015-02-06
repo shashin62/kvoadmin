@@ -53,3 +53,6 @@ $('.search').click(function () {
         oTable.fnReloadAjax(oTable.oSettings, myArray);
 });
 
+$('.clear').click(function () {
+    window.location.href = baseUrl + "/report/completedrecords"; 
+});
