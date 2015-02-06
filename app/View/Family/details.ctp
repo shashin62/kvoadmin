@@ -156,9 +156,9 @@ $firstName = $value['People']['first_name'];
         if (empty($value['People']['address_id'])) {
             $missingData[] = 'Address';
         }
-        if ($value['Group']['tree_level'] == '' && empty($value['People']['mobile_number'])) {
+        if (empty($value['People']['mobile_number'])) {
             $missingData[] = 'Mobile';
-        }
+        } 
         if (empty($value['People']['date_of_birth'])) {
             $missingData[] = 'DOB';
         }
@@ -171,12 +171,7 @@ $firstName = $value['People']['first_name'];
          if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         }
-if ( $value['Group']['tree_level'] != '' && empty($value['Address']['phone1']) ){
- $missingData[] = 'Home Phone';
- } else if ( $value['Group']['tree_level'] != '' && $hofAddressId != $value['People']['address_id'] && empty($value['Address']['phone1'])  ) {
-            $missingData[] = 'Home Phone';
-        }
-                                    ?>
+	                             ?>
         <div class="col-md-3"> 
         <?php if ( $value['People']['is_late'] == 0 )  { ?>
                                     <?php echo "Missing: <span class=\"text-danger bg-danger\">" . implode(', ',$missingData) . "</span>";?>                                    
@@ -252,7 +247,7 @@ $missingData = array();?>
         if (empty($value['People']['address_id'])) {
             $missingData[] = 'Address';
         }
-        if ($value['Group']['tree_level'] == '' && empty($value['People']['mobile_number'])) {
+        if (empty($value['People']['mobile_number'])) {
             $missingData[] = 'Mobile';
         }
         if (empty($value['People']['date_of_birth'])) {
@@ -267,11 +262,7 @@ $missingData = array();?>
   if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         } 
-if ( $value['Group']['tree_level'] == '' && empty($value['Address']['phone1']) ){
- $missingData[] = 'Home Phone';
- } else if ( $hofAddressId != $value['People']['address_id'] && empty($value['Address']['phone1'])  ) {
-            $missingData[] = 'Home Phone';
-        }
+
 
                                     ?>
         <div class="col-md-3">
