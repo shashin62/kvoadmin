@@ -194,6 +194,7 @@
 				?>
 				</div>
 			</div>
+                   
 
 			<div class="form-group maidenvillage">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="maiden_village">Maiden Village</label>
@@ -215,7 +216,12 @@
 				?>
 				</div>
 			</div>
-            
+                         <div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="call_again">Non KVO Family</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
+					<?php echo $this->Form->input("non_kvo", array('type' => "checkbox", 'checked' => $non_kvo == 1 ? 'checked' : '','div' => false, "label" => false)); ?>
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mahajan_membership_number">Mahajan #</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">
