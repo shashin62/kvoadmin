@@ -208,6 +208,7 @@ Class FamilyController extends AppController {
             $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('is_late', $getPeopleData['People']['is_late']);
+            $this->set('non_kvo', $getPeopleData['People']['non_kvo']);
             $this->set('mobile_number', $getPeopleData['People']['mobile_number'] ? $getPeopleData['People']['mobile_number'] : $sessionData['mobile_number'] );
             $this->set('email', $getPeopleData['People']['email']);
             $this->set('gender', $getPeopleData['People']['gender']);
@@ -524,7 +525,7 @@ Class FamilyController extends AppController {
                     $this->Group->save($groupData);
                     $this->request->data['People']['group_id'] = $this->Group->id;
                     $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
-					 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
+                    $this->request->data['People']['created'] = date('Y-m-d H:i:s');
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                         $message = 'Family has been created';
@@ -619,8 +620,9 @@ Class FamilyController extends AppController {
                 }
                 $name = $getPeopleDetail[0]['People']['first_name'] . '' . $getPeopleDetail[0]['People']['lastname'];
                 $this->request->data['People']['partner_name'] = $name;
+                
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
-				 $this->request->data['People']['created'] = date('Y-m-d H:i:s');
+		$this->request->data['People']['created'] = date('Y-m-d H:i:s');
                 if ($msg['status'] == 1) {
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
