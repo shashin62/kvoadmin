@@ -817,9 +817,7 @@ public function getMissingData($userID, $roleID, $operatorid)
 
         /* DB table to use */
         $sTable = "people as p";
-
         /*
-
          * Paging
          */
         $sLimit = "";
@@ -827,7 +825,6 @@ public function getMissingData($userID, $roleID, $operatorid)
             $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
                     intval($_GET['iDisplayLength']);
         }
-
 
         /*
          * Ordering
@@ -883,6 +880,7 @@ public function getMissingData($userID, $roleID, $operatorid)
 			or (  grandfatherm.first_name IS  NULL))";
             } else {
                 $sWhere = " WHERE p.is_late = 0";
+                
             }
             
         } else {
@@ -909,12 +907,9 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
         /*
          * SQL queries
          * Get data to display
-
          */
 
-
        $sQuery = "
-
     SELECT SQL_CALC_FOUND_ROWS p.id,p.group_id,p.first_name,p.last_name,
 REPLACE(CONCAT(if(p.m_id = '' OR p.m_id IS NULL,'Mother','-'), ', ',
 if(p.f_id = '' OR p.f_id IS NULL,'Father','-'),', ',if(p.address_id = '' OR p.address_id IS NULL,'Home Address','-')
@@ -950,7 +945,6 @@ $sJoin
 
         $iTotal = $rResultTotal[0][0]['countid'];
 
-
         /*
          * Output
          */
@@ -973,9 +967,7 @@ $sJoin
 
                 $row[] = '';
                 $output['aaData'][] = $row;
-            } else {
-                //$output['aaData'][] =  array();
-            }
+            } 
         }
 
         return $output;
@@ -1079,7 +1071,7 @@ LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
 LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     
             WHERE $sWhere and (p.f_id IS NOT NULL) and 
-			( p.m_id IS NOT NULL) and (p.mobile_number IS NOT NULL) and 
+			( p.m_id IS NOT NULL) and (p.mobile_number IS NOT NULL and p.mobile_number != ''  ) and 
 			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
 			and (  grandfatherm.first_name IS NOT NULL) $sdate
                         $sOrder
