@@ -203,6 +203,9 @@
 
 <script type="text/javascript">
     $(function () {
+        $('.state').val('<?php echo $state;?>');
+        $('.statediv').find('.ui-autocomplete-input').val('<?php echo $state;?>');
+        
        
              $( "#zip_code" ).autocomplete({
                source: baseUrl + "/family/getZipCodesData",
