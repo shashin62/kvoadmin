@@ -855,7 +855,7 @@ Class People extends AppModel {
 
             if ($operatorid) {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$operatorid} ";
-                $sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number == ''  ) or 
+                $sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number = ''  ) or 
 			( p.m_id IS  NULL) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
@@ -1027,9 +1027,13 @@ $sJoin
 
             $toDate = date_parse_from_format("d/m/Y", $todate);
             $todate = "$toDate[year]-$toDate[month]-$toDate[day]";
+             if (strtotime($fromdate) == strtotime($todate)) {
+                 $sdate = " and p.modified =  '$fromdate'";
+             } else  {
             $sdate = " and p.modified 
 BETWEEN  '$fromdate'
 AND  '$todate'";
+           } 
         }
 
 
