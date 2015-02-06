@@ -69,7 +69,7 @@
                         'value'=> $nature_of_business,'placeholder' => 'Enter name of business/service' ,'title' => '','div' => false, 
                         'label' => false, 'class' => 'form-control')); ?>
                        <br />
-					E.g. Readymade Garments, CA, Doctor
+					E.g. ACME Inc., ACE Constructions.
                 </div>
             </div>
         </div>
