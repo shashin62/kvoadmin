@@ -171,9 +171,9 @@ $firstName = $value['People']['first_name'];
          if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         }
-if ( $value['Group']['tree_level'] == '' && empty($value['Address']['phone1']) ){
+if ( $value['Group']['tree_level'] != '' && empty($value['Address']['phone1']) ){
  $missingData[] = 'Home Phone';
- } else if ( $hofAddressId != $value['People']['address_id'] && empty($value['Address']['phone1'])  ) {
+ } else if ( $value['Group']['tree_level'] != '' && $hofAddressId != $value['People']['address_id'] && empty($value['Address']['phone1'])  ) {
             $missingData[] = 'Home Phone';
         }
                                     ?>

@@ -1,4 +1,21 @@
 var oTable;
+$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams) {
+    if (oSettings.oFeatures.bServerSide) {
+        if (typeof sNewSource != 'undefined' && sNewSource != null) {
+            oSettings.sAjaxSource = sNewSource;
+        }
+        oSettings.aoServerParams = [];
+        oSettings.aoServerParams.push({"sName": "user",
+            "fn": function (aoData) {
+                for (var index in myParams) {
+                    aoData.push({"name": index, "value": myParams[index]});
+                }
+            }
+        });
+        this.fnClearTable(oSettings);
+        return;
+    }
+};
 $(function () {
 
     oTable = $('#getMissingData').dataTable({
@@ -23,3 +40,11 @@ function editMissingRecords(id, groupid)
 {
     window.location.href = baseUrl + '/family/details/' + groupid;
 }
+$('.operators').change(function () {
+    var $userid = $(this).val();
+     var myArray = {
+            "userid": $userid
+        };
+     var oTable = $("#getMissingData").dataTable();
+        oTable.fnReloadAjax(oTable.oSettings, myArray);
+});
