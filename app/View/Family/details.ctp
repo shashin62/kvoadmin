@@ -143,12 +143,15 @@ $firstName = $value['People']['first_name'];
                                 <?php } ?>
 
                                 <?php 
-
+                                if ( $value['People']['non_kvo'] == 0) {
                                    if (empty($value['People']['f_id'])) {
-            $missingData[] = 'Father';
-        }
+                            $missingData[] = 'Father';
+                    }
+                        }
+        if ( $value['People']['non_kvo'] == 0) {
         if (empty($value['People']['m_id'])) {
             $missingData[] = 'Mother';
+        }
         }
         if (empty($value['People']['gender'])) {
             $missingData[] = 'Gender';
@@ -165,13 +168,16 @@ $firstName = $value['People']['first_name'];
         if (empty($value['People']['village'])) {
             $missingData[] = 'Village';
         }
+         if ( $value['People']['non_kvo'] == 0) {
         if (empty($value[0]['grandfather'])) {
             $missingData[] = 'Grandfather';
         }
+        }
+        if ( $value['People']['non_kvo'] == 0) {
          if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         }
-	                             ?>
+	  }                           ?>
         <div class="col-md-3"> 
         <?php if ( $value['People']['is_late'] == 0 )  { ?>
                                     <?php echo "Missing: <span class=\"text-danger bg-danger\">" . implode(', ',$missingData) . "</span>";?>                                    
@@ -235,11 +241,15 @@ $missingData = array();?>
                                      <?php } ?>
         </div>       
 <?php 
+ if ( $value['People']['non_kvo'] == 0) {
                                    if (empty($value['People']['f_id'])) {
             $missingData[] = 'Father';
         }
+}
+        if ( $value['People']['non_kvo'] == 0) {
         if (empty($value['People']['m_id'])) {
             $missingData[] = 'Mother';
+        }
         }
         if (empty($value['People']['gender'])) {
             $missingData[] = 'Gender';
@@ -256,12 +266,16 @@ $missingData = array();?>
         if (empty($value['People']['village'])) {
             $missingData[] = 'Village';
         }
+         if ( $value['People']['non_kvo'] == 0) {
         if (empty($value[0]['grandfather'])) {
             $missingData[] = 'Grandfather';
         }
-  if (empty($value[0]['grandfather_mother'])) {
+        }
+        if ( $value['People']['non_kvo'] == 0) {
+        if (empty($value[0]['grandfather_mother'])) {
             $missingData[] = 'Grandfather-Mother';
         } 
+        }
 
 
                                     ?>
