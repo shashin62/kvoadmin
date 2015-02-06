@@ -9,45 +9,6 @@
         </div>
     </div>
 </div>
-<div class="container">
-<div class="row">
-
-<div class="col-lg-6 col-md-6 col-xs-12">	
-                 <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="phone_number">Last Week Completed Record(s)</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php
-                        if ( count($completedCountThisWeek)) {
-                            foreach ( $completedCountThisWeek as $k => $v) {?>
-                            <span><?php echo $v['name'];?></span> (<?php echo $v['count'];?>)<br />
-                    <?php } } else { ?>
-                        NA
-                    <?php } ?>
-                    </div>
-                </div>                
-            </div>
-<div class="col-lg-6 col-md-6 col-xs-12">
-                <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Current Week Record(s)</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php foreach ( $enteredCount as $k => $v) {?>
-                            <span><?php echo $v['name'];?></span>(<?php echo $v['count'];?>)<br />
-                    <?php } ?>
-                    </div>
-                </div>
-            </div>
-<div class="col-lg-6 col-md-6 col-xs-12">
-                <div class="form-group">
-                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="first_name">Incomplete Record(s)</label>
-                    <div class="col-lg-8 col-md-8 col-xs-8">
-                        <?php foreach ( $incompletedCount as $k => $v) {?>
-                            <span><?php echo $v['name'];?></span>(<?php echo $v['count'];?>)<br />
-                    <?php } ?>
-                    </div>
-                </div>
-            </div>
-</div>
-</div>
 <div class="container-fluid">   
 <h3 class="heading">Members to be called again</h3>
 <table id="callAgain" class="display" cellspacing="0" width="100%">
