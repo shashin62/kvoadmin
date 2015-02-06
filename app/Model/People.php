@@ -240,7 +240,7 @@ Class People extends AppModel
         if( $groupId) {
            // $options['conditions']['People.group_id'] = $groupId;
         }
-        $options['fields'] = array('concat(People.first_name,"  ",People.last_name) as childname','People.id');
+        $options['fields'] = array('concat(People.first_name,"  ",People.last_name) as childname','People.id','People.group_id');
         try {
             $userData = $this->find('all', $options);
 
@@ -1067,7 +1067,7 @@ LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
 LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     
             WHERE $sWhere and (p.f_id IS NOT NULL) and 
-			( p.m_id IS NOT NULL) and 
+			( p.m_id IS NOT NULL) and (p.mobile_number IS NOT NULL) and 
 			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
 			and (  grandfatherm.first_name IS NOT NULL)
                         $sOrder
