@@ -855,22 +855,22 @@ Class People extends AppModel {
 
             if ($operatorid) {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$operatorid} ";
-                $sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number != ''  ) or 
+                $sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number == ''  ) or 
 			( p.m_id IS  NULL) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             } else {
-                $sWhere = " WHERE p.is_late = 0";
+                $sWhere = " WHERE p.is_late = 0 ";
             }
         } else {
             if ($sWhere == "") {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID} and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
-			( p.m_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number != ''  )
+			( p.m_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number = ''  )
 			or( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             } else {
                 $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
-			( p.m_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number != ''  ) or 
+			( p.m_id IS  NULL) or  (p.mobile_number IS  NULL or p.mobile_number = ''  ) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             }
