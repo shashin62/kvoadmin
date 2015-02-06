@@ -6,7 +6,7 @@
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="fromdate">From date</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input('created', 
-						array('id' => 'createdfrom', 'type' => 'text','title' => '','value' => $fromdate,'placeholder' => 'dd/mm/yyyy format' ,'div' => false, 'label' => false, 'class' => 'fromdate form-control')); ?>
+						array('id' => 'createdfrom', 'type' => 'text','title' => '','value' => $fromdate,'placeholder' => 'dd/mm/yyyy' ,'div' => false, 'label' => false, 'class' => 'fromdate form-control')); ?>
                 </div>
             </div>
            
@@ -16,7 +16,7 @@
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="todate">To date</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
 					<?php echo $this->Form->input('created', 
-						array('id' => 'createdto', 'type' => 'text','value' => $todate,'title' => '','placeholder' => 'dd/mm/yyyy format' ,'div' => false, 'label' => false, 'class' => 'todate form-control')); ?>
+						array('id' => 'createdto', 'type' => 'text','value' => $todate,'title' => '','placeholder' => 'dd/mm/yyyy' ,'div' => false, 'label' => false, 'class' => 'todate form-control')); ?>
                 </div>
             </div>
         </div>
