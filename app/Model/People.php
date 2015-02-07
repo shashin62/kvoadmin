@@ -855,7 +855,7 @@ Class People extends AppModel {
 
             if ($operatorid) {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$operatorid} ";
-                $sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number IS  NULL ) or 
+                $sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number = '' ) or 
 			( p.m_id IS  NULL) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
@@ -865,12 +865,12 @@ Class People extends AppModel {
         } else {
             if ($sWhere == "") {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID} and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
-			( p.m_id IS  NULL) or  (p.mobile_number IS NULL )
+			( p.m_id IS  NULL) or  (p.mobile_number = '' )
 			or( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             } else {
                 $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
-			( p.m_id IS  NULL) or  (p.mobile_number IS  NULL ) or 
+			( p.m_id IS  NULL) or  (p.mobile_number = '' ) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             }
@@ -1052,9 +1052,9 @@ LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
 LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     
             WHERE $sWhere and (p.f_id IS NOT NULL) and 
-			( p.m_id IS NOT NULL) and (p.mobile_number IS NOT NULL and p.mobile_number != ''  ) and 
+			( p.m_id IS NOT NULL) and (p.mobile_number != ''  ) and 
 			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
-			and (  grandfatherm.first_name IS NOT NULL) $sdate
+			and (  grandfatherm.first_name IS NOT NULL) and p.created_by = '46' $sdate
                         $sOrder
             $sLimit
             ";
