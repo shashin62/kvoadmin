@@ -9,7 +9,7 @@ class Group extends AppModel {
      public function getAllFamilyGroups($userId, $roleId, $showhof = false) {
          
        $aColumns = array('grp.id', 'grp.name','parent.first_name',
-           'parent.last_name','parent.mobile_number',' DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
+           'parent.last_name','parent.village','parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
            'grp.created','user.first_name','user.last_name');
 
         /* Indexed column (used for fast and accurate table cardinality) */
@@ -45,7 +45,7 @@ class Group extends AppModel {
             }
         }
         
-        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name',
+        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.village',
             'parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  ),'
             . 'grp.created,user.first_name,user.last_name');
         /*
@@ -97,8 +97,8 @@ class Group extends AppModel {
          */
    $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
-    parent.last_name,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
-    parent.mobile_number,grp.created,user.first_name,user.last_name
+    parent.last_name,parent.village,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
+     parent.mobile_number,grp.created,user.first_name,user.last_name
             FROM   $sTable
                 $sJoin
             $sWhere
