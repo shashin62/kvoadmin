@@ -159,7 +159,7 @@ $firstName = $value['People']['first_name'];
         if (empty($value['People']['address_id'])) {
             $missingData[] = 'Address';
         }
-        if (empty($value['People']['mobile_number'])) {
+        if ( $value['People']['tree_level'] == '' && empty($value['People']['mobile_number'])) {
             $missingData[] = 'Mobile';
         } 
         if (empty($value['People']['date_of_birth'])) {
@@ -257,7 +257,7 @@ $missingData = array();?>
         if (empty($value['People']['address_id'])) {
             $missingData[] = 'Address';
         }
-        if (empty($value['People']['mobile_number'])) {
+        if ( $value['People']['tree_level'] == '' && empty($value['People']['mobile_number'])) {
             $missingData[] = 'Mobile';
         }
         if (empty($value['People']['date_of_birth'])) {
