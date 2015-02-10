@@ -128,7 +128,9 @@ doFormPost(baseUrl + "/family/searchPeople?type=addchilld",
 });
 var dialog;
 $(document).ready(function () {
-    $( ".combobox" ).combobox({width: '180px'});
+    $( ".combobox" ).combobox({width: '180px',select: function( event, ui ) {
+      $('.owner').val(ui.item.value);
+      }});
     dialog = $("#dialog-form").dialog({
         autoOpen: false,
         height: 'auto',
@@ -148,7 +150,6 @@ $(document).ready(function () {
 
 function transferUser()
 {
-   
    
      $.ajax({
         url: baseUrl + '/family/transfer',
