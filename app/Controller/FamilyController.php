@@ -151,6 +151,11 @@ Class FamilyController extends AppController {
                 $this->set('readonly',true);
                 $this->set('last_name',$getPeopleData['People']['last_name']);
                 $this->set('village',$getPeopleData['People']['village']);
+				$mothers = $this->People->getAllSpouses($peopleId);
+				 $this->set('countm',count($mothers));
+				//echo '<pre>';print_r($mothers);exit;
+				
+				 $this->set(compact('mothers'));
                 break;
             case 'addnew':
                 $pageTitle = 'Add New Family';
@@ -453,7 +458,7 @@ Class FamilyController extends AppController {
                 'conditions' => array('People.id' => $_REQUEST['peopleid']))
             );
         }
-        
+      
         $this->request->data['People']['sect'] = $this->request->data['sect'];
         $this->request->data['People']['gender'] = $this->request->data['gender'];
         $this->request->data['People']['martial_status'] = $this->request->data['martial_status'];
@@ -622,7 +627,7 @@ Class FamilyController extends AppController {
                 $this->request->data['People']['partner_name'] = $name;
                 
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
-		$this->request->data['People']['created'] = date('Y-m-d H:i:s');
+				$this->request->data['People']['created'] = date('Y-m-d H:i:s');
                 if ($msg['status'] == 1) {
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
@@ -717,13 +722,21 @@ Class FamilyController extends AppController {
 
                 break;
                 case 'addchilld':
-
+				$mothers = $this->People->getAllSpouses($_REQUEST['peopleid']);
+				//echo '<pre>';print_r($mothers);exit;
+				if ( count ($mothers) > 1) {
+					$this->request->data['People']['m_id'] = $_REQUEST['data']['People']['mothers'];
+					$this->request->data['People']['mother']  = $mothers[$_REQUEST['data']['People']['mothers']];
+				 } else {
+					$this->request->data['People']['m_id'] = $getPeopleDetail[0]['People']['partner_id'];
+					 $this->request->data['People']['mother']  = $getPeopleDetail[0]['People']['partner_name'];
+				 }
                 $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
                 $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
                 $this->request->data['People']['f_id'] = $_REQUEST['peopleid'];
-                $this->request->data['People']['m_id'] = $getPeopleDetail[0]['People']['partner_id'];
+
                 $this->request->data['People']['father']  = $getPeopleDetail[0]['People']['first_name'];
-                $this->request->data['People']['mother']  = $getPeopleDetail[0]['People']['partner_name'];
+               
                // unset($this->request->data['People']['village']);
                // $this->request->data['People']['village'] = $getPeopleDetail[0]['People']['village'];
                  $msg['status'] = 1;
@@ -922,8 +935,7 @@ Class FamilyController extends AppController {
     }
 
     public function getAjaxGroups() {
-        $this->autoRender = false;
-       
+        $this->autoRender = false;       
         $userID = $this->Session->read('User.user_id');
         $roleId = $this->Session->read('User.role_id');
         $_REQUEST['showhof'] = $_REQUEST['showhof'] ? $_REQUEST['showhof'] : 'true';

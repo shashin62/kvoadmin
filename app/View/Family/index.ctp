@@ -14,7 +14,28 @@
 
 			<?php } else  { ?>
             <?php } ?>
+			<?php if(  $userType == 'addchilld'  &&  $countm > 1 ) { ?>
+			<div class="form-group required motherdiv">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mothers">Select Mother</label>
+				<div class="col-lg-8 col-md-8 col-xs-8">
 
+				<?php
+
+				echo $this->Form->input('mothers', array('id' => 'mothers',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'mothers',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => $mothers
+
+				));
+				?>
+				</div>
+			</div>
+			<?php } ?>
 			<div class="form-group required">
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="sect">Sect</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">

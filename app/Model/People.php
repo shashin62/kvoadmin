@@ -380,13 +380,13 @@ Class People extends AppModel {
                         'People.id = Group.people_id'
                     )
                 ),
-//	 array('table' => 'spouses',
-//		        'alias' => 'exspouse',
-//		        'type' => 'LEFT',
-//		        'conditions' => array(
-//		            'People.id  = exspouse.people_id '
-//		        )
-//		    )
+	 array('table' => 'spouses',
+		        'alias' => 'exspouse',
+		        'type' => 'LEFT',
+		        'conditions' => array(
+		            'People.id  = exspouse.people_id '
+		        )
+		    )
             );
         }
         if ($getAllDetails) {
@@ -397,8 +397,8 @@ Class People extends AppModel {
                 'parent3.first_name as partner_name', 'parent1.first_name as father', 'parent2.first_name as mother'
             );
         } else {
-            // $options['fields'] = array('People.*','Group.tree_level','Group.people_id','group_concat(exspouse.spouse_id) as exspouses');
-            $options['fields'] = array('People.*', 'Group.tree_level', 'Group.people_id');
+             $options['fields'] = array('People.*','Group.tree_level','Group.people_id','group_concat(exspouse.spouse_id) as exspouses');
+            //$options['fields'] = array('People.*', 'Group.tree_level', 'Group.people_id');
             if ($flag) {
                 //$options['fields'][] = array('secondary as secondary');
             }
@@ -421,6 +421,23 @@ Class People extends AppModel {
             return false;
         }
     }
+	
+	public function getAllSpouses($id) {
+		$this->recursive = -1;
+		$options['conditions'] = array('People.partner_id' => $id,'People.gender'=> 'female' );
+        $options['fields'] = array('People.id','People.first_name');
+        try {
+            $userData = $this->find('list', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+	 }
 
     public function updateAfterDeletion($id) {
         $this->recursive = -1;
