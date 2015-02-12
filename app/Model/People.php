@@ -808,10 +808,10 @@ Class People extends AppModel {
     }
 
     public function getMissingData($userID, $roleID, $operatorid) {
-        $aColumns = array('id', 'first_name', 'last_name', 'mobile_number');
+        $aColumns = array('p.id', 'p.first_name', 'p.last_name', 'p.mobile_number');
 
         /* Indexed column (used for fast and accurate table cardinality) */
-        $sIndexColumn = "id";
+        $sIndexColumn = "p.id";
 
         /* DB table to use */
         $sTable = "people as p";
@@ -832,7 +832,7 @@ Class People extends AppModel {
             $sOrder = "ORDER BY  ";
             for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
                 if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
-                    $sOrder .= "`" . $aColumns[intval($_GET['iSortCol_' . $i])] . "` " .
+                    $sOrder .= "" . $aColumns[intval($_GET['iSortCol_' . $i])] . " " .
                             ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
                 }
             }
@@ -842,6 +842,7 @@ Class People extends AppModel {
                 $sOrder = "";
             }
         }
+		  $aSearchCollumns = array('p.id', 'p.first_name', 'p.last_name', 'p.mobile_number');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -851,34 +852,44 @@ Class People extends AppModel {
         $sWhere = "";
         if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
             $sWhere = "WHERE (";
-            for ($i = 0; $i < count($aColumns); $i++) {
-                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch']) . "%' OR ";
+            for ($i = 0; $i < count($aSearchCollumns); $i++) {
+                $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch']) . "%' OR ";
             }
             $sWhere = substr_replace($sWhere, "", -3);
             $sWhere .= ')';
         }
         /* Individual column filtering */
-        for ($i = 0; $i < count($aColumns); $i++) {
+        for ($i = 0; $i < count($aSearchCollumns); $i++) {
             if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
                 if ($sWhere == "") {
                     $sWhere = "WHERE ";
                 } else {
                     $sWhere .= " AND ";
                 }
-                $sWhere .= "`" . $aColumns[$i] . "` LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
+                $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
         }
         if ($roleID == 1) {
 
             if ($operatorid) {
+			 if ($sWhere == "") {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$operatorid} ";
-                $sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number = '' ) or 
+                
+			} else {
+				$sWhere .= "and p.is_late = 0 and p.created_by = {$operatorid} ";
+			} 
+			$sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number = '' ) or 
 			( p.m_id IS  NULL) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             } else {
+			if ($sWhere == "") {
                 $sWhere = "WHERE p.is_late = 0";
+				} else {
+				$sWhere .= " and p.is_late = 0";
+				}
             }
+			//echo $sWhere;
         } else {
             if ($sWhere == "") {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID} and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
@@ -892,7 +903,7 @@ Class People extends AppModel {
 			or (  grandfatherm.first_name IS  NULL))";
             }
         }
-
+//echo $sWhere;
         $sJoin = "  LEFT JOIN people as parent1 ON parent1.id = p.f_id
 LEFT JOIN people as parent2 ON parent2.id = p.m_id
 LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
@@ -906,18 +917,17 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
 
         $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS p.id,p.group_id,p.first_name,p.last_name,
-REPLACE(CONCAT(if(p.m_id = '' OR p.m_id IS NULL,'Mother','-'), ', ',
-if(p.f_id = '' OR p.f_id IS NULL,'Father','-'),', ',if(p.address_id = '' OR p.address_id IS NULL,'Home Address','-')
+REPLACE(CONCAT(if( p.non_kvo = 0 and (p.m_id = '' OR p.m_id IS NULL),'Mother','-'), ', ',
+if( p.non_kvo = 0 and (p.f_id = '' OR p.f_id IS NULL),'Father','-'),', ',if(p.address_id = '' OR p.address_id IS NULL,'Home Address','-')
 ,', ',if(p.tree_level = '' and (p.mobile_number = '' OR p.mobile_number IS NULL),'Mobile','-')
 ,', ',if(p.date_of_birth = '' OR p.date_of_birth IS NULL,'DOB','-')
 ,', ',if(p.village = '' OR p.village IS NULL,'Village','-')
-,', ',if(grandfather.first_name = '' OR grandfather.first_name IS NULL,'GrandFather' , '-')
-,', ',if(grandfatherm.first_name = '' OR grandfatherm.first_name IS NULL,'GrandFather-Mother' , '-')
+,', ',if(p.non_kvo = 0 and (grandfather.first_name = '' OR grandfather.first_name IS NULL),'GrandFather' , '-')
+,', ',if( p.non_kvo = 0 and (grandfatherm.first_name = '' OR grandfatherm.first_name IS NULL),'GrandFather-Mother' , '-')
 ),'-,','') as missingdata
             FROM   $sTable
 $sJoin
-            $sWhere
-            $sOrder
+            $sWhere            
             $sLimit
             ";
 
@@ -933,7 +943,7 @@ $sJoin
 
         /* Total data set length */
         $sQuery = "
-    SELECT COUNT(`" . $sIndexColumn . "`) as countid
+    SELECT COUNT(" . $sIndexColumn . ") as countid
             FROM   $sTable
             ";
         $rResultTotal = $this->query($sQuery);
