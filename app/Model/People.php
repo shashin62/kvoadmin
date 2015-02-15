@@ -225,6 +225,147 @@ Class People extends AppModel {
         //  exit;
         return $output;
     }
+    
+    public function getAllData($userID, $roleID, $data) {
+         $aColumns = array('p.id', 'p.first_name', 'p.last_name', 'p.village', 'p.mobile_number','p.date_of_birth'
+        );
+
+        /* Indexed column (used for fast and accurate table cardinality) */
+        $sIndexColumn = "p.id";
+
+        /* DB table to use */
+        $sTable = "people as p";
+        /*
+         * Paging
+         */
+        $sLimit = "";
+        if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+            $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
+                    intval($_GET['iDisplayLength']);
+        }
+
+
+        /*
+         * Ordering
+         */
+        $sOrder = "";
+        if (isset($_GET['iSortCol_0'])) {
+            $sOrder = "ORDER BY  ";
+            for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
+                if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
+                    $sOrder .= "" . $aColumns[intval($_GET['iSortCol_' . $i])] . " " .
+                            ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+                }
+            }
+
+            $sOrder = substr_replace($sOrder, "", -2);
+            if ($sOrder == "ORDER BY") {
+                $sOrder = "";
+            }
+        }
+
+        $aSearchCollumns = array('p.id', 'p.first_name', 'p.last_name','p.village','p.mobile_number','p.date_of_birth');
+        /*
+         * Filtering
+         * NOTE this does not match the built-in DataTables filtering which does it
+         * word by word on any field. It's possible to do here, but concerned about efficiency
+         * on very large tables, and MySQL's regex functionality is very limited
+         */
+        $sWhere = "";
+        if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+            $sWhere = "WHERE (";
+            for ($i = 0; $i < count($aSearchCollumns); $i++) {
+                $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch']) . "%' OR ";
+            }
+            $sWhere = substr_replace($sWhere, "", -3);
+            $sWhere .= ')';
+        }
+        /* Individual column filtering */
+        for ($i = 0; $i < count($aSearchCollumns); $i++) {
+            if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
+                if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= " AND ";
+                }
+                $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
+            }
+        }
+
+        if (isset($data['village']) && is_array($data['village']) ) {
+            $village = implode(',', $data['village']);
+             if ($sWhere == "") {
+                        $sWhere = "WHERE p.village in ($village)";
+                    } else { 
+                        $sWhere .= ' AND p.village in ($village)';
+                    }
+            
+        }
+      //  echo $village;  
+    //  echo  $sWhere;
+
+
+        //$sGroup = " group by p.mobile_number";
+
+       $sQuery = "
+    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number,p.date_of_birth
+            FROM   $sTable               
+            $sWhere               
+            $sOrder
+            $sLimit
+            ";
+
+        $rResult = $this->query($sQuery);
+
+        /* Data set length after filtering */
+        $sQuery = "
+    SELECT FOUND_ROWS() as total";
+        
+        $rResultFilterTotal = $this->query($sQuery);
+
+        $iFilteredTotal = $rResultFilterTotal[0][0]['total'];
+
+        /* Total data set length */
+        $sQuery = "
+    SELECT COUNT(" . $sIndexColumn . ") as countid
+            FROM   $sTable
+            ";
+        $rResultTotal = $this->query($sQuery);
+
+        $iTotal = $rResultTotal[0][0]['countid'];
+        /*
+         * Output
+         */
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iFilteredTotal,
+            "aaData" => array()
+        );
+
+       
+        foreach ($rResult as $key => $value) {
+
+            $row = array();
+            //for ($i = 0; $i < count($aColumns); $i++) {
+            /* General output */
+            //if( $type != 'global') {
+         
+            //}
+            foreach ($value['p'] as $k => $v) {
+
+               
+                    $row[] = $v;
+                
+            }
+           
+          
+            $output['aaData'][] = $row;
+        }
+       
+        return $output;
+        
+    }
 
     public function getChildren($fatherId, $gender = false, $groupId = false) {
         $this->recursive = -1;
@@ -1322,5 +1463,110 @@ GROUP BY p.created_by");
         }
     }
 
+    public function fetchBusniessTypeName() {
+        $this->recursive = -1;
+       //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
+        $options['fields'] = array('People.business_name', 'People.business_name');
+         $options['group'] = array('People.business_name');
+        try {
+            $userData = $this->find('list', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function fetchBusniessName() {
+        $this->recursive = -1;
+       //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
+        $options['fields'] = array('People.name_of_business', 'People.name_of_business');
+         $options['group'] = array('People.name_of_business');
+        try {
+            $userData = $this->find('list', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function fetchSpecialityBusniessName() {
+         $this->recursive = -1;
+       //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
+        $options['fields'] = array('People.specialty_business_service','People.specialty_business_service');
+         $options['group'] = array('People.specialty_business_service');
+        try {
+            $userData = $this->find('list', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    public function fetchNatureBusniessName() {
+          $this->recursive = -1;
+       //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
+        $options['fields'] = array('People.nature_of_business','People.nature_of_business');
+         $options['group'] = array('People.nature_of_business');
+        try {
+            $userData = $this->find('list', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function fetchOccupation()  {
+          $this->recursive = -1;
+       //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
+        $options['fields'] = array('People.occupation','People.occupation');
+         $options['group'] = array('People.occupation');
+        try {
+            $userData = $this->find('list', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+     public function fetchDateofBirth()  {
+          $this->recursive = -1;
+         $options['conditions'] = array('People.date_of_birth is not null');
+        $options['fields'] = array('distinct(DATE_FORMAT(People.date_of_birth,"%Y")) as date_of_birth');
+        //$options['group'] = array('People.date_of_birth');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+     }
 }
 
