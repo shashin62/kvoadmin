@@ -1299,10 +1299,10 @@ LEFT JOIN people as parent2 ON parent2.id = p.m_id
 LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
 LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     
-            WHERE $sWhere and (p.f_id IS NOT NULL) and 
-			( p.m_id IS NOT NULL) and (p.mobile_number != ''  ) and 
-			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and (  grandfather.first_name IS NOT NULL)
-			and (  grandfatherm.first_name IS NOT NULL)  $sdate
+            WHERE $sWhere and (p.non_kvo = 0 and p.f_id IS NOT NULL) and 
+			( p.non_kvo = 0 and p.m_id IS NOT NULL) and (p.mobile_number != ''  ) and 
+			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and ( p.non_kvo = 0 and  grandfather.first_name IS NOT NULL)
+			and ( p.non_kvo = 0 and  grandfatherm.first_name IS NOT NULL)  $sdate
                         $sOrder
             $sLimit
             ";
