@@ -272,6 +272,8 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
         <th>Village</th> 
         <th>Mobile</th>
         <th>Date of Birth</th>
+        <th>Sect</th>
+        <th>Martial Status</th>
     </tr>
     </thead>
 </table>
