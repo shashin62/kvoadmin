@@ -229,7 +229,9 @@ Class People extends AppModel {
     public function getAllData($userID, $roleID, $data) {
          $aColumns = array('p.id', 'p.first_name', 'p.last_name', 'p.village', 'p.mobile_number','p.date_of_birth'
         );
-
+//echo '<pre>';
+//          print_r($data);
+//          exit;
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "p.id";
 
@@ -292,19 +294,107 @@ Class People extends AppModel {
             }
         }
 
-        if (isset($data['village']) && is_array($data['village']) ) {
-            $village = implode(',', $data['village']);
-             if ($sWhere == "") {
-                        $sWhere = "WHERE p.village in ($village)";
-                    } else { 
-                        $sWhere .= ' AND p.village in ($village)';
-                    }
-            
+        if (isset($data['village']) && is_array($data['village'])) {
+            $village = implode("','", $data['village']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.village in ('$village')";
+            } else {
+                $sWhere .= " AND p.village in ('$village')";
+            }
         }
-      //  echo $village;  
-    //  echo  $sWhere;
-
-
+        
+         if (isset($data['martial_status']) && is_array($data['martial_status'])) {
+            $martial_status = implode("','", $data['martial_status']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.martial_status in ('$martial_status')";
+            } else {
+                $sWhere .= " AND p.martial_status in ('$martial_status')";
+            }
+        }
+        
+         if (isset($data['occupation']) && is_array($data['occupation'])) {
+            $occupation = implode("','", $data['occupation']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.occupation in ('$occupation')";
+            } else {
+                $sWhere .= " AND p.occupation in ('$occupation')";
+            }
+        }
+        
+         if (isset($data['gender']) && is_array($data['gender'])) {
+            $gender = implode("','", $data['gender']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.gender in ('$gender')";
+            } else {
+                $sWhere .= " AND p.gender in ('$gender')";
+            }
+        }
+        
+        if (isset($data['nature_of_business']) && is_array($data['nature_of_business'])) {
+            $nature_of_business = implode("','", $data['nature_of_business']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.nature_of_business in ('$nature_of_business')";
+            } else {
+                $sWhere .= " AND p.nature_of_business in ('$nature_of_business')";
+            }
+        }
+        
+        if (isset($data['typebusniess']) && is_array($data['typebusniess'])) {
+            $typebusniess = implode("','", $data['typebusniess']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.business_name in ('$typebusniess')";
+            } else {
+                $sWhere .= " AND p.business_name in ('$typebusniess')";
+            }
+        }
+        
+        if (isset($data['specialbusniess']) && is_array($data['specialbusniess'])) {
+            $specialbusniess = implode("','", $data['specialbusniess']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.specialty_business_service in ('$specialbusniess')";
+            } else {
+                $sWhere .= " AND p.specialty_business_service in ('$specialbusniess')";
+            }
+        }
+        
+         if (isset($data['busniessname']) && is_array($data['busniessname'])) {
+            $busniessname = implode("','", $data['busniessname']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.name_of_business in ('$busniessname')";
+            } else {
+                $sWhere .= " AND p.name_of_business  in ('$busniessname')";
+            }
+        }
+        
+        if (isset($data['sects']) && is_array($data['sects'])) {
+            $sects = implode("','", $data['sects']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.sect in ('$sects')";
+            } else {
+                $sWhere .= " AND p.sect  in ('$sects')";
+            }
+        }
+        
+          if (isset($data['islate']) && is_array($data['islate'])) {
+            $islate = implode("','", $data['islate']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE p.is_late  in ('$islate')";
+            } else {
+                $sWhere .= " AND p.is_late  in ('$islate')";
+            }
+        }
+        if (isset($data['date_of_birth']) && is_array($data['date_of_birth'])) {
+            $date_of_birth = implode("','", $data['date_of_birth']);
+            if ($sWhere == "") {
+                $sWhere = "WHERE DATE_FORMAT(p.date_of_birth,'%Y')  in ('$date_of_birth')";
+            } else {
+                $sWhere .= " AND DATE_FORMAT(p.date_of_birth,'%Y')  in ('$date_of_birth')";
+            }
+        }
+        //  echo $village;  
+//      echo  $sWhere;
+//
+//exit;
         //$sGroup = " group by p.mobile_number";
 
        $sQuery = "
@@ -318,8 +408,7 @@ Class People extends AppModel {
         $rResult = $this->query($sQuery);
 
         /* Data set length after filtering */
-        $sQuery = "
-    SELECT FOUND_ROWS() as total";
+        $sQuery = "SELECT FOUND_ROWS() as total";
         
         $rResultFilterTotal = $this->query($sQuery);
 
@@ -347,22 +436,13 @@ Class People extends AppModel {
         foreach ($rResult as $key => $value) {
 
             $row = array();
-            //for ($i = 0; $i < count($aColumns); $i++) {
-            /* General output */
-            //if( $type != 'global') {
-         
-            //}
+            
             foreach ($value['p'] as $k => $v) {
-
-               
-                    $row[] = $v;
-                
+                $row[] = $v;
             }
-           
-          
             $output['aaData'][] = $row;
         }
-       
+
         return $output;
         
     }
