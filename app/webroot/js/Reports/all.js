@@ -39,7 +39,7 @@ $(function () {
 });
 
 $('.search').click(function () {
-    
+    var $islate = $('.islate').val();
     var $village = $('.village').val();
     var $busniessname = $('.name_of_business').val();
     var $gender = $('.gender').val();
@@ -51,7 +51,8 @@ $('.search').click(function () {
     var $date_of_birth = $('.date_of_birth').val();
     var $sects = $('.sects').val();
        
-     var myArray = {
+     var myArray = {         
+         "islate": $islate,
             "village": $village,
             "busniessname": $busniessname,
             "gender": $gender,
@@ -70,5 +71,5 @@ $('.search').click(function () {
 });
 
 $('.clear').click(function () {
-    window.location.href = baseUrl + "/report/completedrecords"; 
+    window.location.href = baseUrl + "/report/all"; 
 });
