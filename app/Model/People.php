@@ -1099,7 +1099,7 @@ Class People extends AppModel {
 			} else {
 				$sWhere .= "and p.is_late = 0 and p.created_by = {$operatorid} ";
 			} 
-			$sWhere .= "and  ((p.f_id IS  NULL) or  (p.mobile_number = '' ) or 
+			$sWhere .= "and  ((p.f_id IS  NULL) or 
 			( p.m_id IS  NULL) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
@@ -1114,12 +1114,12 @@ Class People extends AppModel {
         } else {
             if ($sWhere == "") {
                 $sWhere = "WHERE p.is_late = 0 and p.created_by = {$userID} and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
-			( p.m_id IS  NULL) or  (p.mobile_number = '' )
+			( p.m_id IS  NULL) 
 			or( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             } else {
                 $sWhere .= " AND p.is_late = 0 and p.created_by = {$userID} and  ((p.f_id IS  NULL) or 
-			( p.m_id IS  NULL) or  (p.mobile_number = '' ) or 
+			( p.m_id IS  NULL) or 
 			( p.date_of_birth IS  NULL) or (  p.village IS  NULL or  p.village = '') or (  grandfather.first_name IS  NULL)
 			or (  grandfatherm.first_name IS  NULL))";
             }
@@ -1136,11 +1136,10 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
          * Get data to display
          */
 
-        $sQuery = "
+       $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS p.id,p.group_id,p.first_name,p.last_name,
 REPLACE(CONCAT(if( p.non_kvo = 0 and (p.m_id = '' OR p.m_id IS NULL),'Mother','-'), ', ',
 if( p.non_kvo = 0 and (p.f_id = '' OR p.f_id IS NULL),'Father','-'),', ',if(p.address_id = '' OR p.address_id IS NULL,'Home Address','-')
-,', ',if(p.tree_level = '' and (p.mobile_number = '' OR p.mobile_number IS NULL),'Mobile','-')
 ,', ',if(p.date_of_birth = '' OR p.date_of_birth IS NULL,'DOB','-')
 ,', ',if(p.village = '' OR p.village IS NULL,'Village','-')
 ,', ',if(p.non_kvo = 0 and (grandfather.first_name = '' OR grandfather.first_name IS NULL),'GrandFather' , '-')
@@ -1148,7 +1147,8 @@ if( p.non_kvo = 0 and (p.f_id = '' OR p.f_id IS NULL),'Father','-'),', ',if(p.ad
 ),'-,','') as missingdata
             FROM   $sTable
 $sJoin
-            $sWhere            
+            $sWhere
+                having trim(missingdata) != '-'
             $sLimit
             ";
 
@@ -1183,7 +1183,7 @@ $sJoin
 
         foreach ($rResult as $key => $value) {
 
-            if (trim($value[0]['missingdata']) != '-') {
+            //if (trim($value[0]['missingdata']) != '-') {
 
                 $row = array();
                 foreach ($value['p'] as $k => $v) {
@@ -1193,7 +1193,7 @@ $sJoin
 
                 $row[] = '';
                 $output['aaData'][] = $row;
-            }
+           // }
         }
 
         return $output;
@@ -1300,7 +1300,7 @@ LEFT JOIN people as grandfather ON grandfather.id = parent1.f_id
 LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     
             WHERE $sWhere and (p.non_kvo = 0 and p.f_id IS NOT NULL) and 
-			( p.non_kvo = 0 and p.m_id IS NOT NULL) and (p.mobile_number != ''  ) and 
+			( p.non_kvo = 0 and p.m_id IS NOT NULL) and 
 			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and ( p.non_kvo = 0 and  grandfather.first_name IS NOT NULL)
 			and ( p.non_kvo = 0 and  grandfatherm.first_name IS NOT NULL)  $sdate
                         $sOrder
