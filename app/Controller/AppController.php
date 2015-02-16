@@ -53,7 +53,7 @@ class AppController extends Controller {
                 'getAutoCompleteLastName','populateZipCodeData','getZipCodesData',
                 'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData','getZipAjaxData'
                 ,'index','addZip','deleteZip','getMissingRecords','records','changestatus',
-                'completedrecords','getCompletedRecords'),
+                'completedrecords','getCompletedRecords','all','getAllAjaxData'),
 //            'authenticate' => array(
 //                'all' => array('userModel' => 'User'),
 //                'Form' => array(),
