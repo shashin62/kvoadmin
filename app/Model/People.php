@@ -227,8 +227,8 @@ Class People extends AppModel {
     }
     
     public function getAllData($userID, $roleID, $data) {
-         $aColumns = array('p.id', 'p.first_name', 'p.last_name', 'p.village', 'p.mobile_number','p.date_of_birth'
-        );
+         $aColumns = array('p.id', 'p.first_name', 'p.last_name', 'p.village', 'p.mobile_number','p.date_of_birth','p.sect','p.martial_status');
+        
 //echo '<pre>';
 //          print_r($data);
 //          exit;
@@ -266,7 +266,7 @@ Class People extends AppModel {
             }
         }
 
-        $aSearchCollumns = array('p.id', 'p.first_name', 'p.last_name','p.village','p.mobile_number','p.date_of_birth');
+        $aSearchCollumns = array('p.id', 'p.first_name', 'p.last_name','p.village','p.mobile_number','p.date_of_birth','p.sect','p.martial_status');
         /*
          * Filtering
          * NOTE this does not match the built-in DataTables filtering which does it
@@ -398,7 +398,7 @@ Class People extends AppModel {
         //$sGroup = " group by p.mobile_number";
 
        $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number,p.date_of_birth
+    SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number,p.date_of_birth,p.sect,p.martial_status
             FROM   $sTable               
             $sWhere               
             $sOrder
