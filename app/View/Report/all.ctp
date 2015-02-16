@@ -11,8 +11,8 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'label' => false,
 				'div' => false,
 				'legend' => false,
-				'empty' => __d('label', '--Select--'),
-				'class' => 'mothers',
+				'multiple' 		 => 'multiple',	
+				'class' => 'islate',
 				'style' => '',				
 				'options' => $personstatus
 
@@ -309,7 +309,9 @@ $('#date_of_birth').multiselect({
             checkboxName: 'multiselect[]'
         });
 
-$('#example-single').multiselect();
+$('#example-single').multiselect({
+            checkboxName: 'multiselect[]'
+        });
     });
 </script>
 <?php echo $this->Html->script(array('Reports/all')); ?>
