@@ -31,7 +31,12 @@ Class ReportController extends AppController {
     public $components = array('Session');
 
     public function reports() {
-        
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
     }
 
     public function getReportsData() {
@@ -42,6 +47,12 @@ Class ReportController extends AppController {
     }
 
     public function records() {
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
         $roleID = $this->Session->read('User.role_id');
         $this->set('roleID', $roleID);
         $operators = $this->User->getOperatorsList();
@@ -49,7 +60,12 @@ Class ReportController extends AppController {
     }
 
     public function completedrecords() {
-        
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
     }
 
     public function getCompletedRecords() {
