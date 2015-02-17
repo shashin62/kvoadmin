@@ -103,7 +103,7 @@ Class ReportController extends AppController {
          $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
         $this->set(compact('villages'));
         
-         $occupation = $this->People-> fetchOccupation();
+        $occupation = $this->People->fetchOccupation();
         $this->set(compact('occupation'));
         
          $date_of_birth = $this->People->fetchDateofBirth();
