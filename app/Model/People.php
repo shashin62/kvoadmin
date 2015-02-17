@@ -1547,6 +1547,7 @@ GROUP BY p.created_by");
 
     public function fetchBusniessTypeName() {
         $this->recursive = -1;
+        $options['conditions'] = array('People.business_name !=' => '');
        //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
         $options['fields'] = array('People.business_name', 'People.business_name');
          $options['group'] = array('People.business_name');
@@ -1565,6 +1566,7 @@ GROUP BY p.created_by");
     
     public function fetchBusniessName() {
         $this->recursive = -1;
+         $options['conditions'] = array('People.name_of_business !=' => '');
        //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
         $options['fields'] = array('People.name_of_business', 'People.name_of_business');
          $options['group'] = array('People.name_of_business');
@@ -1583,6 +1585,7 @@ GROUP BY p.created_by");
     
     public function fetchSpecialityBusniessName() {
          $this->recursive = -1;
+          $options['conditions'] = array('People.specialty_business_service !=' => '');
        //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
         $options['fields'] = array('People.specialty_business_service','People.specialty_business_service');
          $options['group'] = array('People.specialty_business_service');
@@ -1600,6 +1603,7 @@ GROUP BY p.created_by");
     }
     public function fetchNatureBusniessName() {
           $this->recursive = -1;
+          $options['conditions'] = array('People.nature_of_business !=' => '');
        //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
         $options['fields'] = array('People.nature_of_business','People.nature_of_business');
          $options['group'] = array('People.nature_of_business');
