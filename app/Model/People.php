@@ -383,12 +383,14 @@ Class People extends AppModel {
                 $sWhere .= " AND p.is_late  in ('$islate')";
             }
         }
-        if (isset($data['date_of_birth']) && is_array($data['date_of_birth'])) {
-            $date_of_birth = implode("','", $data['date_of_birth']);
+        if (isset($data['date_of_birth_from']) && is_array($data['date_of_birth_from']) && isset($data['date_of_birth_to']) && is_array($data['date_of_birth_to']) ) {
+          
+             $fromdate=  $data['date_of_birth_from']['0'];
+             $todate=  $data['date_of_birth_to']['0'];
             if ($sWhere == "") {
-                $sWhere = "WHERE DATE_FORMAT(p.date_of_birth,'%Y')  in ('$date_of_birth')";
-            } else {
-                $sWhere .= " AND DATE_FORMAT(p.date_of_birth,'%Y')  in ('$date_of_birth')";
+                $sWhere = "WHERE DATE_FORMAT(p.date_of_birth,'%Y') between '$fromdate' AND  '$todate'";
+            } else { 
+                $sWhere .= " AND  DATE_FORMAT(p.date_of_birth,'%Y') between '$fromdate' AND  '$todate'";
             }
         }
         //  echo $village;  
@@ -1616,7 +1618,7 @@ GROUP BY p.created_by");
     
     public function fetchOccupation()  {
           $this->recursive = -1;
-       //  $options['conditions'] = array('People.nature_of_business like' => '%' . $term . '%');
+         $options['conditions'] = array('People.occupation !=' => '');
         $options['fields'] = array('People.occupation','People.occupation');
          $options['group'] = array('People.occupation');
         try {
@@ -1635,7 +1637,7 @@ GROUP BY p.created_by");
           $this->recursive = -1;
          $options['conditions'] = array('People.date_of_birth is not null');
         $options['fields'] = array('distinct(DATE_FORMAT(People.date_of_birth,"%Y")) as date_of_birth');
-        //$options['group'] = array('People.date_of_birth');
+        $options['order'] = array('People.date_of_birth desc');
         try {
             $userData = $this->find('all', $options);
             if ($userData) {
