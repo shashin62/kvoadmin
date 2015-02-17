@@ -208,7 +208,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'legend' => false,
 				
 				'class' => 'date_of_birth_from',
- 'multiple'  => 'multiple',
+
 				'style' => '',				
 				'options' => $dobs
 
@@ -221,7 +221,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'legend' => false,
 				
 				'class' => 'date_of_birth_to',
- 'multiple'  => 'multiple',
+
 				'style' => '',				
 				'options' => $dobs
 
@@ -293,16 +293,11 @@ $('#occupation').multiselect({
 $('#village').multiselect({
             checkboxName: 'multiselect[]'
         });
-$('#date_of_birth').multiselect({
-            checkboxName: 'multiselect[]'
-        });
 
 $('#example-single').multiselect({
             checkboxName: 'multiselect[]'
         });
-$('#date_of_birthfrom').multiselect({
-            checkboxName: 'multiselect[]'
-        });
+
 
     });
 </script>
