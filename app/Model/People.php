@@ -383,10 +383,11 @@ Class People extends AppModel {
                 $sWhere .= " AND p.is_late  in ('$islate')";
             }
         }
-        if (isset($data['date_of_birth_from']) && is_array($data['date_of_birth_from']) && isset($data['date_of_birth_to']) && is_array($data['date_of_birth_to']) ) {
+        //print_r($data);exit;
+        if (isset($data['date_of_birth_from']) && $data['date_of_birth_from'] != ""  && isset($data['date_of_birth_to']) && $data['date_of_birth_to'] != "" ) {
           
-             $fromdate=  $data['date_of_birth_from']['0'];
-             $todate=  $data['date_of_birth_to']['0'];
+             $fromdate=  $data['date_of_birth_from'];
+             $todate=  $data['date_of_birth_to'];
             if ($sWhere == "") {
                 $sWhere = "WHERE DATE_FORMAT(p.date_of_birth,'%Y') between '$fromdate' AND  '$todate'";
             } else { 
