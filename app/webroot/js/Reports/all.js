@@ -48,8 +48,10 @@ $('.search').click(function () {
     var $specialbusniess = $('.specialty_business_service').val();
     var $typebusniess = $('.businestypesname').val();
     var $occupation = $('.occupation').val();
-    var $date_of_birth = $('.date_of_birth').val();
+    var $date_of_birth_from = $('.date_of_birth_from').val();
+     var $date_of_birth_to = $('.date_of_birth_to').val();
     var $sects = $('.sects').val();
+    
        
      var myArray = {         
          "islate": $islate,
@@ -61,7 +63,8 @@ $('.search').click(function () {
             "specialbusniess": $specialbusniess,
             "typebusniess": $typebusniess,
             "occupation": $occupation,
-            "date_of_birth": $date_of_birth,
+            "date_of_birth_from": $date_of_birth_from,
+            "date_of_birth_to": $date_of_birth_to,
             "sects": $sects,            
             "specialbusniess": $specialbusniess,            
             "typebusniess": $typebusniess
