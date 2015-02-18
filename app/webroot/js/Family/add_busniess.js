@@ -73,7 +73,7 @@ showoccupation(occupation);
             var peopleid = pid;
              var addressid = aid;
            
-            $.post(baseUrl + '/family/doProcessAddBusiness?peopleid=' + peopleid + '&addressid=' + addressid + '&parentid=' + prntid+ '&paddressid=' + paddressid, queryString, function (data) {
+            $.post(baseUrl + '/family/doProcessAddBusiness?peopleid=' + peopleid + '&addressid=' + addressid + '&parentid=' + prntid+ '&paddressid=' + paddressid+ '&gid=' + grpid, queryString, function (data) {
                  if (0 == data.status) {
                 if (data.error.name.length > 0) {
                     for (var i = 0; i < data.error.name.length; i++) {
@@ -106,9 +106,11 @@ $(".addressButton").click(function () {
     }
     var occupation = $.trim($('.occupations > label.active').text());
      var occupations = ['House Wife','Retired','Studying','Other'];
-  
+  //console.log($('.other:checked').val());
+ // return;
+  //|| $('.same_as').is(':checked') == true
    
-    if ( $('.same_as').is(':checked') == true || $.inArray(occupation,occupations) == 0) {
+    if (  $('.other:checked').val() != 'other'  || $.inArray(occupation,occupations) == 0) {
        
         $('.city').rules('remove', 'required'); 
         $('.zipcode').rules('remove', 'required');
@@ -121,13 +123,13 @@ $(".addressButton").click(function () {
     return false;
 });
 
-$('.same_as').click(function(){
-    if ( $(this).is(':checked') == true) {
-        $('.addresscontainer').hide();
-    } else {
-        $('.addresscontainer').show();
-    }
-});
+//$('.same_as').click(function(){
+//    if ( $(this).is(':checked') == true) {
+//        $('.addresscontainer').hide();
+//    } else {
+//        $('.addresscontainer').show();
+//    }
+//});
 function showoccupation($this)
 {
     var occp ;
@@ -149,4 +151,30 @@ function showoccupation($this)
 $('.occupations > label').click(function(){
     showoccupation($.trim($(this).text()));
 });
+$('.other').click(function () {
+
+    if ($(this).val() == 'other') {
+        $('.addresscontainer').show();
+
+       
+    } else {
+        $('.addresscontainer').hide();
+    }
+});
+$('.same_ashomeaddress').click(function () {
+
+    if ($(this).is(':checked') == true) {
+        $('.otherbusinessa').hide();
+        $('.addresscontainer').hide();
+        $('.other').attr('checked',false);
+    } else {
+        $('.otherbusinessa').show();
+       
+        $('.other').attr('checked',false);
+    }
+
+});
+
+
+
 
