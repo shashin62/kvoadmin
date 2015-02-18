@@ -1093,16 +1093,25 @@ Class FamilyController extends AppController {
         $array['gid'] = $gid;
         
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
-      
-        $data = $this->People->getFamilyDetails($gid, $pid);
         
+        $data = $this->People->getFamilyDetails($gid, $pid);
+       
+        $getBusniessIds =  $this->People->getBusniessIds($gid, $pid);
+       
+        $this->set('busniessIds',$getBusniessIds);
         
         $peopleData = $data[0]['People'];
         $groupData  = $data[0]['Group'];
-       
+//         echo '<pre>';
+//        print_r($peopleData);
+//        exit;
+          $this->set('isHOF',$peopleData['tree_level']);
+        $this->set('busniessID',$peopleData['business_address_id']);
+        $this->set('isSetHomeAddress',$peopleData['address_id'] );
         $this->set('show',$groupData['tree_level'] == "" ? false : true);
         $this->set('occupation',$peopleData['occupation'] ? $peopleData['occupation']: '');
         $this->set('business_name',$peopleData['business_name']);
+        $this->set('isSameChecked',$peopleData['address_id'] == $peopleData['business_address_id'] ? true : false);
         $this->set('specialty_business_service',$peopleData['specialty_business_service']);
         $this->set('nature_of_business',$peopleData['nature_of_business']);
         $getParentAddress = $this->Address->find('all',
@@ -1120,6 +1129,7 @@ Class FamilyController extends AppController {
                 $this->set($key,$value);
             }
         }
+       
          $this->set('peopleid',$pid);
          $this->set('aid',$aid ? $aid : '');
          $this->set('gid',$gid ? $gid : '');
@@ -1148,28 +1158,33 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['name_of_business'] = $this->request->data['Address']['name_of_business'];
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife','Retired','Studying','Other');
-         
+//         echo '<pre>';
+//         print_r($_REQUEST);
+//         exit;
         if (!in_array($this->request->data['occupation'], $occupation)) {
             
             $parentId = $_REQUEST['parentid'];
             $paddressid = $_REQUEST['paddressid'];
             if ($same == 1) {
-                
-                    $conditions = array('Address.id' => $paddressid);
-               
 
-                $getParentAddress = $this->Address->find('all', array('conditions' => $conditions));
-
-               $msg['status'] = 1;
-                    $addressId = $this->Address->id;
-                    $updatePeople = array();
-                    $updatePeople['People']['business_address_id'] = $getParentAddress[0]['Address']['id'];
-                    $updatePeople['People']['id'] = $_REQUEST['peopleid'];
-                    $this->People->save($updatePeople);
-                    $message = 'Information has been saved';
-               
-               
-            } else {
+                $conditions = array('People.id' => $peopleId);
+                $fields = array('People.address_id');
+                $getHomeAddressid = $this->People->find('all', array('fields' => $fields,'conditions' => $conditions));
+                $msg['status'] = 1;
+                $addressId = $this->Address->id;
+                $updatePeople = array();
+                $updatePeople['People']['business_address_id'] = $getHomeAddressid[0]['People']['address_id'];
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                $this->People->save($updatePeople);
+                $message = 'Information has been saved';
+            } else if($same == 0 && isset($this->request->data['Address']['address_grp1']) && $this->request->data['Address']['address_grp1'] != 'other') {
+                $updatePeople = array();
+                $updatePeople['People']['business_address_id'] = $this->request->data['Address']['address_grp1'];
+                $updatePeople['People']['id'] = $_REQUEST['peopleid'];
+                $this->People->save($updatePeople);
+                $message = 'Information has been saved';
+                $msg['status'] = 1;
+            } else if( $same == 0 ||  $this->request->data['Address']['address_grp1'] == 'other' ) {
                 $getParentAddress = $this->Address->find('all', array(
                     'conditions' => array(
                         'Address.people_id' => $peopleId,
@@ -1177,10 +1192,24 @@ Class FamilyController extends AppController {
                     )
                         )
                 );
-
-                if (isset($getParentAddress[0]) && count($getParentAddress)) {
-                    $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];
-                }
+                
+                 $getBusniessIds =  $this->People->getBusniessIds($_REQUEST['gid'], $peopleId);
+//                 echo '<pre>';
+//                 echo $_REQUEST['gid'];
+//                 print_r($getBusniessIds);
+//                 exit;
+                 $ids = array();
+                 foreach ( $getBusniessIds as $key => $value) {
+                     $ids[] = $value['People']['business_address_id'];
+                 }
+                 if( $this->request->data['Address']['address_grp1'] == 'other' && !in_array($aid, $ids)) {
+                     $this->request->data['Address']['id'] = $aid;
+                 }
+//                if (isset($getParentAddress[0]) && count($getParentAddress)) {
+//                    if( $getParentAddress[0]['Address']['id'] != $aid) {
+//                        $this->request->data['Address']['id'] = $getParentAddress[0]['Address']['id'];
+//                    }
+//                }
 
                 $this->request->data['Address']['people_id'] = $_REQUEST['peopleid'];
                 $this->request->data['Address']['suburb_zone'] = $this->request->data['suburb_zone'];
