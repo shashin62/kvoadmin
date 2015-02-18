@@ -204,7 +204,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
         </div>
 		<div class="col-lg-6 col-md-6 col-xs-12">
              <div class="form-group">
-                <label class="col-lg-2 col-md-2 col-xs-2 control-label" for="date_of_birth">DoB</label>   
+                <label class="col-lg-2 col-md-2 col-xs-2 control-label" for="date_of_birth">Age</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
 					<?php
 				echo $this->Form->input('sect', array('id' => 'date_of_birth',
