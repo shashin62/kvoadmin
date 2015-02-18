@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <h3 class="heading">Add/Edit Business</h3>
+    <h3 class="heading">Add/Edit Business for <?php echo $memberName;?></h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
     <div class="row-fuild">
         <div class="col-lg-6 col-md-6 col-xs-12">
