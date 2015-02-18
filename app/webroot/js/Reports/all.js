@@ -17,7 +17,7 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams)
     }
 };
 $(function () {
-
+$('.selectpicker').selectpicker();
     oTable = $('#getallCompletedData').dataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
