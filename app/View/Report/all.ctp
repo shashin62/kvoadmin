@@ -1,3 +1,8 @@
+<style type="text/css">
+.date_of_birth_from,.date_of_birth_to {
+width: 90px !important;
+}
+</style>
 <div class="container-fluid">   
       <h3 class="heading">Records</h3>
     <div class="row">
@@ -207,7 +212,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'div' => false,
 				'legend' => false,
 				
-				'class' => 'date_of_birth_from',
+				'class' => 'selectpicker date_of_birth_from',
 
 				'style' => '',				
 				'options' => array_combine(range(18,70), range(18,70))
@@ -220,9 +225,9 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'div' => false,
 				'legend' => false,
 				
-				'class' => 'date_of_birth_to',
+				'class' => 'selectpicker date_of_birth_to',
 
-				'style' => '',				
+				'style' => 'width: 20px',				
 				'options' => array_combine(range(18,70), range(18,70))
 
 				));
