@@ -99,7 +99,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Martial Status</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
 					<?php
-                                $martial_status = array('single' => 'Single','married' => 'Married','other' => 'Other','Widow' => 'Widow');
+                                $martial_status = array('single' => 'Single','married' => 'Married','other' => 'Other','Widow' => 'Widow','Separated'=> 'Separated');
 				echo $this->Form->input('sect', array('id' => 'martial_status',
 				'label' => false,
 				'div' => false,
@@ -211,7 +211,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'label' => 'From',
 				'div' => false,
 				'legend' => false,
-				
+				'empty' => '',
 				'class' => 'selectpicker date_of_birth_from',
 
 				'style' => '',				
@@ -224,7 +224,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'label' => 'To',
 				'div' => false,
 				'legend' => false,
-				
+				'empty' => '',
 				'class' => 'selectpicker date_of_birth_to',
 
 				'style' => 'width: 20px',				
