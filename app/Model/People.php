@@ -386,12 +386,13 @@ Class People extends AppModel {
         //print_r($data);exit;
         if (isset($data['date_of_birth_from']) && $data['date_of_birth_from'] != ""  && isset($data['date_of_birth_to']) && $data['date_of_birth_to'] != "" ) {
           
+            
              $fromdate=  $data['date_of_birth_from'];
-             $todate=  $data['date_of_birth_to'];
+              $todate=  $data['date_of_birth_to'];
             if ($sWhere == "") {
-                $sWhere = "WHERE DATE_FORMAT(p.date_of_birth,'%Y') between '$fromdate' AND  '$todate'";
+                $sWhere = "WHERE (YEAR(NOW()) - YEAR(p.date_of_birth)) BETWEEN {$fromdate} AND {$todate}";
             } else { 
-                $sWhere .= " AND  DATE_FORMAT(p.date_of_birth,'%Y') between '$fromdate' AND  '$todate'";
+                $sWhere .= " AND  (YEAR(NOW()) - YEAR(p.date_of_birth)) BETWEEN {$fromdate} AND {$todate}";
             }
         }
         //  echo $village;  
