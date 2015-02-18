@@ -1068,36 +1068,31 @@ Class FamilyController extends AppController {
     }
 
     public function addBusiness() {
-        $userID = $this->Session->read('User.user_id');
+        //get all states from master
         $states = $this->State->find('list', array('fields' => array('State.name', 'State.name')));
         $this->set(compact('states'));
-
         $pid = $_REQUEST['id'];
         $this->set('peopleid', $pid);
         $aid = $_REQUEST['aid'];
-
         $gid = $_REQUEST['gid'];
-
+        //get all suburbs from msaters
         $suburbs = $this->Suburb->find('list', array('fields' => array('Suburb.name', 'Suburb.name')));
         $this->set(compact('suburbs'));
-
         $array = array();
         $array['gid'] = $gid;
 
         $getOwnerDetails = $this->People->getParentPeopleDetails($array);
-
         $data = $this->People->getFamilyDetails($gid, $pid);
-
         $getBusniessIds = $this->People->getBusniessIds($gid, $pid);
-
         $this->set('busniessIds', $getBusniessIds);
 
         $peopleData = $data[0]['People'];
         $groupData = $data[0]['Group'];
 //         echo '<pre>';
-//        print_r($peopleData);
+//        print_r($data);
 //        exit;
         $this->set('isHOF', $peopleData['tree_level']);
+        $this->set('memberName',$peopleData['first_name'] . ' ' . $peopleData['last_name']);
         $this->set('busniessID', $peopleData['business_address_id']);
         $this->set('isSetHomeAddress', $peopleData['address_id']);
         $this->set('show', $groupData['tree_level'] == "" ? false : true);
@@ -1125,7 +1120,6 @@ Class FamilyController extends AppController {
         $this->set('gid', $gid ? $gid : '');
         $this->set('name', $getOwnerDetails['first_name']);
         $this->set('parentid', $getOwnerDetails['id']);
-        //$this->set('parentaid',$getOwnerDetails['address_id']);
         $this->set('parentaddressid', $getOwnerDetails['business_address_id']);
     }
 
