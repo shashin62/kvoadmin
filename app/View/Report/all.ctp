@@ -210,7 +210,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'class' => 'date_of_birth_from',
 
 				'style' => '',				
-				'options' => $dobs
+				'options' => array_combine(range(18,70), range(18,70))
 
 				));
 				?>
@@ -223,7 +223,7 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'class' => 'date_of_birth_to',
 
 				'style' => '',				
-				'options' => $dobs
+				'options' => array_combine(range(18,70), range(18,70))
 
 				));
 				?>
