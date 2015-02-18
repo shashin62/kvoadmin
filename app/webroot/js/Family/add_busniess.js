@@ -1,16 +1,16 @@
 $(document).ready(function () {
-$( ".statescombo" ).combobox({width: '180px'});
-$( ".combobox" ).combobox({width: '100px'});
+    $(".statescombo").combobox({width: '180px'});
+    $(".combobox").combobox({width: '100px'});
 
-showoccupation(occupation);
+    showoccupation(occupation);
     $("#addressForm").validate({
         errorElement: "div",
-          errorPlacement: function(error, element) {
-               var type = $(element).attr("type");
-               
-            if (typeof type == 'undefined' ) {
+        errorPlacement: function (error, element) {
+            var type = $(element).attr("type");
+
+            if (typeof type == 'undefined') {
                 error.appendTo(element.parent());
-            } else if(  type == 'radio' ) {
+            } else if (type == 'radio') {
                 error.appendTo(element.parent().parent());
             }
             else {
@@ -44,11 +44,11 @@ showoccupation(occupation);
             },
         },
         messages: {
-           'data[Address][road]': {
+            'data[Address][road]': {
                 required: 'Please enter road',
                 maxlength: 'Length exceeds 25 charaters'
             },
-             'data[Address][suburb]': {
+            'data[Address][suburb]': {
                 required: 'Please enter suburb',
                 maxlength: 'Length exceeds 25 charaters'
             },
@@ -67,57 +67,54 @@ showoccupation(occupation);
         },
         submitHandler: function (form) {
             var queryString = $('#addressForm').serialize();
-             queryString += '&data[Address][suburb]='+ $('.suburbdiv').find('.ui-autocomplete-input').val();
-            queryString += '&data[Address][state]='+ $('.statesdiv').find('.ui-autocomplete-input').val();
-           
+            queryString += '&data[Address][suburb]=' + $('.suburbdiv').find('.ui-autocomplete-input').val();
+            queryString += '&data[Address][state]=' + $('.statesdiv').find('.ui-autocomplete-input').val();
+
             var peopleid = pid;
-             var addressid = aid;
-           
-            $.post(baseUrl + '/family/doProcessAddBusiness?peopleid=' + peopleid + '&addressid=' + addressid + '&parentid=' + prntid+ '&paddressid=' + paddressid+ '&gid=' + grpid, queryString, function (data) {
-                 if (0 == data.status) {
-                if (data.error.name.length > 0) {
-                    for (var i = 0; i < data.error.name.length; i++) {
-                        displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
+            var addressid = aid;
+
+            $.post(baseUrl + '/family/doProcessAddBusiness?peopleid=' + peopleid + '&addressid=' + addressid + '&parentid=' + prntid + '&paddressid=' + paddressid + '&gid=' + grpid, queryString, function (data) {
+                if (0 == data.status) {
+                    if (data.error.name.length > 0) {
+                        for (var i = 0; i < data.error.name.length; i++) {
+                            displayErrors(data.error.name[i], $("#" + data.error.name[i]).attr('type'), data.error.errormsg[i], "server");
+                        }
                     }
+                } else {
+                    var displayMsg = data.message;
+                    showJsSuccessMessage(displayMsg);
+                    setTimeout(function () {
+                        $('.jssuccessMessage').hide('slow');
+                        window.location.href = baseUrl + "/family/details/" + grpid;
+                    }, 2500);
                 }
-            } else {
-                 var displayMsg = data.message;
-                showJsSuccessMessage(displayMsg);
-                setTimeout(function () {
-                    $('.jssuccessMessage').hide('slow');
-                    window.location.href = baseUrl + "/family/details/" + grpid;
-                }, 2500);
-            }
-               
+
             }, "json");
-        
+
             return false;
         }
     });
 });
 
 $(".addressButton").click(function () {
-    
-    if(typeof $('.state ').val() == 'object'){
+
+    if (typeof $('.state ').val() == 'object') {
         $('.state').rules('remove', 'required');
     }
-    if(typeof $('.suburb ').val() == 'object'){
+    if (typeof $('.suburb ').val() == 'object') {
         $('.suburb').rules('remove', 'required');
     }
     var occupation = $.trim($('.occupations > label.active').text());
-     var occupations = ['House Wife','Retired','Studying','Other'];
-  //console.log($('.other:checked').val());
- // return;
-  //|| $('.same_as').is(':checked') == true
-   
-    if (  $('.other:checked').val() != 'other'  || $.inArray(occupation,occupations) == 0) {
-       
-        $('.city').rules('remove', 'required'); 
+    var occupations = ['House Wife', 'Retired', 'Studying', 'Other'];
+
+    if ($('.other:checked').val() != 'other' || $.inArray(occupation, occupations) == 0) {
+
+        $('.city').rules('remove', 'required');
         $('.zipcode').rules('remove', 'required');
         $('.state').rules('remove', 'required');
         $('.road').rules('remove', 'required');
         $('.suburb').rules('remove', 'required');
-       
+
     }
     $("#addressForm").submit();
     return false;
@@ -132,23 +129,23 @@ $(".addressButton").click(function () {
 //});
 function showoccupation($this)
 {
-    var occp ;
-   console.log($this);
-    if( typeof occupation != 'undefined') {
-       occp = occupation;
+    var occp;
+    console.log($this);
+    if (typeof occupation != 'undefined') {
+        occp = occupation;
     } else {
         occp = $this;
     }
-   
-    var occupation = ['House Wife','Retired','Studying','Other'];
-   if ( $.inArray(occp,occupation) == -1) {
-       $('.tohidecontainer').show();
-   } else {
-       $('.tohidecontainer').hide();
-   }
-    
+
+    var occupation = ['House Wife', 'Retired', 'Studying', 'Other'];
+    if ($.inArray(occp, occupation) == -1) {
+        $('.tohidecontainer').show();
+    } else {
+        $('.tohidecontainer').hide();
+    }
+
 }
-$('.occupations > label').click(function(){
+$('.occupations > label').click(function () {
     showoccupation($.trim($(this).text()));
 });
 $('.other').click(function () {
@@ -156,7 +153,7 @@ $('.other').click(function () {
     if ($(this).val() == 'other') {
         $('.addresscontainer').show();
 
-       
+
     } else {
         $('.addresscontainer').hide();
     }
@@ -166,11 +163,11 @@ $('.same_ashomeaddress').click(function () {
     if ($(this).is(':checked') == true) {
         $('.otherbusinessa').hide();
         $('.addresscontainer').hide();
-        $('.other').attr('checked',false);
+        $('.other').attr('checked', false);
     } else {
         $('.otherbusinessa').show();
-       
-        $('.other').attr('checked',false);
+
+        $('.other').attr('checked', false);
     }
 
 });
