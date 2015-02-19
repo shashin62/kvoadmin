@@ -51,7 +51,13 @@ $('.search').click(function () {
     var $date_of_birth_from = $('.date_of_birth_from').val();
      var $date_of_birth_to = $('.date_of_birth_to').val();
     var $sects = $('.sects').val();
+    var $homestate = $('.home_state').val();
+    var $homecity = $('.home_city').val();
+    var $homesuburb = $('.home_suburb').val();
     
+    var $businessstate = $('.business_state').val();
+    var $businesscity = $('.business_city').val();
+    var $businesssuburb = $('.business_suburb').val();
        
      var myArray = {         
          "islate": $islate,
@@ -67,7 +73,13 @@ $('.search').click(function () {
             "date_of_birth_to": $date_of_birth_to,
             "sects": $sects,            
             "specialbusniess": $specialbusniess,            
-            "typebusniess": $typebusniess
+            "typebusniess": $typebusniess,
+            "homecity" : $homecity,
+            "homestate" : $homestate,
+            "homesuburb" : $homesuburb,
+            "businesscity" : $businesscity,
+            "businessstate" : $businessstate,
+            "businesssuburb" : $businesssuburb,
         };
      var oTable = $("#getallCompletedData").dataTable();
         oTable.fnReloadAjax(oTable.oSettings, myArray);
