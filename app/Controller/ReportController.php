@@ -26,7 +26,7 @@ App::uses('AppController', 'Controller');
 Class ReportController extends AppController {
 
     public $name = 'Report';
-    public $uses = array('User', 'Translation', 'People','Village');
+    public $uses = array('User', 'Translation', 'People','Village','Address');
     public $helpers = array('Session');
     public $components = array('Session');
 
@@ -105,6 +105,15 @@ Class ReportController extends AppController {
         
         $occupation = $this->People->fetchOccupation();
         $this->set(compact('occupation'));
+        
+        $city = $this->Address->getCity();
+        $this->set(compact('city'));
+        
+        $state = $this->Address->getStates();
+        $this->set(compact('state'));
+        
+        $suburb = $this->Address->getSuburb();
+        $this->set(compact('suburb'));
         
          $date_of_birth = $this->People->fetchDateofBirth();
          $dobs = array();
