@@ -108,7 +108,7 @@ $firstName = $value['People']['first_name'];
         <div class="col-md-2">
              <?php if ($value['People']['is_late'] != '1') {?>
             <a class="editbusiness" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['business_address_id'];?>" href="#">
-                            <?php echo $value['People']['business_address_id'] ? 'Edit Business Details' : 'Add Business Details';?></a><br>
+                            <?php echo $value['People']['business_address_id'] || $value['People']['occupation'] != '' ? 'Edit Business Details' : 'Add Business Details';?></a><br>
              <?php } ?>
                                     <?php if( empty($value['People']['m_id'])) { ?>
             <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
@@ -216,7 +216,7 @@ $missingData = array();?>
         <div class="col-md-2">
              <?php if ($value['People']['is_late'] != '1') {?>
             <a class="editbusiness" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['business_address_id'];?>" href="#">
-                            <?php echo $value['People']['business_address_id'] ? 'Edit Business Details' : 'Add Business Details';?></a><br>
+                            <?php echo $value['People']['business_address_id'] || $value['People']['occupation'] != '' ? 'Edit Business Details' : 'Add Business Details';?></a><br>
              <?php } ?>
                                     <?php if( empty($value['People']['m_id'])) { ?>
             <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
