@@ -90,26 +90,28 @@
             <div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
         </div>
         <?php } ?>
-        <?php if( $isHOF != "" ) { ?>
+      
         <div class="row form-group otherbusinessa">
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                    <?php //echo '---'. $busniessID;?>
                              <?php
-                             $ids = array();
-                             foreach ( $busniessIds as $k => $value ) { ?>
+                             $ids = array(); ?>
+                               <?php if( $isHOF != "" ) { ?>
+                            <?php foreach ( $busniessIds as $k => $value ) { ?>
                     <?php $ids[]  = $value['People']['business_address_id'];?>
                     <input class="other" type="radio" name=data[Address][address_grp1] value="<?php echo $value['People']['business_address_id']; ?>" /> Same as <?php  echo $value['People']['first_name']; ?>  ( <?php echo $value['address']['building_name'] . ', ' . $value['address']['complex_name'] . ', ' . $value['address']['plot_number']. ', ' .$value['address']['road'] . ', ' . $value['address']['suburb']. ', ' .$value['address']['suburb_zone'] . ', ' . $value['address']['city'] ;?>)<br />
                            <?php  } ?>
+                      <?php } ?>
                     <input class="other" type="radio" name="data[Address][address_grp1]" value="other" /> Other
                 </div>  
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
         </div>
-        <?php } ?>
+      
 
-        <div class="addresscontainer" style="<?php echo $isHOF == "" || !in_array($aid, $ids) ? 'display: block' : 'display: none';?>">
+        <div class="addresscontainer" style="<?php echo $isHOF == "" || !in_array($aid, $ids)  ? 'display: block' : 'display: none';?>">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-xs-12">
                     <div class="form-group">
