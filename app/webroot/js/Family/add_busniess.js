@@ -98,6 +98,8 @@ $(document).ready(function () {
 
 $(".addressButton").click(function () {
 
+  console.log($.trim($('.occupations > label.active').text()));
+  
     if (typeof $('.state ').val() == 'object') {
         $('.state').rules('remove', 'required');
     }
@@ -106,8 +108,8 @@ $(".addressButton").click(function () {
     }
     var occupation = $.trim($('.occupations > label.active').text());
     var occupations = ['House Wife', 'Retired', 'Studying', 'Other'];
-
-    if ($('.other:checked').val() != 'other' || $.inArray(occupation, occupations) == 0) {
+  
+    if ($('.other:checked').val() != 'other' || $.inArray(occupation, occupations) !== -1) {
 
         $('.city').rules('remove', 'required');
         $('.zipcode').rules('remove', 'required');
