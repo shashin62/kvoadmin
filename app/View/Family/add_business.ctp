@@ -38,7 +38,6 @@
             </div>
         </div>
     </div>
-
     <div class="tohidecontainer">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12" >
@@ -83,7 +82,8 @@
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-				<?php echo $this->Form->input("is_same", array('type' => "checkbox",'class' => 'same_ashomeaddress', 'checked' => $isSameChecked ==  true ? 'checked' : '', 'div' => false, "label" => array('class' => 'checkboxLabel', 'text' => __('Same as my home address')))); ?>
+                     <input checked="<?php echo $isSameChecked == true ? "checked" : "";?>" class="same_ashomeaddress" type="radio" name="data[Address][address_grp1]" value="is_same" /> Same as my home address
+				
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
@@ -256,7 +256,7 @@
             </div>
         </div>
     </div>
-
+<br/>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-actions">
