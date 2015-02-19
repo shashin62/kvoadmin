@@ -34,12 +34,16 @@ $(function () {
         "iDisplayLength": 20,
         "bProcessing": true,
         "bServerSide": true,
+         "aoColumnDefs" : [ {
+            'bSortable' : false,
+            'aTargets' : [ 6,8 ]
+        } ],
         "sAjaxSource": baseUrl + "/family/getAjaxGroups?showhof="+ showhof,
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             console.log(aData);
             $('td:eq(8)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
 ');
-          if( roleid == 1 || userid == aData[7]) {
+          if( roleid == 1 || userid == aData[6]) {
                 $('td:eq(8)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
             }
         },
@@ -54,7 +58,7 @@ $(function () {
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
     
     oTable.columns().eq( 0 ).each( function ( colIdx ) {
-        if( colIdx != 0 && colIdx != 8 && colIdx != 6 && colIdx != 7) {
+        if( colIdx != 0 && colIdx != 5 && colIdx != 6 && colIdx != 7) {
         $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
             oTable
                 .column( colIdx )
