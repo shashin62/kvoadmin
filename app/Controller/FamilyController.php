@@ -1138,11 +1138,11 @@ Class FamilyController extends AppController {
         $updatePeopleBusniessDetails['name_of_business'] = $this->request->data['Address']['name_of_business'];
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife', 'Retired', 'Studying', 'Other');
-
+        
         if (!in_array($this->request->data['occupation'], $occupation)) {
             $parentId = $_REQUEST['parentid'];
             $paddressid = $_REQUEST['paddressid'];
-            if ($same == 1) {
+            if ($this->request->data['Address']['address_grp1'] == 'is_same') {
                 $conditions = array('People.id' => $peopleId);
                 $fields = array('People.address_id');
                 $getHomeAddressid = $this->People->find('all', array('fields' => $fields, 'conditions' => $conditions));
@@ -1153,14 +1153,14 @@ Class FamilyController extends AppController {
                 $updatePeople['People']['id'] = $_REQUEST['peopleid'];
                 $this->People->save($updatePeople);
                 $message = 'Information has been saved';
-            } else if ($same == 0 && isset($this->request->data['Address']['address_grp1']) && $this->request->data['Address']['address_grp1'] != 'other') {
+            } else if ( isset($this->request->data['Address']['address_grp1']) && $this->request->data['Address']['address_grp1'] != 'other') {
                 $updatePeople = array();
                 $updatePeople['People']['business_address_id'] = $this->request->data['Address']['address_grp1'];
                 $updatePeople['People']['id'] = $_REQUEST['peopleid'];
                 $this->People->save($updatePeople);
                 $message = 'Information has been saved';
                 $msg['status'] = 1;
-            } else if ($same == 0 || $this->request->data['Address']['address_grp1'] == 'other') {
+            } else if ($this->request->data['Address']['address_grp1'] == 'other') {
                 $getParentAddress = $this->Address->find('all', array(
                     'conditions' => array(
                         'Address.people_id' => $peopleId,
