@@ -82,7 +82,8 @@
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                 <div class="col-lg-8 col-md-8 col-xs-8">
-                     <input checked="<?php echo $isSameChecked == true ? "checked" : "";?>" class="same_ashomeaddress" type="radio" name="data[Address][address_grp1]" value="is_same" /> Same as my home address
+                   
+                     <input checked="<?php echo $isSameChecked === 1 ? "checked" : "";?>" class="same_ashomeaddress" type="radio" name="data[Address][address_grp1]" value="is_same" /> Same as my home address
 				
                 </div>
             </div>
@@ -99,9 +100,9 @@
                              $ids = array();
                              foreach ( $busniessIds as $k => $value ) { ?>
                     <?php $ids[]  = $value['People']['business_address_id'];?>
-                    <input checked="<?php echo $busniessID != '' && $busniessID == $value['People']['business_address_id'] ? 'checked': false;?>" class="other" type="radio" name=data[Address][address_grp1] value="<?php echo $value['People']['business_address_id']; ?>" /> Same as <?php  echo $value['People']['first_name']; ?>  ( <?php echo $value['address']['building_name'] . ', ' . $value['address']['complex_name'] . ', ' . $value['address']['plot_number']. ', ' .$value['address']['road'] . ', ' . $value['address']['suburb']. ', ' .$value['address']['suburb_zone'] . ', ' . $value['address']['city'] ;?>)<br />
+                    <input class="other" type="radio" name=data[Address][address_grp1] value="<?php echo $value['People']['business_address_id']; ?>" /> Same as <?php  echo $value['People']['first_name']; ?>  ( <?php echo $value['address']['building_name'] . ', ' . $value['address']['complex_name'] . ', ' . $value['address']['plot_number']. ', ' .$value['address']['road'] . ', ' . $value['address']['suburb']. ', ' .$value['address']['suburb_zone'] . ', ' . $value['address']['city'] ;?>)<br />
                            <?php  } ?>
-                    <input checked="<?php echo !in_array($aid, $ids) ? "checked" : "";?>" class="other" type="radio" name="data[Address][address_grp1]" value="other" /> Other
+                    <input class="other" type="radio" name="data[Address][address_grp1]" value="other" /> Other
                 </div>  
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12">&nbsp;</div>
