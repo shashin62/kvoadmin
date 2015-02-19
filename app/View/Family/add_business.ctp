@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group tohidecontainer">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Specialty Business/Service</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                         <?php echo $this->Form->input('specialty_business_service', array('id' => 'specialty_business_service', 'value'=> $specialty_business_service,'placeholder' => 'Enter specialty of business/service' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control')); ?>
