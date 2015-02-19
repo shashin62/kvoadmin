@@ -238,9 +238,140 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 		</div>
 		<br />
 		 <div class="row">
+                 <div class="col-lg-6 col-md-6 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_city">Home City</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+					<?php
 
+				echo $this->Form->input('home_city', array('id' => 'homecity',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+                                'multiple'  => 'multiple',
+				'class' => 'home_city',
+				'style' => '',				
+				'options' => $city
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+<div class="col-lg-6 col-md-6 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_state">Home State</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+					<?php
+
+				echo $this->Form->input('home_state', array('id' => 'homestate',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+                                'multiple'  => 'multiple',
+				'class' => 'home_state',
+				'style' => '',				
+				'options' => $state
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
 		 </div>
 		 <br />
+ <div class="row">
+<div class="col-lg-6 col-md-6 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_suburb">Home Suburb</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+					<?php
+
+				echo $this->Form->input('home_suburb', array('id' => 'homesuburb',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+                                'multiple'  => 'multiple',
+				'class' => 'home_suburb',
+				'style' => '',				
+				'options' => $suburb
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+ <br />
+ <div class="col-lg-6 col-md-6 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_city">Busniess City</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+					<?php
+
+				echo $this->Form->input('home_city', array('id' => 'businesscity',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+                                'multiple'  => 'multiple',
+				'class' => 'business_city',
+				'style' => '',				
+				'options' => $city
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+ <br />
+<div class="col-lg-6 col-md-6 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_state">Business State</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+					<?php
+
+				echo $this->Form->input('business_state', array('id' => 'businessstate',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+                                'multiple'  => 'multiple',
+				'class' => 'business_state',
+				'style' => '',				
+				'options' => $state
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+ <br />
+<div class="col-lg-6 col-md-6 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="business_suburb">Business Suburb</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+					<?php
+
+				echo $this->Form->input('business_state', array('id' => 'businesssuburb',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+                                'multiple'  => 'multiple',
+				'class' => 'business_suburb',
+				'style' => '',				
+				'options' => $suburb
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+</div>
+ <br />
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-actions">
                 <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
@@ -298,12 +429,30 @@ $('#occupation').multiselect({
 $('#village').multiselect({
             checkboxName: 'multiselect[]'
         });
+$('#homecity').multiselect({
+            checkboxName: 'multiselect[]'
+        });
+
+$('#homestate').multiselect({
+            checkboxName: 'multiselect[]'
+        });
+$('#businesscity').multiselect({
+            checkboxName: 'multiselect[]'
+        });
+$('#businessstate').multiselect({
+            checkboxName: 'multiselect[]'
+        });
+$('#businesssuburb').multiselect({
+            checkboxName: 'multiselect[]'
+        });
+
+$('#homesuburb').multiselect({
+            checkboxName: 'multiselect[]'
+        });
 
 $('#example-single').multiselect({
             checkboxName: 'multiselect[]'
         });
-
-
     });
 </script>
 <?php echo $this->Html->script(array('Reports/all')); ?>
