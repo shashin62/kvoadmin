@@ -163,15 +163,14 @@ $('.other').click(function () {
 $('.same_ashomeaddress').click(function () {
 
     if ($(this).is(':checked') == true) {
-        $('.otherbusinessa').hide();
+        //$('.otherbusinessa').hide();
         $('.addresscontainer').hide();
         $('.other').attr('checked', false);
     } else {
         $('.otherbusinessa').show();
-
+        $('.addresscontainer').show();
         $('.other').attr('checked', false);
     }
-
 });
 
 
