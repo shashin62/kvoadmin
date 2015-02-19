@@ -395,6 +395,70 @@ Class People extends AppModel {
                 $sWhere .= " AND  (YEAR(NOW()) - YEAR(p.date_of_birth)) BETWEEN {$fromdate} AND {$todate}";
             }
         }
+        $sJoin = "";
+        if( isset($data['homesuburb']) && is_array($data['homesuburb'])) {
+            $homesuburb = implode("','", $data['homesuburb']);
+            $sJoin = " INNER JOIN address as a ON a.id = p.address_id";
+            if ($sWhere == "") {
+                $sWhere = "WHERE a.suburb  in ('$homesuburb')";
+                 
+            } else {
+                $sWhere .= " AND a.suburb in ('$homesuburb')";
+            }
+        }
+        
+        if( isset($data['homestate']) && is_array($data['homestate'])) {
+            $homeState = implode("','", $data['homestate']);
+            $sJoin = " INNER JOIN address as a ON a.id = p.address_id";
+            if ($sWhere == "") {
+                $sWhere = "WHERE a.state  in ('$homeState')";
+                 
+            } else {
+                $sWhere .= " AND a.state in ('$homeState')";
+            }
+        }
+        
+        if( isset($data['homecity']) && is_array($data['homecity'])) {
+            $homeCity = implode("','", $data['homecity']);
+            $sJoin = " INNER JOIN address as a ON a.id = p.address_id";
+            if ($sWhere == "") {
+                $sWhere = "WHERE a.city  in ('$homeCity')";
+                 
+            } else {
+                $sWhere .= " AND a.city in ('$homeCity')";
+            }
+        }
+        
+        if( isset($data['businesscity']) && is_array($data['businesscity'])) {
+            $bCity = implode("','", $data['businesscity']);
+            $sJoin = " INNER JOIN address as a2 ON a2.id = p.business_address_id";
+            if ($sWhere == "") {
+                $sWhere = "WHERE a2.city  in ('$bCity')";
+                 
+            } else {
+                $sWhere .= " AND a2.city in ('$bCity')";
+            }
+        }
+        if( isset($data['businessstate']) && is_array($data['businessstate'])) {
+            $bState = implode("','", $data['businessstate']);
+            $sJoin = " INNER JOIN address as a2 ON a2.id = p.business_address_id";
+            if ($sWhere == "") {
+                $sWhere = "WHERE a2.state  in ('$bState')";                 
+            } else {
+                $sWhere .= " AND a2.state in ('$bState')";
+            }
+        }
+        
+        if( isset($data['businesssuburb']) && is_array($data['businesssuburb'])) {
+            $bSuburb = implode("','", $data['businesssuburb']);
+            $sJoin = " INNER JOIN address as a2 ON a2.id = p.business_address_id";
+            if ($sWhere == "") {
+                $sWhere = "WHERE a2.city  in ('$bSuburb')";
+                 
+            } else {
+                $sWhere .= " AND a2.city in ('$bSuburb')";
+            }
+        }
         //  echo $village;  
 //      echo  $sWhere;
 //
@@ -403,8 +467,10 @@ Class People extends AppModel {
 
        $sQuery = "
     SELECT SQL_CALC_FOUND_ROWS p.id, p.first_name, p.last_name,p.village,p.mobile_number,p.date_of_birth,p.sect,p.martial_status
-            FROM   $sTable               
+            FROM   $sTable  
+                $sJoin    
             $sWhere               
+            
             $sOrder
             $sLimit
             ";
