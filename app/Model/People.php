@@ -879,7 +879,7 @@ Class People extends AppModel {
         }
         
         if ($isHOF) {
-            $options['conditions']['AND'] = array('People.tree_evel' => '');
+            $options['conditions']['AND'] = array('People.tree_level' => '');
         }
 
         $options['joins'] = array(
