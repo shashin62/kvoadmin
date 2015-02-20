@@ -872,10 +872,14 @@ Class People extends AppModel {
      * 
      * @param type $pid
      */
-    public function getParentPeopleDetails($data = array()) {
+    public function getParentPeopleDetails($data = array(),$isHOF = true) {
         $this->recursive = -1;
         if (isset($data['gid'])) {
             $options['conditions'] = array('People.group_id' => $data['gid']);
+        }
+        
+        if ($isHOF) {
+            $options['conditions']['AND'] = array('People.tree_evel' => '');
         }
 
         $options['joins'] = array(
