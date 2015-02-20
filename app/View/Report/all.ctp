@@ -4,14 +4,15 @@ width: 90px !important;
 }
 </style>
 <div class="container-fluid">   
-      <h3 class="heading">Records</h3>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-xs-12">
+	<h4 class="heading">All Records</h4>
+ 
+	<div class="row">
+        <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="fromdate">Person Status</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-$personstatus = array(0 => 'Alive',1 => 'Late');
+				<?php
+				$personstatus = array(0 => 'Alive',1 => 'Late');
 				echo $this->Form->input('is_late', array('id' => 'example-single',
 				'label' => false,
 				'div' => false,
@@ -20,86 +21,36 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
 				'class' => 'islate',
 				'style' => '',				
 				'options' => $personstatus
-
 				));
 				?>
                 </div>
             </div>
-           
         </div>
-        <div class="col-lg-6 col-md-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-xs-12">
              <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="sect">Sect</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-                    $sects = array('deravasi' => 'Deravasi','sthanakvasi' => 'Sthanakvasi','other' => 'Other');
+				<?php
+				$sects = array('deravasi' => 'Deravasi','sthanakvasi' => 'Sthanakvasi','other' => 'Other');
 				echo $this->Form->input('sect', array('id' => 'example-checkboxName',
 				'label' => false,
 				'div' => false,
 				'legend' => false,				
 				'class' => 'sects',
-				'style' => '',	
-                                'multiple' => 'multiple',		
+				'style' => '',
+				'multiple' => 'multiple',		
 				'options' => $sects
-
 				));
 				?>
                 </div>
             </div>
         </div>
-
-    </div>
-    <br />
-<div class="row">
-
-<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="businessname">Business type</label>   
+		<div class="col-lg-4 col-md-4 col-xs-12">
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Martial Status</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('sect', array('id' => 'example-checkboxNames',
-				'label' => false,
-				'div' => false,
-				'legend' => false,				
-				'class' => 'businestypesname',
-				'style' => '',	
-                                'multiple'  => 'multiple',				
-				'options' => $businesstypename
-
-				));
-				?>
-                </div>
-            </div>
-        </div>
-		<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="nature_of_business">Nature of Business</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('sect', array('id' => 'natureofbusiness',
-				'label' => false,
-				'div' => false,
-				'legend' => false,
-                                'multiple'  => 'multiple',				
-				'class' => 'nature_of_business',
-				'style' => '',				
-				'options' => $nature_of_business
-				));
-				?>
-                </div>
-            </div>
-        </div>
-		</div>
-		 <br />
-		 <div class="row">
-			<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="martial_status">Martial Status</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-                                $martial_status = array('single' => 'Single','married' => 'Married','other' => 'Other','Widow' => 'Widow','Separated'=> 'Separated');
+				<?php
+                $martial_status = array('single' => 'Single','married' => 'Married','other' => 'Other','Widow' => 'Widow','Separated'=> 'Separated');
 				echo $this->Form->input('sect', array('id' => 'martial_status',
 				'label' => false,
 				'div' => false,
@@ -113,254 +64,188 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
                 </div>
             </div>
         </div>
-		<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Speciality Business Service</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('sect', array('id' => 'specialty_business_service',
-				'label' => false,
-				'div' => false,
-				'legend' => false,
-                                'multiple'  => 'multiple',				
-				'class' => 'specialty_business_service',
-				'style' => '',				
-				'options' => $specialty_business_service
-
-				));
-				?>
-                </div>
-            </div>
-        </div>
-		
-		</div>
-		 <br />
-		 <div class="row">
-			<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="occupation">Occupation</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('sect', array('id' => 'occupation',
-				'label' => false,
-				'div' => false,
-				'legend' => false,
-                                 'multiple'  => 'multiple',				
-				'class' => 'occupation',
-				'style' => '',				
-				'options' => $occupation
-
-				));
-				?>
-                </div>
-            </div>
-        </div>
-		<div class="col-lg-6 col-md-6 col-xs-12">
+    </div>
+	<br />
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-xs-12">
              <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Gender</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-                            $gender = array('male' => 'Male','female' => 'Female');
+				<?php
+				$gender = array('male' => 'Male','female' => 'Female');
 				echo $this->Form->input('sect', array('id' => 'gender',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
-                                'multiple'  => 'multiple',
-				
+				'multiple'  => 'multiple',
 				'class' => 'gender',
 				'style' => '',				
 				'options' => $gender
-
 				));
 				?>
                 </div>
             </div>
         </div>
-		</div>
-		 <br />
-		 <div class="row">
-<div class="col-lg-6 col-md-6 col-xs-12">
+		<div class="col-lg-4 col-md-4 col-xs-12">
              <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="village">Village</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
+				<?php
 				echo $this->Form->input('sect', array('id' => 'village',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
 				'empty' => __d('label', '--Select--'),
- 'multiple'  => 'multiple',
+				'multiple'  => 'multiple',
 				'class' => 'village',
 				'style' => '',				
 				'options' => $villages
-
 				));
 				?>
                 </div>
             </div>
         </div>
-		<div class="col-lg-6 col-md-6 col-xs-12">
+		<div class="col-lg-4 col-md-4 col-xs-12">
              <div class="form-group">
                 <label class="col-lg-2 col-md-2 col-xs-2 control-label" for="date_of_birth">Age</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
+				<?php
 				echo $this->Form->input('sect', array('id' => 'date_of_birth',
-				'label' => 'From',
+				'label' => ' From ',
 				'div' => false,
 				'legend' => false,
 				'empty' => '',
 				'class' => 'selectpicker date_of_birth_from',
-
-				'style' => '',				
+				'style' => '',
 				'options' => array_combine(range(18,70), range(18,70))
-
 				));
 				?>
-<?php
+				<?php
 				echo $this->Form->input('sect', array('id' => 'date_of_birthfrom',
-				'label' => 'To',
+				'label' => ' To ',
 				'div' => false,
 				'legend' => false,
 				'empty' => '',
 				'class' => 'selectpicker date_of_birth_to',
-
 				'style' => 'width: 20px',				
 				'options' => array_combine(range(18,70), range(18,70))
+				));
+				?>
+                </div>
+            </div>
+        </div>
+	</div>
+	<h4 class="heading">Business Filters</h4>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="businessname">Business type</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('sect', array('id' => 'example-checkboxNames',
+				'label' => false,
+				'div' => false,
+				'legend' => false,				
+				'class' => 'businestypesname',
+				'style' => '',
+				'multiple'  => 'multiple',				
+				'options' => $businesstypename
 
 				));
 				?>
                 </div>
             </div>
         </div>
+		<div class="col-lg-4 col-md-4 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="nature_of_business">Nature of Business</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('sect', array('id' => 'natureofbusiness',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'multiple'  => 'multiple',				
+				'class' => 'nature_of_business',
+				'style' => '',				
+				'options' => $nature_of_business
+				));
+				?>
+                </div>
+            </div>
+        </div>
+		<div class="col-lg-4 col-md-4 col-xs-12">
+			<div class="form-group">
+				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="occupation">Occupation</label>   
+				<div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('sect', array('id' => 'occupation',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'multiple'  => 'multiple',				
+				'class' => 'occupation',
+				'style' => '',				
+				'options' => $occupation
+				));
+				?>
+                </div>
+            </div>
+        </div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-xs-12">
+			<div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="specialty_business_service">Speciality Business Service</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('sect', array('id' => 'specialty_business_service',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'multiple'  => 'multiple',				
+				'class' => 'specialty_business_service',
+				'style' => '',				
+				'options' => $specialty_business_service
+				));
+				?>
+                </div>
+            </div>
 		</div>
-		<br />
-		 <div class="row">
-                 <div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_city">Home City</label>   
+	</div>
+
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-xs-12">
+            <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_city">Business City</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('home_city', array('id' => 'homecity',
-				'label' => false,
-				'div' => false,
-				'legend' => false,
-				'empty' => __d('label', '--Select--'),
-                                'multiple'  => 'multiple',
-				'class' => 'home_city',
-				'style' => '',				
-				'options' => $city
-
-				));
-				?>
-                </div>
-            </div>
-        </div>
-<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_state">Home State</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('home_state', array('id' => 'homestate',
-				'label' => false,
-				'div' => false,
-				'legend' => false,
-				'empty' => __d('label', '--Select--'),
-                                'multiple'  => 'multiple',
-				'class' => 'home_state',
-				'style' => '',				
-				'options' => $state
-
-				));
-				?>
-                </div>
-            </div>
-        </div>
-		 </div>
-		 <br />
- <div class="row">
-<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_suburb">Home Suburb</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('home_suburb', array('id' => 'homesuburb',
-				'label' => false,
-				'div' => false,
-				'legend' => false,
-				'empty' => __d('label', '--Select--'),
-                                'multiple'  => 'multiple',
-				'class' => 'home_suburb',
-				'style' => '',				
-				'options' => $suburb
-
-				));
-				?>
-                </div>
-            </div>
-        </div>
- <br />
- <div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_city">Busniess City</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
+				<?php
 				echo $this->Form->input('home_city', array('id' => 'businesscity',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
 				'empty' => __d('label', '--Select--'),
-                                'multiple'  => 'multiple',
+				'multiple'  => 'multiple',
 				'class' => 'business_city',
 				'style' => '',				
 				'options' => $city
-
 				));
 				?>
                 </div>
             </div>
         </div>
- <br />
-<div class="col-lg-6 col-md-6 col-xs-12">
-             <div class="form-group">
-                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_state">Business State</label>   
-                <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
-				echo $this->Form->input('business_state', array('id' => 'businessstate',
-				'label' => false,
-				'div' => false,
-				'legend' => false,
-				'empty' => __d('label', '--Select--'),
-                                'multiple'  => 'multiple',
-				'class' => 'business_state',
-				'style' => '',				
-				'options' => $state
-
-				));
-				?>
-                </div>
-            </div>
-        </div>
- <br />
-<div class="col-lg-6 col-md-6 col-xs-12">
+		<div class="col-lg-4 col-md-4 col-xs-12">
              <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="business_suburb">Business Suburb</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
-					<?php
-
+				<?php
 				echo $this->Form->input('business_state', array('id' => 'businesssuburb',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
 				'empty' => __d('label', '--Select--'),
-                                'multiple'  => 'multiple',
+				'multiple'  => 'multiple',
 				'class' => 'business_suburb',
 				'style' => '',				
 				'options' => $suburb
@@ -370,9 +255,92 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
                 </div>
             </div>
         </div>
-</div>
- <br />
-        <div class="col-lg-6 col-md-6 col-xs-12">
+		<div class="col-lg-4 col-md-4 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_state">Business State</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('business_state', array('id' => 'businessstate',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'multiple'  => 'multiple',
+				'class' => 'business_state',
+				'style' => '',				
+				'options' => $state
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+	</div>
+	<h4 class="heading">Home Address Filters</h4>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-xs-12">
+			<div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_city">Home City</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('home_city', array('id' => 'homecity',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'multiple'  => 'multiple',
+				'class' => 'home_city',
+				'style' => '',				
+				'options' => $city
+				));
+				?>
+                </div>
+            </div>
+        </div>
+		<div class="col-lg-4 col-md-4 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_suburb">Home Suburb</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('home_suburb', array('id' => 'homesuburb',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'multiple'  => 'multiple',
+				'class' => 'home_suburb',
+				'style' => '',				
+				'options' => $suburb
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+		<div class="col-lg-4 col-md-4 col-xs-12">
+             <div class="form-group">
+                <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="home_state">Home State</label>   
+                <div class="col-lg-8 col-md-8 col-xs-8">
+				<?php
+				echo $this->Form->input('home_state', array('id' => 'homestate',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'multiple'  => 'multiple',
+				'class' => 'home_state',
+				'style' => '',				
+				'options' => $state
+
+				));
+				?>
+                </div>
+            </div>
+        </div>
+	</div>
+	<br />
+	<div class="row">
+        <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="form-actions">
                 <div class="col-lg-4 col-md-4 col-xs-4">&nbsp;</div>
                 <div class="col-lg-8 col-md-8 col-xs-8">
@@ -384,7 +352,6 @@ $personstatus = array(0 => 'Alive',1 => 'Late');
     </div>
 </div>
 <div class="container-fluid">   
-  
     <table id="getallCompletedData" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
