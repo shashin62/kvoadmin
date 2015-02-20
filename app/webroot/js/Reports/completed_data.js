@@ -17,7 +17,9 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams)
     }
 };
 $(function () {
-
+ $('#example-multiple-selected').multiselect({
+            checkboxName: 'multiselect[]'
+        });
     oTable = $('#getCompletedData').dataTable({
         "iDisplayLength": 20,
         "bProcessing": true,
