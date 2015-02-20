@@ -1235,7 +1235,7 @@ Class FamilyController extends AppController {
         $array = array();
         $array['gid'] = $gid;
         $array['pid'] = $pid;
-        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
+        $getOwnerDetails = $this->People->getParentPeopleDetails($array,true);
 //        echo '<pre>';
 //        print_r($getOwnerDetails);
 //        exit;
