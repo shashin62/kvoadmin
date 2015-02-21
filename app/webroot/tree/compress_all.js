@@ -65,7 +65,7 @@ if(_1d[j]!=null){
 url+=(j+"="+escape(_1d[j])+"&");
 }
 }
-return url;
+return false;
 }
 function BA(_20,_21,_22){
 return BR(_20,_21,_22)+"_="+(DT()+Math.random());
