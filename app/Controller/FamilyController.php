@@ -1022,7 +1022,16 @@ Class FamilyController extends AppController {
                 }
 
                 $tree[$peopleData['id']]['m'] = $peopleData['m_id'];
-
+               // echo $_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images\1234.JPG';
+                
+              //  var_dump(file_exists($_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images\1234.jpg'));
+                $peopleId = $peopleData['id'];
+                //echo $_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images/' . $peopleId .'.jpg';
+                if (file_exists($_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images/' . $peopleId .'.jpg') ===  true) {
+                    $tree[$peopleData['id']]['r'] = $peopleData['id'];
+                } else {
+                    $tree[$peopleData['id']]['r'] = '';
+                }
                 $tree[$peopleData['id']]['fg'] = true;
                 $tree[$peopleData['id']]['g'] = $peopleData['gender'] == 'male' ? 'm' : 'f';
                 $tree[$peopleData['id']]['hp'] = true;
