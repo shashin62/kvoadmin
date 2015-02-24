@@ -1760,10 +1760,29 @@ GROUP BY p.created_by");
      public function getMissingFathers() {
         $length = $_GET['iDisplayLength'];
         $start = (isset($_GET['iDisplayStart']) && $_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : 0;
-        $sQuery = "SELECT id, group_id, first_name, last_name,f_id FROM `people` where f_id NOT IN (SELECT a.f_id FROM `people` a , `people` b WHERE  a.f_id=b.id) LIMIT ".$start.", ".$length;
+        
+        $sSql = "SELECT a.f_id FROM `people` a INNER JOIN `people` b ON a.f_id = b.id";
+        $rResultId = $this->query($sSql);
+        
+        $ids = array();
+        foreach ($rResultId as $key => $value) {
+            foreach ($value as $k => $v) {
+                foreach ($v as $fld => $fldval) {
+                    $ids[] = $fldval;
+                }
+            }
+        }
+        
+        $sQuery = "SELECT id, group_id, first_name, last_name, f_id FROM `people`
+                    WHERE f_id NOT
+                    IN ( ".implode(',',$ids)."
+                    ) LIMIT " . $start . ", " . $length;
         $rResult = $this->query($sQuery);
         
-        $sQry = "SELECT id FROM `people` where f_id NOT IN (SELECT a.f_id FROM `people` a , `people` b WHERE  a.f_id=b.id)";
+        $sQry = "SELECT id FROM `people`
+                    WHERE f_id NOT
+                    IN ( ".implode(',',$ids)."
+                    ) ";
         $rResultTot = $this->query($sQry);
         
         $iTotal = count($rResultTot);
@@ -1794,10 +1813,29 @@ GROUP BY p.created_by");
     public function getMissingMothers() {
         $length = $_GET['iDisplayLength'];
         $start = (isset($_GET['iDisplayStart']) && $_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : 0;
-        $sQuery = "SELECT id, group_id, m_id, first_name, last_name FROM `people` where m_id NOT IN (SELECT a.m_id FROM `people` a , `people` b WHERE  a.m_id=b.id) LIMIT ".$start.", ".$length;
+        
+        $sSql = "SELECT a.m_id FROM `people` a INNER JOIN `people` b ON a.m_id = b.id";
+        $rResultId = $this->query($sSql);
+        
+        $ids = array();
+        foreach ($rResultId as $key => $value) {
+            foreach ($value as $k => $v) {
+                foreach ($v as $fld => $fldval) {
+                    $ids[] = $fldval;
+                }
+            }
+        }
+        
+        $sQuery = "SELECT id, group_id, first_name, last_name, m_id FROM `people`
+                    WHERE m_id NOT
+                    IN ( ".implode(',',$ids)."
+                    ) LIMIT " . $start . ", " . $length;
         $rResult = $this->query($sQuery);
         
-        $sQry = "SELECT id FROM `people` where m_id NOT IN (SELECT a.m_id FROM `people` a , `people` b WHERE  a.m_id=b.id)";
+        $sQry = "SELECT id FROM `people`
+                    WHERE m_id NOT
+                    IN ( ".implode(',',$ids)."
+                    ) ";
         $rResultTot = $this->query($sQry);
         
         $iTotal = count($rResultTot);
