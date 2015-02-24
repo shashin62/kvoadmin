@@ -854,7 +854,7 @@ Class FamilyController extends AppController {
                     if ($this->People->save($this->request->data)) {
                         $msg['status'] = 1;
                         if ($same == 1) {
-                            $this->_copyAddress($parentId, $_REQUEST['peopleid']);
+                            $this->_copyAddress($parentId, $_REQUEST['peopleid'], true);
                         }
                     } else {
                         $msg['status'] = 0;
