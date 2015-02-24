@@ -1756,7 +1756,124 @@ GROUP BY p.created_by");
             return false;
         }
      }
+     
+     public function getMissingFathers() {
+        $length = $_GET['iDisplayLength'];
+        $start = (isset($_GET['iDisplayStart']) && $_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : 0;
+        $sQuery = "SELECT id, group_id, first_name, last_name,f_id FROM `people` where f_id NOT IN (SELECT a.f_id FROM `people` a , `people` b WHERE  a.f_id=b.id) LIMIT ".$start.", ".$length;
+        $rResult = $this->query($sQuery);
+        
+        $sQry = "SELECT id FROM `people` where f_id NOT IN (SELECT a.f_id FROM `people` a , `people` b WHERE  a.f_id=b.id)";
+        $rResultTot = $this->query($sQry);
+        
+        $iTotal = count($rResultTot);
+
+        /*
+         * Output
+        */ 
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iTotal,
+            "aaData" => array()
+        );
+
+        foreach ($rResult as $key => $value) {
+            $row = array();
+            foreach ($value as $k => $v) {
+                foreach ($v as $fld => $fldval) {
+                    $row[] = $fldval;
+                }
+            }
+            $row[] = '';
+            $output['aaData'][] = $row;
+        }
+        return $output;
+    }
+    
+    public function getMissingMothers() {
+        $length = $_GET['iDisplayLength'];
+        $start = (isset($_GET['iDisplayStart']) && $_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : 0;
+        $sQuery = "SELECT id, group_id, m_id, first_name, last_name FROM `people` where m_id NOT IN (SELECT a.m_id FROM `people` a , `people` b WHERE  a.m_id=b.id) LIMIT ".$start.", ".$length;
+        $rResult = $this->query($sQuery);
+        
+        $sQry = "SELECT id FROM `people` where m_id NOT IN (SELECT a.m_id FROM `people` a , `people` b WHERE  a.m_id=b.id)";
+        $rResultTot = $this->query($sQry);
+        
+        $iTotal = count($rResultTot);
+
+
+        /*
+         * Output
+        */ 
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iTotal,
+            "aaData" => array()
+        );
+
+        foreach ($rResult as $key => $value) {
+            $row = array();
+            foreach ($value as $k => $v) {
+                foreach ($v as $fld => $fldval) {
+                    $row[] = $fldval;
+                }
+            }
+            $row[] = '';
+            $output['aaData'][] = $row;
+        }
+        return $output;
+    }
              
-             
+    public function getMatchingAddress() {
+        $length = $_GET['iDisplayLength'];
+        $start = (isset($_GET['iDisplayStart']) && $_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : 0;
+        $sQuery = "SELECT group_concat(people.id) matching_ids, people.group_id, address.wing, address.room_number, address.building_name, address.complex_name, address.plot_number, address.road, address.suburb, address.suburb_zone, address.city, address.state, address.zip_code
+FROM people RIGHT JOIN address ON address.people_id = people.id WHERE people.id != ''
+GROUP BY people.group_id, address.wing, address.room_number, address.building_name, address.complex_name, address.plot_number, address.road, address.suburb, address.suburb_zone, address.city, address.state, address.zip_code 
+HAVING count(*) > 1 LIMIT ".$start.", ".$length;
+        $rResult = $this->query($sQuery);
+        
+        $sQry = "SELECT people.group_id
+FROM people RIGHT JOIN address ON address.people_id = people.id WHERE people.id != ''
+GROUP BY people.group_id, address.wing, address.room_number, address.building_name, address.complex_name, address.plot_number, address.road, address.suburb, address.suburb_zone, address.city, address.state, address.zip_code 
+HAVING count(*) > 1";
+        $rResultTot = $this->query($sQry);
+        
+        $iTotal = count($rResultTot);
+
+
+        /*
+         * Output
+        */
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iTotal,
+            "aaData" => array()
+        );
+
+        foreach ($rResult as $key => $value) {
+            $data = array();
+            foreach ($value as $k => $v) {
+                foreach ($v as $fld => $fldval) {
+                    if (in_array($fld, array(wing, room_number, building_name, complex_name, plot_number, road, suburb, suburb_zone))) {
+                        if ($fldval != '') {                            
+                            $data['address'][] = $fldval;
+                        }
+                    } elseif ($fld == 'matching_ids') {
+                        $ids = explode(',', $fldval);
+                        $data[$fld] = implode(', ',array_unique($ids));
+                    } else {
+                        $data[$fld] = $fldval;
+                    }
+                }
+            }
+
+            $output['aaData'][] = array($data['group_id'], implode (',', $data['address']), $data['city'], $data['state'], $data['zip_code'], $data['matching_ids'], '');
+        }
+        return $output; 
+    }         
 }
 
