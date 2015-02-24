@@ -67,6 +67,33 @@ Class ReportController extends AppController {
             $this->redirect('/user/login');
         }
     }
+    
+    public function missingfathers() {
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
+    }
+    
+    public function missingmothers() {
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
+    }
+    
+    public function matchingAddress() {
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
+    }
 
     public function getCompletedRecords() {
         $userID = $this->Session->read('User.user_id');
@@ -84,6 +111,30 @@ Class ReportController extends AppController {
         $this->autoRender = false;
         $_REQUEST['userid'] = $_REQUEST['userid'] ? $_REQUEST['userid'] : '';
         $data = $this->People->getMissingData($userID, $roleID, $_REQUEST['userid']);
+        echo json_encode($data);
+    }
+    
+    public function getMissingFathers() {
+        $userID = $this->Session->read('User.user_id');
+        $roleID = $this->Session->read('User.role_id');
+        $this->autoRender = false;
+        $data = $this->People->getMissingFathers();
+        echo json_encode($data);
+    }
+    
+    public function getMissingMothers() {
+        $userID = $this->Session->read('User.user_id');
+        $roleID = $this->Session->read('User.role_id');
+        $this->autoRender = false;
+        $data = $this->People->getMissingMothers();
+        echo json_encode($data);
+    }
+    
+    public function getMatchingAddress() {
+        $userID = $this->Session->read('User.user_id');
+        $roleID = $this->Session->read('User.role_id');
+        $this->autoRender = false;
+        $data = $this->People->getMatchingAddress();
         echo json_encode($data);
     }
 
