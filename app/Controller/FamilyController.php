@@ -706,7 +706,7 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
                         if ($same == 1) {
-                            $this->_copyAddress($parentId, $this->People->id);
+                            $this->_copyAddress($parentId, $this->People->id , true);
                         }
                     }
                 } else {
@@ -876,11 +876,16 @@ Class FamilyController extends AppController {
         $this->render("/Elements/json_messages");
     }
 
-    private function _copyAddress($parentId, $peopleid) {
+    private function _copyAddress($parentId, $peopleid , $isSame = false) {
         $conditions = array('Address.people_id' => $parentId);
         $getParentAddress = $this->Address->find('all', array('conditions' => $conditions));
-
-        unset($getParentAddress[0]['Address']['id']);
+        if( $isSame ==  true ) {
+            $updatePeople = array();
+            $updatePeople['People']['address_id'] = $getParentAddress[0]['Address']['id'];
+            $updatePeople['People']['id'] = $peopleid;
+            $this->People->save($updatePeople);
+        } else {
+              unset($getParentAddress[0]['Address']['id']);
         unset($getParentAddress[0]['Address']['people_id']);
         $getParentAddress[0]['Address']['created'] = date('Y-m-d H:i:s');
         $getParentAddress[0]['Address']['people_id'] = $peopleid;
@@ -893,6 +898,8 @@ Class FamilyController extends AppController {
             $updatePeople['People']['id'] = $peopleid;
             $this->People->save($updatePeople);
         }
+        }
+      
     }
 
     public function details() {
@@ -1275,6 +1282,9 @@ Class FamilyController extends AppController {
         $this->layout = 'ajax';
         $same = $this->request->data['Address']['is_same'];
         $parentId = $_REQUEST['parentid'];
+//        echo '<pre>';
+//        print_r($_REQUEST);
+//        exit;
         if ($same == 1) {
             $conditions = array('Address.people_id' => $parentId);
             $getParentAddress = $this->Address->find('all', array('conditions' => $conditions));
