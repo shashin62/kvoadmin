@@ -586,7 +586,7 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
                         if ($same == 1) {
-                            $this->_copyAddress($parentId, $this->People->id);
+                            $this->_copyAddress($parentId, $this->People->id, true);
                         }
                     }
                 } else {
@@ -638,7 +638,7 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
                         if ($same == 1) {
-                            $this->_copyAddress($parentId, $this->People->id);
+                            $this->_copyAddress($parentId, $this->People->id, true);
                         }
                     }
                 } else {
@@ -763,7 +763,7 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
                         if ($same == 1) {
-                            $this->_copyAddress($parentId, $this->People->id);
+                            $this->_copyAddress($parentId, $this->People->id, true);
                         }
                     }
                 } else {
@@ -833,7 +833,7 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
                         if ($same == 1) {
-                            $this->_copyAddress($parentId, $this->People->id);
+                            $this->_copyAddress($parentId, $this->People->id, true);
                         }
                     }
                 } else {
