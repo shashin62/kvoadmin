@@ -1018,15 +1018,15 @@ Class FamilyController extends AppController {
 
                 $tree[$peopleData['id']]['e'] = $peopleData['email'];
                 $tree[$peopleData['id']]['u'] = $peopleData['mobile_number'];
-                if ($peopleGroup['tree_level'] != '') {
+                //if ($peopleGroup['tree_level'] != '') {
                     if ($peopleData['f_id'] == $rootId) {
                         $tree[$peopleData['id']]['f'] = 'START';
                     } else {
                         $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
                     }
-                } else {
-                    $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
-                }
+                //} else {
+                //    $tree[$peopleData['id']]['f'] = $peopleData['f_id'];
+                //}
 
                 $tree[$peopleData['id']]['m'] = $peopleData['m_id'];
                // echo $_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images\1234.JPG';
