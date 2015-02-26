@@ -25,6 +25,7 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
     <table id="getFamilyGroup" class="display" cellspacing="0" width="100%">
         <tfoot>
             <tr>
+                <th></th
                 <th></th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -38,7 +39,8 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
         </tfoot>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Group ID</th>
+                <th>People Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                  <th>Village</th>

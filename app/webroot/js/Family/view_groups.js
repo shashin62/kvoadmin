@@ -20,7 +20,7 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams)
 $(function () {
 
     $('#getFamilyGroup tfoot th').each(function () {
-        if ($(this).index() !== 0 && $(this).index() != 8 && $(this).index() != 6 && $(this).index() != 7) {
+        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 && $(this).index() != 1) {
             var title = $('#getFamilyGroup thead th').eq($(this).index()).text();
             if (title == 'DOB') {
                 $(this).html('<input  size="10" id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="" />');
@@ -36,15 +36,15 @@ $(function () {
         "bServerSide": true,
          "aoColumnDefs" : [ {
             'bSortable' : false,
-            'aTargets' : [ 6,8 ]
+            'aTargets' : [ 7,9 ]
         } ],
         "sAjaxSource": baseUrl + "/family/getAjaxGroups?showhof="+ showhof,
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
-            console.log(aData);
-            $('td:eq(8)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
+            
+            $('td:eq(9)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
 ');
-          if( roleid == 1 || userid == aData[6]) {
-                $('td:eq(8)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
+          if( roleid == 1 || userid == aData[7]) {
+                $('td:eq(9)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
             }
         },
         "rowCallback": function (row, data) {
@@ -58,7 +58,7 @@ $(function () {
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
     
     oTable.columns().eq( 0 ).each( function ( colIdx ) {
-        if( colIdx != 0 && colIdx != 5 && colIdx != 6 && colIdx != 7) {
+        if( colIdx != 0 && colIdx != 1 && colIdx != 6 && colIdx != 7 && colIdx != 8) {
         $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
             oTable
                 .column( colIdx )

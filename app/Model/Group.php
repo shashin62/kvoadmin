@@ -45,7 +45,7 @@ class Group extends AppModel {
             }
         }
         
-        $aSearchCollumns = array('parent.id','parent.first_name','parent.last_name','parent.village',
+        $aSearchCollumns = array('parent.group_id','parent.id','parent.first_name','parent.last_name','parent.village',
             'parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  ),'
             . 'grp.created,user.first_name,user.last_name');
         /*
@@ -96,7 +96,7 @@ class Group extends AppModel {
          * Get data to display
          */
    $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS grp.id,parent.first_name,
+    SELECT SQL_CALC_FOUND_ROWS grp.id,parent.id,parent.first_name,
     parent.last_name,parent.village,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
      parent.mobile_number,grp.created,user.first_name,user.last_name
             FROM   $sTable
