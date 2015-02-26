@@ -28,7 +28,7 @@
                                     'dataTables.bootstrap',
                                     'bootstrapValidator.min',
                                     'datepicker.min',
-                                    'bootstrap-select.min','jquery-ui.min','jquery-ui.theme.min','prettify','bootstrap-multiselect')); ?>
+                                    'bootstrap-select.min','jquery-ui.min','jquery-ui.theme.min','bootstrap-multiselect')); ?>
 <?php
   echo $this->Html->script(array('jquery','common','bootstrap.min','jquery.validate','jquery-ui.min','combobox','autotab','prettify','bootstrap-multiselect'));      
 ?>
