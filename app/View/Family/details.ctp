@@ -86,7 +86,7 @@ $firstName = $value['People']['first_name'];
                                     <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
             <a class="addspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Spouse</a><br>
                                     <?php } else  { ?> 
-            <div>Spouse: <a title="edit" class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['partner_id'];?>" href="javascript:void(0);"><?php echo $value['parent3']['partner_name'];?></a>
+            <div>Spouse: <a title="edit" class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['partner_id'];?>" href="javascript:void(0);"><?php echo $value['parent3']['partner_name'];?></a> (<?php echo $value['People']['partner_id'];?>)
  <?php if( $value['People']['gender'] == 'male') { ?>
 <a style="display:block;" class="addexspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Ex-Spouse</a>
 <?php } ?>
@@ -102,7 +102,7 @@ $firstName = $value['People']['first_name'];
                                     <?php if( empty($value['People']['f_id'])) { ?>
             <a class="addfather" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Father</a>
                                     <?php }  else { ?>
-            <div>Father: <a title="edit"  class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['f_id'];?>" href="javascript:void(0);"><?php echo $value['parent1']['father'];?></a></div>
+            <div>Father: <a title="edit"  class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['f_id'];?>" href="javascript:void(0);"><?php echo $value['parent1']['father'];?></a> (<?php echo $value['People']['f_id'];?>)</div>
                                     <?php } ?>
         </div>
         <div class="col-md-2">
@@ -113,7 +113,7 @@ $firstName = $value['People']['first_name'];
                                     <?php if( empty($value['People']['m_id'])) { ?>
             <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
                                     <?php } else { ?>
-            <div>Mother:  <a title="edit"  class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['m_id'];?>" href="javascript:void(0);"><?php echo $value['parent2']['mother'];?></a></div>
+            <div>Mother:  <a title="edit"  class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['m_id'];?>" href="javascript:void(0);"><?php echo $value['parent2']['mother'];?></a> (<?php echo $value['People']['m_id'];?>)</div>
                                     <?php } ?>
         </div>
         <div class="col-md-2">
@@ -122,7 +122,7 @@ $firstName = $value['People']['first_name'];
                                     <?php $children = $People->getChildren($value['People']['id'],'male');
                                     $childs = array();
                                     foreach ( $children as $k => $v ) {
-                                        $childs[] = $v[0]['childname'];
+                                        $childs[] = $v[0]['childname']. ' (' . $v['People']['id'] . ')';
                                     }
                                     
                                     ?>
@@ -198,7 +198,7 @@ $missingData = array();?>
                                     <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
             <a class="addspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Spouse</a><br>
                                     <?php } else  { ?> 
-            <div>Spouse: <?php echo $value['People']['partner_name'];?></div>
+            <div>Spouse: <?php echo $value['People']['partner_name'];?> (<?php echo $value['People']['partner_id'];?>)</div>
                                     <?php } ?>
 
         </div>
@@ -210,7 +210,7 @@ $missingData = array();?>
                                     <?php if( empty($value['People']['f_id'])) { ?>
             <a class="addfather" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Father</a>
                                     <?php }  else { ?>
-            <div>Father: <?php echo $value['People']['father'];?></div>
+            <div>Father: <?php echo $value['People']['father'];?> (<?php echo $value['People']['f_id'];?>)</div>
                                     <?php } ?>
         </div>
         <div class="col-md-2">
@@ -221,7 +221,7 @@ $missingData = array();?>
                                     <?php if( empty($value['People']['m_id'])) { ?>
             <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
                                     <?php } else { ?>
-            <div>Mother: <?php echo $value['People']['mother'];?></div>
+            <div>Mother: <?php echo $value['People']['mother'];?> (<?php echo $value['People']['m_id'];?>)</div>
                                     <?php } ?>
         </div>
         <div class="col-md-2">
@@ -230,7 +230,7 @@ $missingData = array();?>
                                     <?php $children = $People->getChildren($value['People']['id'],'male');
                                     $childs = array();
                                     foreach ( $children as $k => $v ) {
-                                        $childs[] = $v[0]['childname'];
+                                        $childs[] = $v[0]['childname'] . ' (' . $v['People']['id'] . ')';
                                     }
                                     
                                     ?>
