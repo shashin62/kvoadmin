@@ -8,9 +8,9 @@ class Group extends AppModel {
      
      public function getAllFamilyGroups($userId, $roleId, $showhof = false) {
          
-       $aColumns = array('grp.id', 'grp.name','parent.first_name',
-           'parent.last_name','parent.village','parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
-           'grp.created','user.first_name','user.last_name');
+       $aColumns = array('grp.id', 'parent.id','parent.first_name',
+           'parent.last_name','paret.village','parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
+           'grp.created','grp.created','grp.created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "grp.id";
@@ -44,7 +44,7 @@ class Group extends AppModel {
                 $sOrder = "";
             }
         }
-        
+       
         $aSearchCollumns = array('parent.group_id','parent.id','parent.first_name','parent.last_name','parent.village',
             'parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  ),'
             . 'grp.created,user.first_name,user.last_name');
