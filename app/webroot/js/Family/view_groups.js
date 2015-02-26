@@ -20,8 +20,9 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams)
 $(function () {
 
     $('#getFamilyGroup tfoot th').each(function () {
-        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 && $(this).index() != 1) {
+        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 && $(this).index() !== 1) {
             var title = $('#getFamilyGroup thead th').eq($(this).index()).text();
+            
             if (title == 'DOB') {
                 $(this).html('<input  size="10" id = "date_of_birth" type="text" class="form-control dp search_DOB" type="text" placeholder="" />');
             } else {
@@ -58,7 +59,7 @@ $(function () {
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
     
     oTable.columns().eq( 0 ).each( function ( colIdx ) {
-        if( colIdx != 0 && colIdx != 1 && colIdx != 6 && colIdx != 7 && colIdx != 8) {
+        if( colIdx != 0 && colIdx != 1 && colIdx != 6 && colIdx != 7 && colIdx != 8 && colIdx != 1) {
         $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
             oTable
                 .column( colIdx )
