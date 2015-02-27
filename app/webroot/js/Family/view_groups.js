@@ -38,7 +38,8 @@ $(function () {
          "aoColumnDefs" : [ {
             'bSortable' : false,
             'aTargets' : [ 7,9 ]
-        } ],
+        },{ "width": "7%", "aTargets": [6, 7,8] }],
+     
         "sAjaxSource": baseUrl + "/family/getAjaxGroups?showhof="+ showhof,
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             

@@ -40,7 +40,7 @@ if (in_array($this->Session->read('User.role_id'),$roles)) {?>
         <thead>
             <tr>
                 <th>Group ID</th>
-                <th>People Id</th>
+                <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                  <th>Village</th>
