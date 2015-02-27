@@ -939,7 +939,8 @@ Class FamilyController extends AppController {
         $userID = $this->Session->read('User.user_id');
         $roleId = $this->Session->read('User.role_id');
         $_REQUEST['showhof'] = $_REQUEST['showhof'] ? $_REQUEST['showhof'] : 'true';
-        $data = $this->Group->getAllFamilyGroups($userID, $roleId, $_REQUEST['showhof']);
+        $_REQUEST['showmy'] = $_REQUEST['showhof'] ? $_REQUEST['showmy'] : 'true';
+        $data = $this->Group->getAllFamilyGroups($userID, $roleId, $_REQUEST['showhof'], $_REQUEST['showmy']);
         echo json_encode($data);
     }
 
