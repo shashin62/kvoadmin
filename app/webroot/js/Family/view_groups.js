@@ -96,8 +96,30 @@ $('.addfamily').click(function(){
    doFormPost(baseUrl+"/family/searchPeople?type=addnew",'{ "type":"addnew"}');
    
 });
+
+$('.showmy').click(function(){
+     if ($(".showmy").is(':checked') == true) {
+         $('.showhof').attr('checked',false);
+        var myArray = {
+            "showmy": true
+        };
+
+      
+    } else {
+       
+         var myArray = {
+            "showhmy": false
+        };
+    }
+      var oTable = $("#getFamilyGroup").dataTable();
+        oTable.fnReloadAjax(oTable.oSettings, myArray);
+     
+});
+
+
 $('.showhof').click(function () {
     if ($(".showhof").is(':checked') == true) {
+        $('.showmy').attr('checked',false);
         showhof = 1;
 
         var myArray = {
@@ -106,6 +128,7 @@ $('.showhof').click(function () {
 
       
     } else {
+        
          var myArray = {
             "showhof": false
         };

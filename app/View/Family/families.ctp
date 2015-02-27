@@ -5,19 +5,26 @@
 </style>
 <?php
 $roles = array(1,2,3);
-if (in_array($this->Session->read('User.role_id'),$roles)) {?>
+?>
 <div class="container-fluid">
     <div class="row">
 		<div class="col-md-6 col-lg-6 col-xs-12">
 		    <h3 class="heading">Families</h3>
 		</div>
+        
 		<div class="col-md-6 col-lg-6 col-xs-12">
+                    <?php if (in_array($this->Session->read('User.role_id'),$roles)) {?>
                      <?php echo $this->Form->input("showhof", array('type' => "checkbox",'class' => 'showhof', 'checked' => 'checked' ,'div' => false, "label" => 'Show only HOF')); ?>
+                    <?php } ?>
+                    &nbsp;&nbsp;
+                     <?php echo $this->Form->input("showmy", array('type' => "checkbox",'class' => 'showmy','div' => false, "label" => 'Show only my entries')); ?>
 			<a href="javascript:void(0);" class="btn btn-primary btn-primary pull-right addfamily"><span class="glyphicon glyphicon-edit"></span>New Family</a>
 		</div>
+        
+        
     </div>
     
-<?php } ?>
+
    
 </div>
 

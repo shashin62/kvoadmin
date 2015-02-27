@@ -6,8 +6,8 @@ class Group extends AppModel {
     
      var $name = 'Group';
      
-     public function getAllFamilyGroups($userId, $roleId, $showhof = false) {
-         
+     public function getAllFamilyGroups($userId, $roleId, $showhof = false, $showmy = false) {
+       
        $aColumns = array('grp.id', 'parent.id','parent.first_name',
            'parent.last_name','paret.village','parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
            'grp.created','grp.created','grp.created');
@@ -90,6 +90,27 @@ class Group extends AppModel {
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         }
         
+        
+        if( $showmy == 'true') {
+            
+             if ($sWhere == "") {
+                    $sWhere = "WHERE parent.created_by = {$userId}";
+                } else {
+                    $sWhere .= " AND parent.created_by = {$userId}";
+                }
+               
+        }
+        
+        if( $showhof == 'true' && $showmy == 'true' ) {
+            
+            $sJoin = "  INNER JOIN people as parent ON (grp.people_id = parent.id )
+                 INNER JOIN users as user ON (user.id = parent.created_by)";
+            if ($sWhere == "") {
+                    $sWhere = "WHERE parent.created_by = {$userId}";
+                } else {
+                    $sWhere .= " AND parent.created_by = {$userId}";
+                }
+        }
         // echo $sWhere;
         /*
          * SQL queries
