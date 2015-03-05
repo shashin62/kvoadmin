@@ -1,14 +1,14 @@
 <style>
-ul.ui-menu {
-    z-index:9999 ; /* The default is 100. !important overrides the default. */
-}
-.ui-dialog{
-z-index: 0 !important
-}
+    ul.ui-menu {
+        z-index:9999 ; /* The default is 100. !important overrides the default. */
+    }
+    .ui-dialog{
+        z-index: 0 !important
+    }
 </style>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6"><h3>Family details</h3></div>
+        <div class="col-md-6"><h3>Family details (<?php echo $data[0]['People']['first_name'] . ' ' . $data[0]['People']['last_name'];?>)</h3></div>
         <div class="col-md-6 pull-right">
             <a href="<?php echo $this->base;?>/family/viewNote?gid=<?php echo $groupId;?>" target="_blank"class="btn btn-sm btn-link viewnote">View notes</a>
             <button type="button"  class="btn btn-sm btn-primary addnote">Add Note</button>
@@ -16,21 +16,20 @@ z-index: 0 !important
             <button type="button" class="btn btn-sm btn-primary hindi">Show Names: Hindi</button>
             <button type="button" class="btn btn-sm btn-primary guju">Show Names: Gujarati</button>
         </div>
+
     </div>
-<div class="container-fluid addNoteForm" style="display: none;">
+    <div class="container-fluid addNoteForm" style="display: none;">
     <?php echo $this->Form->create('Note', array('class' => 'form-horizontal noteForm', 'id' => 'addNote', 'name' => 'bloodgroup')); ?>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-xs-12">
-            <div class="form-group">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="note">Note</label>
                     <div class="col-lg-6 col-md-6 col-xs-6">
                         <?php echo $this->Form->input('comment', array('id' => 'comment','type' => 'textarea', 'placeholder' => 'Enter Comment' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control comment')); ?>
                     </div>
                 </div>
             <?php echo $this->Form->input('id', array('type' => 'hidden',  'id' => 'id', 'placeholder' => 'Enter Blood group name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control noteid')); ?>
-        </div>
-    
-    
+            </div>
             <div class="col-lg-2 col-md-1 col-xs-2">
                 <div class="form-actions">
                     <div class="col-lg-2 col-md-1 col-xs-1">
@@ -40,18 +39,17 @@ z-index: 0 !important
             </div>
         </div>
         <?php echo $this->Form->end(); ?>
-</div>
-	<br>
-
-   <div class="row"> <h4>Primary Family , Created by - <?php echo $ownername; ?></h4></div>
+    </div>
     <br>
+
+        <br>
                         <?php
 
                        App::import('Model', 'People');
                         $People = new People();
                         $hofId ;
                   ?>
-                        
+
 			<?php foreach( $data as $key => $value ) {
                             if( $value['Group']['tree_level'] == '') {
                                 $hofId = $value['People']['id'];
@@ -88,9 +86,9 @@ $firstName = $value['People']['first_name'];
                                     <?php } else  { ?> 
             <div>Spouse: <a title="edit" class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['partner_id'];?>" href="javascript:void(0);"><?php echo $value['parent3']['partner_name'];?></a> (<?php echo $value['People']['partner_id'];?>)
  <?php if( $value['People']['gender'] == 'male') { ?>
-<a style="display:block;" class="addexspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Ex-Spouse</a>
+                <a style="display:block;" class="addexspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Ex-Spouse</a>
 <?php } ?>
-</div>
+            </div>
                                     <?php } ?>
 
         </div>
@@ -137,6 +135,9 @@ $firstName = $value['People']['first_name'];
             <?php if( $hofId != $value['People']['partner_id']) { ?>
             <a data-id="<?php echo $value['People']['id'];?>" class="transfer-family" href="javascript:void(0);">Transfer of Family</a>
             <?php } ?>
+<?php if($value['People']['first_name'] != '' && $value['People']['last_name'] != '' && $value['People']['mobile_number'] != '' && $value['People']['village'] != '' && $value['People']['is_late'] == 0 && $value['Group']['tree_level'] != '') { ?>
+            <a data-gid="<?php echo $value['People']['group_id'];?>" data-hofid="<?php echo $hofId;?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);" class="make_hof">Make HOF</a>
+<?php } ?>
         </div>
                                 <?php } else { ?>
         <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
@@ -192,8 +193,8 @@ $missingData = array();?>
 <?php if( $groupId != $value['People']['group_id']) { ?>
     <div class="row">
         <div class="col-md-1" <?php echo $value['People']['is_late'] == '1' ? "style='color:red';" : ''?>><?php echo $value['People']['first_name'] . ' ' . $value['People']['last_name'];?> (<?php echo $value['People']['id'];?>)</div>
-        
- <div class="col-md-1">
+
+        <div class="col-md-1">
             <a class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);">Edit Detail</a><br>
                                     <?php if(strtolower($value['People']['martial_status']) == 'married' && empty($value['People']['partner_id'])) { ?>
             <a class="addspouse" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Spouse</a><br>
@@ -305,8 +306,6 @@ if( $groupId != $value['group_id']) {
 }
 }
 echo '</select>';
-                        
-            
             ?>
                 </div>
 
@@ -316,5 +315,5 @@ echo '</select>';
 </div>
 <?php echo $this->Html->script(array('Family/details')); ?>
 <script type="text/javascript">
-var groupid = '<?php echo $groupId;?>';
+    var groupid = '<?php echo $groupId;?>';
 </script>

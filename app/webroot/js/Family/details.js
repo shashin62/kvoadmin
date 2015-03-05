@@ -200,3 +200,25 @@ $('.deletemember').click(function(){
 return;
 }
 });
+
+$('.make_hof').click(function(){
+   var $this = $(this);
+   var id = $this.data('id');
+   var hofId = $this.data('hofid');
+    var gid = $this.data('gid');
+    $.ajax({
+        url: baseUrl + '/family/makeHOF',
+        dataType: 'json',
+        data: {id: id, hofid: hofId},
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                window.location.href = baseUrl + '/family/details/' + gid;
+                
+            }, 2500);
+        }
+    });
+});

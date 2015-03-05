@@ -754,6 +754,32 @@ Class People extends AppModel {
             return false;
         }
     }
+    
+    public function makeHof($id, $hofId, $groupId = false) 
+    {
+        $this->recursive = -1;
+        $groupId = 1;
+
+               
+        $backUpdateAllTreeLevels = "UPDATE {$this->tablePrefix}people_groups
+                  SET tree_level = $hofId           
+                  WHERE people_id = {$hofId} and group_id = {$groupId}";          
+                  
+        
+      $query = "UPDATE {$this->tablePrefix}people_groups
+                  SET tree_level = ''            
+                  WHERE people_id = {$id} and group_id = {$groupId}";
+        try {
+            
+            $this->query($backUpdateAllTreeLevels);
+            $this->query($query);
+
+            return true;
+        } catch (ErrorException $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
 
     public function updateSpouseDetails($data) {
         $this->recursive = -1;

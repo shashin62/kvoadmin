@@ -916,6 +916,7 @@ Class FamilyController extends AppController {
         }
 
         $this->set('owners', $ownerData);
+       
         $this->set('type', isset($_REQUEST['type']) ? $_REQUEST['type'] : 'english');
         $id = $this->request->params['pass'][0];
 
@@ -923,7 +924,6 @@ Class FamilyController extends AppController {
             $this->set('ownername', $ownerData[$id]['owner']);
         }
         $getDetails = $this->People->getFamilyDetails($id, false, true);
-        //echo '<pre>';print_r($getDetails);exit;
         $this->set('userId', $userID);
         $this->set('groupId', $id);
         $this->set('roleId', $roleID);
@@ -954,14 +954,12 @@ Class FamilyController extends AppController {
         $groupId = $_REQUEST['gid'];
         $uid = $_REQUEST['uid'];
         $data = $this->People->getFamilyDetails($groupId);
-//echo '<pre>';
-//print_r($data);exit;
         //check each id exists in other group then get all gamily detials for this group also
         foreach ($data as $key => $value) {
             $groupData[] = $this->PeopleGroup->checkExistsInOtherGroup($groupId, $value['People']['id']);
         }
 
-
+        // perform a merge of other familes members with current members that are common to both familes
         foreach ($groupData as $k => $v) {
             if (count($v)) {
                 foreach ($v as $k1 => $v1) {
@@ -1030,16 +1028,8 @@ Class FamilyController extends AppController {
                 //}
 
                 $tree[$peopleData['id']]['m'] = $peopleData['m_id'];
-               // echo $_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images\1234.JPG';
-                
-              //  var_dump(file_exists($_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images\1234.jpg'));
+              
                 $peopleId = $peopleData['id'];
-                //echo $_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images/' . $peopleId .'.jpg';
-                if (file_exists($_SERVER["DOCUMENT_ROOT"].'\kvoadmin\app\webroot\tree\ap\images/' . $peopleId .'.jpg') ===  true) {
-                    $tree[$peopleData['id']]['r'] = $peopleData['id'];
-                } else {
-                    $tree[$peopleData['id']]['r'] = '';
-                }
                 $tree[$peopleData['id']]['fg'] = true;
                 $tree[$peopleData['id']]['g'] = $peopleData['gender'] == 'male' ? 'm' : 'f';
                 $tree[$peopleData['id']]['hp'] = true;
@@ -1138,6 +1128,26 @@ Class FamilyController extends AppController {
         $this->set('name', $getOwnerDetails['first_name']);
         $this->set('parentid', $getOwnerDetails['id']);
         $this->set('parentaddressid', $getOwnerDetails['business_address_id']);
+    }
+    
+    public function makeHOF()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $id = $this->request->data['id'];
+        $hofId = $this->request->data['hofid'];
+        $result = $this->People->makeHof($id, $hofId);
+        if ($result) {
+            $msg['status'] = 1;
+            $message = 'New HOF has been saved';
+        } else {
+            $msg['status'] = 0;
+            $message = 'System Error';
+        }
+        $msg['message'] = $message;
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+        
     }
 
     public function doProcessAddBusiness() {
@@ -1253,13 +1263,8 @@ Class FamilyController extends AppController {
         $array['gid'] = $gid;
         $array['pid'] = $pid;
         $getOwnerDetails = $this->People->getParentPeopleDetails($array,true);
-//        echo '<pre>';
-//        print_r($getOwnerDetails);
-//        exit;
         $data = $this->People->getFamilyDetails($gid, $pid);
-        // echo '<pre>';
-        //  print_r($data);
-        //   exit;
+        
         $groupData = $data[0]['Group'];
 
         $this->set('show', $groupData['tree_level'] == "" ? false : true);
@@ -1283,9 +1288,7 @@ Class FamilyController extends AppController {
         $this->layout = 'ajax';
         $same = $this->request->data['Address']['is_same'];
         $parentId = $_REQUEST['parentid'];
-//        echo '<pre>';
-//        print_r($_REQUEST);
-//        exit;
+        
         if ($same == 1) {
             $conditions = array('Address.people_id' => $parentId);
             $getParentAddress = $this->Address->find('all', array('conditions' => $conditions));
