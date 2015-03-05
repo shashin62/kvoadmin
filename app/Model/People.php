@@ -755,7 +755,7 @@ Class People extends AppModel {
         }
     }
     
-    public function makeHof($id, $hofId, $groupId = false) 
+    public function makeHof($id, $hofId, $groupId) 
     {
         $this->recursive = -1;
         
