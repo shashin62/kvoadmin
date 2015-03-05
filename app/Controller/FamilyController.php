@@ -1136,7 +1136,8 @@ Class FamilyController extends AppController {
         $this->layout = 'ajax';
         $id = $this->request->data['id'];
         $hofId = $this->request->data['hofid'];
-        $result = $this->People->makeHof($id, $hofId);
+        $gid = $this->request->data['gid'];
+        $result = $this->People->makeHof($id, $hofId, $gid);
         if ($result) {
             $msg['status'] = 1;
             $message = 'New HOF has been saved';
