@@ -758,7 +758,7 @@ Class People extends AppModel {
     public function makeHof($id, $hofId, $groupId = false) 
     {
         $this->recursive = -1;
-        $groupId = 1;
+        
 
                
         $backUpdateAllTreeLevels = "UPDATE {$this->tablePrefix}people_groups
@@ -769,10 +769,25 @@ Class People extends AppModel {
       $query = "UPDATE {$this->tablePrefix}people_groups
                   SET tree_level = ''            
                   WHERE people_id = {$id} and group_id = {$groupId}";
+                  
+                  $query1=  "UPDATE {$this->tablePrefix}people
+                  SET tree_level = $hofId 
+                  WHERE id = {$hofId} and group_id = {$groupId}";          
+      $query2 = "UPDATE {$this->tablePrefix}people
+                  SET tree_level = ''            
+                  WHERE id = {$id} and group_id = {$groupId}";
+                  
+    $updateGroup = "UPDATE {$this->tablePrefix}groups
+                  SET people_id = $id            
+                  WHERE people_id = {$hofId}";              
+                  
         try {
             
             $this->query($backUpdateAllTreeLevels);
             $this->query($query);
+            $this->query($query1);
+            $this->query($query2);
+            $this->query($updateGroup);
 
             return true;
         } catch (ErrorException $e) {

@@ -209,7 +209,7 @@ $('.make_hof').click(function(){
     $.ajax({
         url: baseUrl + '/family/makeHOF',
         dataType: 'json',
-        data: {id: id, hofid: hofId},
+        data: {id: id, hofid: hofId, gid : gid},
         type: "POST",
         success: function (response) {
             var displayMsg = response.message;
