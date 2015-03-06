@@ -3,21 +3,31 @@
 App::uses('AppModel', 'Model');
 
 class Group extends AppModel {
-    
-     var $name = 'Group';
-     
-     public function getAllFamilyGroups($userId, $roleId, $showhof = false, $showmy = false) {
-       
-       $aColumns = array('grp.id', 'parent.id','parent.first_name',
-           'parent.last_name','paret.village','parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth' ,
-           'grp.created','grp.created','grp.created');
+    /**
+     *
+     * @var type 
+     */
+    var $name = 'Group';
+    /**
+     *  Fetch All groups 
+     * 
+     * @param type $userId
+     * @param type $roleId
+     * @param type $showhof
+     * @param type $showmy
+     * 
+     * @return array
+     */
+    public function getAllFamilyGroups($userId, $roleId, $showhof = false, $showmy = false) {
+
+        $aColumns = array('grp.id', 'parent.id', 'parent.first_name',
+            'parent.last_name', 'paret.village', 'parent.mobile_number', 'DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth',
+            'grp.created', 'grp.created', 'grp.created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "grp.id";
-
         /* DB table to use */
         $sTable = "groups as grp";
-
         /*
          * Paging
          */
@@ -44,9 +54,9 @@ class Group extends AppModel {
                 $sOrder = "";
             }
         }
-       
-        $aSearchCollumns = array('parent.group_id','parent.id','parent.first_name','parent.last_name','parent.village',
-            'parent.mobile_number','DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  ),'
+
+        $aSearchCollumns = array('parent.group_id', 'parent.id', 'parent.first_name', 'parent.last_name', 'parent.village',
+            'parent.mobile_number', 'DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  ),'
             . 'grp.created,user.first_name,user.last_name');
         /*
          * Filtering
@@ -73,7 +83,7 @@ class Group extends AppModel {
                 }
                 $sWhere .= "" . $aSearchCollumns[$i] . " LIKE '%" . ($_GET['sSearch_' . $i]) . "%' ";
             }
-        }        
+        }
 //        if( $roleId  == 2){
 //            if ($sWhere == "") {
 //                    $sWhere = " WHERE created_by =  {$userId}";
@@ -82,69 +92,54 @@ class Group extends AppModel {
 //                }
 //        }
 //        
-        if ( $showhof == 'true'){
-             $sJoin = "  INNER JOIN people as parent ON (grp.people_id = parent.id )
+        if ($showhof == 'true') {
+            $sJoin = "  INNER JOIN people as parent ON (grp.people_id = parent.id )
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         } else {
-             $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id )
+            $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id )
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         }
-        
-        
-        if( $showmy == 'true') {
-            
-             if ($sWhere == "") {
-                    $sWhere = "WHERE parent.created_by = {$userId}";
-                } else {
-                    $sWhere .= " AND parent.created_by = {$userId}";
-                }
-               
+
+
+        if ($showmy == 'true') {
+
+            if ($sWhere == "") {
+                $sWhere = "WHERE parent.created_by = {$userId}";
+            } else {
+                $sWhere .= " AND parent.created_by = {$userId}";
+            }
         }
-        
-        if( $showhof == 'true' && $showmy == 'true' ) {
-            
+
+        if ($showhof == 'true' && $showmy == 'true') {
+
             $sJoin = "  INNER JOIN people as parent ON (grp.people_id = parent.id )
                  INNER JOIN users as user ON (user.id = parent.created_by)";
             if ($sWhere == "") {
-                    $sWhere = "WHERE parent.created_by = {$userId}";
-                } else {
-                    $sWhere .= " AND parent.created_by = {$userId}";
-                }
+                $sWhere = "WHERE parent.created_by = {$userId}";
+            } else {
+                $sWhere .= " AND parent.created_by = {$userId}";
+            }
         }
         // echo $sWhere;
         /*
          * SQL queries
          * Get data to display
          */
-   $sQuery = "
-    SELECT SQL_CALC_FOUND_ROWS grp.id,parent.id,parent.first_name,
+        $sQuery = "SELECT SQL_CALC_FOUND_ROWS grp.id,parent.id,parent.first_name,
     parent.last_name,parent.village,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
      parent.mobile_number,grp.created,user.first_name,user.last_name
-            FROM   $sTable
-                $sJoin
-            $sWhere
-            $sOrder
-            $sLimit
-            ";
+            FROM   $sTable $sJoin $sWhere $sOrder $sLimit";
 
         $rResult = $this->query($sQuery);
-
         /* Data set length after filtering */
         $sQuery = "SELECT FOUND_ROWS() as total";
-        
         $rResultFilterTotal = $this->query($sQuery);
-
         $iFilteredTotal = $rResultFilterTotal[0][0]['total'];
 
         /* Total data set length */
-        $sQuery = "
-    SELECT COUNT(" . $sIndexColumn . ") as countid
-            FROM   $sTable
-            ";
+        $sQuery = "SELECT COUNT(" . $sIndexColumn . ") as countid FROM   $sTable";
         $rResultTotal = $this->query($sQuery);
-
         $iTotal = $rResultTotal[0][0]['countid'];
-
         /*
          * Output
          */
@@ -154,9 +149,6 @@ class Group extends AppModel {
             "iTotalDisplayRecords" => $iFilteredTotal,
             "aaData" => array()
         );
-//echo '<pre>';
-//        print_r($rResult);
-//        exit;
         foreach ($rResult as $key => $value) {
             $row = array();
             $row[] = $value['grp']['id'];
@@ -166,20 +158,20 @@ class Group extends AppModel {
             $row[] = $value[0]['date_of_birth'];
             $row[] = $value['user']['first_name'] . ' ' . $value['user']['last_name'];
             $row[] = $value['grp']['created'];
-            
-
             $row[] = '';
             $output['aaData'][] = $row;
         }
-
         return $output;
     }
-    
-    
-    public function getOwners($gid)
-    {
-         $this->recursive = -1;
-        
+
+    /**
+     * 
+     * @param type $gid
+     * @return boolean
+     */
+    public function getOwners($gid) {
+        $this->recursive = -1;
+
         $options['joins'] = array(
             array('table' => 'people',
                 'alias' => 'People',
@@ -195,14 +187,14 @@ class Group extends AppModel {
                     'People.created_by = User.id'
                 )
             ),
-             );
-        
-        
-        $options['fields'] = array('People.id','People.first_name','People.last_name',
-            'Group.id','User.first_name','User.last_name');
+        );
+
+
+        $options['fields'] = array('People.id', 'People.first_name', 'People.last_name',
+            'Group.id', 'User.first_name', 'User.last_name');
         try {
             $userData = $this->find('all', $options);
-            if ($userData ) {
+            if ($userData) {
                 return $userData;
             } else {
                 return array();
@@ -212,5 +204,5 @@ class Group extends AppModel {
             return false;
         }
     }
-}
 
+}
