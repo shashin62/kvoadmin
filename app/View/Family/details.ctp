@@ -136,7 +136,7 @@ $firstName = $value['People']['first_name'];
             <a data-id="<?php echo $value['People']['id'];?>" class="transfer-family" href="javascript:void(0);">Transfer of Family</a>
             <?php } ?>
 <?php if($value['People']['first_name'] != '' && $value['People']['last_name'] != '' && $value['People']['mobile_number'] != '' && $value['People']['village'] != '' && $value['People']['is_late'] == 0 && $value['Group']['tree_level'] != '') { ?>
-            <a data-gid="<?php echo $value['People']['group_id'];?>" data-hofid="<?php echo $hofId;?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);" class="make_hof">Make HOF</a>
+            <a data-gid="<?php echo $value['People']['group_id'];?>" data-hofid="<?php echo $hofId;?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);" class="make_hof">Change to HOF for this family</a>
 <?php } ?>
         </div>
                                 <?php } else { ?>
