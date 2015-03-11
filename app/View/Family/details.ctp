@@ -11,7 +11,7 @@
         <div class="col-md-6"><h3>Family details (<?php echo $data[0]['People']['first_name'] . ' ' . $data[0]['People']['last_name'];?>)</h3></div>
         <div class="col-md-6 pull-right">
             <a href="<?php echo $this->base;?>/family/viewNote?gid=<?php echo $groupId;?>" target="_blank"class="btn btn-sm btn-link viewnote">View notes</a>
-            <button type="button"  class="btn btn-sm btn-primary addnote">Add Note</button>
+            <button type="button" class="btn btn-sm btn-primary addnote">Add Note</button>
             <button type="button" class="btn btn-sm btn-primary english">Show Names: English</button>
             <button type="button" class="btn btn-sm btn-primary hindi">Show Names: Hindi</button>
             <button type="button" class="btn btn-sm btn-primary guju">Show Names: Gujarati</button>
