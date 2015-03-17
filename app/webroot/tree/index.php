@@ -1,4 +1,4 @@
-                           <?php
+<?php
 
 $baseUrl = $_SERVER['SERVER_NAME'] .'/kvoadmin';
 if (isset($_GET['full'])) {	
@@ -6,7 +6,7 @@ if (isset($_GET['full'])) {
 } else if (isset($_GET['group_id'])){
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/group_id:' . $_GET['group_id']);
 } else {
-	$json_data = file_get_contents('http://' . $baseUrl . '/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
+	$json_data = file_get_contents('http://' . $baseUrl . '/ family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
 }
 
 ?>
