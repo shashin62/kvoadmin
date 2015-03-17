@@ -651,7 +651,7 @@ if(Efa[j].r){
 Esp=true;
 }
 }
-self.navframe.NSD(Esd);
+windows.navframe.NSD(Esd);
 }
 EUS(true,null,GV("viewmode"),true,false);
 if(_12){
@@ -992,7 +992,7 @@ p=js?"lsaved":"linitial";
 }
 var es=["linitial","lreadonly","lwriteone","lsave","lsaving","lsaved"];
 for(j=0;j<es.length;j++){
-SS(es[j],p==es[j]);
+//SS(es[j],p==es[j]);
 }
 var fi=GV("familyid");
 var si=GV("sessionid");

@@ -48,7 +48,7 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'user', 'action' => 'logout'), //logout
             'loginRedirect' => array('controller' => 'user', 'action' => 'welcome'),
             'authError' => 'You are not authorized to view this page',
-            'allowedActions' => array('logout','register','doRegisterUser','buildTreeJson',
+            'allowedActions' => array('logout','register','doRegisterUser','buildTreeJson','buildFamilyJson',
                 'rebuildARO','callAgain','addNote','viewNote','getAutoCompleteFirstName',
                 'getAutoCompleteLastName','populateZipCodeData','getZipCodesData',
                 'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData','getZipAjaxData'
