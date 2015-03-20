@@ -54,7 +54,6 @@ if (parent.navreload) {
 }
 
 function NSS(s){
-console.log(s);
 SH("sidelinktext",s?"":"");
 
 }

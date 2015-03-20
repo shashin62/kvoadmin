@@ -1,12 +1,12 @@
 <?php
 
-$baseUrl = $_SERVER['SERVER_NAME'] .'/kvoadmin';
+$baseUrl = $_SERVER['SERVER_NAME'] ;
 if (isset($_GET['full'])) {	
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/full_tree:1/?full_tree=1');
 } else if (isset($_GET['group_id'])){
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/group_id:' . $_GET['group_id']);
 } else {
-	$json_data = file_get_contents('http://' . $baseUrl . '/ family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
+	$json_data = file_get_contents('http://' . $baseUrl . '/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
 }
 
 ?>
@@ -355,7 +355,8 @@ if (isset($_GET['full'])) {
     var navshowchildren;
     var navshowcousins;
     var navreload = false;
-
+    var self = this;
+    var cid = '';
 /*
     function setJSONValue() {
          console.log(data);
@@ -375,10 +376,12 @@ if (isset($_GET['full'])) {
     }
 
     //setTimeout("setJSONValue()",2000);    
-setJSONValue();
+    setJSONValue();
+    document.getElementById('welcomediv').style.display = 'none';
     
     function resetJSONValue(id) {
         if (id != 'START'){
+            cid = id;
             navreload = true;    
             navshowdetail = window.navframe.document.getElementById('showdetail').value;
             navshowparents = window.navframe.document.getElementById('showparents').value;
@@ -391,16 +394,30 @@ setJSONValue();
                     data = _2d.responseText;
                     var parsedData = JSON.parse(data);
                     window.frames[3].parent.Efa= parsedData['tree'];
-                    document.getElementById('treeframe').contentDocument.location.reload();
-                    document.getElementById('navframe').contentDocument.location.reload();
-                    document.getElementById('sideframe').contentDocument.location.reload();
+        
+                    var treeframe = document.getElementById("treeframe");
+                    if (treeframe) {
+                        var treeframeContent = (treeframe.contentWindow || treeframe.contentDocument);
 
+                        treeframeContent.CE(this); 
+                        treeframeContent.TIS(treeframeContent.document.getElementById('treebg')); 
+                    }
+
+
+                    var navframe = document.getElementById("navframe");
+                    if (navframe) {
+                        var navframeContent = (navframe.contentWindow || navframe.contentDocument);
+
+                        navframeContent.PL(); 
+                    }
+
+                    var sideframe = document.getElementById("sideframe");
+                    if (sideframe) {
+                        var sideframeContent = (sideframe.contentWindow || sideframe.contentDocument);
+
+                        sideframeContent.PL(); 
+                    }
                     document.getElementById('lfamilyname').innerHTML = 'Family of '  + parsedData['parent_name'];
-
-                    document.getElementById('leftdiv').style.width = '1px';
-                    document.getElementById('leftdiv').style.display = 'none';
-                    document.getElementById('welcomediv').style.display = 'none';
-                    document.getElementById('extradiv').style.width = '1px';
                 }
             });
         }
