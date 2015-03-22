@@ -2,11 +2,15 @@
     <h3 class="heading">Add/Edit Business for <?php echo $memberName;?></h3>
     <?php echo $this->Form->create('Address', array('class' => 'form-horizontal addressForm', 'id' => 'addressForm', 'name' => 'address')); ?>
     <div class="row-fuild">
+<!--        Social Service-->
         <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="form-group">
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="Occupation">Current Occupation</label>
                 <div class="col-lg-8 col-md-8 col-xs-8">
                     <div class="btn-group occupations" data-toggle="buttons">
+                        <label class="btn btn-default <?php echo $occupation == 'Social Service' ? 'active' : '';?>">
+                            <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Social Service' ? 'checked=checked' : '';?> value="Social Service">Social Service
+                        </label>
                         <label class="btn btn-default <?php echo $occupation == 'Self-Employed' ? 'active' : '';?>">
                             <input type="radio" name="occupation" class="occupation" <?php echo $occupation == 'Self-Employed' ? 'checked=checked' : '';?> value="Self-Employed">Self-Employed
                         </label>
