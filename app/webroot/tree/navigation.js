@@ -40,10 +40,20 @@ SS("printbutton",false);
 
 }
 
+if (parent.navreload) {   
+    SO('showdetail', parent.navshowdetail);
+    SO('showparents', parent.navshowparents);
+    SO('showchildren', parent.navshowchildren);
+    SO('showcousins', parent.navshowcousins);
+    
+    parent.ECP();
+    parent.ECH();
+    parent.ECO();
+}
+
 }
 
 function NSS(s){
-console.log(s);
 SH("sidelinktext",s?"":"");
 
 }

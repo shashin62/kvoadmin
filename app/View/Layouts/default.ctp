@@ -57,7 +57,7 @@
             <?php if ($this->Session->read('Auth.User')) {?>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?php echo $this->base.'/user/welcome';?>">Community App</a></li>
+                        <li><a href="<?php echo $this->base.'/user/welcome';?>">KVO</a></li>
                         <?php 
                         
                         if ($this->Session->read('User.role_id') == 1 ) {?>
@@ -123,7 +123,6 @@
 
 			<?php echo $this->fetch('content'); ?>
             </div>
-    <!--        <p><strong>Your are using CakePHP Version <?=Configure::version()?></strong></p>-->
         </div>
         
         <script type="text/javascript">
