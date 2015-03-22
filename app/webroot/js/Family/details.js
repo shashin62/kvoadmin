@@ -222,3 +222,37 @@ $('.make_hof').click(function(){
         }
     });
 });
+
+$('.removeassco').click(function(){
+    var $this = $(this);
+    var id = $this.data('id');
+    var gid = $this.data('gid');
+    var relationType = $this.data('type');
+    var assocationId;
+    if( relationType == 'mother') {
+        assocationId = $this.data('m_id');
+    } else {
+        assocationId = $this.data('f_id');
+    }
+    
+    $.ajax({
+        url: baseUrl + '/family/removeRelationship',
+        dataType: 'json',
+        data: {
+            id: id, 
+            type: relationType, 
+            gid : gid,
+            associationId: assocationId
+        },
+        type: "POST",
+        success: function (response) {
+            var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+                $('.jssuccessMessage').hide('slow');
+                window.location.href = baseUrl + '/family/details/' + gid;
+                
+            }, 2500);
+        }
+    });
+});
