@@ -1953,6 +1953,28 @@ HAVING count(*) > 1";
             $output['aaData'][] = array($data['group_id'], implode (',', $data['address']), $data['city'], $data['state'], $data['zip_code'], $data['matching_ids'], '');
         }
         return $output; 
-    }         
+    }      
+    
+    public function removeRelation($id, $assocationId, $gid, $type)
+    {
+        $this->recursive = -1;
+        if( $type == 'father') {
+            $query = "UPDATE {$this->tablePrefix}people
+                  SET f_id = '', father = ''            
+                  WHERE id = {$id}";
+        } else {
+            $query = "UPDATE {$this->tablePrefix}people
+                  SET m_id = '', mother = ''            
+                  WHERE id = {$id}";
+        }
+                  
+        try {
+            $this->query($query);
+            return true;
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
 }
 
