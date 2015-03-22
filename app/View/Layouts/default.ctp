@@ -74,7 +74,6 @@
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/suburb/index">Suburbs</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/surname/index">Surname</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Pincodes</a></li>
-
                             </ul>
                         </li>
                         <?php } else   {?> 
@@ -83,12 +82,10 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/education/index">Educations</a></li>
                                  <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Zip codes</a></li>
-
                             </ul>
                         </li>
                         <?php } ?> 
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/family/familiyGroups">Family Groups</a></li>
-                      
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" href="<?php echo FULL_BASE_URL . $this->base; ?>/report/reports">Reports <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -100,7 +97,6 @@
                                 <li><a style="display: block" href="<?php echo FULL_BASE_URL . $this->base; ?>/report/matchingaddress">Matching Address</a></li>
                             </ul>
                         </li>
-           
                         <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/people/search">People Search</a></li>
                     </ul>
               <?php } ?>
