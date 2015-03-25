@@ -37,15 +37,21 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="main_surname">Main Surname</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        <input id = "main_surname" type="text" class="form-control main_surname search_username" name="main_surname" placeholder="Main Surname" custom="6"/>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="father">Fathers Name</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <input type="text" class="form-control father search_username" name="father_name" placeholder="Fathers Name" custom="6" />
+                        <input type="text" class="form-control father search_username" name="father_name" placeholder="Fathers Name" custom="7" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="mother_name">Mothers Name</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
-                        <input type="text" class="form-control mother search_username" name="mother_name" placeholder="Mothers Name" custom="7" />
+                        <input type="text" class="form-control mother search_username" name="mother_name" placeholder="Mothers Name" custom="8" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -79,6 +85,7 @@
                         
                     </div>
                 </div>
+                
             </form>
         <div class="row">
 			<div class="form-actions">

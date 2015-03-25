@@ -49,7 +49,7 @@ $(function () {
 
     $(".search, .search_username").bind("keyup", function () {
         var table = $('#all_users').DataTable();
-        console.log($(this).attr('custom'));
+        
         table
                 .column($(this).attr('custom'))
                 .search($.trim(this.value))

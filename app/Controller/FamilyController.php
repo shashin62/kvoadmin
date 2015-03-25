@@ -396,7 +396,6 @@ Class FamilyController extends AppController {
                         $ids[] = $v;
                     }
                     $i = 0;
-
                     $allData = array();
                     foreach ($ids as $peopleIds) {
                         if (!empty($peopleIds)) {
@@ -1518,7 +1517,7 @@ Class FamilyController extends AppController {
         $this->autoRender = false;
 
         $type = $_REQUEST['type'];
-
+        
         $data = $this->People->getAllPeoples($type);
         echo json_encode($data);
     }
