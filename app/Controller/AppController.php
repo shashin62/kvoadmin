@@ -53,7 +53,7 @@ class AppController extends Controller {
                 'getAutoCompleteLastName','populateZipCodeData','getZipCodesData',
                 'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData','getZipAjaxData'
                 ,'index','addZip','deleteZip','getMissingRecords','records','changestatus','makeHOF',
-                'completedrecords','getCompletedRecords','all','getAllAjaxData','missingfathers','getMissingFathers','missingmothers','getMissingMothers','matchingaddress','getMatchingAddress'),
+                'completedrecords','getCompletedRecords','all','getAllAjaxData','missingfathers','getMissingFathers','missingmothers','getMissingMothers','matchingaddress','getMatchingAddress','addPoll', 'deletePoll','getPollAjaxData','getPollData', 'addArticle', 'deleteArticle','getArticleAjaxData','getArticleData'),
 //            'authenticate' => array(
 //                'all' => array('userModel' => 'User'),
 //                'Form' => array(),

@@ -1,28 +1,28 @@
 <?php
 
 App::uses('AppModel', 'Model');
-App::uses('ResizeImage', 'Lib');
 
-Class Article extends AppModel {
-
-    var $name = 'Article';
-    public $useTable = 'articles';
-
-    /**
+class Poll extends AppModel {
+    
+     var $name = 'Poll';
+     
+     public $useTable = 'polls';
+     
+     /**
      * Function to check if name exists in table
      * 
      * @param type $name
      * 
      * @return boolean 
      */
-    public function checkArticleExists($name) {
+    public function checkPollExists($name) {
         $this->recursive = -1;
-        $options['conditions'] = array('Article.title' => $name);
-        $options['fields'] = array('Article.id');
+        $options['conditions'] = array('Poll.name' => $name);
+        $options['fields'] = array('Poll.id');
         try {
             $data = $this->find('all', $options);
-            if ($data && isset($data[0]['Article']) && $data[0]['Article'] != "") {
-                return $data[0]['Article'];
+            if ($data && isset($data[0]['Poll']) && $data[0]['Poll'] != "") {
+                return $data[0]['Poll'];
             } else {
                 return array();
             }
@@ -31,15 +31,15 @@ Class Article extends AppModel {
             return false;
         }
     }
-
-    public function getAllArticles() {
-        $aColumns = array('id', 'title', 'author', 'created', 'body', 'image' );
+     
+     public function getAllPolls() {
+       $aColumns = array('id', 'name', 'status', 'created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "id";
 
         /* DB table to use */
-        $sTable = "articles";
+        $sTable = "polls";
 
         /*
          * Paging
@@ -144,8 +144,21 @@ Class Article extends AppModel {
 
             $row = array();
             for ($i = 0; $i < count($aColumns); $i++) {
+               if ($aColumns[$i] == 'status') {
+                    switch ($value['polls'][$aColumns[$i]]) {
+                        case 1:
+                            $status = 'Active';
+
+                            break;
+
+                        default:
+                            break;
+                    }
+                     $value['polls'][$aColumns[$i]] = $status;
+               }
+                    
                 /* General output */
-                $row[] = $value['articles'][$aColumns[$i]];
+                $row[] = $value['polls'][$aColumns[$i]];
             }
             $row[] = '';
             $output['aaData'][] = $row;
@@ -153,30 +166,5 @@ Class Article extends AppModel {
         return $output;
     }
     
-    public function saveArticle($data) {        
-        $filename = null;
-
-        if (!empty($data['Article']['image_file']['tmp_name']) && is_uploaded_file($data['Article']['image_file']['tmp_name'])) {
-            // Strip path information
-            $filename = $data['Article']['image_file']['name'];
-            if (move_uploaded_file(
-                    $data['Article']['image_file']['tmp_name'], WWW_ROOT . 'files' . DS . 'article' . DS . $filename
-            )) {
-                $resizeThumbFile = WWW_ROOT . 'files' . DS . 'article' . DS . 'thumb' . DS . $filename;
-                $resizeMainFile = WWW_ROOT . 'files' . DS . 'article' . DS . 'main' . DS . $filename;
-                
-                $resize = new ResizeImage(WWW_ROOT . 'files' . DS . 'article' . DS . $filename);
-                $resize->resizeTo(150, 150, 'exact');
-                $resize->saveImage($resizeThumbFile);
-                $resize->resizeTo(600, 400, 'exact');
-                $resize->saveImage($resizeMainFile);
-            }
-            
-            // Set the file-name only to save in the database
-            $this->data['Article']['image'] = $filename;
-        }
-        
-        return $this->save($data);
-    }
-
 }
+
