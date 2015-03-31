@@ -73,7 +73,12 @@
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/translation/index">Translations</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/suburb/index">Suburbs</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/surname/index">Surname</a></li>
-                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Pincodes</a></li>
+                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Pincodes</a></li>                                
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Content <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/poll/index">Polls</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/article/index">Articles</a></li>
                             </ul>
@@ -84,8 +89,6 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/education/index">Educations</a></li>
                                  <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Zip codes</a></li>
-                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/poll/index">Polls</a></li>
-                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/article/index">Articles</a></li>
                             </ul>
                         </li>
                         <?php } ?> 
