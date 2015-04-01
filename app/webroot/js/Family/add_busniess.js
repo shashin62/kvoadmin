@@ -173,6 +173,22 @@ $('.same_ashomeaddress').click(function () {
     }
 });
 
+$(".business_nature").change(function(){
+    
+    $.getJSON(baseUrl + "/family/getBusinessTypes",{id: $(this).val(), ajax: 'true'}, function(i,j){
+      var options = '';
+      
+      $.each(i,function(id, name){
+       
+          options += '<option value="' + id + '">' + name + '</option>';
+      });
+      for (var i = 0; i < j.length; i++) {
+        
+      }
+      $(".business_name").html(options);
+    })
+  })
+
 
 
 

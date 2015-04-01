@@ -52,7 +52,7 @@ class AppController extends Controller {
                 'rebuildARO','callAgain','addNote','viewNote','getAutoCompleteFirstName',
                 'getAutoCompleteLastName','populateZipCodeData','getZipCodesData',
                 'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData','getZipAjaxData'
-                ,'index','addZip','deleteZip','getMissingRecords','records','changestatus','makeHOF',
+                ,'index','addZip','deleteZip','getMissingRecords','records','changestatus','makeHOF','getBusinessTypes',
                 'completedrecords','getCompletedRecords','all','getAllAjaxData','missingfathers','getMissingFathers','missingmothers','getMissingMothers','matchingaddress','getMatchingAddress'),
 //            'authenticate' => array(
 //                'all' => array('userModel' => 'User'),
