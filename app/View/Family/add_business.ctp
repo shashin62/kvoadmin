@@ -72,9 +72,9 @@
                 'div' => false,
                 'legend' => false,
                 'empty' => __d('label', '--Select--'),
-                'class' => 'business_name',
+                'class' => 'business_name form-control',
                 'tabindex'=> '10',
-                'style' => ' form-control',
+                'style' => '',
                 'options' => array(),
                 'value' => $businessType
             ));
