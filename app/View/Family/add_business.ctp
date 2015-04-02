@@ -54,7 +54,7 @@
                 'div' => false,
                 'legend' => false,
                 'empty' => __d('label', '--Select--'),
-                'class' => 'business_nature',
+                'class' => 'business_nature form-control',
                 'tabindex'=> '10',
                 'style' => '',
                 'options' => $businessNatures,
@@ -74,7 +74,7 @@
                 'empty' => __d('label', '--Select--'),
                 'class' => 'business_name',
                 'tabindex'=> '10',
-                'style' => '',
+                'style' => ' form-control',
                 'options' => array(),
                 'value' => $businessType
             ));
