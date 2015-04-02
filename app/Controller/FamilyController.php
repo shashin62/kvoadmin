@@ -1316,16 +1316,16 @@ Class FamilyController extends AppController {
         if ($this->request->data['Address']['business_name'] != '') {
             $businessTypeName = $this->BusinessType->find('all',array('fields' => array('BusinessType.name'),
                         'conditions' => array('BusinessType.id' => $this->request->data['Address']['business_name'])));
-            $updatePeopleBusniessDetails['business_name'] = $businessTypeName[0]['BusinessType']['name'];
+            $updatePeopleBusniessDetails['business_name'] = $businessTypeName[0]['BusinessType']['name'] ? $businessTypeName[0]['BusinessType']['name'] : 'Other' ;
         }
         
         
         $updatePeopleBusniessDetails['id'] = $peopleId;
         $updatePeopleBusniessDetails['occupation'] = $this->request->data['occupation'];
-       
         $updatePeopleBusniessDetails['specialty_business_service'] = $this->request->data['Address']['specialty_business_service'];
-        
+        $updatePeopleBusniessDetails['other_business_type'] = $this->request->data['Address']['other_business_type'];
         $updatePeopleBusniessDetails['name_of_business'] = $this->request->data['Address']['name_of_business'];
+        
         $this->People->updateBusinessDetails($updatePeopleBusniessDetails);
         $occupation = array('House Wife', 'Retired', 'Studying', 'Other');
         
@@ -1777,7 +1777,7 @@ Class FamilyController extends AppController {
         $data = $this->BusinessType->find('list',array('fields' => 
                     array('BusinessType.id','BusinessType.name'),
             'conditions' => array('BusinessType.business_nature_id' => $_REQUEST['id'])));
-        
+         $data['other'] = 'Other';
         echo json_encode($data);
         exit;
         

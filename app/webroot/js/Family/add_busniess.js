@@ -180,15 +180,22 @@ $(".business_nature").change(function(){
       
       $.each(i,function(id, name){
        
-          options += '<option value="' + id + '">' + name + '</option>';
+         options += '<option data-btype="'+ name+ '" value="' + id + '">' + name + '</option>';
       });
       for (var i = 0; i < j.length; i++) {
         
       }
       $(".business_name").html(options);
     })
-  })
+  });
 
 
 
-
+$(".business_name").change(function(){
+    
+    if ($(this).find(':selected').data('btype') == 'Other') {
+     $('.other').show();   
+    } else {
+        $('.other').hide();   
+    }
+});

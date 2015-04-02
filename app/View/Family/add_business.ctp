@@ -81,7 +81,15 @@
             ?>
                     </div>
                 </div>
-                
+                <div class="form-group">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="name_of_business"></label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                    <?php echo $this->Form->input('other_business_type', array('id' => 'other_business_type', 
+                        'value'=> $other_business_type,'placeholder' => 'Enter other business type' ,'title' => '','div' => false, 
+                        'label' => false, 'class' => 'form-control other','style' => 'display:none')); ?>
+                       
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="name_of_business">Name of Business/Service</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
