@@ -105,7 +105,7 @@ showmaidenvillage('Female');
             queryString += '&data[People][main_surname]='+ $('.main_surnamediv').find('.ui-autocomplete-input').val();
             queryString += '&data[People][maiden_surname]='+ $('.maidensurname').find('.ui-autocomplete-input').val();             
             queryString += '&data[People][maiden_village]=' + $('.maidenvillage').find('.ui-autocomplete-input').val();
-            queryString += '&data[People][blood_group]=' + $('.blood_groupdiv').find('.ui-autocomplete-input').val();
+            //queryString += '&data[People][blood_group]=' + $('.blood_groupdiv').find('.ui-autocomplete-input').val();
             queryString += '&data[People][education_1]=' + $('.education1_div').find('.ui-autocomplete-input').val();
             queryString += '&data[People][education_2]=' + $('.education2_div').find('.ui-autocomplete-input').val();
             queryString += '&data[People][education_3]=' + $('.education3_div').find('.ui-autocomplete-input').val();

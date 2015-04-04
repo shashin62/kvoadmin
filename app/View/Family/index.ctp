@@ -264,7 +264,7 @@
 				'label' => false,
 				'div' => false,
 				'legend' => false,
-				'class' => 'combobox',
+				'class' => '',
 				'style' => 'width:50px;',
 				'width' => '50%',
 				'empty' => __d('label', '--Select--'),
