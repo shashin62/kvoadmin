@@ -975,7 +975,7 @@ Class FamilyController extends AppController {
             if ($value['people']['id'] == $rootId) {
                 $peopleRootData = $value['people'];
                 $peopleRootGroup = $value['people_groups'];
-                $exSpousesRoot = $value[0];
+                $exSpousesRoot = array_unique($value[0]);
                 $ids[] = $value['people']['id'];
             }
         }
@@ -987,7 +987,7 @@ Class FamilyController extends AppController {
         foreach ($data as $key => $value) {
             $peopleData = $value['people'];
             $peopleGroup = $value['people_groups'];
-            $exSpouses = $value[0];
+            $exSpouses = array_unique($value[0]);
 
             if (!in_array($peopleData['id'], $ids) && $peopleData['id'] != $rootId) {
                 $ids[] = $peopleData['id'];

@@ -1988,9 +1988,10 @@ HAVING count(*) > 1";
     
     public function getParentHierarchy ($ids, $hierarchy = true) {
         //fetch parents and siblings
-        $select = "SELECT a.f_id, a.m_id, GROUP_CONCAT(b.id) as siblings, GROUP_CONCAT(b.partner_id) as sibling_partners "
+        $select = "SELECT a.f_id, a.m_id, GROUP_CONCAT(b.id) as siblings, GROUP_CONCAT(b.partner_id) as sibling_partners, GROUP_CONCAT(s.spouse_id) as exspouses  "
                 . "FROM `people` a "
                 . "LEFT JOIN `people` b ON (a.f_id = b.f_id || a.m_id = b.m_id) "
+                . "LEFT JOIN `spouses` s ON (a.id = s.people_id || a.id = s.people_id) "
                 . "WHERE a.id IN (".implode(',', $ids).") GROUP BY a.f_id, a.m_id";
         $rResult = $this->query($select);
   
@@ -2020,6 +2021,14 @@ HAVING count(*) > 1";
                     }
                 }
             }
+            if (count($v[0]['exspouses'])) {
+                $exspouses = explode(',', $v[0]['exspouses']);
+                foreach ($exspouses as $exspid) {
+                    if ($exspid) {
+                        $this->arrIds[] = $exspid;
+                    }
+                }
+            }
         }
         
         if ($hierarchy && count($parents)) {
@@ -2029,9 +2038,10 @@ HAVING count(*) > 1";
     
     public function getChildHierarchy($id, $hierarchy = true) {
         //fetch child and child partner
-        $select = "SELECT b.id, b.partner_id "
+        $select = "SELECT b.id, b.partner_id, s.spouse_id "
                 . "FROM `people` a "
                 . "LEFT JOIN `people` b ON (a.id = b.f_id || a.id = b.m_id) "
+                . "LEFT JOIN `spouses` s ON (a.id = s.people_id) "
                 . "WHERE a.id='" . $id . "'";
         $rResult = $this->query($select);    
         
@@ -2046,15 +2056,19 @@ HAVING count(*) > 1";
             if ($v['b']['partner_id']) {
                 $this->arrIds[] = $v['b']['partner_id'];
             }
+            if ($v['s']['spouse_id']) {
+                $this->arrIds[] = $v['s']['spouse_id'];
+            }
         }
     }
 
     public function getPeopleDetail ($id) {
         //fetch parents, siblings, partner
-        $select = "SELECT a.f_id, a.m_id, a.partner_id, b.id, b.partner_id, c.f_id, c.m_id "
+        $select = "SELECT a.f_id, a.m_id, a.partner_id, b.id, b.partner_id, c.f_id, c.m_id, s.spouse_id "
                 . "FROM `people` a "
                 . "LEFT JOIN `people` b ON (a.f_id = b.f_id || a.m_id = b.m_id) "
                 . "LEFT JOIN `people` c ON (a.partner_id = c.id) "
+                . "LEFT JOIN `spouses` s ON (a.id = s.spouse_id) "
                 . "WHERE a.id='".$id."'";
         $rResult = $this->query($select);
         
@@ -2073,6 +2087,9 @@ HAVING count(*) > 1";
         }
         if ($rResult[0]['c']['f_id']) {
             $this->arrIds[] = $partner_father = $rResult[0]['c']['f_id'];
+        }
+        if ($rResult[0]['s']['spouse_id']) {
+            $this->arrIds[] = $exspouse = $rResult[0]['s']['spouse_id'];
         }
 
         foreach ($rResult as $k => $v) {
