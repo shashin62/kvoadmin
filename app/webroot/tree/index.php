@@ -1,12 +1,12 @@
 <?php
 
-$baseUrl = $_SERVER['SERVER_NAME'] ;
 if (isset($_GET['full'])) {	
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/full_tree:1/?full_tree=1');
 } else if (isset($_GET['group_id'])){
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/group_id:' . $_GET['group_id']);
 } else {
-	$json_data = file_get_contents('http://' . $baseUrl . '/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
+	//$json_data = file_get_contents('http://10.50.249.127/kvoadmin/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
+        $json_data = file_get_contents('http://localhost/kvoadmin/family/buildTreeJson?gid=' . $_GET["gid"]);
 }
 
 ?>
@@ -47,7 +47,7 @@ if (isset($_GET['full'])) {
 
 		
 
-		<TITLE>Family Tree - JS / HTML</TITLE>
+		<TITLE>Family Tree</TITLE>
 
 		
 
@@ -87,7 +87,7 @@ if (isset($_GET['full'])) {
 
 	</HEAD>
 
-
+	
 	<BODY STYLE="overflow:hidden;" onLoad="PL();">
 
 		<TABLE WIDTH="100%" HEIGHT="100%" CELLSPACING=0 CELLPADDING=0>
@@ -100,7 +100,7 @@ if (isset($_GET['full'])) {
 
 						<TABLE WIDTH="100%" HEIGHT="100%" CELLSPACING=0 CELLPADDING=0><TR VALIGN="middle">
 
-							<TD NOWRAP><FONT STYLE="font-size:28px;">		<SPAN ID="lfamilyname"><FONT COLOR="#7F2020">My Family</FONT></SPAN>&nbsp;<SPAN ID="lfamilyinfo" STYLE="font-size:12px;"></SPAN>
+							<TD NOWRAP><FONT STYLE="font-size:28px;">		<SPAN ID="lfamilyname"><FONT COLOR="#7F2020">Family</FONT></SPAN>&nbsp;<SPAN ID="lfamilyinfo" STYLE="font-size:12px;"></SPAN>
 
 		
 
@@ -172,7 +172,7 @@ if (isset($_GET['full'])) {
 
 
 
-		<INPUT TYPE="submit" STYLE="display:none;" NAME="do_signin" ID="do_signin" VALUE="Sign In" CLASS="ibutton" onClick="ESC(); return true;">
+                <INPUT style="display: none;" TYPE="submit" NAME="do_signin" ID="do_signin" VALUE="Sign In" CLASS="ibutton" onClick="ESC(); return true;">
 
 							</TD>
 
@@ -244,7 +244,7 @@ if (isset($_GET['full'])) {
 
 
 
-				<DIV ID="welcomediv" STYLE="position:absolute; width:100%; top:16px;"><DIV ID="welcomemargin" CLASS="marginon"><CENTER>
+				<DIV style="display: none;" ID="welcomediv" STYLE="position:absolute; width:100%; top:16px;"><DIV ID="welcomemargin" CLASS="marginon"><CENTER>
 
 
 
@@ -282,7 +282,7 @@ if (isset($_GET['full'])) {
 
 
 
-				<DIV ID="extradiv" CLASS="dleft lbody" STYLE="visibility:hidden;"><IFRAME ID="extraframe" NAME="extraframe" CLASS="fullsize" FRAMEBORDER="0" SCROLLING="auto"></IFRAME></DIV>
+				<DIV ID="extradiv" CLASS="dleft lbody"><IFRAME ID="extraframe" NAME="extraframe" CLASS="fullsize" FRAMEBORDER="0" SCROLLING="auto"></IFRAME></DIV>
 
 				
 
@@ -294,7 +294,7 @@ if (isset($_GET['full'])) {
 
 
 
-			<TR HEIGHT="8">
+                <TR style="display: none;" HEIGHT="8">
 
 				<TD STYLE="border-top:solid #666666 1px; padding:8px;" VALIGN="middle">
 
@@ -357,27 +357,19 @@ if (isset($_GET['full'])) {
     var navreload = false;
     var self = this;
     var cid = '';
-/*
-    function setJSONValue() {
-         console.log(data);
-        var data = '<?php echo $json_data ?>';
-        window.frames[3].parent.Efa= JSON.parse(data);
-        console.log(window.frames[3].parent.Efa);
 
-    }*/
-    
-    function setJSONValue() {
+
+    function setJSONValue() {       
+         
         var data = '<?php echo $json_data ?>';
         var parsedData = JSON.parse(data);
         document.getElementById('lfamilyname').innerHTML = 'Family of '  + parsedData['parent_name'];
-
+        
         window.frames[3].parent.Efa= parsedData['tree'];
-
     }
 
     //setTimeout("setJSONValue()",2000);    
-    setJSONValue();
-    document.getElementById('welcomediv').style.display = 'none';
+     setJSONValue();
     
     function resetJSONValue(id) {
         if (id != 'START'){
@@ -388,7 +380,7 @@ if (isset($_GET['full'])) {
             navshowchildren = window.navframe.document.getElementById('showchildren').value;
             navshowcousins = window.navframe.document.getElementById('showcousins').value;
 
-            new Ajax.Request('http://<?php echo $baseUrl; ?>/family/buildFamilyJson?id='+id, {
+            new Ajax.Request('http://localhost/kvofront/family/buildFamilyJson?id='+id, {
                 method: 'get',
                 onComplete:function(_2d){
                     data = _2d.responseText;
