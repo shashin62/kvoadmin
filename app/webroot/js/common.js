@@ -10,6 +10,18 @@ function doFormPost(url , data) {
     $('#form_'+number).submit();
 }
 
+function doRedirectUrl(url, data) {
+    var data = $.parseJSON(data);   
+    var rUrl = url+'?';
+    
+    for( var key in data) {       
+        url += key +'='+ data[key]+'&';
+    }
+    url = url.substring(0, url.length - 1);
+    
+    window.open(url, '_blank');
+}
+
 function showJsSuccessMessage(message) {
     centerMessage('customFlash');
     $('.jssuccessMessage').show().html(message);

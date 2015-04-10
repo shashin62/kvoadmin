@@ -28,6 +28,11 @@ $(function() {
     $('#getArticle').removeClass('display').addClass('table table-striped table-bordered');
 });
 
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
 $('.summernote').summernote({
     height: 120,
     toolbar: [
@@ -40,7 +45,7 @@ $('.summernote').summernote({
 });
 
 $.validator.addMethod("editorchk", function(value, element) {
-    var sHTML = $('.summernote').code();
+    var sHTML = value;
     if (sHTML != '' && sHTML != '<p><br></p>') {
         return true;
     }
@@ -62,7 +67,7 @@ $("#addArticle").validate({
     },
     errorPlacement: function(error, element) {
         if (element.attr("id") == "body" ) {
-          error.insertAfter(".note-editor");
+          error.insertAfter(element.parent().find('.note-editor'));
         } else {
           error.insertAfter(element);
         }
@@ -80,6 +85,14 @@ $("#addArticle").validate({
     }
 });
 $(".bgButton").click(function() {
+    var hindiDesc = $('#body_hindi').code();
+    var gujDesc = $('#body_gujurati').code();
+    var engDesc = $('#body').code();
+  
+    $('#body_hindi').val(hindiDesc);
+    $('#body_gujurati').val(gujDesc);
+    $('#body').val(engDesc);
+    
     $("#addArticle").submit();
     return false;
 });
@@ -87,6 +100,8 @@ $(".bgButton").click(function() {
 $('.addArticle').click(function() {
     $('.articleid').val('');
     $('.image-name').parent().hide();
+    document.getElementById("addArticle").reset();
+    $('.summernote').code('');
     $('.addArticleForm').toggle('slow');
 });
 
@@ -101,7 +116,15 @@ function editArticle(id) {
                 $('#title').val(data.title);
                 $('#author').val(data.author);
                 $('#body').val(data.body);
-                $('.summernote').code(data.body);
+                $('#body').code(data.body);
+                $('#title_hindi').val(data.title_hindi);
+                $('#author_hindi').val(data.author_hindi);
+                $('#body_hindi').val(data.body_hindi);
+                $('#body_hindi').code(data.body_hindi);
+                $('#title_gujurati').val(data.title_gujurati);
+                $('#author_gujurati').val(data.author_gujurati);
+                $('#body_gujurati').val(data.body_gujurati);
+                $('#body_gujurati').code(data.body_gujurati);
                 $('.image-name').html(data.image);
                 $('.image-name').parent().show();
                 $('.addArticleForm').show();

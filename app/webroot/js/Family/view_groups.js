@@ -20,7 +20,7 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams)
 $(function () {
 
     $('#getFamilyGroup tfoot th').each(function () {
-        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 && $(this).index() !== 1) {
+        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 ) {
             var title = $('#getFamilyGroup thead th').eq($(this).index()).text();
             
             if (title == 'DOB') {
@@ -60,7 +60,7 @@ $(function () {
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
     
     oTable.columns().eq( 0 ).each( function ( colIdx ) {
-        if( colIdx != 0 && colIdx != 1 && colIdx != 6 && colIdx != 7 && colIdx != 8 && colIdx != 1) {
+        if( colIdx != 0 && colIdx != 6 && colIdx != 7 && colIdx != 8 ) {
         $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
             oTable
                 .column( colIdx )
