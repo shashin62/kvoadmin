@@ -58,11 +58,13 @@ Class FamilyController extends AppController {
      * index function - page landing
      */
     public function index() {
-        $requestData = $this->request->data;
-        $this->set('first_name', isset($this->request->data['first_name']) ?
+        
+         $requestData = $_REQUEST;
+          $this->set('module', $requestData['module']);
+        $this->set('first_name', isset($requestData['first_name']) ?
                         $this->request->data['first_name'] : '');
-        $this->set('last_name', isset($this->request->data['last_name']) ?
-                        $this->request->data['last_name'] : '');
+        $this->set('last_name', isset($requestData['last_name']) ?
+                        $requestData['last_name'] : '');
         $this->set('date_of_birth', isset($this->request->data['date_of_birth']) ? $this->request->data['date_of_birth'] : '');
         $this->set('mobile_number', isset($this->request->data['mobile_number']) ?
                         $this->request->data['mobile_number'] : '');
@@ -441,9 +443,8 @@ Class FamilyController extends AppController {
         $this->layout = 'ajax';
         $this->autoRender = false;
         $userID = $this->Session->read('User.user_id');
-
         $data = $this->request->data['People'];
-
+        
         if ($_REQUEST['peopleid'] != '') {
             $getPeopleDetail = $this->People->find('all', array('fields' => array('People.first_name',
                     'People.last_name', 'People.maiden_surname', 'People.group_id',
@@ -1054,6 +1055,31 @@ Class FamilyController extends AppController {
         $tree['i'] = $peopleData['id'];
         $tree['l'] = $peopleData['last_name'];
         $tree['p'] = $peopleData['first_name'];
+        $tree['dob'] = $peopleData['date_of_birth'] != '' ? date("m/d/Y", strtotime($peopleData['date_of_birth'])) : '';
+        $tree['education'] = $peopleData['education_1'];
+        $tree['village'] = ucfirst($peopleData['village']);
+        $tree['father'] = ucfirst($peopleData['father']);
+        $tree['mother'] = ucfirst($peopleData['mother']);
+        if ( $peopleData['gender'] == 'male') {
+            $tree['partner_name'] = ucfirst($peopleData['partner_name']) . " " . ucfirst($peopleData['first_name']) . " " . $peopleData['last_name'] ;
+        } else {
+            $tree['partner_name'] = ucfirst($peopleData['partner_name']) . " " . $peopleData['last_name'] ;
+        }
+        $tree['specialty_business_service'] = $peopleData['specialty_business_service'];
+        $tree['nature_of_business'] = $peopleData['nature_of_business'];
+        $tree['business_type'] = $peopleData['business_name'];
+        $tree['name_of_business'] = $peopleData['name_of_business'];
+        $tree['mobile_number'] = $peopleData['mobile_number'];
+        $tree['martial_status'] = $peopleData['martial_status'];
+        $tree['date_of_marriage'] = $peopleData['date_of_marriage'] != ''?  date("m/d/Y", strtotime($peopleData['date_of_marriage'])) : '';
+        $tree['email'] = $peopleData['email'];
+        $tree['pid'] = $originalPId;
+        $tree['gid'] = $peopleData['group_id'];
+        $tree['father'] = ucfirst($peopleData['father']);
+        $tree['city'] = ucfirst($addressData['city']);
+
+        $tree['suburb'] = $addressData['suburb'];
+        $tree['suburb_zone'] = ucfirst($addressData['suburb_zone']);
 
         if ($peopleData['partner_id'] == $rootId) {
 
@@ -1173,6 +1199,32 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['i'] = $peopleData['id'];
                 $tree[$peopleData['id']]['l'] = $peopleData['last_name'];
                 $tree[$peopleData['id']]['p'] = $peopleData['first_name'];
+                $tree[$peopleData['id']]['p'] = ucfirst($peopleData['first_name']);
+                    $tree[$peopleData['id']]['dob'] = date("m/d/Y", strtotime($peopleData['date_of_birth']));
+                    $tree[$peopleData['id']]['education'] = $peopleData['education_1'];
+                    $tree[$peopleData['id']]['village'] = ucfirst($peopleData['village']);
+                    $tree[$peopleData['id']]['father'] = ucfirst($peopleData['father']);
+                    $tree[$peopleData['id']]['mother'] = ucfirst($peopleData['mother']);
+                    if ($peopleData['gender'] == 'male') {
+                        $tree[$peopleData['id']]['partner_name'] = ucfirst($peopleData['partner_name']) . " " . ucfirst($peopleData['first_name']) . " " . $peopleData['last_name'];
+                    } else {
+                        $tree[$peopleData['id']]['partner_name'] = ucfirst($peopleData['partner_name']) . " " . $peopleData['last_name'];
+                    }
+                    $tree[$peopleData['id']]['specialty_business_service'] = $peopleData['specialty_business_service'];
+                    $tree[$peopleData['id']]['nature_of_business'] = $peopleData['nature_of_business'];
+                    $tree[$peopleData['id']]['business_type'] = $peopleData['business_name'];
+                    $tree[$peopleData['id']]['name_of_business'] = $peopleData['name_of_business'];
+                    $tree[$peopleData['id']]['mobile_number'] = $peopleData['mobile_number'];
+                    $tree[$peopleData['id']]['martial_status'] = $peopleData['martial_status'];
+                    $tree[$peopleData['id']]['date_of_marriage'] = date("m/d/Y", strtotime($peopleData['date_of_marriage']));
+                    $tree[$peopleData['id']]['email'] = $peopleData['email'];
+                    $tree[$peopleData['id']]['pid'] = $originalPId;
+                    $tree[$peopleData['id']]['gid'] = $peopleData['group_id'];
+                    $tree[$peopleData['id']]['father'] = ucfirst($peopleData['father']);
+                    $tree[$peopleData['id']]['city'] = ucfirst($addressData['city']);
+
+                    $tree[$peopleData['id']]['suburb'] = $addressData['suburb'];
+                    $tree[$peopleData['id']]['suburb_zone'] = ucfirst($addressData['suburb_zone']);
 
                 if ($peopleData['partner_id'] == $rootId) {
 
