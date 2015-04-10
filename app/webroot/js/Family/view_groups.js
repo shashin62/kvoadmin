@@ -60,7 +60,7 @@ $(function () {
     $('#getFamilyGroup').removeClass('display').addClass('table table-striped table-bordered');
     
     oTable.columns().eq( 0 ).each( function ( colIdx ) {
-        if( colIdx != 0 && colIdx != 1 && colIdx != 6 && colIdx != 7 && colIdx != 8 && colIdx != 1) {
+        if( colIdx != 0 && colIdx != 6 && colIdx != 7 && colIdx != 8 ) {
         $( 'input', oTable.column( colIdx ).footer() ).on( 'keyup change', function () {
             oTable
                 .column( colIdx )
