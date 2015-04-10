@@ -62,12 +62,7 @@ Class FamilyController extends AppController {
         
          $requestData = $_REQUEST;
           $this->set('module', $requestData['module']);
-        $this->set('first_name', isset($requestData['first_name']) ?
-
-        $requestData = $_REQUEST;
-        $this->set('first_name', isset($this->request->data['first_name']) ?
-
-                        $this->request->data['first_name'] : '');
+        $this->set('first_name', isset($requestData['first_name']) ? $this->request->data['first_name'] : '');
         $this->set('last_name', isset($requestData['last_name']) ?
                         $requestData['last_name'] : '');
         $this->set('date_of_birth', isset($this->request->data['date_of_birth']) ? $this->request->data['date_of_birth'] : '');
