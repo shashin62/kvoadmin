@@ -431,6 +431,7 @@
     var gender = '<?php echo $gender;?>';
 </script>
 <script>
+     var module = "<?php echo $module; ?>";
     $(function () {
         
        
