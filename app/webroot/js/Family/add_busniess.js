@@ -194,8 +194,8 @@ $(".business_nature").change(function(){
 $(".business_name").change(function(){
     
     if ($(this).find(':selected').data('btype') == 'Other') {
-     $('.other').show();   
+     $('.otherbox').show();   
     } else {
-        $('.other').hide();   
+        $('.otherbox').hide();   
     }
 });

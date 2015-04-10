@@ -135,7 +135,11 @@ showmaidenvillage('Female');
                     if ( grpid == '') {
                         grpid = data.grpid;
                     }
-                    window.location.href = baseUrl + "/family/details/"+ grpid;
+                        if (module == 'tree') {
+                            window.location.href = baseUrl + "/app/webroot/tree/?gid=" + grpid;
+                        } else {
+                            window.location.href = baseUrl + "/family/details/" + grpid;
+                        }
                 }, 2500);
             }
                
