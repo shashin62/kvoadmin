@@ -211,7 +211,7 @@ function TRD(d,y,bn,mn,sp,o,oi,wp,pr,zf,_24){
                         d.t = -3;
                     }
                 }
-                
+
 
 		ox=_25-d.l*(sz.Tew+sz.Ths);
 
@@ -339,7 +339,7 @@ function TRD(d,y,bn,mn,sp,o,oi,wp,pr,zf,_24){
                
                 if( d.e[i].p.r != '') {
                      
-                     u = "ap/images/"+d.e[i].p.r+ ".jpg";
+                     u = "../../people_images/"+d.e[i].p.r;
                     
                 } else {
                      u = "ap/images/image-1.jpg";
@@ -423,6 +423,8 @@ function TRD(d,y,bn,mn,sp,o,oi,wp,pr,zf,_24){
                 window.parent.resetJSONValue(this.pid);
                 e.preventDefault();
             };
+            v.onclick = CLCK;
+
 	    v.id=i;
 
 	    v.pid=e.p.i;
@@ -438,19 +440,94 @@ function TRD(d,y,bn,mn,sp,o,oi,wp,pr,zf,_24){
 	}
 
 	var tn=e.p.hp?(mn?fn:(e.p.h+(sn?(" "+sn):""))):e.p.h;
-if( e.p.g == "m") {
+ if( e.p.g == "m") {
                       u = "ap/images/user_male.png";
                     } else {
                         u = "ap/images/user_female.png";
                     }
-	v.innerHTML="<TABLE WIDTH=\"100%\" HEIGHT=\"100%\" STYLE=\"table-layout:fixed;\" >"+"<TR><TD CLASS=\""+cc+"\" STYLE=\"font-size:"+(e.d?sz.Tds:sz.Tfs)+"px;\""+" TITLE=\""+e.p.p+" (ID: "+ e.p.i +")\"><img id=\"personimage\" src=\""+ u + "\" class=\"simage\" style=\"display: inline; margin-right: 6px; width: 22px; height: 22px;\"  >"+(e.d?"Duplicate: ":"")+EH(fn)+"</TD></TR>"+rs+"</TABLE>";
-       
+	v.innerHTML="<TABLE WIDTH=\"100%\" HEIGHT=\"100%\" STYLE=\"table-layout:fixed;\">"+"<TR><TD CLASS=\""+cc+"\" STYLE=\"font-size:"+(e.d?sz.Tds:sz.Tfs)+"px;\""+" TITLE=\""+e.p.h+" (ID: "+ e.p.i +")\">"+(e.d?"Duplicate: ":"")+EH(fn)+"</TD></TR>"+rs+"</TABLE>";
+
 	o.appendChild(v);
-        
+
     }
 
 }
 
+function CLCK()
+{
+   
+    return;
+    var peopleid = this.id;
+    $("#popup").dialog({
+        title: "Details",
+        width: 800,
+        modal: true,
+        resizable: false,
+    position: [0,58],
+    create: function (event) { $(event.target).parent().css('position', 'fixed');},
+        open: function () {
+ 
+            $.ajax({
+                url: 'http://website.kvomahajan.com/family/getPeopleData?id=' + peopleid,
+                dataType: 'json',
+                type: "GET",
+                success: function (response) {
+                    
+                    $('#popup').empty();
+                    var $html = ' <h4 class="heading">Personal Details</h4>';
+                    $html += '<div class="control-group">';
+                    $html += '<div class="controls form-inline">';
+                    $html += '<label for="inputKey">First Name:</label><span>' + response.People.first_name + '</span>&nbsp;&nbsp;';
+                    $html += ' <label for="inputKey">Last Name:</label><span>' + response.People.last_name + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">Village:</label><span>' + response.People.village + '</span>&nbsp;&nbsp;';
+                    $html += '</div>';
+                    $html += '</div>';
+                     $html += '<div class="control-group">';
+                    $html += '<div class="controls form-inline">';
+                    $html += '<label for="inputKey">Mobile:</label><span>' + (response.People.mobile_number ? response.People.mobile_number : '-') + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">DOB:</label><span>' + (response.People.date_of_birth ? response.People.date_of_birth : '-') + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">Martial Status:</label><span>' + response.People.martial_status + '</span>&nbsp;&nbsp;';
+                    
+                    $html += '</div>';
+                    $html += '</div>';
+                    $html += ' <h4 class="heading">Family Details</h4>';
+                     $html += '<div class="control-group">';
+                    $html += '<div class="controls form-inline">';
+                    $html += '<label for="inputKey">Spouse:</label><span>' + response.People.partner_name + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">Father:</label><span>' + (response.parent1.father ? response.parent1.father : '-') + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">Mother:</label><span>' + (response.parent2.mother ? response.parent2.mother : '-') + '</span>&nbsp;&nbsp;';
+                     $html += '</div>';
+                    $html += '</div>';
+                     $html += ' <h4 class="heading">Education Details</h4>';
+                     $html += '<div class="control-group">';
+                    $html += '<div class="controls form-inline">';
+                    $html += '<label for="inputKey">Education</label><span>' + (response.People.education_1 ? response.People.education_1 : '-') + '</span></div>';
+                    $html += '</div>';
+                    $html += '</div>';
+                     $html += ' <h4 class="heading">Busniess Details</h4>';
+                     $html += '<div class="control-group">';
+                    $html += '<div class="controls form-inline">';
+                    $html += '<label for="inputKey">Busniess Type:</label><span>' + (response.People.business_name ? response.People.business_name : '-') + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">Busniess Specialty:</label><span>' + (response.People.specialty_business_service ? response.People.specialty_business_service : '-') + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">Busniess Nature:</label><span>' + (response.People.nature_of_business ? response.People.nature_of_business : '-') + '</span>&nbsp;&nbsp;';
+                    $html += '<label for="inputKey">Busniess Name:</label><span>' + (response.People.name_of_business ? response.People.name_of_business : '-') + '</span>&nbsp;&nbsp;';
+                     $html += '</div>';
+                    $html += '</div>';
+                    $('#popup').html($html);
+                }
+            });
+            
+        },
+        close: function (e) {
+            $(this).empty();
+            $(this).dialog('destroy');
+        }
+        
+    });
+    
+    return false;
+
+}
 function TGL(y,p){
 
     var ey="";
@@ -851,8 +928,8 @@ function direct_scroll_to(x,y){
 
 }
 
-function TCT(e){
-    //window.parent.resetJSONValue(this.pid);e.preventDefault();
+function TCT(){
+    
     parent.ESP(this.pid,true);
 
 }
@@ -900,4 +977,3 @@ function TRT(f,i,m,y,bn,mn,sp,ch,ph,co,pi,zf,s){
     setTimeout("TCD(GE('treebg'), '"+i+"', "+(s?250:0)+")",sd);
 
 }
-
