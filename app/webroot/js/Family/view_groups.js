@@ -20,7 +20,7 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams)
 $(function () {
 
     $('#getFamilyGroup tfoot th').each(function () {
-        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 && $(this).index() !== 1) {
+        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 ) {
             var title = $('#getFamilyGroup thead th').eq($(this).index()).text();
             
             if (title == 'DOB') {
