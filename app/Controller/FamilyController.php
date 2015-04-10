@@ -58,7 +58,7 @@ Class FamilyController extends AppController {
      * index function - page landing
      */
     public function index() {
-        $requestData = $this->request->data;
+        $requestData = $_REQUEST;
         $this->set('first_name', isset($this->request->data['first_name']) ?
                         $this->request->data['first_name'] : '');
         $this->set('last_name', isset($this->request->data['last_name']) ?
