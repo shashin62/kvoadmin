@@ -39,11 +39,11 @@ $('.selectpicker').selectpicker();
 });
 
 $('.search').click(function () {
-    var $islate = $('.islate').val();
-    var $village = $('.village').val();
-    var $busniessname = $('.name_of_business').val();
-    var $gender = $('.gender').val();
-    var $martialstatus =  $('.martial_status').val();
+    var $islate         = $('.islate').val();
+    var $village        = $('.village').val();
+    var $busniessname   = $('.name_of_business').val();
+    var $gender         = $('.gender').val();
+    var $martialstatus  =  $('.martial_status').val();
     var $naturebusiness = $('.nature_of_business').val();
     var $specialbusniess = $('.specialty_business_service').val();
     var $typebusniess = $('.businestypesname').val();
