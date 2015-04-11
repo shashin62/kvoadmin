@@ -832,6 +832,22 @@ Class People extends AppModel {
             return false;
         }
     }
+    
+    public function updateBrotherDetails($data) {
+        $this->recursive = -1;
+
+        $query = "UPDATE {$this->tablePrefix}people
+                  SET b_id = '{$data['b_id']}' , brother = '{$data['brother']}'           
+                  WHERE id = {$data['id']}";
+
+        try {
+            $this->query($query);
+            return true;
+        } catch (ErrorException $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
 
     public function updateBusinessDetails($data) {
         $this->recursive = -1;
