@@ -1379,6 +1379,7 @@ Class FamilyController extends AppController {
                 foreach ($children as $k => $v) {
                     $childids[] = $v['People']['id'];
                 }
+                 $originalPId = $peopleData['id'];
                 $ids[] = $peopleData['id'];
                 if ($peopleGroup['tree_level'] == "" && $treelevel == 0) {
                     $rootId = $peopleGroup['people_id'];
