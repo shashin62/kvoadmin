@@ -81,6 +81,14 @@ Class People extends AppModel {
 
         if ($type) {
             switch ($type) {
+                 case 'addbrother':
+                    if ($sWhere == "") {
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
+                    $sWhere .= ' p.gender = "male" AND p.first_name is not null and p.m_id IS NULL AND p.f_id IS NULL ';
+                    break;
                 case 'addfather':
                     if ($sWhere == "") {
                         $sWhere = "WHERE ";
@@ -88,6 +96,14 @@ Class People extends AppModel {
                         $sWhere .= ' AND ';
                     }
                     $sWhere .= ' p.gender = "male" AND p.first_name is not null';
+                    break;
+                    case 'addsister':
+                    if ($sWhere == "") {
+                        $sWhere = "WHERE ";
+                    } else {
+                        $sWhere .= ' AND ';
+                    }
+                    $sWhere .= ' p.gender = "female"  AND p.first_name is not null and p.m_id IS NULL AND p.f_id IS NULL ';
                     break;
                 case 'addmother':
                     if ($sWhere == "") {
