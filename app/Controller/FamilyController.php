@@ -652,6 +652,13 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                    
+                        //add to brother table
+                        $brotherData = array();
+                    $brotherData['Brother']['people_id'] = $_REQUEST['peopleid'];
+                    $brotherData['Brother']['brother_id'] = $this->People->id;
+                    $brotherData['Brother']['created'] = date('Y-m-d H:i:s');
+                    $this->Brother->save($brotherData);
                         if ($same == 1) {
                             $this->_copyAddress($parentId, $this->People->id, true);
                         }
@@ -708,6 +715,12 @@ Class FamilyController extends AppController {
                         $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
                         $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
                         $this->PeopleGroup->save($peopleGroup);
+                          $brotherData = array();
+                $brotherData['Sister']['people_id'] = $_REQUEST['peopleid'];
+                $brotherData['Sister']['sister_id'] = $this->People->id;
+                $brotherData['Sister']['created'] = date('Y-m-d H:i:s');
+                $this->Sister->save($brotherData);
+                
                         if ($same == 1) {
                             $this->_copyAddress($parentId, $this->People->id, true);
                         }
