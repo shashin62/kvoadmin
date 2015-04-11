@@ -179,6 +179,17 @@ Class FamilyController extends AppController {
                 $this->set('last_name', $getPeopleData['People']['last_name']);
                 break;
             case 'addsister':
+                $pageTitle = 'Add Sister of ' . $_REQUEST['name_parent'];
+                $this->set('gender', 'female');
+                $this->set('sect', 'deravasi');
+                $this->set('martial_status', 'Single');
+                if ($getPeopleData['People']['tree_level'] == '') {
+                    $this->set('readonly', true);
+                } else {
+                    $this->set('readonly', false);
+                }
+                $this->set('village', $getPeopleData['People']['village']);
+                $this->set('last_name', $getPeopleData['People']['last_name']);
                 break;
             default:
                 $requestData['type'] = 'self';
@@ -571,7 +582,60 @@ Class FamilyController extends AppController {
                 }
                 break;
             case 'addsister':
+                    $this->request->data['People']['tree_level'] = $userID == $_REQUEST['peopleid'] ? 'START' : $_REQUEST['peopleid'];
+                $this->request->data['People']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
+                $msg['status'] = 1;
+                $result = $this->People->checkEmailExists($this->request->data['People']['email']);
+                
+                if (!empty($result) && !empty($this->request->data['People']['email']) && $this->request->data['People']['id'] == '') {
+                    $msg['status'] = 0;
+                    $msg['error']['name'][] = "email";
+                    $msg['error']['errormsg'][] = __('This Email already exists.');
+                }
 
+                if (isset($this->request->data['People']['mobile_number']) && !empty($this->request->data['People']['mobile_number'])) {
+                    $phoneData = $this->People->checkPhoneExists($this->request->data['People']['mobile_number']);
+
+                    if (!empty($phoneData) && $this->request->data['People']['id'] == '') {
+                        $msg['status'] = 0;
+                        $msg['error']['name'][] = "mobile_number";
+                        $msg['error']['errormsg'][] = __('This Phone already exists.');
+                    }
+                }
+                if ($msg['status'] == 1) {
+                    $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+                    $this->request->data['People']['created'] = date('Y-m-d H:i:s');
+                    $this->request->data['People']['s_id'] = $_REQUEST['peopleid'];                    
+                    $this->request->data['People']['sister'] = $getPeopleDetail[0]['People']['first_name'];
+                    $this->request->data['People']['m_id'] = $getPeopleDetail[0]['People']['m_id'];
+                    $this->request->data['People']['mother'] = $getPeopleDetail[0]['People']['mother'];
+                    $this->request->data['People']['f_id'] = $getPeopleDetail[0]['People']['f_id'];
+                    $this->request->data['People']['father'] = $getPeopleDetail[0]['People']['father'];
+                    
+                    if ($this->People->save($this->request->data)) {
+                        $msg['status'] = 1;
+                        $brotherId = $this->People->id;
+                        $updateParentUser = array();
+                        $updateParentUser['s_id'] = $brotherId;
+                        $updateParentUser['sister'] = $this->request->data['People']['first_name'];
+                        $updateParentUser['id'] = $_REQUEST['peopleid'];
+                        $this->People->updateBrotherDetails($updateParentUser);
+
+                        $getBrotherDetails = $this->People->find('all', array('fields' => array('People.m_id', 'People.mother', 'People.f_id', 'People.father'),
+                            'conditions' => array('People.id' => $_REQUEST['peopleid']))
+                        );
+
+                        $message = 'Sister has been added';
+                        $peopleGroup = array();
+                        $peopleGroup['PeopleGroup']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
+                        $peopleGroup['PeopleGroup']['people_id'] = $this->People->id;
+                        $peopleGroup['PeopleGroup']['tree_level'] = $_REQUEST['peopleid'];
+                        $this->PeopleGroup->save($peopleGroup);
+                        if ($same == 1) {
+                            $this->_copyAddress($parentId, $this->People->id, true);
+                        }
+                    }
+                }
                 break;
             case 'addnew':
                 $msg['status'] = 1;
