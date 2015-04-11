@@ -39,7 +39,7 @@ Class FamilyController extends AppController {
         'User', 'Aro', 'Role', 'Note',
         'People', 'Village', 'Education', 'State', 'BloodGroup',
         'Group', 'Address', 'PeopleGroup', 'Suburb', 'Surname', 'Translation',
-        'ZipCode', 'Spouse', 'BusinessNature', 'BusinessType'
+        'ZipCode', 'Spouse', 'BusinessNature', 'BusinessType','Brother','Sister'
     );
 
     /**
@@ -303,7 +303,12 @@ Class FamilyController extends AppController {
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
                 $this->PeopleGroup->save($peopleGroup);
                                 
-                
+                // add brother
+                $brotherData = array();
+                $brotherData['Brother']['people_id'] = $idToBeUpdated;
+                $brotherData['Brother']['brother_id'] = $peopleId;
+                $brotherData['Brother']['created'] = date('Y-m-d H:i:s');
+                $this->Brother->save($brotherData);
                 $updateBrotherDetails = array();
                 $updateBrotherDetails['People']['b_id'] = $peopleId;
                 $updateBrotherDetails['People']['brother'] = $getPeopleDetail[0]['People']['first_name'];
@@ -331,7 +336,12 @@ Class FamilyController extends AppController {
                 $peopleGroup['PeopleGroup']['group_id'] = $gid;
                 $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
                 $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
-                $this->PeopleGroup->save($peopleGroup);                                
+                $this->PeopleGroup->save($peopleGroup);      
+                $brotherData = array();
+                $brotherData['Sister']['people_id'] = $idToBeUpdated;
+                $brotherData['Sister']['sister_id'] = $peopleId;
+                $brotherData['Sister']['created'] = date('Y-m-d H:i:s');
+                $this->Sister->save($brotherData);
                 
                 $updateBrotherDetails = array();
                 $updateBrotherDetails['People']['s_id'] = $peopleId;
