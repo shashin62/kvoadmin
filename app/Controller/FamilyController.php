@@ -703,7 +703,7 @@ Class FamilyController extends AppController {
                         $updateParentUser['s_id'] = $brotherId;
                         $updateParentUser['sister'] = $this->request->data['People']['first_name'];
                         $updateParentUser['id'] = $_REQUEST['peopleid'];
-                        $this->People->updateBrotherDetails($updateParentUser);
+                        $this->People->updateSisterDetails($updateParentUser);
 
                         $getBrotherDetails = $this->People->find('all', array('fields' => array('People.m_id', 'People.mother', 'People.f_id', 'People.father'),
                             'conditions' => array('People.id' => $_REQUEST['peopleid']))
