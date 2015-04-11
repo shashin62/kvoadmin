@@ -288,7 +288,74 @@ Class FamilyController extends AppController {
         );
         $this->request->data = $getPeopleDetail[0];
         $updatePeople = array();
+        
+         $getParentPeopleDetail = $this->People->find('all', array('fields' => array('People.first_name',
+                    'People.last_name', 'People.maiden_surname', 'People.group_id', 'People.father', 'People.mother',
+                    'People.f_id', 'People.partner_id', 'People.m_id', 'People.partner_name', 'People.village'),
+                'conditions' => array('People.id' => $idToBeUpdated))
+            );
+        
         switch ($type) {
+            case 'addbrother':
+                $peopleGroup = array();
+                $peopleGroup['PeopleGroup']['group_id'] = $gid;
+                $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
+                $this->PeopleGroup->save($peopleGroup);
+                                
+                
+                $updateBrotherDetails = array();
+                $updateBrotherDetails['People']['b_id'] = $peopleId;
+                $updateBrotherDetails['People']['brother'] = $getPeopleDetail[0]['People']['first_name'];
+                $updateBrotherDetails['People']['id'] = $idToBeUpdated;
+                $updateBrotherDetails['People']['modified'] = date('Y-m-d H:i:s');
+                $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+                $this->People->save($updateBrotherDetails);
+                
+                $updateSecondBrotherDetails = array();
+                $updateSecondBrotherDetails['People']['b_id'] = $idToBeUpdated;
+                $updateSecondBrotherDetails['People']['brother'] = $getParentPeopleDetail[0]['People']['first_name'];
+                $updateSecondBrotherDetails['People']['id'] = $peopleId;
+                $updateSecondBrotherDetails['People']['modified'] = date('Y-m-d H:i:s');
+                $updateSecondBrotherDetails['People']['m_id'] = $getParentPeopleDetail[0]['People']['m_id'];
+                $updateSecondBrotherDetails['People']['mother'] = $getParentPeopleDetail[0]['People']['mother'];
+                $updateSecondBrotherDetails['People']['f_id'] = $getParentPeopleDetail[0]['People']['f_id'];
+                $updateSecondBrotherDetails['People']['father'] = $getParentPeopleDetail[0]['People']['father'];
+
+                $this->People->save($updateSecondBrotherDetails);
+                $msg['group_id'] = $gid;
+                $message = 'Brother has been added';
+                break;
+             case 'addsister':
+                $peopleGroup = array();
+                $peopleGroup['PeopleGroup']['group_id'] = $gid;
+                $peopleGroup['PeopleGroup']['people_id'] = $peopleId;
+                $peopleGroup['PeopleGroup']['tree_level'] = $idToBeUpdated;
+                $this->PeopleGroup->save($peopleGroup);                                
+                
+                $updateBrotherDetails = array();
+                $updateBrotherDetails['People']['s_id'] = $peopleId;
+                $updateBrotherDetails['People']['sister'] = $getPeopleDetail[0]['People']['first_name'];
+                $updateBrotherDetails['People']['id'] = $idToBeUpdated;
+                $updateBrotherDetails['People']['modified'] = date('Y-m-d H:i:s');
+                $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
+                $this->People->save($updateBrotherDetails);
+                
+                $updateSecondBrotherDetails = array();
+                $updateSecondBrotherDetails['People']['s_id'] = $idToBeUpdated;
+                $updateSecondBrotherDetails['People']['sister'] = $getParentPeopleDetail[0]['People']['first_name'];
+                $updateSecondBrotherDetails['People']['id'] = $peopleId;
+                $updateSecondBrotherDetails['People']['modified'] = date('Y-m-d H:i:s');
+                $updateSecondBrotherDetails['People']['m_id'] = $getParentPeopleDetail[0]['People']['m_id'];
+                $updateSecondBrotherDetails['People']['mother'] = $getParentPeopleDetail[0]['People']['mother'];
+                $updateSecondBrotherDetails['People']['f_id'] = $getParentPeopleDetail[0]['People']['f_id'];
+                $updateSecondBrotherDetails['People']['father'] = $getParentPeopleDetail[0]['People']['father'];
+
+                $this->People->save($updateSecondBrotherDetails);
+                $msg['group_id'] = $gid;
+                $message = 'Brother has been added';
+                break;
+                break;
             case 'addfather':
 
                 $data = $this->Group->find('all', array('fields' => array('Group.id'),
