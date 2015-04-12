@@ -721,8 +721,7 @@ Class People extends AppModel {
         $options['group'] = array('People.id');
         try {
             $familyData = $this->find('all', $options);
-
-            if (!empty($familyData) && isset($familyData[0])) {
+      if (!empty($familyData) && isset($familyData[0])) {
                 $familyData = $familyData;
 
                 return $familyData;
@@ -735,7 +734,60 @@ Class People extends AppModel {
         }
     }
 	
-	public function getAllSpouses($id) {
+    public function getBrothers($peopleId) {
+        
+        $this->recursive = -1;
+        $options['conditions'] = array('b.people_id' => $peopleId);
+        $options['joins'] = array(
+            array('table' => 'brothers',
+                'alias' => 'b',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'b.brother_id = People.id'
+                )
+            ),);
+        $options['fields'] = array('People.id', 'People.first_name','b.brother_id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+
+     public function getSisters($peopleId) {
+        
+        $this->recursive = -1;
+        $options['conditions'] = array('b.people_id' => $peopleId);
+        $options['joins'] = array(
+            array('table' => 'sisters',
+                'alias' => 'b',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'b.sister_id = People.id'
+                )
+            ),);
+        $options['fields'] = array('People.id', 'People.first_name','b.sister_id');
+        try {
+            $userData = $this->find('all', $options);
+            if ($userData) {
+                return $userData;
+            } else {
+                return array();
+            }
+        } catch (Exception $e) {
+            CakeLog::write('db', __FUNCTION__ . " in " . __CLASS__ . " at " . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+
+    
+    public function getAllSpouses($id) {
 		$this->recursive = -1;
 		$options['conditions'] = array('People.partner_id' => $id,'People.gender'=> 'female' );
         $options['fields'] = array('People.id','People.first_name');
