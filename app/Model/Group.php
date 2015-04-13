@@ -97,7 +97,8 @@ class Group extends AppModel {
                   LEFT JOIN people as spouse ON (parent.partner_id = spouse.id) 
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         } else {
-            $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id )
+            $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id ) 
+                 LEFT JOIN people as spouse ON (parent.partner_id = spouse.id) 
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         }
 
