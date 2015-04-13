@@ -139,10 +139,8 @@ $brother[] = $vValue['People']['first_name']. ' (' . $vValue['b']['brother_id'] 
 <div><strong>Brothers</strong>: <?php echo implode(', ',$brother); ?></div>
 <?php } ?>
 <?php } ?>
-<div>
 <?php if ($value['People']['m_id'] != '' && $value['People']['f_id'] != '') {?>
-<a class="addsister" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Sister</a>
-</div>
+<div><a class="addsister" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Sister</a></div>
 <?php $sisters = $People->getSisters($value['People']['id']);
 $sister = array(); 
 foreach ( $sisters as $bKey => $vValue) {
