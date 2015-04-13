@@ -20,7 +20,7 @@ $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, myParams)
 $(function () {
 
     $('#getFamilyGroup tfoot th').each(function () {
-        if ($(this).index() !== 0 && $(this).index() != 9 && $(this).index() != 7 && $(this).index() != 8 ) {
+        if ($(this).index() !== 0 && $(this).index() != 11 && $(this).index() != 9 && $(this).index() != 10 ) {
             var title = $('#getFamilyGroup thead th').eq($(this).index()).text();
             
             if (title == 'DOB') {
@@ -37,16 +37,16 @@ $(function () {
         "bServerSide": true,
          "aoColumnDefs" : [ {
             'bSortable' : false,
-            'aTargets' : [ 7,9 ]
-        },{ "width": "7%", "aTargets": [6, 7,8] }],
+            'aTargets' : [ 9,11 ]
+        },{ "width": "7%", "aTargets": [8, 9,10] }],
      
         "sAjaxSource": baseUrl + "/family/getAjaxGroups?showhof="+ showhof,
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             
-            $('td:eq(9)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
+            $('td:eq(11)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\
 ');
-          if( roleid == 1 || userid == aData[7]) {
-                $('td:eq(9)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
+          if( roleid == 1 || userid == aData[9]) {
+                $('td:eq(11)', nRow).append('<a class="delete_row btn btn-xs btn-danger" onclick="deleteFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-trash">Delete</a>');
             }
         },
         "rowCallback": function (row, data) {

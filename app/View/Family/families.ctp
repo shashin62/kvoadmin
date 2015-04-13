@@ -33,10 +33,12 @@ $roles = array(1,2,3);
         <tfoot>
             <tr>
                 <th></th>
-                <th></th>
+                <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                 <th>Village</th>
+                <th>Father's Name</th>
+                <th>Spouse's Name</th>
+                <th>Village</th>
                 <th>Mobile</th>               
                 <th>DOB</th>  
                 <th></th> 
@@ -50,7 +52,9 @@ $roles = array(1,2,3);
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                 <th>Village</th>
+                <th>Father's Name</th>
+                <th>Spouse's Name</th>
+                <th>Village</th>
                 <th>Mobile</th>                  
                 <th>DOB</th>
                 <th>Created by</th> 
