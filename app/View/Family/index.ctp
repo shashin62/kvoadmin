@@ -265,8 +265,8 @@
 				'div' => false,
 				'legend' => false,
 				'class' => '',
-				'style' => 'width:50px;',
-				'width' => '50%',
+				'style' => '',
+				//'width' => '50%',
 				'empty' => __d('label', '--Select--'),
 				'options' => $bloodgroups,
 				'value' => $blood_group
