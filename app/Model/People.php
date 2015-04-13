@@ -1523,7 +1523,7 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     
             WHERE $sWhere and  (( p.non_kvo = 1 and (p.f_id IS NULL or p.f_id IS NOT NULL)) or( p.non_kvo = 0 and p.f_id IS not NULL)) and 
 			(( p.non_kvo = 1 and (p.m_id IS NULL or p.m_id IS NOT NULL)) or ( p.non_kvo = 0 and p.m_id IS not NULL)) and 
-			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and ( (p.non_kvo = 1 and (grandfather.first_name IS  NULL or grandfather.first_name IS NOT  NULL)) or  (p.non_kvo = 0 and grandfather.first_name IS NOT NULL))
+			( p.date_of_birth IS NOT NULL) and (p.address_id IS NOT NULL and p.address_id != '' and p.address_id != '0') and (  p.village IS NOT NULL) and ( (p.non_kvo = 1 and (grandfather.first_name IS  NULL or grandfather.first_name IS NOT  NULL)) or  (p.non_kvo = 0 and grandfather.first_name IS NOT NULL))
 			and ( ( p.non_kvo = 1 and (grandfatherm.first_name IS NULL or grandfatherm.first_name IS NOT NULL )) or ( p.non_kvo = 0 and grandfatherm.first_name IS NOT NULL) )  $sdate
                         $sOrder
             $sLimit
