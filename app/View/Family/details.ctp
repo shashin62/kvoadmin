@@ -104,6 +104,12 @@ $firstName = $value['People']['first_name'];
             <div><strong>Father:</strong> <a title="edit"  class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['f_id'];?>" href="javascript:void(0);"><?php echo $value['parent1']['father'];?></a> (<?php echo $value['People']['f_id'];?>)
 <a href="javascript:void(0);" title="Remove Association" title="edit"  data-type="father" class="removeassco" data-gid="<?php echo $value['People']['group_id'];?>" data-fid="<?php echo $value['People']['f_id'];?>" data-id="<?php echo $value['People']['id'];?>">Remove</a>
 
+<?php if( empty($value['People']['m_id'])) { ?>
+            <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
+                                    <?php } else { ?>
+            <div><strong>Mother</strong>:  <a title="edit"  class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['m_id'];?>" href="javascript:void(0);"><?php echo $value['parent2']['mother'];?></a> (<?php echo $value['People']['m_id'];?>)
+            <a href="javascript:void(0);" title="Remove Association" data-type="mother" title="edit"  class="removeassco" data-gid="<?php echo $value['People']['group_id'];?>" data-mid="<?php echo $value['People']['m_id'];?>" data-id="<?php echo $value['People']['id'];?>">Remove</a>
+
 </div>
                                     <?php } ?>
  <?php if ($value['People']['m_id'] != '' && $value['People']['f_id'] != '') {?>
@@ -139,11 +145,7 @@ $sister[] = $vValue['People']['first_name']. ' (' . $vValue['b']['sister_id'] . 
             <a class="editbusiness" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-aid="<?php echo $value['People']['business_address_id'];?>" href="#">
                             <?php echo $value['People']['business_address_id'] || $value['People']['occupation'] != '' ? 'Edit Business Details' : 'Add Business Details';?></a><br>
              <?php } ?>
-                                    <?php if( empty($value['People']['m_id'])) { ?>
-            <a class="addmother" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" href="javascript:void(0);">Add Mother</a>
-                                    <?php } else { ?>
-            <div><strong>Mother</strong>:  <a title="edit"  class="self" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['m_id'];?>" href="javascript:void(0);"><?php echo $value['parent2']['mother'];?></a> (<?php echo $value['People']['m_id'];?>)
-            <a href="javascript:void(0);" title="Remove Association" data-type="mother" title="edit"  class="removeassco" data-gid="<?php echo $value['People']['group_id'];?>" data-mid="<?php echo $value['People']['m_id'];?>" data-id="<?php echo $value['People']['id'];?>">Remove</a>
+                                    
             </div>
                                     <?php } ?>
         </div>
