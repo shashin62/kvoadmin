@@ -1289,6 +1289,7 @@ Class FamilyController extends AppController {
         $tree['village'] = ucfirst($peopleData['village']);
         $tree['father'] = ucfirst($peopleData['father']);
         $tree['mother'] = ucfirst($peopleData['mother']);
+        $tree['pid'] = $iId;
         if ($peopleData['gender'] == 'male') {
             $tree['partner_name'] = ucfirst($peopleData['partner_name']) . " " . ucfirst($peopleData['first_name']) . " " . $peopleData['last_name'];
         } else {
