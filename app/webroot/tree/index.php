@@ -92,7 +92,7 @@ if (isset($_GET['full'])) {
 
 		<TABLE WIDTH="100%" HEIGHT="100%" CELLSPACING=0 CELLPADDING=0>
 
-			<TR HEIGHT="8">
+			<TR HEIGHT="8" style="display:none;">
 
 				<FORM NAME="topform" ACTION="./" METHOD="POST">
 
