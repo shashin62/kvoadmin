@@ -156,8 +156,10 @@ $sister[] = $vValue['People']['first_name']. ' (' . $vValue['b']['sister_id'] . 
         </div>
         <div class="col-md-2">
                                  <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'male') { ?>
-            <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br>
-                                    <?php $children = $People->getChildren($value['People']['id'],'male');
+            <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br><?php } ?>
+                                    <?php 
+                                    if ( !empty($value['People']['partner_id'])) {
+                                    $children = $People->getChildren($value['People']['id'],$value['People']['gender']);
                                     $childs = array();
                                     foreach ( $children as $k => $v ) {
                                         $childs[] = $v[0]['childname']. ' (' . $v['People']['id'] . ')';
@@ -165,7 +167,7 @@ $sister[] = $vValue['People']['first_name']. ' (' . $vValue['b']['sister_id'] . 
                                     
                                     ?>
             <div><strong>Children</strong>: <?php echo implode(', ',$childs); ?></div>
-                                <?php } ?>
+                                    <?php } ?>
                                     <?php if( ($roleId == 1 || $this->Session->read('User.user_id') == $value['People']['created_by'] ) && $value['Group']['tree_level'] != '') { ?>
             <a class="deletemember" data-gid="<?php echo $value['People']['group_id'];?>" data-id="<?php echo $value['People']['id'];?>" href="javascript:void(0);" style="color: red">Delete</a>
                                      <?php } ?>
