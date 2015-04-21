@@ -456,7 +456,7 @@ function TRD(d,y,bn,mn,sp,o,oi,wp,pr,zf,_24){
             gPic = 'none';
         }            
                     
-	v.innerHTML="<TABLE WIDTH=\"100%\" HEIGHT=\"100%\" STYLE=\"table-layout:fixed;\">"+"<TR><TD CLASS=\""+cc+"\" STYLE=\"font-size:"+(e.d?sz.Tds:sz.Tfs)+"px;\""+" TITLE=\""+e.p.p+" "+e.p.l+" (ID: "+ e.p.pid +")\"><img id=\"personimage\" src=\""+ u + "\" class=\"simage\" style=\"display: "+gPic+"; margin-right: 6px; width: 22px; height: 22px;\" onclick=\"SIC(); return false;\" >"+(e.d?"Duplicate: ":"")+EH(fn)+" ("+e.p.pid+")"+"</TD></TR>"+rs+"</TABLE>";       
+	v.innerHTML="<TABLE WIDTH=\"100%\" HEIGHT=\"100%\" STYLE=\"table-layout:fixed;\">"+"<TR><TD CLASS=\""+cc+"\" STYLE=\"font-size:"+(e.d?sz.Tds:sz.Tfs)+"px;\""+" TITLE=\""+e.p.p+" "+e.p.l+" (ID: "+ e.p.pid +")\"><img id=\"personimage\" src=\""+ u + "\" class=\"simage\" style=\"display: "+gPic+"; margin-right: 6px; width: 22px; height: 22px;\" onclick=\"SIC(); return false;\" >"+(e.d?"Duplicate: ":"")+EH(fn)+"&nbsp;("+e.p.pid+")"+"</TD></TR>"+rs+"</TABLE>";       
         
 
 	o.appendChild(v);
