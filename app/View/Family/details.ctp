@@ -182,7 +182,7 @@ $sister[] = $vValue['People']['first_name']. ' (' . $vValue['b']['sister_id'] . 
 <?php } ?>
         </div>
                                 <?php } else { ?>
-        <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/app/webroot/tree?gid='. $groupId;?>">View Tree</a></div>                
+        <div class="col-md-1"><a target="_blank" href="<?php echo $this->base.'/tree?gid='. $groupId;?>">View Tree</a></div>                
                                 <?php } ?>
 
                                 <?php 
