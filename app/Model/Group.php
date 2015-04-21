@@ -21,7 +21,7 @@ class Group extends AppModel {
     public function getAllFamilyGroups($userId, $roleId, $showhof = false, $showmy = false) {
 
         $aColumns = array('grp.id', 'parent.id', 'parent.first_name',
-            'parent.last_name', 'paret.village', 'parent.mobile_number', 'DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth',
+            'parent.last_name','parent.father','spouse.first_name', 'paret.village', 'parent.mobile_number', 'DATE_FORMAT(parent.date_of_birth,   "%d/%m/%Y"  ) as date_of_birth',
             'grp.created', 'grp.created', 'grp.created');
 
         /* Indexed column (used for fast and accurate table cardinality) */
@@ -55,7 +55,7 @@ class Group extends AppModel {
             }
         }
 
-        $aSearchCollumns = array('parent.group_id', 'parent.id', 'parent.first_name', 'parent.last_name', 'parent.village',
+        $aSearchCollumns = array('parent.group_id', 'parent.id', 'parent.first_name', 'parent.last_name', 'parent.father', 'spouse.first_name','parent.village',
             'parent.mobile_number', 'DATE_FORMAT(parent.date_of_birth,   "%m/%d/%Y"  ),'
             . 'grp.created,user.first_name,user.last_name');
         /*
@@ -94,9 +94,11 @@ class Group extends AppModel {
 //        
         if ($showhof == 'true') {
             $sJoin = "  INNER JOIN people as parent ON (grp.people_id = parent.id )
+                  LEFT JOIN people as spouse ON (parent.partner_id = spouse.id) 
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         } else {
-            $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id )
+            $sJoin = "  INNER JOIN people as parent ON (grp.id = parent.group_id ) 
+                 LEFT JOIN people as spouse ON (parent.partner_id = spouse.id) 
                  INNER JOIN users as user ON (user.id = parent.created_by)";
         }
 
@@ -113,6 +115,7 @@ class Group extends AppModel {
         if ($showhof == 'true' && $showmy == 'true') {
 
             $sJoin = "  INNER JOIN people as parent ON (grp.people_id = parent.id )
+                  LEFT JOIN people as spouse ON (parent.partner_id = spouse.id) 
                  INNER JOIN users as user ON (user.id = parent.created_by)";
             if ($sWhere == "") {
                 $sWhere = "WHERE parent.created_by = {$userId}";
@@ -125,8 +128,8 @@ class Group extends AppModel {
          * SQL queries
          * Get data to display
          */
-        $sQuery = "SELECT SQL_CALC_FOUND_ROWS grp.id,parent.id,parent.first_name,
-    parent.last_name,parent.village,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
+       $sQuery = "SELECT SQL_CALC_FOUND_ROWS grp.id,parent.id,parent.first_name,
+    parent.last_name,parent.father,spouse.first_name,parent.village,DATE_FORMAT(parent.date_of_birth,'%d/%m/%Y') as date_of_birth,
      parent.mobile_number,grp.created,user.first_name,user.last_name
             FROM   $sTable $sJoin $sWhere $sOrder $sLimit";
 
@@ -152,9 +155,13 @@ class Group extends AppModel {
         foreach ($rResult as $key => $value) {
             $row = array();
             $row[] = $value['grp']['id'];
-            foreach ($value['parent'] as $k => $v) {
-                $row[] = ucfirst(strtolower($v));
-            }
+            $row[] = $value['parent']['id'];
+            $row[] = ucfirst(strtolower($value['parent']['first_name']));
+            $row[] = ucfirst(strtolower($value['parent']['last_name']));
+            $row[] = ucfirst(strtolower($value['parent']['father']));
+            $row[] = ucfirst(strtolower($value['spouse']['first_name']));
+            $row[] = ucfirst(strtolower($value['parent']['village']));      
+            $row[] = ucfirst(strtolower($value['parent']['mobile_number']));    
             $row[] = $value[0]['date_of_birth'];
             $row[] = $value['user']['first_name'] . ' ' . $value['user']['last_name'];
             $row[] = $value['grp']['created'];

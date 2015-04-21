@@ -1227,6 +1227,7 @@ Class FamilyController extends AppController {
 
         $jsonData['tree'] = $tree;
         $jsonData['parent_name'] = $peopleRootData['first_name'] . ' ' . $peopleRootData['last_name'];
+        $jsonData['count'] = count($tree);
 
         echo json_encode($jsonData);
         exit;
@@ -1284,11 +1285,12 @@ Class FamilyController extends AppController {
         $tree['i'] = $peopleData['id'];
         $tree['l'] = $peopleData['last_name'];
         $tree['p'] = $peopleData['first_name'];
-        $tree['dob'] = $peopleData['date_of_birth'] != '' ? date("m/d/Y", strtotime($peopleData['date_of_birth'])) : '';
+        $tree['dob'] = $peopleData['date_of_birth'] != '' ? date("d/m/Y", strtotime($peopleData['date_of_birth'])) : '';
         $tree['education'] = $peopleData['education_1'];
         $tree['village'] = ucfirst($peopleData['village']);
         $tree['father'] = ucfirst($peopleData['father']);
         $tree['mother'] = ucfirst($peopleData['mother']);
+        $tree['pid'] = $iId;
         if ($peopleData['gender'] == 'male') {
             $tree['partner_name'] = ucfirst($peopleData['partner_name']) . " " . ucfirst($peopleData['first_name']) . " " . $peopleData['last_name'];
         } else {
@@ -1300,9 +1302,11 @@ Class FamilyController extends AppController {
         $tree['name_of_business'] = $peopleData['name_of_business'];
         $tree['mobile_number'] = $peopleData['mobile_number'];
         $tree['martial_status'] = $peopleData['martial_status'];
-        $tree['date_of_marriage'] = $peopleData['date_of_marriage'] != '' ? date("m/d/Y", strtotime($peopleData['date_of_marriage'])) : '';
+        $tree['date_of_marriage'] = $peopleData['date_of_marriage'] != '' ? date("d/m/Y", strtotime($peopleData['date_of_marriage'])) : '';
         $tree['email'] = $peopleData['email'];
+
         $tree['pid'] = $iId;
+
         $tree['gid'] = $peopleData['group_id'];
         $tree['father'] = ucfirst($peopleData['father']);
         $tree['city'] = ucfirst($addressData['city']);
@@ -1430,7 +1434,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['l'] = $peopleData['last_name'];
                 $tree[$peopleData['id']]['p'] = $peopleData['first_name'];
                 $tree[$peopleData['id']]['p'] = ucfirst($peopleData['first_name']);
-                $tree[$peopleData['id']]['dob'] = date("m/d/Y", strtotime($peopleData['date_of_birth']));
+                $tree[$peopleData['id']]['dob'] = date("d/m/Y", strtotime($peopleData['date_of_birth']));
                 $tree[$peopleData['id']]['education'] = $peopleData['education_1'];
                 $tree[$peopleData['id']]['village'] = ucfirst($peopleData['village']);
                 $tree[$peopleData['id']]['father'] = ucfirst($peopleData['father']);
@@ -1446,7 +1450,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['name_of_business'] = $peopleData['name_of_business'];
                 $tree[$peopleData['id']]['mobile_number'] = $peopleData['mobile_number'];
                 $tree[$peopleData['id']]['martial_status'] = $peopleData['martial_status'];
-                $tree[$peopleData['id']]['date_of_marriage'] = date("m/d/Y", strtotime($peopleData['date_of_marriage']));
+                $tree[$peopleData['id']]['date_of_marriage'] = date("d/m/Y", strtotime($peopleData['date_of_marriage']));
                 $tree[$peopleData['id']]['email'] = $peopleData['email'];
                 $tree[$peopleData['id']]['pid'] = $originalPId;
                 $tree[$peopleData['id']]['gid'] = $peopleData['group_id'];

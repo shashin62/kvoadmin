@@ -1090,7 +1090,7 @@ function EIU(r){
 if(staticMode){
 return "image-"+r+".jpg";
 }else{
-return BR("ap/","image_read",{f:GV("familyid"),p:GV("personid"),c:GV("checksum"),r:r});
+return "/people_images/"+r;//BR("ap/","image_read",{f:GV("familyid"),p:GV("personid"),c:GV("checksum"),r:r});
 }
 }
 function EHW(){

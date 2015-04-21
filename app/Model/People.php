@@ -714,7 +714,7 @@ Class People extends AppModel {
         }
 
         $options['order'] = array(
-                                'CASE WHEN People.tree_level = "" THEN 0 ELSE 1 END',
+                                'CASE WHEN (People.tree_level = "" AND People.group_id = "'.$groupId.'") THEN 0 ELSE 1 END',
                                 'CASE WHEN People.date_of_birth IS NULL OR People.date_of_birth = "0000-00-00" THEN 1 ELSE 0 END',
                                 'CASE WHEN People.is_late = 1 THEN 0 ELSE 1 END',
                                 );
@@ -1523,7 +1523,7 @@ LEFT JOIN people as grandfatherm ON grandfatherm.id = parent2.f_id
                     
             WHERE $sWhere and  (( p.non_kvo = 1 and (p.f_id IS NULL or p.f_id IS NOT NULL)) or( p.non_kvo = 0 and p.f_id IS not NULL)) and 
 			(( p.non_kvo = 1 and (p.m_id IS NULL or p.m_id IS NOT NULL)) or ( p.non_kvo = 0 and p.m_id IS not NULL)) and 
-			( p.date_of_birth IS NOT NULL) and (  p.village IS NOT NULL) and ( (p.non_kvo = 1 and (grandfather.first_name IS  NULL or grandfather.first_name IS NOT  NULL)) or  (p.non_kvo = 0 and grandfather.first_name IS NOT NULL))
+			( p.date_of_birth IS NOT NULL) and (p.address_id IS NOT NULL and p.address_id != '' and p.address_id != '0') and (  p.village IS NOT NULL) and ( (p.non_kvo = 1 and (grandfather.first_name IS  NULL or grandfather.first_name IS NOT  NULL)) or  (p.non_kvo = 0 and grandfather.first_name IS NOT NULL))
 			and ( ( p.non_kvo = 1 and (grandfatherm.first_name IS NULL or grandfatherm.first_name IS NOT NULL )) or ( p.non_kvo = 0 and grandfatherm.first_name IS NOT NULL) )  $sdate
                         $sOrder
             $sLimit
