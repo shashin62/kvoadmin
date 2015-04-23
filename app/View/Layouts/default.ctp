@@ -73,7 +73,9 @@
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/translation/index">Translations</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/suburb/index">Suburbs</a></li>
                                 <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/surname/index">Surname</a></li>
-                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Pincodes</a></li>                                
+                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/zip/index">Pincodes</a></li>
+                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/BusinessNature/index">Business Natures</a></li>
+                                <li><a href="<?php echo FULL_BASE_URL . $this->base; ?>/business_type/index">Business Types</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
