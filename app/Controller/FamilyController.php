@@ -2217,5 +2217,23 @@ Class FamilyController extends AppController {
         echo json_encode($data);
         exit;
     }
+    
+    public function removeRelationship()
+    {
+         $this->autoRender = false;
+        $this->layout = 'ajax';
+        $id = $_REQUEST['id'];
+        $gid = $_REQUEST['gid'];
+        $type = $_REQUEST['type'];
+        if ($this->People->removeRelation($id, $assocationId, $gid, $type)) {
+            $msg['success'] = 1;
+            $msg['message'] = 'Accociation has been removed';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error';
+        }
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
 
 }
