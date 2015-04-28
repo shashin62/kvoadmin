@@ -1222,10 +1222,39 @@ Class FamilyController extends AppController {
 
                 break;
             default:
-                $checkExistingUser = $this->People->find('all', array('fields' => array('People.id'),
+                $checkExistingUser = $this->People->find('all', array('fields' => array('People.id','People.gender'),
                     'conditions' => array('People.id' => $_REQUEST['peopleid']))
                 );
-
+            
+            if ( $checkExistingUser[0]['People']['gender'] != $this->request->data['People']['gender']) {
+                if ( $checkExistingUser[0]['People']['gender'] == 'male' && $this->request->data['People']['gender'] == 'female') {
+                $getBrothersId = $this->Brother->find('list',array('conditions' => array('Brother.brother_id' => $_REQUEST['peopleid']),
+                       'fields' => array('Brother.people_id'))
+                        );
+                $sData = array();
+                $i = 0;
+                foreach ( $getBrothersId as $k => $value) {
+                    $sData[$i]['Sister']['people_id'] = $value;
+                    $sData[$i]['Sister']['sister_id'] = $_REQUEST['peopleid'];
+                    $i++;
+                }
+                $this->Sister->saveAll($sData);
+                $this->Brother->deleteAll(array('Brother.brother_id' => $_REQUEST['peopleid']));
+                } else {
+                     $getSistersId = $this->Sister->find('list',array('conditions' => array('Sister.sister_id' => $_REQUEST['peopleid']),
+                       'fields' => array('Sister.people_id'))
+                        );
+                $sData = array();
+                $i = 0;
+                foreach ( $getSistersId as $k => $value) {
+                    $sData[$i]['Brother']['people_id'] = $value;
+                    $sData[$i]['Brother']['brother_id'] = $_REQUEST['peopleid'];
+                    $i++;
+                }
+                $this->Brother->saveAll($sData);
+                $this->Sister->deleteAll(array('Sister.sister_id' => $_REQUEST['peopleid']));
+                }
+            }
 
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
