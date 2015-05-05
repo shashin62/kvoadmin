@@ -72,6 +72,30 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        
+                        <div class="form-group required">
+                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Sect</label>  
+                            <div class="col-lg-1 col-md-1 col-xs-1">
+                                <input type="radio" name="sect_radio">
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+					<div class="btn-group sects_first" data-toggle="buttons">
+						<label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
+							<input data-sect_first="deravasi" type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
+						</label>
+						<label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
+							<input data-sect_first="sthanakvasi" type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
+						</label>
+						<label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
+							<input data-sect_first="other" type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
+						</label>
+					</div>
+				</div>
+                        
+                        </div>
+                        
+                        
                         <div class="form-group required">
 				<label class="col-lg-3 col-md-3 col-xs-3 control-label" for="last_name">Used Surname</label>
                                  <div class="col-lg-1 col-md-1 col-xs-1">
@@ -188,6 +212,26 @@
                             </div>
                         </div>
                         <div class="form-group required">
+                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Sect</label>  
+                            <div class="col-lg-1 col-md-1 col-xs-1">
+                                <input type="radio" name="sect_radio">
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+					<div class="btn-group sects_second" data-toggle="buttons">
+						<label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
+							<input data-sect_second="deravasi" type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
+						</label>
+						<label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
+							<input data-sect_second="sthanakvasi" type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
+						</label>
+						<label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
+							<input data-sect_second="other" type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
+						</label>
+					</div>
+				</div>
+                        
+                        </div>
+                        <div class="form-group required">
 				<label class="col-lg-3 col-md-3 col-xs-3 control-label" for="last_name">Used Surname</label>
                                  <div class="col-lg-1 col-md-1 col-xs-1">
                                 <input type="radio" name="last_name_radio">
@@ -284,7 +328,7 @@
                     <div class="form-group">
                         <div class="col-lg-3 col-md-3 col-xs-3">&nbsp;</div>
                         <div class="col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-lg-7 col-md-7 col-xs-7">
-                            <button type="button" class="btn btn-primary addressButton">Merge</button>
+                            <button type="button" class="btn btn-primary mergeButton">Merge</button>
                             <button type="button" style="color: red" class="btn btn-link cancel">Cancel</button>
                         </div>
                     </div>

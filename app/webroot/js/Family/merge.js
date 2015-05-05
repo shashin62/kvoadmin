@@ -18,7 +18,7 @@ $('.submitButton1').click(function(){
         success: function (response) {
             console.log(response);
              $('.genders_first').find('.btn-default').removeClass('active');
-             
+             $('.sects_first').find('.btn-default').removeClass('active');
             $('.villagediv_first').find('.ui-autocomplete-input').val(response.village);
             
             $('.main_surnamediv_first').find('.ui-autocomplete-input').val(response.main_surname);
@@ -26,6 +26,12 @@ $('.submitButton1').click(function(){
             $('.genders_first').find('[data-gender_first=' + response.gender + ']').parent().addClass('active').attr('checked', 'checked');
             
             $('[data-gender_first=' + response.gender + ']').attr('checked', 'checked');
+            
+            
+            $('.sects_first').find('[data-sect_first=' + response.sect + ']').parent().addClass('active').attr('checked', 'checked');
+            
+            $('[data-sect_first=' + response.sect + ']').attr('checked', 'checked');
+            
             
             $('.first_name_first').val(response.first_name);
             $('.last_name_first').val(response.last_name);
@@ -49,7 +55,7 @@ $('.submitButton2').click(function(){
         type: "POST",
         success: function (response) {
              $('.genders_second').find('.btn-default').removeClass('active');
-             
+             $('.sects_second').find('.btn-default').removeClass('active');
             $('.villagediv_second').find('.ui-autocomplete-input').val(response.village);
             
             $('.main_surnamediv_second').find('.ui-autocomplete-input').val(response.main_surname);
@@ -57,6 +63,10 @@ $('.submitButton2').click(function(){
             $('.genders_second').find('[data-gender_second=' + response.gender + ']').parent().addClass('active').attr('checked', 'checked');
             
             $('[data-gender_second=' + response.gender + ']').attr('checked', 'checked');
+            
+            $('.sects_second').find('[data-sect_second=' + response.sect + ']').parent().addClass('active').attr('checked', 'checked');
+            
+            $('[data-sect_second=' + response.sect + ']').attr('checked', 'checked');
             
             
             $('.first_name_second').val(response.first_name);
@@ -68,6 +78,12 @@ $('.submitButton2').click(function(){
             $('.date_of_birth_second').val(response.date_of_birth);
         }
     });
+    
+});
+
+
+$('.mergeButton').click(function(){
+   
     
 });
 
