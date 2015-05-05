@@ -50,7 +50,7 @@ class AppController extends Controller {
             'authError' => 'You are not authorized to view this page',
             'allowedActions' => array('logout','register','doRegisterUser','buildTreeJson','buildFamilyJson',
                 'rebuildARO','callAgain','addNote','viewNote','getAutoCompleteFirstName',
-                'getAutoCompleteLastName','populateZipCodeData','getZipCodesData',
+                'getAutoCompleteLastName','populateZipCodeData','getZipCodesData','merge',
                 'getNatureBusinessData','getTypeBusinessData','getSpecialBusinessData','getZipAjaxData'
  ,'index','addZip','deleteZip','getMissingRecords','records','changestatus','makeHOF','getBusinessTypes','removeRelationship',
                 'completedrecords','getCompletedRecords','all','getAllAjaxData','missingfathers','getMissingFathers','missingmothers','getMissingMothers','matchingaddress','getMatchingAddress','addPoll', 'deletePoll','getPollAjaxData','getPollData', 'addArticle', 'deleteArticle','getArticleAjaxData','getArticleData'),

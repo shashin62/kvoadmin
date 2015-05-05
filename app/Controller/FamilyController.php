@@ -1241,20 +1241,20 @@ Class FamilyController extends AppController {
                 $this->Sister->saveAll($sData);
                 $this->Brother->deleteAll(array('Brother.brother_id' => $_REQUEST['peopleid']));
                 } else {
-                     $getSistersId = $this->Sister->find('list',array('conditions' => array('Sister.sister_id' => $_REQUEST['peopleid']),
-                       'fields' => array('Sister.people_id'))
+                    $getSistersId = $this->Sister->find('list', array('conditions' => array('Sister.sister_id' => $_REQUEST['peopleid']),
+                            'fields' => array('Sister.people_id'))
                         );
-                $sData = array();
-                $i = 0;
-                foreach ( $getSistersId as $k => $value) {
-                    $sData[$i]['Brother']['people_id'] = $value;
-                    $sData[$i]['Brother']['brother_id'] = $_REQUEST['peopleid'];
-                    $i++;
+                        $sData = array();
+                        $i = 0;
+                        foreach ($getSistersId as $k => $value) {
+                            $sData[$i]['Brother']['people_id'] = $value;
+                            $sData[$i]['Brother']['brother_id'] = $_REQUEST['peopleid'];
+                            $i++;
+                        }
+                        $this->Brother->saveAll($sData);
+                        $this->Sister->deleteAll(array('Sister.sister_id' => $_REQUEST['peopleid']));
+                    }
                 }
-                $this->Brother->saveAll($sData);
-                $this->Sister->deleteAll(array('Sister.sister_id' => $_REQUEST['peopleid']));
-                }
-            }
 
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
@@ -2264,5 +2264,9 @@ Class FamilyController extends AppController {
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
     }
-
+    
+    public function merge()
+    {
+        
+    }
 }
