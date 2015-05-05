@@ -2269,4 +2269,17 @@ Class FamilyController extends AppController {
     {
         
     }
+    
+    public function getDataById()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $id = $_REQUEST['id'];
+        
+        $data = $this->People->getPeopleData($id, true);
+        
+        $data = $data['People'];
+        echo json_encode($data);
+        exit;
+    }
 }

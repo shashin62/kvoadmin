@@ -570,9 +570,9 @@ Class People extends AppModel {
         } else {
             $options['conditions']['People.user_id'] = $userId;
         }
-
+        if ($groupId) {
         $options['conditions']['Group.group_id'] = $groupId;
-
+        
         $options['joins'] = array(
             array('table' => 'people_groups',
                 'alias' => 'Group',
@@ -582,8 +582,12 @@ Class People extends AppModel {
                 )
             )
         );
-
-        $options['fields'] = array('People.*', 'Group.tree_level');
+        }
+        if ($groupId) {
+            $options['fields'] = array('People.*', 'Group.tree_level');
+        } else {
+            $options['fields'] = array('People.*');
+        }
         try {
             $userData = $this->find('all', $options);
 
