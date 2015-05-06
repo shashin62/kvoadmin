@@ -39,7 +39,7 @@ Class FamilyController extends AppController {
         'User', 'Aro', 'Role', 'Note',
         'People', 'Village', 'Education', 'State', 'BloodGroup',
         'Group', 'Address', 'PeopleGroup', 'Suburb', 'Surname', 'Translation',
-        'ZipCode', 'Spouse', 'BusinessNature', 'BusinessType','Brother','Sister'
+        'ZipCode', 'Spouse', 'BusinessNature', 'BusinessType','Brother','Sister', 'PeopleEducation'
     );
 
     /**
@@ -248,11 +248,11 @@ Class FamilyController extends AppController {
             $this->set('maiden_surname', $getPeopleData['People']['maiden_surname']);
             $this->set('sect', $getPeopleData['People']['sect']);
             $this->set('state', $getPeopleData['People']['state']);
-            $this->set('education_1', $getPeopleData['People']['education_1']);
+            /*$this->set('education_1', $getPeopleData['People']['education_1']);
             $this->set('education_2', $getPeopleData['People']['education_2']);
             $this->set('education_3', $getPeopleData['People']['education_3']);
             $this->set('education_4', $getPeopleData['People']['education_4']);
-            $this->set('education_5', $getPeopleData['People']['education_5']);
+            $this->set('education_5', $getPeopleData['People']['education_5']);*/
             $this->set('year_of_passing_1', $getPeopleData['People']['year_of_passing_1']);
             $this->set('year_of_passing_2', $getPeopleData['People']['year_of_passing_2']);
             $this->set('year_of_passing_3', $getPeopleData['People']['year_of_passing_3']);
@@ -1464,7 +1464,7 @@ Class FamilyController extends AppController {
         $tree['l'] = $peopleData['last_name'];
         $tree['p'] = $peopleData['first_name'];
         $tree['dob'] = $peopleData['date_of_birth'] != '' ? date("d/m/Y", strtotime($peopleData['date_of_birth'])) : '';
-        $tree['education'] = $peopleData['education_1'];
+        $tree['education'] = $this->PeopleEducation->getHighestQualification($peopleData['id']);
         $tree['village'] = ucfirst($peopleData['village']);
         $tree['father'] = ucfirst($peopleData['father']);
         $tree['mother'] = ucfirst($peopleData['mother']);
@@ -1613,7 +1613,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['p'] = $peopleData['first_name'];
                 $tree[$peopleData['id']]['p'] = ucfirst($peopleData['first_name']);
                 $tree[$peopleData['id']]['dob'] = date("d/m/Y", strtotime($peopleData['date_of_birth']));
-                $tree[$peopleData['id']]['education'] = $peopleData['education_1'];
+                $tree[$peopleData['id']]['education'] = $this->PeopleEducation->getHighestQualification($peopleData['id']);
                 $tree[$peopleData['id']]['village'] = ucfirst($peopleData['village']);
                 $tree[$peopleData['id']]['father'] = ucfirst($peopleData['father']);
                 $tree[$peopleData['id']]['mother'] = ucfirst($peopleData['mother']);
@@ -1986,6 +1986,89 @@ Class FamilyController extends AppController {
 
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
+    }
+    
+    public function addEducation() {
+        
+        $pid = $_REQUEST['id'];
+        $this->set('peopleId', $pid);
+        $gid = $_REQUEST['gid'];
+        $this->set('groupId', $gid);
+        
+        //process form
+        if ($this->request->is('post') && $this->request->data['PeopleEducation']['name']) {
+            $this->layout = 'ajax';
+            $this->autoRender = false;
+            
+            $rdata = $this->request->data;
+            if ($this->PeopleEducation->save($rdata)) {
+                $msg['success'] = 1;
+                $msg['message'] = 'Education has been saved';
+                if ($this->request->data['PeopleEducation']['id'] != '') {
+                    $msg['message'] = 'Education has been updated';
+                }
+            } else {
+                $msg['success'] = 0;
+                $msg['message'] = 'System Error, Please try again';
+            }
+            $this->set(compact('msg'));
+            $this->render("/Elements/json_messages");
+        }
+        
+        // get states master list
+        $degrees = $this->Education->find('list', array('fields' => array('Education.name', 'Education.name')));
+        $this->set(compact('degrees'));
+        
+        $data = $this->People->getPeopleName($pid); 
+   
+        $this->set('peopleName', $data['people']['first_name'].' '.$data['people']['last_name']);
+    }
+    
+    public function deleteEducation()
+    {
+        $this->autoRender = false;
+        $id = $_REQUEST['id'];    
+        
+        if ($this->PeopleEducation->delete(array('id' =>$id)) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'Education has been deleted';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
+    
+    public function getAjaxEducationData()
+    {
+        $this->autoRender = false;        
+   
+        $data = $this->PeopleEducation->getPeopleEducations($_REQUEST['people_id']);
+        $pdata = array();
+        foreach ($data as $key => $val) {
+            $fdata = array();
+            $fdata[] = $val['people_educations']['id'];
+            $fdata[] = ($val['people_educations']['name']) ? $val['people_educations']['name'] : '';
+            $fdata[] = ($val['people_educations']['institution_name']) ? $val['people_educations']['institution_name'] : '';
+            $fdata[] = ($val['people_educations']['university_name']) ? $val['people_educations']['university_name'] : '';
+            $fdata[] = ($val['people_educations']['area_specialization']) ? $val['people_educations']['area_specialization'] : '';
+            $fdata[] = ($val['people_educations']['year_of_passing']) ? $val['people_educations']['year_of_passing'] : '';
+            $fdata[] = ($val['people_educations']['percentage']) ? $val['people_educations']['percentage'] : '';
+            $fdata[] = ($val['people_educations']['part_full_time']) ? $val['people_educations']['part_full_time'] : '';
+            $fdata[] = $val['people_educations']['people_id'];
+            
+            $pdata[] = $fdata;
+        }
+        
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => count($pdata),
+            "iTotalDisplayRecords" => count($pdata),
+            "aaData" => $pdata
+        );
+        echo json_encode($output);
     }
 
     public function searchPeople() {
