@@ -2248,5 +2248,18 @@ HAVING count(*) > 1";
         return $aResult;
 
     }
+    
+    public function getPeopleName($userId, $encode = false) {
+        $cond =  "people.id = '{$userId}'";
+        if ($encode) {
+            $cond = "md5(people.id) = '{$userId}'";
+        }
+        
+        $sQry = "SELECT first_name, last_name FROM"
+                . " people  WHERE {$cond}";
+        $aResult = $this->query($sQry);
+
+        return $aResult[0];
+    }
 }
 

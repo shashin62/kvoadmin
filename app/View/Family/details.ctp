@@ -47,6 +47,9 @@
                        App::import('Model', 'People');
                         $People = new People();
                         $hofId ;
+                        
+                       App::import('Model', 'PeopleEducation');
+                        $PeopleEducation = new PeopleEducation();
                   ?>
 
 			<?php foreach( $data as $key => $value ) {
@@ -155,7 +158,16 @@ $sister[] = $vValue['People']['first_name']. ' (' . $vValue['b']['sister_id'] . 
                                     
         </div>
         <div class="col-md-2">
+                    <a class="editeducation" data-gid="<?php echo $value['People']['group_id']; ?>" data-id="<?php echo $value['People']['id']; ?>"  href="#">Add / Edit Education Details</a><br>
+                    <?php 
+                    $edducations = $PeopleEducation->getPeopleEducations($value['People']['id']);
+                    $educations = array();
+                    foreach ( $edducations as $k => $v ) {
+                        $educations[] = $v['people_educations']['name'];
+                    }
 
+                    ?>
+                    <div><strong>Education</strong>: <?php echo implode(', ', $educations); ?></div>
                                  <?php if( strtolower($value['People']['gender']) == 'male') { ?>
             <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br><?php } ?>
                                     <?php 
