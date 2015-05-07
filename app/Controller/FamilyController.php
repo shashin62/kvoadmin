@@ -89,7 +89,7 @@ Class FamilyController extends AppController {
 
         $this->set('name', $getOwnerDetails['first_name']);
         $this->set('address_id', $getOwnerDetails['address_id']);
-
+        
         // add primary relationships to user- spouse, father, mother and childrens
         switch ($requestData['type']) {
             case 'addspouse':
@@ -148,7 +148,7 @@ Class FamilyController extends AppController {
                 $this->set('village', $getPeopleData['People']['village']);
                 break;
             case 'addchilld':
-                $pageTitle = 'Add Child of ' . $_REQUEST['name_parent'];
+                $pageTitle = 'Add Child of ' . $getPeopleData['People']['first_name'];
                 $this->set('readonly', true);
                 $this->set('last_name', $getPeopleData['People']['last_name']);
                 $this->set('village', $getPeopleData['People']['village']);
@@ -2078,6 +2078,11 @@ Class FamilyController extends AppController {
         $this->set('fid', $_REQUEST['fid']);
         $this->set('gid', $_REQUEST['gid']);
         
+        
+        $name = $this->People->find('all', array('conditions' => array('People.id' => $_REQUEST['fid'])));
+        
+        
+        $this->set('name', $name[0]['People']['first_name']);
         $main_surnames = $this->Surname->find('list', array('fields' => array('Surname.name', 'Surname.name')));
         $this->set(compact('main_surnames'));
         

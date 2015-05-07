@@ -6,14 +6,14 @@
 <div class="container-fluid">
     
     <?php
-    if( $name_parent ) {
-        $title = 'Search and add ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name_parent;
+    if ($type) {
+        $title = 'Search and add ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name;
     } else {
         $title = 'Search/Add New Family';
     }
     
-    if( $name_parent ) {
-        $buttonLabel = 'Add new ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name_parent;
+    if ($type) {
+        $buttonLabel = 'Add new ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name;
     } else {
         $buttonLabel = 'Add New Family Owner';
     }
@@ -34,6 +34,27 @@
                     <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="last_name">Last Name</label>
                     <div class="col-lg-8 col-md-8 col-xs-8">
                         <input type="text" class="form-control last_name search_username" name="last_name" placeholder="Last Name" custom="2" />
+                    </div>
+                </div>
+                <div class="form-group villagediv">
+                    <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="main_surname">Main Surname</label>
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                         <?php
+
+				echo $this->Form->input('main_surname', array('id' => 'main_surname',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'main_surname combobox',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => $main_surnames,
+				'value' => $main_surname
+
+				));
+				?>
+                        
                     </div>
                 </div>
                 <div class="form-group">
