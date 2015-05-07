@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12">
                         <div class="form-group">
-                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="first_name">Enter First ID</label>
+                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="first_name">Enter Second ID</label>
                             <div class="col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-lg-7 col-md-7 col-xs-7">
                                 <input name="secondId" id="" tabindex="2" value="" placeholder="Enter ID" title="" class="form-control secondId" type="text"/></div>
                         </div>
