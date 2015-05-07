@@ -81,6 +81,31 @@
                         </div>
                         
                         
+                         <div class="form-group required martial_statusdiv_first">
+                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Martial Status</label>  
+                            <div class="col-lg-1 col-md-1 col-xs-1">
+                                <input type="radio" name="martial_status_radio" data-d="martial_status_first">
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                               
+				<?php
+
+				echo $this->Form->input('martial_status', array('id' => 'martial_status',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'martial_status_first combobox',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => array('Married' => 'Married','Divorced' => 'Divorced','Sepereated'=> 'Seperated','Widow'=> 'Widow','Single' => 'Single')
+
+				));
+				?>
+				</div>
+                        </div>
+                        
+                        
                         <div class="form-group required sectdiv_first">
                             <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Sect</label>  
                             <div class="col-lg-1 col-md-1 col-xs-1">
@@ -230,6 +255,31 @@
 				?>
 				</div>
                         </div>
+                        
+                        <div class="form-group required martial_statusdiv_second">
+                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="martial_status">Martial Status</label>  
+                            <div class="col-lg-1 col-md-1 col-xs-1">
+                                <input type="radio" name="martial_status_radio" data-d="martial_status_second">
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-xs-7">
+                               
+				<?php
+
+				echo $this->Form->input('martial_status', array('id' => 'martial_status',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'martial_status_second combobox',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => array('Married' => 'Married','Divorced' => 'Divorced','Sepereated'=> 'Seperated','Widow'=> 'Widow','Single' => 'Single')
+
+				));
+				?>
+				</div>
+                        </div>
+                        
                         <div class="form-group required sectdiv_second">
                             <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="sect">Sect</label>  
                             <div class="col-lg-1 col-md-1 col-xs-1">

@@ -22,7 +22,7 @@ $('.submitButton1').click(function(){
             $('.villagediv_first').find('.ui-autocomplete-input').val(response.village);
             $('.sectdiv_first').find('.ui-autocomplete-input').val(response.sect);
             $('.main_surnamediv_first').find('.ui-autocomplete-input').val(response.main_surname);
-            
+            $('.martial_statusdiv_first').find('.ui-autocomplete-input').val(response.martial_status);
             $('.genderdiv_first').find('.ui-autocomplete-input').val(response.gender);
             
             $('.first_name_first').val(response.first_name);
@@ -50,7 +50,7 @@ $('.submitButton2').click(function(){
             
             $('.villagediv_second').find('.ui-autocomplete-input').val(response.village);
             
-            
+             $('.martial_statusdiv_second').find('.ui-autocomplete-input').val(response.martial_status);
             
             $('.main_surnamediv_second').find('.ui-autocomplete-input').val(response.main_surname);
              $('.sectdiv_second').find('.ui-autocomplete-input').val(response.sect);
@@ -92,9 +92,14 @@ $('.mergeButton').click(function(){
            form['data[People][sect]'] = $('[data-d='+ name +']').parent().parent().find('.ui-autocomplete-input').val();
        }
        
-         if (  $(this).attr('name') == 'gender_radio') {
+        if (  $(this).attr('name') == 'gender_radio') {
           
            form['data[People][gender]'] = $('[data-d='+ name +']').parent().parent().find('.ui-autocomplete-input').val();
+       }
+       
+       if (  $(this).attr('name') == 'martial_status_radio') {
+          
+           form['data[People][martial_status]'] = $('[data-d='+ name +']').parent().parent().find('.ui-autocomplete-input').val();
        }
        
        if ( typeof $(this).parent().next().find('.form-control').attr('name') != 'undefined') {

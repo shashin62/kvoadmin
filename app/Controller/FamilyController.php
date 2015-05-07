@@ -2380,7 +2380,7 @@ Class FamilyController extends AppController {
             $peopleData['People'][$key] = $value;
                 
         }
-       
+     
     if ($this->People->save($peopleData)) {
 
             $msg['success'] = 1;
