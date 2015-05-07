@@ -2350,7 +2350,12 @@ Class FamilyController extends AppController {
     
     public function merge()
     {
-        
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
     }
     
     public function getDataById()
