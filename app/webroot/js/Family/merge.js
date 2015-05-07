@@ -18,20 +18,12 @@ $('.submitButton1').click(function(){
         success: function (response) {
             console.log(response);
              $('.genders_first').find('.btn-default').removeClass('active');
-             $('.sects_first').find('.btn-default').removeClass('active');
-            $('.villagediv_first').find('.ui-autocomplete-input').val(response.village);
             
+            $('.villagediv_first').find('.ui-autocomplete-input').val(response.village);
+            $('.sectdiv_first').find('.ui-autocomplete-input').val(response.sect);
             $('.main_surnamediv_first').find('.ui-autocomplete-input').val(response.main_surname);
             
-            $('.genders_first').find('[data-gender_first=' + response.gender + ']').parent().addClass('active').attr('checked', 'checked');
-            
-            $('[data-gender_first=' + response.gender + ']').attr('checked', 'checked');
-            
-            
-            $('.sects_first').find('[data-sect_first=' + response.sect + ']').parent().addClass('active').attr('checked', 'checked');
-            
-            $('[data-sect_first=' + response.sect + ']').attr('checked', 'checked');
-            
+            $('.genderdiv_first').find('.ui-autocomplete-input').val(response.gender);
             
             $('.first_name_first').val(response.first_name);
             $('.last_name_first').val(response.last_name);
@@ -55,20 +47,14 @@ $('.submitButton2').click(function(){
         type: "POST",
         success: function (response) {
              $('.genders_second').find('.btn-default').removeClass('active');
-             $('.sects_second').find('.btn-default').removeClass('active');
+            
             $('.villagediv_second').find('.ui-autocomplete-input').val(response.village);
             
+            
+            
             $('.main_surnamediv_second').find('.ui-autocomplete-input').val(response.main_surname);
-            
-            $('.genders_second').find('[data-gender_second=' + response.gender + ']').parent().addClass('active').attr('checked', 'checked');
-            
-            $('[data-gender_second=' + response.gender + ']').attr('checked', 'checked');
-            
-            $('.sects_second').find('[data-sect_second=' + response.sect + ']').parent().addClass('active').attr('checked', 'checked');
-            
-            $('[data-sect_second=' + response.sect + ']').attr('checked', 'checked');
-            
-            
+             $('.sectdiv_second').find('.ui-autocomplete-input').val(response.sect);
+            $('.genderdiv_second').find('.ui-autocomplete-input').val(response.gender);
             $('.first_name_second').val(response.first_name);
             $('.last_name_second').val(response.last_name);
             
@@ -83,7 +69,56 @@ $('.submitButton2').click(function(){
 
 
 $('.mergeButton').click(function(){
+   var form = {};
    
+   form['firstid'] = $('.firstId').val();
+   form['secondid'] = $('.secondId').val();
+   
+   $.each($('input[type=radio]:checked'), function(i,val){
+       
+       var name = $(this).data('d');
+       
+       if (  $(this).attr('name') == 'village_radio') {
+          
+           form['data[People][village]'] = $('[data-d='+ name +']').parent().parent().find('.ui-autocomplete-input').val();
+       }
+         if (  $(this).attr('name') == 'main_surname_radio') {
+          
+           form['data[People][main_surname]'] = $('[data-d='+ name +']').parent().parent().find('.ui-autocomplete-input').val();
+       }
+       
+        if (  $(this).attr('name') == 'sect_radio') {
+          
+           form['data[People][sect]'] = $('[data-d='+ name +']').parent().parent().find('.ui-autocomplete-input').val();
+       }
+       
+         if (  $(this).attr('name') == 'gender_radio') {
+          
+           form['data[People][gender]'] = $('[data-d='+ name +']').parent().parent().find('.ui-autocomplete-input').val();
+       }
+       
+       if ( typeof $(this).parent().next().find('.form-control').attr('name') != 'undefined') {
+        form[$(this).parent().next().find('.form-control').attr('name')] = $(this).parent().next().find('.form-control').val();
+    }
+     //  console.log($(this).parent().next().find('.form-control').attr('name')); 
+   });
+    console.log(form);
+    
+      $.ajax({
+        url: baseUrl + '/family/mergeData',
+        dataType: 'json',
+        data: {data: form},
+        type: "POST",
+        success: function (response) {
+            
+             var displayMsg = response.message;
+            showJsSuccessMessage(displayMsg);
+            setTimeout(function () {
+            window.location.href = baseUrl + "/family/merge";
+        },1000);
+        }
+        
+   });
     
 });
 

@@ -52,47 +52,59 @@
                                 <input type="radio" name="first_name_radio">
                             </div>
                             <div class="col-lg-7 col-md-7 col-xs-7">
-                                <input name="first_name_first" id="wing" tabindex="2" value="" placeholder="" title="" class="form-control first_name_first" maxlength="255" type="text"/>
+                                <input name="data[People][first_name]" id="wing" tabindex="2" value="" placeholder="" title="" class="form-control first_name_first" maxlength="255" type="text"/>
                             </div>
                         </div>
                         
-                        <div class="form-group required">
+                        <div class="form-group required genderdiv_first">
                             <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Gender</label>  
                             <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name="gender_radio">
+                                <input type="radio" name="gender_radio" data-d="gender_first">
                             </div>
                             <div class="col-lg-7 col-md-7 col-xs-7">
-                                <div class="btn-group genders_first" data-toggle="buttons">
-                                    <label class="btn btn-default <?php echo $gender == 'male' ? 'active' : '';?>">
-                                        <input data-gender_first="male" type="radio" name="gender_first" class="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
-                                    </label>
-                                    <label class="btn btn-default <?php echo $gender == 'female' ? 'active' : '';?>">
-                                        <input data-gender_first="female" type="radio" name="gender_first" class="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
-                                    </label>
-                                </div>
-                            </div>
+                               
+				<?php
+
+				echo $this->Form->input('gender', array('id' => 'gender',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'gender_first combobox',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => array('male' => 'Male','female' => 'Female')
+
+				));
+				?>
+				</div>
                         </div>
                         
                         
-                        <div class="form-group required">
+                        <div class="form-group required sectdiv_first">
                             <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Sect</label>  
                             <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name="sect_radio">
+                                <input type="radio" name="sect_radio" data-d="sect_first">
                             </div>
                             <div class="col-lg-7 col-md-7 col-xs-7">
-					<div class="btn-group sects_first" data-toggle="buttons">
-						<label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
-							<input data-sect_first="deravasi" type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
-						</label>
-						<label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
-							<input data-sect_first="sthanakvasi" type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
-						</label>
-						<label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
-							<input data-sect_first="other" type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
-						</label>
-					</div>
+                               
+				<?php
+                                $sectOptions = array('deravasi','sthanakvasi','other');
+				echo $this->Form->input('sect', array('id' => 'sect',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'sect_first combobox',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => $sectOptions
+
+				));
+				?>
 				</div>
-                        
+                            
+                           
                         </div>
                         
                         
@@ -102,20 +114,20 @@
                                 <input type="radio" name="last_name_radio">
                             </div>
 				  <div class="col-lg-7 col-md-7 col-xs-7">
-				<?php echo $this->Form->input('last_name_first', array('id' => 'last_name', 'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control last_name_first')); ?>
+				<?php echo $this->Form->input('last_name', array('id' => 'last_name', 'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control last_name_first')); ?>
 				</div>
 			</div>
 
 			<div class="form-group required main_surnamediv_first">
 				<label class="col-lg-3 col-md-3 col-xs-3 control-label"  for="main_surname">Main Surname</label>
 				<div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name="main_surname_radio">
+                                <input type="radio" name="main_surname_radio" data-d="main_surname_first">
                             </div>  
                                 <div class="col-lg-7 col-md-7 col-xs-7">
 
 				<?php
 
-				echo $this->Form->input('main_surname_first', array('id' => 'main_surname',
+				echo $this->Form->input('main_surname', array('id' => 'main_surname',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
@@ -134,13 +146,13 @@
 			<div class="form-group villagediv_first">
 				<label class="col-lg-3 col-md-3 col-xs-3 control-label" for="village">Village</label>
                                 <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name=village_radio">
+                                <input type="radio" name=village_radio data-d="village_first">
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
 
 				<?php
 
-				echo $this->Form->input('village_first', array('id' => 'village',
+				echo $this->Form->input('village', array('id' => 'village',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
@@ -157,10 +169,10 @@
                         <div class="form-group">
 				<label  class="col-lg-3 col-md-3 col-xs-3 control-label" for="email">Email ID</label>
                                 <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name=email_radio">
+                                <input type="radio" name=email_radio>
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
-					<?php echo $this->Form->input('email_first', array('id' => 'email', 'value'=> $email,'placeholder' => 'Enter Email ID' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control email_first')); ?>
+					<?php echo $this->Form->input('email', array('id' => 'email', 'value'=> $email,'placeholder' => 'Enter Email ID' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control email_first')); ?>
 				</div>
 			</div>
 
@@ -170,7 +182,7 @@
                                 <input type="radio" name=date_of_birth_radio">
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
-					<?php echo $this->Form->input('date_of_birth_first', 
+					<?php echo $this->Form->input('date_of_birth', 
 						array('id' => 'date_of_birth', 'value'=> $date_of_birth,'type' => 'text','title' => '','placeholder' => 'enter in dd/mm/yyyy format' ,'div' => false, 'label' => false, 'class' => 'dp form-control date_of_birth_first')); ?>
 				</div>
 			</div>
@@ -181,7 +193,7 @@
                                 <input type="radio" name=mobile_number_radio">
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
-					<?php echo $this->Form->input('mobile_number_first', array('id' => 'mobile_number', 'value'=> $mobile_number,'placeholder' => 'Enter Mobile Number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control mobile_number_first')); ?>
+					<?php echo $this->Form->input('mobile_numbert', array('id' => 'mobile_number', 'value'=> $mobile_number,'placeholder' => 'Enter Mobile Number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control mobile_number_first')); ?>
 				</div>
 			</div>
                     </div>
@@ -192,42 +204,53 @@
                                 <input type="radio" name="first_name_radio">
                             </div>
                             <div class="col-lg-7 col-md-7 col-xs-7">
-                                <input name="first_name_second" id="wing" tabindex="2" value="" placeholder="" title="" class="form-control first_name_second" maxlength="255" type="text"/>
+                                <input name="data[People][first_name]" id="wing" tabindex="2" value="" placeholder="" title="" class="form-control first_name_second" maxlength="255" type="text"/>
                             </div>
                         </div>
-                         <div class="form-group required">
+                         <div class="form-group required genderdiv_second">
                             <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Gender</label>  
                             <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name="gender_radio">
+                                <input type="radio" name="gender_radio" data-d="gender_second">
                             </div>
                             <div class="col-lg-7 col-md-7 col-xs-7">
-                                <div class="btn-group genders_second" data-toggle="buttons">
-                                    <label class="btn btn-default <?php echo $gender == 'male' ? 'active' : '';?>">
-                                        <input data-gender_second="male" type="radio" name="gender_second" class="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
-                                    </label>
-                                    <label class="btn btn-default <?php echo $gender == 'female' ? 'active' : '';?>">
-                                        <input data-gender_second="female" type="radio" name="gender_second" class="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
-                                    </label>
-                                </div>
-                            </div>
+                               
+				<?php
+
+				echo $this->Form->input('gender', array('id' => 'gender',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'gender_second combobox',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => array('male' => 'Male','female' => 'Female')
+
+				));
+				?>
+				</div>
                         </div>
-                        <div class="form-group required">
-                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="gender">Sect</label>  
+                        <div class="form-group required sectdiv_second">
+                            <label class="col-lg-3 col-md-3 col-xs-3 control-label" for="sect">Sect</label>  
                             <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name="sect_radio">
+                                <input type="radio" name="sect_radio" data-d="sect_second">
                             </div>
                             <div class="col-lg-7 col-md-7 col-xs-7">
-					<div class="btn-group sects_second" data-toggle="buttons">
-						<label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
-							<input data-sect_second="deravasi" type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
-						</label>
-						<label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
-							<input data-sect_second="sthanakvasi" type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
-						</label>
-						<label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
-							<input data-sect_second="other" type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other
-						</label>
-					</div>
+                               
+				<?php
+                                $sectOptions = array('deravasi','sthanakvasi','other');
+				echo $this->Form->input('sect', array('id' => 'sect',
+				'label' => false,
+				'div' => false,
+				'legend' => false,
+				'empty' => __d('label', '--Select--'),
+				'class' => 'sect_second combobox',
+				'style' => '',
+				//'disabled' => $readonly,
+				'options' => $sectOptions
+
+				));
+				?>
 				</div>
                         
                         </div>
@@ -237,20 +260,20 @@
                                 <input type="radio" name="last_name_radio">
                             </div>
 				  <div class="col-lg-7 col-md-7 col-xs-7">
-				<?php echo $this->Form->input('last_name_second', array('id' => 'last_name', 'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control last_name_second')); ?>
+				<?php echo $this->Form->input('last_name', array('id' => 'last_name', 'value'=> $last_name,'placeholder' => 'Enter Last Name' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control last_name_second')); ?>
 				</div>
 			</div>
 
 			<div class="form-group required main_surnamediv_second">
 				<label class="col-lg-3 col-md-3 col-xs-3 control-label"  for="main_surname">Main Surname</label>
 				<div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name="main_surname_radio">
+                                <input type="radio" name="main_surname_radio" data-d="main_surname_second">
                             </div>  
                                 <div class="col-lg-7 col-md-7 col-xs-7">
 
 				<?php
 
-				echo $this->Form->input('main_surname_second', array('id' => 'main_surname',
+				echo $this->Form->input('main_surname', array('id' => 'main_surname',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
@@ -269,13 +292,13 @@
 			<div class="form-group villagediv_second">
 				<label class="col-lg-3 col-md-3 col-xs-3 control-label" for="village">Village</label>
                                 <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name=village_radio">
+                                <input type="radio" name=village_radio data-d="village_second">
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
 
 				<?php
 
-				echo $this->Form->input('village_second', array('id' => 'village',
+				echo $this->Form->input('village', array('id' => 'village',
 				'label' => false,
 				'div' => false,
 				'legend' => false,
@@ -292,10 +315,10 @@
                         <div class="form-group">
 				<label  class="col-lg-3 col-md-3 col-xs-3 control-label" for="email">Email ID</label>
                                 <div class="col-lg-1 col-md-1 col-xs-1">
-                                <input type="radio" name=email_radio">
+                                <input type="radio" name=email_radio>
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
-					<?php echo $this->Form->input('email_second', array('id' => 'email', 'value'=> $email,'placeholder' => 'Enter Email ID' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control email_second')); ?>
+					<?php echo $this->Form->input('email', array('id' => 'email', 'value'=> $email,'placeholder' => 'Enter Email ID' ,'title' => '','div' => false, 'label' => false, 'class' => 'form-control email_second')); ?>
 				</div>
 			</div>
 
@@ -305,7 +328,7 @@
                                 <input type="radio" name=date_of_birth_radio">
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
-					<?php echo $this->Form->input('date_of_birth_second', 
+					<?php echo $this->Form->input('date_of_birth', 
 						array('id' => 'date_of_birth', 'value'=> $date_of_birth,'type' => 'text','title' => '','placeholder' => 'enter in dd/mm/yyyy format' ,'div' => false, 'label' => false, 'class' => 'dp form-control date_of_birth_second')); ?>
 				</div>
 			</div>
@@ -316,7 +339,7 @@
                                 <input type="radio" name=mobile_number_radio">
                             </div>  
 				<div class="col-lg-7 col-md-7 col-xs-7">
-					<?php echo $this->Form->input('mobile_number_second', array('id' => 'mobile_number', 'value'=> $mobile_number,'placeholder' => 'Enter Mobile Number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control mobile_number_second')); ?>
+					<?php echo $this->Form->input('mobile_number', array('id' => 'mobile_number', 'value'=> $mobile_number,'placeholder' => 'Enter Mobile Number' ,'title' => '','div' => false, 'label' => false, 'class' => 'phone_number form-control mobile_number_second')); ?>
 				</div>
 			</div>
                     </div>

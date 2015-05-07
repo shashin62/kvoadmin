@@ -2282,4 +2282,32 @@ Class FamilyController extends AppController {
         echo json_encode($data);
         exit;
     }
+    
+    
+    public function mergeData(){
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        
+        $firstId = $this->request->data['firstid'];
+        $secondId = $this->request->data['secondid'];
+        $peopleData = array();
+        $data = $this->request->data['data[People'];
+       $peopleData['People']['id'] = $firstId;
+        foreach ( $data as $key => $value) {
+            $peopleData['People'][$key] = $value;
+                
+        }
+       
+    if ($this->People->save($peopleData)) {
+
+            $msg['success'] = 1;
+            $msg['message'] = 'Merged Succesfully';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error';
+        }
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
+
 }
