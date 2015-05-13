@@ -2393,6 +2393,10 @@ Class FamilyController extends AppController {
      
     if ($this->People->save($peopleData)) {
 
+        $this->People->delete(array('id' => $secondId));
+        
+        $this->People->updateAll(array('f_id' => $firstId),array('f_id' => $secondId));
+        
             $msg['success'] = 1;
             $msg['message'] = 'Merged Succesfully';
         } else {
