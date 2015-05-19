@@ -72,7 +72,7 @@ width: 90px !important;
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Gender</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
 				<?php
-				$gender = array('male' => 'Male','female' => 'Female');
+				$gender = array('Male' => 'Male','Female' => 'Female');
 				echo $this->Form->input('sect', array('id' => 'gender',
 				'label' => false,
 				'div' => false,
