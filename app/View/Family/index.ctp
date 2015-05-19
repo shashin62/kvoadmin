@@ -40,11 +40,11 @@
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="sect">Sect</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<div class="btn-group " data-toggle="buttons">
-						<label class="btn btn-default <?php echo $sect == 'deravasi' ? 'active' : '';?>">
-							<input type="radio" name="sect" <?php echo $sect == 'deravasi' ? 'checked=checked' : '';?> value="deravasi">Deravasi
+						<label class="btn btn-default <?php echo $sect == 'Deravasi' ? 'active' : '';?>">
+							<input type="radio" name="sect" <?php echo $sect == 'Deravasi' ? 'checked=checked' : '';?> value="Deravasi">Deravasi
 						</label>
-						<label class="btn btn-default <?php echo $sect == 'sthanakvasi' ? 'active' : '';?>">
-							<input type="radio" name="sect" <?php echo $sect == 'sthanakvasi' ? 'checked=checked' : '';?> value="sthanakvasi">Sthanakvasi
+						<label class="btn btn-default <?php echo $sect == 'Sthanakvasi' ? 'active' : '';?>">
+							<input type="radio" name="sect" <?php echo $sect == 'Sthanakvasi' ? 'checked=checked' : '';?> value="Sthanakvasi">Sthanakvasi
 						</label>
 						<label class="btn btn-default <?php echo $sect == 'other' ? 'active' : '';?>">
 							<input type="radio" name="sect" <?php echo $sect == 'other' ? 'checked=checked' : '';?> value="other">Other

@@ -98,7 +98,7 @@ Class FamilyController extends AppController {
                 //  as spouse is always female and married
                 $this->set('gender', 'female');
                 $this->set('martial_status', 'Married');
-                $this->set('sect', 'deravasi');
+                $this->set('sect', 'Deravasi');
                 $this->set('parent_name', $_REQUEST['first_name']);
                 $this->set('last_name', $getPeopleData['People']['last_name']);
                 // set surname and village to read only mode
@@ -111,7 +111,7 @@ Class FamilyController extends AppController {
             case 'addexspouse':
                 $this->set('gender', 'female');
                 $this->set('martial_status', 'Married');
-                $this->set('sect', 'deravasi');
+                $this->set('sect', 'Deravasi');
                 $this->set('parent_name', $_REQUEST['first_name']);
                 $this->set('last_name', $getPeopleData['People']['last_name']);
                 // set surname and village to read only mode
@@ -123,7 +123,7 @@ Class FamilyController extends AppController {
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
                 $this->set('gender', 'male');
-                $this->set('sect', 'sthanakvasi');
+                $this->set('sect', 'Sthanakvasi');
                 $this->set('martial_status', 'Married');
                 if ($getPeopleData['People']['tree_level'] == '') {
                     $this->set('readonly', true);
@@ -135,7 +135,7 @@ Class FamilyController extends AppController {
                 break;
             case 'addmother':
                 $pageTitle = 'Add Mother of ' . $_REQUEST['name_parent'];
-                $this->set('sect', 'deravasi');
+                $this->set('sect', 'Deravasi');
                 $this->set('gender', 'female');
                 $this->set('martial_status', 'Married');
                 if ($getPeopleData['People']['tree_level'] == '') {
@@ -168,7 +168,7 @@ Class FamilyController extends AppController {
             case 'addbrother':
                 $pageTitle = 'Add Brother of ' . $_REQUEST['name_parent'];
                 $this->set('gender', 'male');
-                $this->set('sect', 'sthanakvasi');
+                $this->set('sect', 'Sthanakvasi');
                 $this->set('martial_status', 'Single');
                 if ($getPeopleData['People']['tree_level'] == '') {
                     $this->set('readonly', true);
@@ -181,7 +181,7 @@ Class FamilyController extends AppController {
             case 'addsister':
                 $pageTitle = 'Add Sister of ' . $_REQUEST['name_parent'];
                 $this->set('gender', 'female');
-                $this->set('sect', 'deravasi');
+                $this->set('sect', 'Deravasi');
                 $this->set('martial_status', 'Single');
                 if ($getPeopleData['People']['tree_level'] == '') {
                     $this->set('readonly', true);

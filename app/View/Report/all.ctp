@@ -31,7 +31,7 @@ width: 90px !important;
                 <label class="col-lg-4 col-md-4 col-xs-4 control-label" for="sect">Sect</label>   
                 <div class="col-lg-8 col-md-8 col-xs-8">
 				<?php
-				$sects = array('deravasi' => 'Deravasi','sthanakvasi' => 'Sthanakvasi','other' => 'Other');
+				$sects = array('Deravasi' => 'Deravasi','Sthanakvasi' => 'Sthanakvasi','other' => 'Other');
 				echo $this->Form->input('sect', array('id' => 'example-checkboxName',
 				'label' => false,
 				'div' => false,
