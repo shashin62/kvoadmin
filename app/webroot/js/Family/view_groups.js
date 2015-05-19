@@ -41,6 +41,9 @@ $(function () {
         },{ "width": "7%", "aTargets": [8, 9,10] }],
      
         "sAjaxSource": baseUrl + "/family/getAjaxGroups?showhof="+ showhof,
+        "oLanguage": {
+            "sInfoFiltered": ""
+          },
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             
             $('td:eq(11)', nRow).html('<a class="edit_row btn btn-xs btn-success" onclick="editFamilyGroup(' + aData[0] + ')" data-rowid=' + aData[0] + '><span class="glyphicon glyphicon-edit"></span>Edit</a> \n\

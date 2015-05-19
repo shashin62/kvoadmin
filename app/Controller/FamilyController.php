@@ -39,7 +39,7 @@ Class FamilyController extends AppController {
         'User', 'Aro', 'Role', 'Note',
         'People', 'Village', 'Education', 'State', 'BloodGroup',
         'Group', 'Address', 'PeopleGroup', 'Suburb', 'Surname', 'Translation',
-        'ZipCode', 'Spouse', 'BusinessNature', 'BusinessType','Brother','Sister'
+        'ZipCode', 'Spouse', 'BusinessNature', 'BusinessType','Brother','Sister', 'PeopleEducation'
     );
 
     /**
@@ -89,7 +89,7 @@ Class FamilyController extends AppController {
 
         $this->set('name', $getOwnerDetails['first_name']);
         $this->set('address_id', $getOwnerDetails['address_id']);
-
+        
         // add primary relationships to user- spouse, father, mother and childrens
         switch ($requestData['type']) {
             case 'addspouse':
@@ -148,7 +148,7 @@ Class FamilyController extends AppController {
                 $this->set('village', $getPeopleData['People']['village']);
                 break;
             case 'addchilld':
-                $pageTitle = 'Add Child of ' . $_REQUEST['name_parent'];
+                $pageTitle = 'Add Child of ' . $getPeopleData['People']['first_name'];
                 $this->set('readonly', true);
                 $this->set('last_name', $getPeopleData['People']['last_name']);
                 $this->set('village', $getPeopleData['People']['village']);
@@ -248,11 +248,11 @@ Class FamilyController extends AppController {
             $this->set('maiden_surname', $getPeopleData['People']['maiden_surname']);
             $this->set('sect', $getPeopleData['People']['sect']);
             $this->set('state', $getPeopleData['People']['state']);
-            $this->set('education_1', $getPeopleData['People']['education_1']);
+            /*$this->set('education_1', $getPeopleData['People']['education_1']);
             $this->set('education_2', $getPeopleData['People']['education_2']);
             $this->set('education_3', $getPeopleData['People']['education_3']);
             $this->set('education_4', $getPeopleData['People']['education_4']);
-            $this->set('education_5', $getPeopleData['People']['education_5']);
+            $this->set('education_5', $getPeopleData['People']['education_5']);*/
             $this->set('year_of_passing_1', $getPeopleData['People']['year_of_passing_1']);
             $this->set('year_of_passing_2', $getPeopleData['People']['year_of_passing_2']);
             $this->set('year_of_passing_3', $getPeopleData['People']['year_of_passing_3']);
@@ -413,6 +413,21 @@ Class FamilyController extends AppController {
                 $message = 'Mother has been added';
                 break;
             case 'addchilld':
+                
+                 $childs = $this->People->find('all', array(
+                    'conditions' => array('People.f_id' => $_REQUEST['peopleid']),
+                    'fields' => array('People.id', 'People.gender')
+                ));
+                
+                $getGender = $this->People->find('all', array(
+                    'conditions' => array('People.id' => $peopleId),
+                    'fields' => array('People.gender')
+                ));
+                        
+                
+//                echo '<pre>';
+//                print_r($childs);
+//                exit;
                 $data = $this->Group->find('all', array('fields' => array('Group.id'),
                     'conditions' => array('Group.people_id' => $peopleId)));
 
@@ -437,8 +452,74 @@ Class FamilyController extends AppController {
                 $updateMotherDetails['People']['modified'] = date('Y-m-d H:i:s');
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 $this->People->save($updateFatherDetails);
+                
+                
+                    if ($getGender[0]['People']['gender'] == 'male') {
+                            $brotherData = array();
+                            foreach ($childs as $key => $value) {
+                                $brotherData[$key]['Brother']['people_id'] = $value['People']['id'];
+                                $brotherData[$key]['Brother']['brother_id'] = $peopleId;
+                            }
+
+                            $this->Brother->saveAll($brotherData);
+                           
+                             $addBrotherForNew = array();
+                            foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'male') {
+                                    $addBrotherForNew[$key]['Brother']['people_id'] = $peopleId;
+                                    $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Brother->saveAll($addBrotherForNew);
+                            $addSisterForNew = array();
+                              foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'female') {
+                                    $addSisterForNew[$key]['Sister']['people_id'] = $peopleId;
+                                    $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Sister->saveAll($addSisterForNew);
+                           
+                            
+                            
+                        } else {
+                            $sisterData = array();
+                            foreach ($childs as $key => $value) {
+                                $sisterData[$key]['Sister']['people_id'] = $value['People']['id'];
+                                $sisterData[$key]['Sister']['sister_id'] = $peopleId;
+                            }
+
+                            $this->Sister->saveAll($sisterData);
+                            $addBrotherForNew = array();
+                            foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'male') {
+                                    $addBrotherForNew[$key]['Brother']['people_id'] = $peopleId;
+                                    $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Brother->saveAll($addBrotherForNew);
+                            $addSisterForNew = array();
+                              foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'female') {
+                                    $addSisterForNew[$key]['Sister']['people_id'] = $peopleId;
+                                    $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Sister->saveAll($addSisterForNew);
+                           
+                        }
+                
                 $msg['group_id'] = $gid;
                 $message = 'Child has been added';
+                
                 break;
             case 'addspouse':
                 $data = $this->Group->find('all', array('fields' => array('Group.id'),
@@ -946,6 +1027,12 @@ Class FamilyController extends AppController {
 
                 break;
             case 'addchilld':
+                
+                 // get childrens ids
+                $childs = $this->People->find('all', array(
+                    'conditions' => array('People.f_id' => $_REQUEST['peopleid']),
+                    'fields' => array('People.id', 'People.gender')
+                ));
                 $mothers = $this->People->getAllSpouses($_REQUEST['peopleid']);
                 //echo '<pre>';print_r($mothers);exit;
                 if (count($mothers) > 1) {
@@ -994,6 +1081,68 @@ Class FamilyController extends AppController {
                         $this->PeopleGroup->save($peopleGroup);
                         if ($same == 1) {
                             $this->_copyAddress($parentId, $this->People->id, true);
+                        }
+                        if ($this->request->data['People']['gender'] == 'male') {
+                            $brotherData = array();
+                            foreach ($childs as $key => $value) {
+                                $brotherData[$key]['Brother']['people_id'] = $value['People']['id'];
+                                $brotherData[$key]['Brother']['brother_id'] = $this->People->id;
+                            }
+
+                            $this->Brother->saveAll($brotherData);
+                           
+                             $addBrotherForNew = array();
+                            foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'male') {
+                                    $addBrotherForNew[$key]['Brother']['people_id'] = $this->People->id;
+                                    $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Brother->saveAll($addBrotherForNew);
+                            $addSisterForNew = array();
+                              foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'female') {
+                                    $addSisterForNew[$key]['Sister']['people_id'] = $this->People->id;
+                                    $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Sister->saveAll($addSisterForNew);
+                           
+                            
+                            
+                        } else {
+                            $sisterData = array();
+                            foreach ($childs as $key => $value) {
+                                $sisterData[$key]['Sister']['people_id'] = $value['People']['id'];
+                                $sisterData[$key]['Sister']['sister_id'] = $this->People->id;
+                            }
+
+                            $this->Sister->saveAll($sisterData);
+                            $addBrotherForNew = array();
+                            foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'male') {
+                                    $addBrotherForNew[$key]['Brother']['people_id'] = $this->People->id;
+                                    $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Brother->saveAll($addBrotherForNew);
+                            $addSisterForNew = array();
+                              foreach ($childs as $key => $value) {
+                                
+                                if ($value['People']['gender'] == 'female') {
+                                    $addSisterForNew[$key]['Sister']['people_id'] = $this->People->id;
+                                    $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
+                                   
+                                } 
+                            }
+                             $this->Sister->saveAll($addSisterForNew);
+                           
                         }
                     }
                 } else {
@@ -1073,10 +1222,39 @@ Class FamilyController extends AppController {
 
                 break;
             default:
-                $checkExistingUser = $this->People->find('all', array('fields' => array('People.id'),
+                $checkExistingUser = $this->People->find('all', array('fields' => array('People.id','People.gender'),
                     'conditions' => array('People.id' => $_REQUEST['peopleid']))
                 );
-
+            
+            if ( $checkExistingUser[0]['People']['gender'] != $this->request->data['People']['gender']) {
+                if ( $checkExistingUser[0]['People']['gender'] == 'male' && $this->request->data['People']['gender'] == 'female') {
+                $getBrothersId = $this->Brother->find('list',array('conditions' => array('Brother.brother_id' => $_REQUEST['peopleid']),
+                       'fields' => array('Brother.people_id'))
+                        );
+                $sData = array();
+                $i = 0;
+                foreach ( $getBrothersId as $k => $value) {
+                    $sData[$i]['Sister']['people_id'] = $value;
+                    $sData[$i]['Sister']['sister_id'] = $_REQUEST['peopleid'];
+                    $i++;
+                }
+                $this->Sister->saveAll($sData);
+                $this->Brother->deleteAll(array('Brother.brother_id' => $_REQUEST['peopleid']));
+                } else {
+                    $getSistersId = $this->Sister->find('list', array('conditions' => array('Sister.sister_id' => $_REQUEST['peopleid']),
+                            'fields' => array('Sister.people_id'))
+                        );
+                        $sData = array();
+                        $i = 0;
+                        foreach ($getSistersId as $k => $value) {
+                            $sData[$i]['Brother']['people_id'] = $value;
+                            $sData[$i]['Brother']['brother_id'] = $_REQUEST['peopleid'];
+                            $i++;
+                        }
+                        $this->Brother->saveAll($sData);
+                        $this->Sister->deleteAll(array('Sister.sister_id' => $_REQUEST['peopleid']));
+                    }
+                }
 
                 if (count($checkExistingUser)) {
                     $this->request->data['People']['id'] = $_REQUEST['peopleid'];
@@ -1227,6 +1405,7 @@ Class FamilyController extends AppController {
 
         $jsonData['tree'] = $tree;
         $jsonData['parent_name'] = $peopleRootData['first_name'] . ' ' . $peopleRootData['last_name'];
+        $jsonData['count'] = count($tree);
 
         echo json_encode($jsonData);
         exit;
@@ -1284,11 +1463,12 @@ Class FamilyController extends AppController {
         $tree['i'] = $peopleData['id'];
         $tree['l'] = $peopleData['last_name'];
         $tree['p'] = $peopleData['first_name'];
-        $tree['dob'] = $peopleData['date_of_birth'] != '' ? date("m/d/Y", strtotime($peopleData['date_of_birth'])) : '';
-        $tree['education'] = $peopleData['education_1'];
+        $tree['dob'] = $peopleData['date_of_birth'] != '' ? date("d/m/Y", strtotime($peopleData['date_of_birth'])) : '';
+        $tree['education'] = $this->PeopleEducation->getHighestQualification($peopleData['id']);
         $tree['village'] = ucfirst($peopleData['village']);
         $tree['father'] = ucfirst($peopleData['father']);
         $tree['mother'] = ucfirst($peopleData['mother']);
+        $tree['pid'] = $iId;
         if ($peopleData['gender'] == 'male') {
             $tree['partner_name'] = ucfirst($peopleData['partner_name']) . " " . ucfirst($peopleData['first_name']) . " " . $peopleData['last_name'];
         } else {
@@ -1300,9 +1480,11 @@ Class FamilyController extends AppController {
         $tree['name_of_business'] = $peopleData['name_of_business'];
         $tree['mobile_number'] = $peopleData['mobile_number'];
         $tree['martial_status'] = $peopleData['martial_status'];
-        $tree['date_of_marriage'] = $peopleData['date_of_marriage'] != '' ? date("m/d/Y", strtotime($peopleData['date_of_marriage'])) : '';
+        $tree['date_of_marriage'] = $peopleData['date_of_marriage'] != '' ? date("d/m/Y", strtotime($peopleData['date_of_marriage'])) : '';
         $tree['email'] = $peopleData['email'];
-        $tree['pid'] = $originalPId;
+
+        $tree['pid'] = $iId;
+
         $tree['gid'] = $peopleData['group_id'];
         $tree['father'] = ucfirst($peopleData['father']);
         $tree['city'] = ucfirst($addressData['city']);
@@ -1430,8 +1612,8 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['l'] = $peopleData['last_name'];
                 $tree[$peopleData['id']]['p'] = $peopleData['first_name'];
                 $tree[$peopleData['id']]['p'] = ucfirst($peopleData['first_name']);
-                $tree[$peopleData['id']]['dob'] = date("m/d/Y", strtotime($peopleData['date_of_birth']));
-                $tree[$peopleData['id']]['education'] = $peopleData['education_1'];
+                $tree[$peopleData['id']]['dob'] = date("d/m/Y", strtotime($peopleData['date_of_birth']));
+                $tree[$peopleData['id']]['education'] = $this->PeopleEducation->getHighestQualification($peopleData['id']);
                 $tree[$peopleData['id']]['village'] = ucfirst($peopleData['village']);
                 $tree[$peopleData['id']]['father'] = ucfirst($peopleData['father']);
                 $tree[$peopleData['id']]['mother'] = ucfirst($peopleData['mother']);
@@ -1446,7 +1628,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['name_of_business'] = $peopleData['name_of_business'];
                 $tree[$peopleData['id']]['mobile_number'] = $peopleData['mobile_number'];
                 $tree[$peopleData['id']]['martial_status'] = $peopleData['martial_status'];
-                $tree[$peopleData['id']]['date_of_marriage'] = date("m/d/Y", strtotime($peopleData['date_of_marriage']));
+                $tree[$peopleData['id']]['date_of_marriage'] = date("d/m/Y", strtotime($peopleData['date_of_marriage']));
                 $tree[$peopleData['id']]['email'] = $peopleData['email'];
                 $tree[$peopleData['id']]['pid'] = $originalPId;
                 $tree[$peopleData['id']]['gid'] = $peopleData['group_id'];
@@ -1805,6 +1987,89 @@ Class FamilyController extends AppController {
         $this->set(compact('msg'));
         $this->render("/Elements/json_messages");
     }
+    
+    public function addEducation() {
+        
+        $pid = $_REQUEST['id'];
+        $this->set('peopleId', $pid);
+        $gid = $_REQUEST['gid'];
+        $this->set('groupId', $gid);
+        
+        //process form
+        if ($this->request->is('post') && $this->request->data['PeopleEducation']['name']) {
+            $this->layout = 'ajax';
+            $this->autoRender = false;
+            
+            $rdata = $this->request->data;
+            if ($this->PeopleEducation->save($rdata)) {
+                $msg['success'] = 1;
+                $msg['message'] = 'Education has been saved';
+                if ($this->request->data['PeopleEducation']['id'] != '') {
+                    $msg['message'] = 'Education has been updated';
+                }
+            } else {
+                $msg['success'] = 0;
+                $msg['message'] = 'System Error, Please try again';
+            }
+            $this->set(compact('msg'));
+            $this->render("/Elements/json_messages");
+        }
+        
+        // get states master list
+        $degrees = $this->Education->find('list', array('fields' => array('Education.name', 'Education.name')));
+        $this->set(compact('degrees'));
+        
+        $data = $this->People->getPeopleName($pid); 
+   
+        $this->set('peopleName', $data['people']['first_name'].' '.$data['people']['last_name']);
+    }
+    
+    public function deleteEducation()
+    {
+        $this->autoRender = false;
+        $id = $_REQUEST['id'];    
+        
+        if ($this->PeopleEducation->delete(array('id' =>$id)) ) {
+            $msg['success'] = 1;
+            $msg['message'] = 'Education has been deleted';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error, Please try again';
+        }
+        
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
+    
+    public function getAjaxEducationData()
+    {
+        $this->autoRender = false;        
+   
+        $data = $this->PeopleEducation->getPeopleEducations($_REQUEST['people_id']);
+        $pdata = array();
+        foreach ($data as $key => $val) {
+            $fdata = array();
+            $fdata[] = ($val['people_educations']['name']) ? $val['people_educations']['name'] : '';
+            $fdata[] = ($val['people_educations']['institution_name']) ? $val['people_educations']['institution_name'] : '';
+            $fdata[] = ($val['people_educations']['university_name']) ? $val['people_educations']['university_name'] : '';
+            $fdata[] = ($val['people_educations']['area_specialization']) ? $val['people_educations']['area_specialization'] : '';
+            $fdata[] = ($val['people_educations']['year_of_passing']) ? $val['people_educations']['year_of_passing'] : '';
+            $fdata[] = ($val['people_educations']['percentage']) ? $val['people_educations']['percentage'] : '';
+            $fdata[] = ($val['people_educations']['part_full_time']) ? $val['people_educations']['part_full_time'] : '';            
+            $fdata[] = $val['people_educations']['id'];
+            $fdata[] = $val['people_educations']['people_id'];
+            
+            $pdata[] = $fdata;
+        }
+        
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => count($pdata),
+            "iTotalDisplayRecords" => count($pdata),
+            "aaData" => $pdata
+        );
+        echo json_encode($output);
+    }
 
     public function searchPeople() {
         $userID = $this->Session->read('User.user_id');
@@ -1812,6 +2077,15 @@ Class FamilyController extends AppController {
         $this->set('type', $_REQUEST['type']);
         $this->set('fid', $_REQUEST['fid']);
         $this->set('gid', $_REQUEST['gid']);
+        
+        
+        $name = $this->People->find('all', array('conditions' => array('People.id' => $_REQUEST['fid'])));
+        
+        
+        $this->set('name', $name[0]['People']['first_name']);
+        $main_surnames = $this->Surname->find('list', array('fields' => array('Surname.name', 'Surname.name')));
+        $this->set(compact('main_surnames'));
+        
         $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
         $this->set(compact('villages'));
 
@@ -2059,6 +2333,78 @@ Class FamilyController extends AppController {
         $data['other'] = 'Other';
         echo json_encode($data);
         exit;
+    }
+    
+    public function removeRelationship()
+    {
+         $this->autoRender = false;
+        $this->layout = 'ajax';
+        $id = $_REQUEST['id'];
+        $gid = $_REQUEST['gid'];
+        $type = $_REQUEST['type'];
+        if ($this->People->removeRelation($id, $assocationId, $gid, $type)) {
+            $msg['success'] = 1;
+            $msg['message'] = 'Accociation has been removed';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error';
+        }
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
+    }
+    
+    public function merge()
+    {
+        if (!$this->Session->read('Auth.User')) {
+            $this->Session->destroy();
+            $this->Cookie->delete('Auth.User');
+
+            $this->redirect('/user/login');
+        }
+    }
+    
+    public function getDataById()
+    {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $id = $_REQUEST['id'];
+        
+        $data = $this->People->getPeopleData($id, true);
+        
+        $data = $data['People'];
+        echo json_encode($data);
+        exit;
+    }
+    
+    
+    public function mergeData(){
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        
+        $firstId = $this->request->data['firstid'];
+        $secondId = $this->request->data['secondid'];
+        $peopleData = array();
+        $data = $this->request->data['data[People'];
+       $peopleData['People']['id'] = $firstId;
+        foreach ( $data as $key => $value) {
+            $peopleData['People'][$key] = $value;
+                
+        }
+     
+    if ($this->People->save($peopleData)) {
+
+        $this->People->delete(array('id' => $secondId));
+        
+        $this->People->updateAll(array('f_id' => $firstId),array('f_id' => $secondId));
+        
+            $msg['success'] = 1;
+            $msg['message'] = 'Merged Succesfully';
+        } else {
+            $msg['success'] = 0;
+            $msg['message'] = 'System Error';
+        }
+        $this->set(compact('msg'));
+        $this->render("/Elements/json_messages");
     }
 
 }

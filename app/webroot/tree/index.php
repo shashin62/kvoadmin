@@ -6,7 +6,7 @@ if (isset($_GET['full'])) {
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/group_id:' . $_GET['group_id']);
 } else {
 	//$json_data = file_get_contents('http://10.50.249.127/kvoadmin/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
-        $json_data = file_get_contents('http://localhost/kvoadmin/family/buildTreeJson?gid=' . $_GET["gid"]);
+        $json_data = file_get_contents('http://admin.kvomahajan.com/family/buildTreeJson?gid=' . $_GET["gid"]);
 }
 
 ?>
@@ -92,7 +92,7 @@ if (isset($_GET['full'])) {
 
 		<TABLE WIDTH="100%" HEIGHT="100%" CELLSPACING=0 CELLPADDING=0>
 
-			<TR HEIGHT="8">
+			<TR HEIGHT="8" style="display:none;">
 
 				<FORM NAME="topform" ACTION="./" METHOD="POST">
 
@@ -278,7 +278,7 @@ if (isset($_GET['full'])) {
 
 				
 
-				<DIV ID="leftdiv" CLASS="dleft"><IFRAME NAME="sideframe" ID="sideframe"  SRC="sidebar.htm?130317" CLASS="fullsize" FRAMEBORDER="0" SCROLLING="auto"></IFRAME></DIV>
+				<DIV ID="leftdiv" CLASS="dleft"><IFRAME NAME="sideframe" ID="sideframe"  SRC="sidebar.htm?130317" CLASS="fullsize" FRAMEBORDER="0" SCROLLING="no"></IFRAME></DIV>
 
 
 
@@ -380,7 +380,7 @@ if (isset($_GET['full'])) {
             navshowchildren = window.navframe.document.getElementById('showchildren').value;
             navshowcousins = window.navframe.document.getElementById('showcousins').value;
 
-            new Ajax.Request('http://localhost/kvofront/family/buildFamilyJson?id='+id, {
+            new Ajax.Request('http://admin.kvomahajan.com/family/buildFamilyJson?id='+id, {
                 method: 'get',
                 onComplete:function(_2d){
                     data = _2d.responseText;
@@ -410,6 +410,7 @@ if (isset($_GET['full'])) {
                         sideframeContent.PL(); 
                     }
                     document.getElementById('lfamilyname').innerHTML = 'Family of '  + parsedData['parent_name'];
+                    window.navframe.NCP(parseInt(parsedData['count']));
                 }
             });
         }
