@@ -73,7 +73,7 @@
 				'class' => 'gender_first combobox',
 				'style' => '',
 				//'disabled' => $readonly,
-				'options' => array('male' => 'Male','female' => 'Female')
+				'options' => array('Male' => 'Male','Female' => 'Female')
 
 				));
 				?>
@@ -114,7 +114,7 @@
                             <div class="col-lg-7 col-md-7 col-xs-7">
                                
 				<?php
-                                $sectOptions = array('deravasi','sthanakvasi','other');
+                                $sectOptions = array('Deravasi','Sthanakvasi','other');
 				echo $this->Form->input('sect', array('id' => 'sect',
 				'label' => false,
 				'div' => false,
@@ -249,7 +249,7 @@
 				'class' => 'gender_second combobox',
 				'style' => '',
 				//'disabled' => $readonly,
-				'options' => array('male' => 'Male','female' => 'Female')
+				'options' => array('Male' => 'Male','Female' => 'Female')
 
 				));
 				?>
@@ -288,7 +288,7 @@
                             <div class="col-lg-7 col-md-7 col-xs-7">
                                
 				<?php
-                                $sectOptions = array('deravasi','sthanakvasi','other');
+                                $sectOptions = array('Deravasi','Sthanakvasi','other');
 				echo $this->Form->input('sect', array('id' => 'sect',
 				'label' => false,
 				'div' => false,

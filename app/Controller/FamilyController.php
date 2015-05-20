@@ -96,7 +96,7 @@ Class FamilyController extends AppController {
                 $pageTitle = 'Add Spouse of ' . $_REQUEST['name_parent'];
                 // by default set gender, martial status
                 //  as spouse is always female and married
-                $this->set('gender', 'female');
+                $this->set('gender', 'Female');
                 $this->set('martial_status', 'Married');
                 $this->set('sect', 'Deravasi');
                 $this->set('parent_name', $_REQUEST['first_name']);
@@ -109,7 +109,7 @@ Class FamilyController extends AppController {
                 $this->set('date_of_marriage', $getPeopleData['People']['date_of_marriage'] ? date("d/m/Y", strtotime($getPeopleData['People']['date_of_marriage'])) : '' );
                 break;
             case 'addexspouse':
-                $this->set('gender', 'female');
+                $this->set('gender', 'Female');
                 $this->set('martial_status', 'Married');
                 $this->set('sect', 'Deravasi');
                 $this->set('parent_name', $_REQUEST['first_name']);
@@ -122,7 +122,7 @@ Class FamilyController extends AppController {
                 break;
             case 'addfather':
                 $pageTitle = 'Add Father of ' . $_REQUEST['name_parent'];
-                $this->set('gender', 'male');
+                $this->set('gender', 'Female');
                 $this->set('sect', 'Sthanakvasi');
                 $this->set('martial_status', 'Married');
                 if ($getPeopleData['People']['tree_level'] == '') {
@@ -136,7 +136,7 @@ Class FamilyController extends AppController {
             case 'addmother':
                 $pageTitle = 'Add Mother of ' . $_REQUEST['name_parent'];
                 $this->set('sect', 'Deravasi');
-                $this->set('gender', 'female');
+                $this->set('gender', 'Female');
                 $this->set('martial_status', 'Married');
                 if ($getPeopleData['People']['tree_level'] == '') {
                     $this->set('readonly', true);
@@ -167,7 +167,7 @@ Class FamilyController extends AppController {
                 break;
             case 'addbrother':
                 $pageTitle = 'Add Brother of ' . $_REQUEST['name_parent'];
-                $this->set('gender', 'male');
+                $this->set('gender', 'Male');
                 $this->set('sect', 'Sthanakvasi');
                 $this->set('martial_status', 'Single');
                 if ($getPeopleData['People']['tree_level'] == '') {
@@ -180,7 +180,7 @@ Class FamilyController extends AppController {
                 break;
             case 'addsister':
                 $pageTitle = 'Add Sister of ' . $_REQUEST['name_parent'];
-                $this->set('gender', 'female');
+                $this->set('gender', 'Female');
                 $this->set('sect', 'Deravasi');
                 $this->set('martial_status', 'Single');
                 if ($getPeopleData['People']['tree_level'] == '') {
@@ -454,7 +454,7 @@ Class FamilyController extends AppController {
                 $this->People->save($updateFatherDetails);
                 
                 
-                    if ($getGender[0]['People']['gender'] == 'male') {
+                    if ($getGender[0]['People']['gender'] == 'Male') {
                             $brotherData = array();
                             foreach ($childs as $key => $value) {
                                 $brotherData[$key]['Brother']['people_id'] = $value['People']['id'];
@@ -466,7 +466,7 @@ Class FamilyController extends AppController {
                              $addBrotherForNew = array();
                             foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'male') {
+                                if ($value['People']['gender'] == 'Male') {
                                     $addBrotherForNew[$key]['Brother']['people_id'] = $peopleId;
                                     $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
                                    
@@ -476,7 +476,7 @@ Class FamilyController extends AppController {
                             $addSisterForNew = array();
                               foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'female') {
+                                if ($value['People']['gender'] == 'Female') {
                                     $addSisterForNew[$key]['Sister']['people_id'] = $peopleId;
                                     $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
                                    
@@ -497,7 +497,7 @@ Class FamilyController extends AppController {
                             $addBrotherForNew = array();
                             foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'male') {
+                                if ($value['People']['gender'] == 'Male') {
                                     $addBrotherForNew[$key]['Brother']['people_id'] = $peopleId;
                                     $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
                                    
@@ -507,7 +507,7 @@ Class FamilyController extends AppController {
                             $addSisterForNew = array();
                               foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'female') {
+                                if ($value['People']['gender'] == 'Female') {
                                     $addSisterForNew[$key]['Sister']['people_id'] = $peopleId;
                                     $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
                                    
@@ -571,7 +571,7 @@ Class FamilyController extends AppController {
 
                     $getAllRelationships = $this->People->getAllRelationsIds($_REQUEST['peopleid']);
 
-                    $getAllChildren = $this->People->getChildren($_REQUEST['peopleid'], 'male', $gid);
+                    $getAllChildren = $this->People->getChildren($_REQUEST['peopleid'], 'Male', $gid);
 
                     $ids = array();
                     foreach ($getAllChildren as $key => $value) {
@@ -1082,7 +1082,7 @@ Class FamilyController extends AppController {
                         if ($same == 1) {
                             $this->_copyAddress($parentId, $this->People->id, true);
                         }
-                        if ($this->request->data['People']['gender'] == 'male') {
+                        if ($this->request->data['People']['gender'] == 'Male') {
                             $brotherData = array();
                             foreach ($childs as $key => $value) {
                                 $brotherData[$key]['Brother']['people_id'] = $value['People']['id'];
@@ -1094,7 +1094,7 @@ Class FamilyController extends AppController {
                              $addBrotherForNew = array();
                             foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'male') {
+                                if ($value['People']['gender'] == 'Male') {
                                     $addBrotherForNew[$key]['Brother']['people_id'] = $this->People->id;
                                     $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
                                    
@@ -1104,7 +1104,7 @@ Class FamilyController extends AppController {
                             $addSisterForNew = array();
                               foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'female') {
+                                if ($value['People']['gender'] == 'Female') {
                                     $addSisterForNew[$key]['Sister']['people_id'] = $this->People->id;
                                     $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
                                    
@@ -1125,7 +1125,7 @@ Class FamilyController extends AppController {
                             $addBrotherForNew = array();
                             foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'male') {
+                                if ($value['People']['gender'] == 'Male') {
                                     $addBrotherForNew[$key]['Brother']['people_id'] = $this->People->id;
                                     $addBrotherForNew[$key]['Brother']['brother_id'] = $value['People']['id'];
                                    
@@ -1135,7 +1135,7 @@ Class FamilyController extends AppController {
                             $addSisterForNew = array();
                               foreach ($childs as $key => $value) {
                                 
-                                if ($value['People']['gender'] == 'female') {
+                                if ($value['People']['gender'] == 'Female') {
                                     $addSisterForNew[$key]['Sister']['people_id'] = $this->People->id;
                                     $addSisterForNew[$key]['Sister']['sister_id'] = $value['People']['id'];
                                    
@@ -1227,7 +1227,7 @@ Class FamilyController extends AppController {
                 );
             
             if ( $checkExistingUser[0]['People']['gender'] != $this->request->data['People']['gender']) {
-                if ( $checkExistingUser[0]['People']['gender'] == 'male' && $this->request->data['People']['gender'] == 'female') {
+                if ( $checkExistingUser[0]['People']['gender'] == 'Male' && $this->request->data['People']['gender'] == 'Female') {
                 $getBrothersId = $this->Brother->find('list',array('conditions' => array('Brother.brother_id' => $_REQUEST['peopleid']),
                        'fields' => array('Brother.people_id'))
                         );
@@ -1458,7 +1458,7 @@ Class FamilyController extends AppController {
             $tree['r'] = '';
         }
         $tree['fg'] = true;
-        $tree['g'] = $peopleData['gender'] == 'male' ? 'm' : 'f';
+        $tree['g'] = $peopleData['gender'] == 'Male' ? 'm' : 'f';
         $tree['hp'] = true;
         $tree['i'] = $peopleData['id'];
         $tree['l'] = $peopleData['last_name'];
@@ -1469,7 +1469,7 @@ Class FamilyController extends AppController {
         $tree['father'] = ucfirst($peopleData['father']);
         $tree['mother'] = ucfirst($peopleData['mother']);
         $tree['pid'] = $iId;
-        if ($peopleData['gender'] == 'male') {
+        if ($peopleData['gender'] == 'Male') {
             $tree['partner_name'] = ucfirst($peopleData['partner_name']) . " " . ucfirst($peopleData['first_name']) . " " . $peopleData['last_name'];
         } else {
             $tree['partner_name'] = ucfirst($peopleData['partner_name']) . " " . $peopleData['last_name'];
@@ -1606,7 +1606,7 @@ Class FamilyController extends AppController {
 
                 $peopleId = $peopleData['id'];
                 $tree[$peopleData['id']]['fg'] = true;
-                $tree[$peopleData['id']]['g'] = $peopleData['gender'] == 'male' ? 'm' : 'f';
+                $tree[$peopleData['id']]['g'] = $peopleData['gender'] == 'Male' ? 'm' : 'f';
                 $tree[$peopleData['id']]['hp'] = true;
                 $tree[$peopleData['id']]['i'] = $peopleData['id'];
                 $tree[$peopleData['id']]['l'] = $peopleData['last_name'];
@@ -1617,7 +1617,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['village'] = ucfirst($peopleData['village']);
                 $tree[$peopleData['id']]['father'] = ucfirst($peopleData['father']);
                 $tree[$peopleData['id']]['mother'] = ucfirst($peopleData['mother']);
-                if ($peopleData['gender'] == 'male') {
+                if ($peopleData['gender'] == 'Male') {
                     $tree[$peopleData['id']]['partner_name'] = ucfirst($peopleData['partner_name']) . " " . ucfirst($peopleData['first_name']) . " " . $peopleData['last_name'];
                 } else {
                     $tree[$peopleData['id']]['partner_name'] = ucfirst($peopleData['partner_name']) . " " . $peopleData['last_name'];

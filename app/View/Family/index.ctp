@@ -58,11 +58,11 @@
 				<label class="col-lg-4 col-md-4 col-xs-4 control-label" for="gender">Gender</label>   
 				<div class="col-lg-8 col-md-8 col-xs-8">
 					<div class="btn-group genders" data-toggle="buttons">
-						<label class="btn btn-default <?php echo $gender == 'male' ? 'active' : '';?>">
-							<input type="radio" name="gender" class="gender" <?php echo $gender == 'male' ? 'checked=checked' : '';?> value="male">Male
+						<label class="btn btn-default <?php echo $gender == 'Male' ? 'active' : '';?>">
+							<input type="radio" name="gender" class="gender" <?php echo $gender == 'Male' ? 'checked=checked' : '';?> value="Male">Male
 						</label>
-						<label class="btn btn-default <?php echo $gender == 'female' ? 'active' : '';?>">
-							<input type="radio" name="gender" class="gender" <?php echo $gender == 'female' ? 'checked=checked' : '';?> value="female">Female
+						<label class="btn btn-default <?php echo $gender == 'Female' ? 'active' : '';?>">
+							<input type="radio" name="gender" class="gender" <?php echo $gender == 'Female' ? 'checked=checked' : '';?> value="Female">Female
 						</label>
 					</div>
 				</div>
