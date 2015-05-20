@@ -24,16 +24,16 @@ echo $this->Html->charset('utf-8');?>
 					<div class="col-lg-8 col-md-8 col-xs-8">
 						<div class="btn-group zones" data-toggle="buttons">
 							<label  class="btn btn-default">
-							<input data-zone="East" type="radio" name="zone" value="east">East
+							<input data-zone="East" type="radio" name="zone" value="East">East
 							</label>
 							<label  class="btn btn-default">
-							<input data-zone="West" type="radio" name="zone"  value="west">West
+							<input data-zone="West" type="radio" name="zone"  value="West">West
 							</label>
 							<label  class="btn btn-default">
-							<input data-zone="Central" type="radio" name="zone"  value="central">Central
+							<input data-zone="Central" type="radio" name="zone"  value="Central">Central
 							</label>
 							<label  class="btn btn-default">
-							<input data-zone="Other" type="radio" name="zone" value="other">Other
+							<input data-zone="Other" type="radio" name="zone" value="Other">Other
 							</label>
 						</div>
 					</div>
