@@ -548,7 +548,7 @@ Class People extends AppModel {
         }
         $options['fields'] = array('concat(People.first_name,"  ",People.last_name) as childname', 'People.id', 'People.group_id');
         $options['order'] = array(
-             'People.is_late ASC','People.date_of_birth ASC','People.id ASC'
+             'People.date_of_birth ASC'
              );
         try {
             $userData = $this->find('all', $options);
