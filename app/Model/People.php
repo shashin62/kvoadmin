@@ -727,7 +727,7 @@ Class People extends AppModel {
 //                                );
         
           $options['order'] = array(
-             'People.is_late ASC','People.id ASC'
+             'People.date_of_birth ASC'
              );
         $options['group'] = array('People.id');
         try {
