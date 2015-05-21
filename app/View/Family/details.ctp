@@ -109,7 +109,7 @@ $firstName = $value['People']['first_name'];
             <?php } ?>
         </div>
         <div class="col-md-3">
-            <?php if (strtolower($value['People']['gender']) == 'Male') { ?>
+            <?php if (strtolower($value['People']['gender']) == 'male') { ?>
                 <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id']; ?>" data-first_name="<?php echo $value['People']['first_name']; ?>" data-id="<?php echo $value['People']['id']; ?>" >Add Children</a><br><?php } ?>
             <?php
             $children = $People->getChildren($value['People']['id'], $value['People']['gender']);
@@ -257,7 +257,7 @@ $missingData = array();?>
             <?php } ?>
         </div>
         <div class="col-md-3">
-            <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'Male') { ?>
+            <?php if( !empty($value['People']['partner_id']) && strtolower($value['People']['gender']) == 'male') { ?>
             <a class="addchild" href="javascript:void(0);" data-gid="<?php echo $value['People']['group_id'];?>" data-first_name="<?php echo $value['People']['first_name'];?>" data-id="<?php echo $value['People']['id'];?>" >Add Children</a><br>
                                     <?php $children = $People->getChildren($value['People']['id'],'Male');
                                     $childs = array();
