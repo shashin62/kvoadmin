@@ -57,6 +57,7 @@ Class SurnameController extends AppController {
     
     public function getAjaxData()
     {
+        $this->layout = 'ajax';
         $this->autoRender = false;
         
         
