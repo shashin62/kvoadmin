@@ -101,17 +101,23 @@ $('.addfamily').click(function(){
 });
 
 $('.showmy').click(function(){
+     var showhof = false;
+     if ($(".showhof").is(':checked')) {
+         var showhof = true;
+     }
      if ($(".showmy").is(':checked') == true) {
-         $('.showhof').attr('checked',false);
+         //$('.showhof').attr('checked',false);
         var myArray = {
-            "showmy": true
+            "showmy": true,
+            "showhof": showhof
         };
 
       
     } else {
        
          var myArray = {
-            "showhmy": false
+            "showhmy": false,
+            "showhof": showhof
         };
     }
       var oTable = $("#getFamilyGroup").dataTable();
@@ -121,19 +127,25 @@ $('.showmy').click(function(){
 
 
 $('.showhof').click(function () {
+     var showmy = false;
+     if ($(".showmy").is(':checked')) {
+         var showmy = true;
+     }
     if ($(".showhof").is(':checked') == true) {
-        $('.showmy').attr('checked',false);
+        //$('.showmy').attr('checked',false);
         showhof = 1;
 
         var myArray = {
-            "showhof": true
+            "showhof": true,
+            "showmy": showmy
         };
 
       
     } else {
         
          var myArray = {
-            "showhof": false
+            "showhof": false,
+            "showmy": showmy
         };
     }
       var oTable = $("#getFamilyGroup").dataTable();
