@@ -63,6 +63,7 @@ Class SurnameController extends AppController {
         
         $data = $this->Surname->getAllSurnames();
         echo json_encode($data);
+        exit;
     }
     
     public function delete()
