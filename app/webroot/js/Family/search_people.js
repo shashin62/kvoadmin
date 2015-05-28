@@ -119,8 +119,12 @@ function insertUser(id, data)
                 $('.jssuccessMessage').hide('slow');
                 if (module == 'tree') {
                     var rUrl = baseUrl + "/tree/?gid=" + response.group_id;
+                    if ($('#treeredirect').attr('data-userid') != peopleId) {
+                       rUrl += '&reset_id='+peopleId;
+                    }
+
                     window.location.href = rUrl;
-                } else {
+                }  else {
                 window.location = baseUrl + '/family/details/'+ response.group_id;
                 }
             }, 2500);

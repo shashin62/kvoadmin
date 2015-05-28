@@ -140,7 +140,7 @@
         </div>
     </div>
 </div>
-<div id="treeredirect" data-userid="<?php echo $this->Session->read('User.user_id'); ?>" data-user="<?php echo md5($this->Session->read('User.user_id')); ?>" style="display:none;"></div>
+<div id="treeredirect" data-userid="<?php echo $this->Session->read('User.user_id'); ?>" style="display:none;"></div>
 <?php echo $this->Html->script(array('Family/search_people')); ?>
 <script type="text/javascript">
  $(function () {
@@ -157,11 +157,16 @@
     var actiontype = '<?php echo $type;?>';
     var user_id = '<?php echo $fid;?>';
     var group_id = '<?php echo $gid;?>';
+    var module = "<?php echo $module; ?>";
     
     $('.cancel').click(function(){
          if (module == 'tree') {
-               var rUrl = baseUrl + "/tree/?gid=" + group_id;
-               window.location.href = rUrl;
+             var rUrl = baseUrl + "/tree/?gid=" + group_id;
+             if ($('#treeredirect').attr('data-userid') != user_id) {
+                rUrl += '&reset_id='+user_id;
+             }
+            
+             window.location.href = rUrl;
          } else if(  actiontype == 'addnew') {
                window.location.href = baseUrl +"/family/familiyGroups";
          } else {

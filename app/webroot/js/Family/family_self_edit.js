@@ -138,6 +138,9 @@ showmaidenvillage('Female');
                         
                         if( module == 'tree') {
                            var rUrl = baseUrl + "/tree/?gid=" + grpid;
+                           if ($('#treeredirect').attr('data-userid') != pid) {
+                               rUrl += '&reset_id='+pid;
+                           }
                            //window.location.href = baseUrl + "/app/webroot/tree/?gid=" + grpid;
                             window.location.href = rUrl;
                         } else {

@@ -302,7 +302,7 @@
     </div>
     <?php echo $this->Form->end(); ?>
 </div>
-<div id="treeredirect" data-userid="<?php echo $this->Session->read('User.user_id'); ?>"  data-user="<?php echo md5($this->Session->read('User.user_id')); ?>" style="display:none;"></div>
+<div id="treeredirect" data-userid="<?php echo $this->Session->read('User.user_id'); ?>"  style="display:none;"></div>
 <script type="text/javascript">
     var pid = '<?php echo $pid; ?>';
     var userType = '<?php echo $userType; ?>';
@@ -337,7 +337,15 @@
 //        });
     });
      $('.cancel').click(function(){
-         if(  userType == 'addnew') {
+         if (module == 'tree') {
+             var rUrl = baseUrl + "/tree/?gid=" + grpid;
+             if ($('#treeredirect').attr('data-userid') != pid) {
+                rUrl += '&reset_id='+pid;
+             }
+            //window.location.href = baseUrl + "/app/webroot/tree/?gid=" + grpid;
+             window.location.href = rUrl;
+         }
+         else if(  userType == 'addnew') {
               window.location.href = baseUrl +"/family/familiyGroups";
          } else {
              window.location.href = baseUrl +"/family/details/"+ grpid;
