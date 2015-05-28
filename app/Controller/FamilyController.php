@@ -1463,6 +1463,7 @@ Class FamilyController extends AppController {
         $tree['i'] = $peopleData['id'];
         $tree['l'] = $peopleData['last_name'];
         $tree['p'] = $peopleData['first_name'];
+        $tree['b'] = $peopleData['date_of_birth'] != '' ? date("Ymd", strtotime($peopleData['date_of_birth'])) : '';
         $tree['dob'] = $peopleData['date_of_birth'] != '' ? date("d/m/Y", strtotime($peopleData['date_of_birth'])) : '';
         $tree['education'] = $this->PeopleEducation->getHighestQualification($peopleData['id']);
         $tree['village'] = ucfirst($peopleData['village']);
@@ -1612,7 +1613,7 @@ Class FamilyController extends AppController {
                 $tree[$peopleData['id']]['l'] = $peopleData['last_name'];
                 $tree[$peopleData['id']]['p'] = $peopleData['first_name'];
                 $tree[$peopleData['id']]['p'] = ucfirst($peopleData['first_name']);
-                $tree[$peopleData['id']]['dob'] = date("d/m/Y", strtotime($peopleData['date_of_birth']));
+                $tree[$peopleData['id']]['b'] =  $peopleData['date_of_birth'] != '' ? date("Ymd", strtotime($peopleData['date_of_birth'])) : '';                $tree[$peopleData['id']]['dob'] = date("d/m/Y", strtotime($peopleData['date_of_birth']));
                 $tree[$peopleData['id']]['education'] = $this->PeopleEducation->getHighestQualification($peopleData['id']);
                 $tree[$peopleData['id']]['village'] = ucfirst($peopleData['village']);
                 $tree[$peopleData['id']]['father'] = ucfirst($peopleData['father']);
@@ -2081,7 +2082,7 @@ Class FamilyController extends AppController {
         
         $name = $this->People->find('all', array('conditions' => array('People.id' => $_REQUEST['fid'])));
         
-        
+        $this->set('module', $_REQUEST['module']);
         $this->set('name', $name[0]['People']['first_name']);
         $main_surnames = $this->Surname->find('list', array('fields' => array('Surname.name', 'Surname.name')));
         $this->set(compact('main_surnames'));

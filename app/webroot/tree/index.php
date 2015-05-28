@@ -1,12 +1,17 @@
 <?php
 
+$baseUrl = 'http://admin.kvomahajan.com';
+
 if (isset($_GET['full'])) {	
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/full_tree:1/?full_tree=1');
 } else if (isset($_GET['group_id'])){
 	$json_data = file_get_contents('http://kvo.quadzero.in/people/index/export_as_json:1/group_id:' . $_GET['group_id']);
+} else if (isset($_GET['reset_id'])) {
+	//$json_data = file_get_contents('http://10.50.249.127/kvoadmin/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
+        $json_data = file_get_contents('http://localhost/kvoadmin/family/buildFamilyJson?id=' . $_GET["reset_id"]);
 } else {
 	//$json_data = file_get_contents('http://10.50.249.127/kvoadmin/family/buildTreeJson?gid=' . $_GET['gid'] . ' &uid=1');
-        $json_data = file_get_contents('http://admin.kvomahajan.com/family/buildTreeJson?gid=' . $_GET["gid"]);
+        $json_data = file_get_contents('http://localhost/kvoadmin/family/buildTreeJson?gid=' . $_GET["gid"]);
 }
 
 ?>
@@ -224,7 +229,7 @@ if (isset($_GET['full'])) {
 
 			
 
-			<DIV CLASS="fullsize" STYLE="position:relative;">
+			<DIV CLASS="fullsize" STYLE="/*position:relative;*/">
 
 
 
@@ -244,13 +249,13 @@ if (isset($_GET['full'])) {
 
 
 
-				<DIV style="display: none;" ID="welcomediv" STYLE="position:absolute; width:100%; top:16px;"><DIV ID="welcomemargin" CLASS="marginon"><CENTER>
+				<DIV ID="welcomediv123" ><DIV ID="welcomemargin123" CLASS="marginon"><CENTER>
 
 
 
-				<TABLE CLASS="mbody" STYLE="margin:8px;" CELLSPACING="6">
+				<TABLE CLASS="mbody"  CELLSPACING="6">
 
-					<TR><TD STYLE="font-size:18px; font-weight:bold;" ALIGN="center"><SPAN STYLE="float:right; font-size:10px;"><A HREF="#" onClick="EHW(); return false;">[X]</A></SPAN>&nbsp; Welcome to Family Tree!</TD></TR>
+					<TR><TD STYLE="font-size:18px; font-weight:bold;" ALIGN="center"><!--<SPAN STYLE="float:right; font-size:10px;"><A HREF="#" onClick="EHW(); return false;">[X]</A></SPAN>&nbsp; Welcome to Family Tree!--></TD></TR>
 
 
 
@@ -278,7 +283,7 @@ if (isset($_GET['full'])) {
 
 				
 
-				<DIV ID="leftdiv" CLASS="dleft"><IFRAME NAME="sideframe" ID="sideframe"  SRC="sidebar.htm?130317" CLASS="fullsize" FRAMEBORDER="0" SCROLLING="no"></IFRAME></DIV>
+				<DIV ID="leftdiv" CLASS="dleft"><IFRAME NAME="sideframe" ID="sideframe"  SRC="sidebar.htm?130317" CLASS="fullsize" FRAMEBORDER="0" SCROLLING="auto"></IFRAME></DIV>
 
 
 
@@ -357,6 +362,7 @@ if (isset($_GET['full'])) {
     var navreload = false;
     var self = this;
     var cid = '';
+    var baseUrl = '<?php echo $baseUrl; ?>';
 
 
     function setJSONValue() {       
@@ -380,7 +386,7 @@ if (isset($_GET['full'])) {
             navshowchildren = window.navframe.document.getElementById('showchildren').value;
             navshowcousins = window.navframe.document.getElementById('showcousins').value;
 
-            new Ajax.Request('http://admin.kvomahajan.com/family/buildFamilyJson?id='+id, {
+            new Ajax.Request(baseUrl+'/family/buildFamilyJson?id='+id, {
                 method: 'get',
                 onComplete:function(_2d){
                     data = _2d.responseText;

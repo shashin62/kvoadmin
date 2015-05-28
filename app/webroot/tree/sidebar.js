@@ -249,7 +249,7 @@ function SSR(e, t, v, h, a, gid, mother, spouse, father) {
     b.className = "col-lg-7 col-md-7 col-xs-7";
 
     if (t == 'Add Child') {
-        if (typeof mother !== 'undefined' && spouse == 'm') {
+        if (typeof spouse === 'string') {
             b.innerHTML = '<a data-id="' + v + '" target="_parent" href="http://admin.kvomahajan.com/family/searchPeople?type=addchilld&fid=' + v + '&gid=' + gid + '&module=tree">' + t + '</a>';
         } else {
         }
@@ -288,6 +288,9 @@ function SSR(e, t, v, h, a, gid, mother, spouse, father) {
             b.innerHTML = '<a data-id="' + v + '" target="_parent" href="http://admin.kvomahajan.com/family/searchPeople?type=addsister&fid=' + v + '&gid=' + gid + '&module=tree">' + t + '</a>';
         
     }
+    if( t == 'Full name') {
+    b.innerHTML += ' <a target="_parent" href="http://admin.kvomahajan.com/family/index?type=self&fid=' + mother + '&gid=' + gid + '&module=tree" class="edit">Edit Detail</a>';
+}
     r.appendChild(a);
     r.appendChild(b);
 
@@ -445,7 +448,12 @@ function SP0() {
     } else {
         
         SRR("personalview");
-        SSR("personalview", "Full name", (p.p || "")  + " " + (p.father || "") + " " + (p.l || p.q || ""), false);
+        var father = p.father;
+        if (p.father != '') {
+            var fth = father.split(" ");
+            father = fth[0];
+        }
+        SSR("personalview", "Full name", (p.p || "")  + " " + (father || "") + " " + (p.l || p.q || ""), false, false, p.gid, p.pid);
         
          if ( p.father != '') {
             SSR("personalview", "Father", p.father, false);
@@ -477,7 +485,7 @@ function SP0() {
         if ( p.date_of_marriage != '') {
             SSR("personalview", "Marriage Date", p.date_of_marriage, false);
         }
-        if ( p.partner_name != '') {
+        if ( p.partner_name != '' && typeof p.partner_name != 'undefined' && p.partner_name != null) {
             SSR("personalview", "Spouse", p.partner_name, false);
         }
        
@@ -509,13 +517,13 @@ function SP0() {
         if( p.mother == '') {
             SSR("personalview", "Add Mother", p.pid, false, '', p.gid, p.m);
         }
-        if (p.partner_name == '') {
+        if (p.partner_name == '' || typeof p.partner_name == 'undefined' || p.partner_name == null) {
             SSR("personalview", "Add Spouse", p.pid, false, '', p.gid, '', p.s);
         }
         if (p.father == '') {
             SSR("personalview", "Add Father", p.pid, false, '', p.gid, '', '', p.f);
         }
-        if (p.partner_name != '') {
+        if (p.partner_name != '' && typeof p.partner_name != 'undefined' && p.partner_name != null) {
             SSR("personalview", "Add Child", p.pid, false, '', p.gid,p.s,p.g);
         }
         if (p.father != '' && p.mother != '') {

@@ -140,6 +140,7 @@
         </div>
     </div>
 </div>
+<div id="treeredirect" data-userid="<?php echo $this->Session->read('User.user_id'); ?>" data-user="<?php echo md5($this->Session->read('User.user_id')); ?>" style="display:none;"></div>
 <?php echo $this->Html->script(array('Family/search_people')); ?>
 <script type="text/javascript">
  $(function () {
@@ -158,10 +159,13 @@
     var group_id = '<?php echo $gid;?>';
     
     $('.cancel').click(function(){
-         if(  actiontype == 'addnew') {
-              window.location.href = baseUrl +"/family/familiyGroups";
+         if (module == 'tree') {
+               var rUrl = baseUrl + "/tree/?gid=" + group_id;
+               window.location.href = rUrl;
+         } else if(  actiontype == 'addnew') {
+               window.location.href = baseUrl +"/family/familiyGroups";
          } else {
-             window.location.href = baseUrl +"/family/details/"+ group_id;
+               window.location.href = baseUrl +"/family/details/"+ group_id;
          }
     });
     
@@ -176,11 +180,11 @@
  var village = $.trim($('.village').val());
  var phone = $.trim($('.mobile_number').val());
  var dob = $.trim($('.dob').val()); 
- 
+ var module = "<?php echo $module; ?>";
  
  
    doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'",\n\
-"fid":"'+ id +'","gid":"'+ gid +'","name_parent":"'+ first_name +'","first_name":"'+ firstname +'",\n\
+"fid":"'+ id +'","module":"'+ module +'","gid":"'+ gid +'","name_parent":"'+ first_name +'","first_name":"'+ firstname +'",\n\
 "last_name":"'+ lastname +'","date_of_birth":"'+ dob +'","mobile_number":"'+ phone +'","village":"'+ village +'"}');
 });
 </script>

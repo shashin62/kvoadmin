@@ -47,7 +47,7 @@ $(function () {
 
     $('#all_users').removeClass('display').addClass('table table-striped table-bordered');
 
-    $(".search, .search_username").bind("keyup", function () {
+    $(".search, .search_username").bind("keyup blur", function () {
         var table = $('#all_users').DataTable();
         
         table
@@ -117,7 +117,12 @@ function insertUser(id, data)
             showJsSuccessMessage(displayMsg);
             setTimeout(function () {
                 $('.jssuccessMessage').hide('slow');
+                if (module == 'tree') {
+                    var rUrl = baseUrl + "/tree/?gid=" + response.group_id;
+                    window.location.href = rUrl;
+                } else {
                 window.location = baseUrl + '/family/details/'+ response.group_id;
+                }
             }, 2500);
         },
         error: function()

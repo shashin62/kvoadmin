@@ -106,11 +106,11 @@ showmaidenvillage('Female');
             queryString += '&data[People][maiden_surname]='+ $('.maidensurname').find('.ui-autocomplete-input').val();             
             queryString += '&data[People][maiden_village]=' + $('.maidenvillage').find('.ui-autocomplete-input').val();
             //queryString += '&data[People][blood_group]=' + $('.blood_groupdiv').find('.ui-autocomplete-input').val();
-            queryString += '&data[People][education_1]=' + $('.education1_div').find('.ui-autocomplete-input').val();
-            queryString += '&data[People][education_2]=' + $('.education2_div').find('.ui-autocomplete-input').val();
-            queryString += '&data[People][education_3]=' + $('.education3_div').find('.ui-autocomplete-input').val();
-            queryString += '&data[People][education_4]=' + $('.education4_div').find('.ui-autocomplete-input').val();
-            queryString += '&data[People][education_5]=' + $('.education5_div').find('.ui-autocomplete-input').val();
+            //queryString += '&data[People][education_1]=' + $('.education1_div').find('.ui-autocomplete-input').val();
+            //queryString += '&data[People][education_2]=' + $('.education2_div').find('.ui-autocomplete-input').val();
+            //queryString += '&data[People][education_3]=' + $('.education3_div').find('.ui-autocomplete-input').val();
+            //queryString += '&data[People][education_4]=' + $('.education4_div').find('.ui-autocomplete-input').val();
+            //queryString += '&data[People][education_5]=' + $('.education5_div').find('.ui-autocomplete-input').val();
             
            
             var type = userType;
@@ -132,11 +132,14 @@ showmaidenvillage('Female');
                 setTimeout(function () {
                     $('.jssuccessMessage').hide('slow');
                     
-                    if ( grpid == '') {
+                        if (grpid == '') {
                         grpid = data.grpid;
                     }
-                        if (module == 'tree') {
-                            window.location.href = baseUrl + "/app/webroot/tree/?gid=" + grpid;
+                        
+                        if( module == 'tree') {
+                           var rUrl = baseUrl + "/tree/?gid=" + grpid;
+                           //window.location.href = baseUrl + "/app/webroot/tree/?gid=" + grpid;
+                            window.location.href = rUrl;
                         } else {
                             window.location.href = baseUrl + "/family/details/" + grpid;
                         }

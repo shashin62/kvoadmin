@@ -302,7 +302,7 @@
     </div>
     <?php echo $this->Form->end(); ?>
 </div>
-
+<div id="treeredirect" data-userid="<?php echo $this->Session->read('User.user_id'); ?>"  data-user="<?php echo md5($this->Session->read('User.user_id')); ?>" style="display:none;"></div>
 <script type="text/javascript">
     var pid = '<?php echo $pid; ?>';
     var userType = '<?php echo $userType; ?>';
