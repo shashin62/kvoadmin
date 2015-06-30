@@ -1355,7 +1355,8 @@ Class FamilyController extends AppController {
     public function details() {
         $userID = $this->Session->read('User.user_id');
         $roleID = $this->Session->read('User.role_id');
-        $getOwners = $this->Group->getOwners();
+        $getOwners = $this->Group->getOwners($userID);
+        // Here Missing argument 1 for Group::getOwners() add $userID for removing the error
 
         $ownerData = array();
         foreach ($getOwners as $key => $value) {
@@ -1389,7 +1390,13 @@ Class FamilyController extends AppController {
         $userID = $this->Session->read('User.user_id');
         $roleId = $this->Session->read('User.role_id');
         $_REQUEST['showhof'] = $_REQUEST['showhof'] ? $_REQUEST['showhof'] : 'true';
-        $_REQUEST['showmy'] = $_REQUEST['showhof'] ? $_REQUEST['showmy'] : 'true';
+        //$_REQUEST['showmy'] = $_REQUEST['showhof'] ? $_REQUEST['showmy'] : 'true';//here $_REQUEST['showmy'] undefine
+        if(!isset($_REQUEST['showmy'])){
+            $_REQUEST['showmy'] = 'true';
+        }else{
+            $_REQUEST['showmy'] = $_REQUEST['showhof'] ? $_REQUEST['showmy'] : 'true';
+        }
+        
         $data = $this->Group->getAllFamilyGroups($userID, $roleId, $_REQUEST['showhof'], $_REQUEST['showmy']);
         echo json_encode($data);
     }
