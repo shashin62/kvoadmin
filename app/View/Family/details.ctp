@@ -115,8 +115,10 @@ $firstName = $value['People']['first_name'];
             $children = $People->getChildren($value['People']['id'], $value['People']['gender']);
 
             $childs = array();
-            foreach ($children as $k => $v) {
-                $childs[] = $v[0]['childname'] . ' (' . $v['People']['id'] . ')';
+            if(is_array($children)){
+                foreach ($children as $k => $v) {
+                    $childs[] = $v[0]['childname'] . ' (' . $v['People']['id'] . ')';
+                }
             }
             ?>
             <div><strong>Children</strong>: <?php echo implode(', ', $childs); ?></div>
