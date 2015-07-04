@@ -88,9 +88,10 @@ Class FamilyController extends AppController {
             $array['gid'] = $_REQUEST['gid'];
             $this->set('main_surname', $getPeopleData['People']['main_surname']);
             $getOwnerDetails = $this->People->getParentPeopleDetails($array);
-
-            $this->set('name', $getOwnerDetails['first_name']);
-            $this->set('address_id', $getOwnerDetails['address_id']);
+            if(!empty($getOwnerDetails)){
+                $this->set('name', $getOwnerDetails['first_name']);
+                $this->set('address_id', $getOwnerDetails['address_id']);
+            }
         }
         
         
@@ -211,8 +212,9 @@ Class FamilyController extends AppController {
         $this->set('userType', $requestData['type']);
         $hof_fullName = '';
         if(!empty($_REQUEST['gid'])){
-            $hof = $this->People->getHOF ($_REQUEST['gid']);    
-            $hof_fullName = $hof['people']['first_name'].' '.$hof['people']['last_name'];
+            $hof = $this->People->getHOF ($_REQUEST['gid']);  
+            if(isset($hof['people']))  
+                $hof_fullName = $hof['people']['first_name'].' '.$hof['people']['last_name'];
         }
 
         $this->set('hof', $hof_fullName);
@@ -281,7 +283,11 @@ Class FamilyController extends AppController {
             $this->set('call_again', $getPeopleData['People']['call_again']);
             $this->set('village', $getPeopleData['People']['village']);
             $this->set('mahajan_membership_number', $getPeopleData['People']['mahajan_membership_number']);
-            $this->set('same', $getPeopleData['People']['address_id'] == $getOwnerDetails['address_id'] ? true : false);
+            $address = false;
+            if(isset($getOwnerDetails['address_id']))
+                $address = $getPeopleData['People']['address_id'] == $getOwnerDetails['address_id'] ? true : false;
+            
+            $this->set('same', $address);
             // $getOwnerDetails
         }
     }
@@ -1967,9 +1973,15 @@ Class FamilyController extends AppController {
         }
 
         $this->set('peopleid', $pid);
-        $this->set('name', $getOwnerDetails['first_name']);
-        $this->set('parentid', $getOwnerDetails['id']);
-        $this->set('parentaid', $getOwnerDetails['address_id']);
+        $god_fname = $god_id = $god_address = '';
+        if(!empty($getOwnerDetails)){
+            $god_id = $getOwnerDetails['id'];
+            $god_address = $getOwnerDetails['address_id'];
+            $god_fname =  $getOwnerDetails['first_name'];
+        }
+        $this->set('name', $god_fname);
+        $this->set('parentid', $god_id);
+        $this->set('parentaid', $god_address);
         $this->set('aid', $aid ? $aid : '');
         $this->set('gid', $gid ? $gid : '');
     }

@@ -2266,10 +2266,12 @@ HAVING count(*) > 1";
     }
     
     public function getHOF ($groupId) {
+        $aResult = array();
         $sQuery = "SELECT first_name, last_name, id FROM `people` WHERE tree_level = '' AND group_id = '{$groupId}'";
         $aResult = $this->query($sQuery);
-        
-        return $aResult[0];
+        if(!empty($aResult))
+            $aResult = $aResult;
+        return $aResult;
     }
 }
 
