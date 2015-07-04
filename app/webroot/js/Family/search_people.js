@@ -4,7 +4,7 @@ var oTable;
 $(function () {
     $( ".combobox" ).combobox({ 
     select: function (event, ui) { 
-
+        $("#"+this.id).val(ui.item.value);
          var table = $('#all_users').DataTable();
         table
                 .column($(this).attr('custom'))

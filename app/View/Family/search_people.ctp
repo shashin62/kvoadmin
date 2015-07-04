@@ -6,14 +6,14 @@
 <div class="container-fluid">
     
     <?php
-    if ($type) {
-        $title = 'Search and add ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name;
+    if (isset($type) && isset($name)) {
+        $title = 'Search and add ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name; //Undefined variable: name
     } else {
         $title = 'Search/Add New Family';
     }
     
-    if ($type) {
-        $buttonLabel = 'Add new ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name;
+    if (isset($type) && isset($name)) {
+        $buttonLabel = 'Add new ' . ucfirst(str_replace('add', ' ', $type)) . ' of ' . $name; //Undefined variable: name
     } else {
         $buttonLabel = 'Add New Family Owner';
     }
@@ -174,22 +174,22 @@
          }
     });
     
-    
-    $('.addnew').click(function(){
    
+    $('.addnew').click(function(){
+              
  var id = user_id;
  var gid = group_id;
  var first_name = $(this).data('first_name');
  var firstname = $.trim($('.first_name').val());
  var lastname = $.trim($('.last_name').val());
- var village = $.trim($('.village').val());
+ var village = $('#village').val();
  var phone = $.trim($('.mobile_number').val());
  var dob = $.trim($('.dob').val()); 
+ var main_surname = $('#main_surname').val();
  var module = "<?php echo $module; ?>";
- 
  
    doFormPost(baseUrl+"/family/index?type=" + actiontype ,'{ "type":"'+ actiontype+'",\n\
 "fid":"'+ id +'","module":"'+ module +'","gid":"'+ gid +'","name_parent":"'+ first_name +'","first_name":"'+ firstname +'",\n\
-"last_name":"'+ lastname +'","date_of_birth":"'+ dob +'","mobile_number":"'+ phone +'","village":"'+ village +'"}');
+"last_name":"'+ lastname +'","date_of_birth":"'+ dob +'","mobile_number":"'+ phone +'","village":"'+ village +'","main_surname":"'+ main_surname +'"}');
 });
 </script>

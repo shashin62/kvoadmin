@@ -208,9 +208,9 @@ Class People extends AppModel {
             "aaData" => array()
         );
 
-        //// echo '<pre>';
-        //  print_r($rResult);
-        //  exit;
+       /* echo '<pre>';
+        print_r($rResult);
+        exit;*/
         foreach ($rResult as $key => $value) {
 
             $row = array();
@@ -229,10 +229,12 @@ Class People extends AppModel {
                     $row[] = $v;
                 }
             }
-            $row[] = $value[0]['date_of_birth'];
-            foreach ($value[0] as $kP => $parents) {
-                if ($kP != 'date_of_birth') {
-                    $row[] = $value[0][$kP];
+            if(isset($value[0]['date_of_birth'])){
+                $row[] = $value[0]['date_of_birth'];
+                foreach ($value[0] as $kP => $parents) {
+                    if ($kP != 'date_of_birth') {
+                        $row[] = $value[0][$kP];
+                    }
                 }
             }
             $row[] = '';
@@ -1052,6 +1054,7 @@ Class People extends AppModel {
         $options['fields'] = array('People.id', 'People.first_name', 'People.business_address_id', 'People.address_id');
         try {
             $userData = $this->find('all', $options);
+            //echo "<pre>"; print_r($userData); exit;
             if ($userData && isset($userData[0]['People']) && $userData[0]['People'] != "") {
                 return $userData[0]['People'];
             } else {

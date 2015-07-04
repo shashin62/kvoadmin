@@ -58,10 +58,11 @@ Class FamilyController extends AppController {
      * index function - page landing
      */
     public function index() {
-
-
+        $module = "";
         $requestData = $_REQUEST;
-        $this->set('module', $requestData['module']);
+        if(isset($requestData['module']))
+            $module = $requestData['module'];
+        $this->set('module', $module);
         $this->set('first_name', isset($requestData['first_name']) ? $this->request->data['first_name'] : '');
         $this->set('last_name', isset($requestData['last_name']) ?
                         $requestData['last_name'] : '');
@@ -80,18 +81,20 @@ Class FamilyController extends AppController {
             $toFetchData = false;
             $peopleId = $requestData['fid'];
         }
+        if(isset($_REQUEST['gid']) && !empty($_REQUEST['gid'])){
+            $getPeopleData = $this->People->getPeopleData($peopleId, true, $_REQUEST['gid']);
+            
+            $array = array();
+            $array['gid'] = $_REQUEST['gid'];
+            $this->set('main_surname', $getPeopleData['People']['main_surname']);
+            $getOwnerDetails = $this->People->getParentPeopleDetails($array);
 
-        $getPeopleData = $this->People->getPeopleData($peopleId, true, $_REQUEST['gid']);
-        $array = array();
-        $array['gid'] = $_REQUEST['gid'];
-        $this->set('main_surname', $getPeopleData['People']['main_surname']);
-        $getOwnerDetails = $this->People->getParentPeopleDetails($array);
-
-        $this->set('name', $getOwnerDetails['first_name']);
-        $this->set('address_id', $getOwnerDetails['address_id']);
+            $this->set('name', $getOwnerDetails['first_name']);
+            $this->set('address_id', $getOwnerDetails['address_id']);
+        }
         
         
-        if (!$_REQUEST['name_parent']) {
+        if (isset($_REQUEST['name_parent']) && !$_REQUEST['name_parent']) {
             $_REQUEST['name_parent'] = $getPeopleData['People']['first_name'].' '.$getPeopleData['People']['last_name'];
         }
         
@@ -206,9 +209,13 @@ Class FamilyController extends AppController {
         $this->set('pid', $peopleId);
         $this->set('pageTitle', $pageTitle);
         $this->set('userType', $requestData['type']);
-        
-        $hof = $this->People->getHOF ($_REQUEST['gid']);
-        $this->set('hof', $hof['people']['first_name'].' '.$hof['people']['last_name']);
+        $hof_fullName = '';
+        if(!empty($_REQUEST['gid'])){
+            $hof = $this->People->getHOF ($_REQUEST['gid']);    
+            $hof_fullName = $hof['people']['first_name'].' '.$hof['people']['last_name'];
+        }
+
+        $this->set('hof', $hof_fullName);
         
 
         $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
@@ -2131,24 +2138,53 @@ Class FamilyController extends AppController {
     }
 
     public function searchPeople() {
+        //echo "<pre>"; print_r($_REQUEST); 
         $userID = $this->Session->read('User.user_id');
+        $type = "";
+        if(isset($_REQUEST['type']))
+            $type = $_REQUEST['type'];
+        
+        $this->set('type', $type);//Undefined index: type
 
-        $this->set('type', $_REQUEST['type']);
-        $this->set('fid', $_REQUEST['fid']);
-        $this->set('gid', $_REQUEST['gid']);
+        $fid = "";
+        if(isset($_REQUEST['fid']))
+            $fid = $_REQUEST['fid'];
+
+        $this->set('fid', $fid);//Undefined index: fid
+
+        $gid = "";
+        if(isset($_REQUEST['gid']))
+            $gid = $_REQUEST['gid'];
+            
+        $this->set('gid', $gid);//Undefined index: gid
         
-        
-        $name = $this->People->find('all', array('conditions' => array('People.id' => $_REQUEST['fid'])));
-        
-        $this->set('module', $_REQUEST['module']);
-        $this->set('name', $name[0]['People']['first_name']);
+        $name = "";
+        if(isset($_REQUEST['fid']))//Undefined index: type
+            $name = $this->People->find('all', array('conditions' => array('People.id' => $_REQUEST['fid'])));
+//echo "<pre>"; print_r($name); exit;
+        $module = "";
+        if(isset($_REQUEST['module']))//Undefined index: module
+             $module = $_REQUEST['module'];
+
+        $this->set('module', $module);
+        $main_surname="";
+        if(isset($name) && !empty($name)){
+            $this->set('name', $name[0]['People']['first_name']);
+            $main_surname=$name[0]['People']['main_surname'];
+        }
+        $this->set('main_surname', $main_surname);
+
         $main_surnames = $this->Surname->find('list', array('fields' => array('Surname.name', 'Surname.name')));
         $this->set(compact('main_surnames'));
         
         $villages = $this->Village->find('list', array('fields' => array('Village.name', 'Village.name')));
         $this->set(compact('villages'));
 
-        $this->set('name_parent', $_REQUEST['name_parent']);
+        $name_parent='';
+        if(isset($_REQUEST['name_parent']))
+            $name_parent = $_REQUEST['name_parent'];
+            
+        $this->set('name_parent', $name_parent);
     }
 
     public function getAjaxSearch() {
