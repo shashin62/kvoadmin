@@ -69,6 +69,8 @@ Class FamilyController extends AppController {
         $this->set('date_of_birth', isset($this->request->data['date_of_birth']) ? $this->request->data['date_of_birth'] : '');
         $this->set('mobile_number', isset($this->request->data['mobile_number']) ?
                         $this->request->data['mobile_number'] : '');
+        $this->set('main_surname', isset($this->request->data['main_surname']) ?
+                        $this->request->data['main_surname'] : '');
         $this->set('village', isset($this->request->data['village']) ?
                         $this->request->data['village'] : '');
 
@@ -95,7 +97,7 @@ Class FamilyController extends AppController {
         }
         
         
-        if (isset($_REQUEST['name_parent']) && !$_REQUEST['name_parent']) {
+        if (isset($getPeopleData['People']) && isset($_REQUEST['name_parent']) && !$_REQUEST['name_parent']) {
             $_REQUEST['name_parent'] = $getPeopleData['People']['first_name'].' '.$getPeopleData['People']['last_name'];
         }
         
@@ -259,7 +261,9 @@ Class FamilyController extends AppController {
             $this->set('last_name', $getPeopleData['People']['last_name']);
             $this->set('is_late', $getPeopleData['People']['is_late']);
             $this->set('non_kvo', $getPeopleData['People']['non_kvo']);
-            $this->set('mobile_number', $getPeopleData['People']['mobile_number'] ? $getPeopleData['People']['mobile_number'] : $sessionData['mobile_number'] );
+            //echo "<pre>"; print_r($getPeopleData['People']); print_r($sessionData); exit;
+            //$this->set('mobile_number', $getPeopleData['People']['mobile_number'] ? $getPeopleData['People']['mobile_number'] : $sessionData['mobile_number'] );
+            $this->set('mobile_number', $getPeopleData['People']['mobile_number']);
             $this->set('email', $getPeopleData['People']['email']);
             $this->set('gender', $getPeopleData['People']['gender']);
             $this->set('martial_status', $getPeopleData['People']['martial_status']);
@@ -2173,18 +2177,20 @@ Class FamilyController extends AppController {
         $name = "";
         if(isset($_REQUEST['fid']))//Undefined index: type
             $name = $this->People->find('all', array('conditions' => array('People.id' => $_REQUEST['fid'])));
-//echo "<pre>"; print_r($name); exit;
+        //echo "<pre>"; print_r($name); exit;
         $module = "";
         if(isset($_REQUEST['module']))//Undefined index: module
              $module = $_REQUEST['module'];
 
         $this->set('module', $module);
-        $main_surname="";
+        $main_surname = $village = "";
         if(isset($name) && !empty($name)){
             $this->set('name', $name[0]['People']['first_name']);
             $main_surname=$name[0]['People']['main_surname'];
+            $village=$name[0]['People']['village'];
         }
         $this->set('main_surname', $main_surname);
+        $this->set('village', $village);
 
         $main_surnames = $this->Surname->find('list', array('fields' => array('Surname.name', 'Surname.name')));
         $this->set(compact('main_surnames'));
