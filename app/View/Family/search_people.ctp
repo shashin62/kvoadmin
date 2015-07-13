@@ -100,6 +100,7 @@
                 'class' => 'village combobox',
                 'style' => '',
                 'options' => $villages,
+                'value' => $village,
                 'custom' => 5
             ));
             ?>

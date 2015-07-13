@@ -88,7 +88,7 @@ Class FamilyController extends AppController {
             
             $array = array();
             $array['gid'] = $_REQUEST['gid'];
-            $this->set('main_surname', $getPeopleData['People']['main_surname']);
+            //$this->set('main_surname', $getPeopleData['People']['main_surname']);
             $getOwnerDetails = $this->People->getParentPeopleDetails($array);
             if(!empty($getOwnerDetails)){
                 $this->set('name', $getOwnerDetails['first_name']);
@@ -186,7 +186,7 @@ Class FamilyController extends AppController {
                 } else {
                     $this->set('readonly', false);
                 }
-                $this->set('village', $getPeopleData['People']['village']);
+                //$this->set('village', $getPeopleData['People']['village']);
                 $this->set('last_name', $getPeopleData['People']['last_name']);
                 break;
             case 'addsister':
@@ -199,7 +199,7 @@ Class FamilyController extends AppController {
                 } else {
                     $this->set('readonly', false);
                 }
-                $this->set('village', $getPeopleData['People']['village']);
+                //$this->set('village', $getPeopleData['People']['village']);
                 $this->set('last_name', $getPeopleData['People']['last_name']);
                 break;
             default:
