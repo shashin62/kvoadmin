@@ -435,7 +435,7 @@ Class FamilyController extends AppController {
                 $updateMotherDetails['People']['modified'] = date('Y-m-d H:i:s');
                 $this->request->data['People']['created_by'] = $this->Session->read('User.user_id');
                 $this->People->save($updateFatherDetails);
-		$searchArray1 = $this->__change_key($updateFatherDetails, 'People','PeopleSearch');                       
+				$searchArray1 = $this->__change_key($updateFatherDetails, 'People','PeopleSearch');                       
                 $this->PeopleSearch->save($searchArray1);
                 $msg['group_id'] = $gid;
                 $message = 'Father has been added';
@@ -802,6 +802,12 @@ Class FamilyController extends AppController {
                     $brotherData['Brother']['brother_id'] = $this->People->id;
                     $brotherData['Brother']['created'] = date('Y-m-d H:i:s');
                     $this->Brother->save($brotherData);
+                    
+                    $brotherReverseData = array();
+                    $brotherReverseData['Brother']['people_id'] = $this->People->id;
+                    $brotherReverseData['Brother']['brother_id'] = $_REQUEST['peopleid'];
+                    $brotherReverseData['Brother']['created'] = date('Y-m-d H:i:s');
+                    $this->Brother->save($brotherReverseData);
                         if ($same == 1) {
                             $this->_copyAddress($parentId, $this->People->id, true);
                         }
@@ -868,6 +874,12 @@ Class FamilyController extends AppController {
                 $brotherData['Sister']['sister_id'] = $this->People->id;
                 $brotherData['Sister']['created'] = date('Y-m-d H:i:s');
                 $this->Sister->save($brotherData);
+                
+                $brotherReverseData = array();
+                    $brotherReverseData['Sister']['people_id'] = $this->People->id;
+                    $brotherReverseData['Sister']['brother_id'] = $_REQUEST['peopleid'];
+                    $brotherReverseData['Sister']['created'] = date('Y-m-d H:i:s');
+                    $this->Sister->save($brotherReverseData);
                 
                         if ($same == 1) {
                             $this->_copyAddress($parentId, $this->People->id, true);
