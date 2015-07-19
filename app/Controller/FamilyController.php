@@ -785,7 +785,7 @@ Class FamilyController extends AppController {
                         $updateParentUser['id'] = $_REQUEST['peopleid'];
                         $this->People->updateBrotherDetails($updateParentUser);
 
-                        $getBrotherDetails = $this->People->find('all', array('fields' => array('People.m_id', 'People.mother', 'People.f_id', 'People.father'),
+                        $getBrotherDetails = $this->People->find('all', array('fields' => array('People.m_id', 'People.mother','People.gender', 'People.f_id', 'People.father'),
                             'conditions' => array('People.id' => $_REQUEST['peopleid']))
                         );
 
@@ -802,12 +802,19 @@ Class FamilyController extends AppController {
                     $brotherData['Brother']['brother_id'] = $this->People->id;
                     $brotherData['Brother']['created'] = date('Y-m-d H:i:s');
                     $this->Brother->save($brotherData);
-                    
                     $brotherReverseData = array();
-                    $brotherReverseData['Brother']['people_id'] = $this->People->id;
-                    $brotherReverseData['Brother']['brother_id'] = $_REQUEST['peopleid'];
-                    $brotherReverseData['Brother']['created'] = date('Y-m-d H:i:s');
-                    $this->Brother->save($brotherReverseData);
+                        if ($getBrotherDetails['People']['gender'] == 'Female') {
+                            $brotherReverseData['Sister']['people_id'] = $this->People->id;
+                            $brotherReverseData['Sister']['brother_id'] = $_REQUEST['peopleid'];
+                            $brotherReverseData['Sister']['created'] = date('Y-m-d H:i:s');
+                            $this->Sister->save($brotherReverseData);
+                        } else {
+                            $brotherReverseData['Brother']['people_id'] = $this->People->id;
+                            $brotherReverseData['Brother']['brother_id'] = $_REQUEST['peopleid'];
+                            $brotherReverseData['Brother']['created'] = date('Y-m-d H:i:s');
+                            $this->Brother->save($brotherReverseData);
+                        }
+
                         if ($same == 1) {
                             $this->_copyAddress($parentId, $this->People->id, true);
                         }
