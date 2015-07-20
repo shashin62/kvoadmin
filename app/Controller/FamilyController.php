@@ -800,7 +800,7 @@ Class FamilyController extends AppController {
                         //$this->Brother->save($brotherData);                        
                         //$brotherReverseData = array();
                         // save brothers/sisters, 
-                        if ($this->request->data['People']['gender'] == 'Female')  {                            
+                        if ($getBrotherDetails[0]['People']['gender'] == 'Female')  {                            
                             $brotherReverseData['Sister']['people_id'] = $this->People->id;
                             $brotherReverseData['Sister']['sister_id'] = $_REQUEST['peopleid'];
                             $brotherReverseData['Sister']['created'] = date('Y-m-d H:i:s');
