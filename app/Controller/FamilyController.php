@@ -834,11 +834,11 @@ Class FamilyController extends AppController {
                         $addSisterForNew1 = array();
                         foreach ($childs as $key => $value) {
 
-                            if ($value['People']['gender'] == 'Male') {
+                            if ($this->request->data['People']['gender'] == 'Male') {
                                 $addBrotherForNew1[$key]['Brother']['people_id'] = $value['People']['id'];
                                 $addBrotherForNew1[$key]['Brother']['brother_id'] = $this->People->id;
                             }
-                            if ($value['People']['gender'] == 'Female') {
+                            if ($this->request->data['People']['gender'] == 'Female') {
                                     $addSisterForNew1[$key]['Sister']['people_id'] = $value['People']['id'];
                                     $addSisterForNew1[$key]['Sister']['sister_id'] = $this->People->id;
                                 }
