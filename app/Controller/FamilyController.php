@@ -2548,7 +2548,8 @@ Class FamilyController extends AppController {
         $this->layout = 'ajax';
         $id = $_REQUEST['id'];
         $gid = $_REQUEST['gid'];
-        $type = $_REQUEST['type'];
+       $type = $_REQUEST['type'];
+       $assocationId = $_REQUEST['associd'];
         if ($this->People->removeRelation($id, $assocationId, $gid, $type)) {
             $msg['success'] = 1;
             $msg['message'] = 'Accociation has been removed';

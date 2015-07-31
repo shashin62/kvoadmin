@@ -128,7 +128,7 @@ $firstName = $value['People']['first_name'];
                 $brothers = $People->getBrothers($value['People']['id']);
                 $brother = array();
                 foreach ($brothers as $bKey => $vValue) {
-                    $brother[] = $vValue['People']['first_name'] . ' (' . $vValue['b']['brother_id'] . ')';
+                    $brother[] = $vValue['People']['first_name'] . ' (' . $vValue['b']['brother_id'] . ')' . ' <a href="" href="javascript:void(0);" title="Remove Association" data-type="brother" title="edit"  class="removeassco" data-gid=' . $value['People']['group_id'] . ' data-bid='. $vValue['b']['brother_id']. ' data-id='. $value['People']['id'].'>Remove</a>';
                     ;
                 }
                 ?>
@@ -142,7 +142,7 @@ $firstName = $value['People']['first_name'];
                 $sisters = $People->getSisters($value['People']['id']);
                 $sister = array();
                 foreach ($sisters as $bKey => $vValue) {
-                    $sister[] = $vValue['People']['first_name'] . ' (' . $vValue['b']['sister_id'] . ')';
+                    $sister[] = $vValue['People']['first_name'] . ' (' . $vValue['b']['sister_id'] . ')' . ' <a href="" href="javascript:void(0);" title="Remove Association" data-type="sister" title="edit"  class="removeassco" data-gid=' . $value['People']['group_id'] . ' data-sid='. $vValue['b']['sister_id']. ' data-id='. $value['People']['id'].'>Remove</a>';
                 }
                 ?>
                 <?php if (count($sister)) { ?>

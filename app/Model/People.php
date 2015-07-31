@@ -2081,10 +2081,19 @@ HAVING count(*) > 1";
             $query = "UPDATE {$this->tablePrefix}people
                   SET f_id = '', father = ''            
                   WHERE id = {$id}";
-        } else {
+        } else if( $type == 'mother'){
             $query = "UPDATE {$this->tablePrefix}people
                   SET m_id = '', mother = ''            
                   WHERE id = {$id}";
+        }
+        
+        else if( $type == 'sister'){
+            echo $query = "delete from {$this->tablePrefix}sisters                  
+                  WHERE people_id = {$id} AND sister_id = {$assocationId}";
+        }
+         else if( $type == 'brother'){
+            echo $query = "delete from {$this->tablePrefix}brothers                  
+                  WHERE people_id = {$id} AND sister_id = {$assocationId}";
         }
                   
         try {

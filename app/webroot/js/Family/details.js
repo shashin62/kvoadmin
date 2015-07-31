@@ -260,10 +260,15 @@ $('.removeassco').click(function(){
     var id = $this.data('id');
     var gid = $this.data('gid');
     var relationType = $this.data('type');
+   
     var assocationId;
     if( relationType == 'mother') {
         assocationId = $this.data('m_id');
-    } else {
+    } else if( relationType == 'sister') {
+        assocationId = $this.data('sid');
+    }  else if( relationType == 'brother') {
+        assocationId = $this.data('bid');
+    }else {
         assocationId = $this.data('f_id');
     }
     
@@ -274,17 +279,13 @@ $('.removeassco').click(function(){
             id: id, 
             type: relationType, 
             gid : gid,
-            associationId: assocationId
+            associd: assocationId
         },
         type: "POST",
         success: function (response) {
             var displayMsg = response.message;
             showJsSuccessMessage(displayMsg);
-            setTimeout(function () {
-                $('.jssuccessMessage').hide('slow');
-                window.location.href = baseUrl + '/family/details/' + gid;
-                
-            }, 2500);
+           
         }
     });
 });
