@@ -1076,6 +1076,19 @@ Class FamilyController extends AppController {
                         $updateParentUser['partner_name'] = $this->request->data['People']['first_name'];
                         $updateParentUser['id'] = $_REQUEST['peopleid'];
                         $this->People->updateSpouseDetails($updateParentUser);
+                        
+                        $childs = $this->People->find('all', array(
+                            'conditions' => array('People.f_id' => $_REQUEST['peopleid']),
+                            'fields' => array('People.id', 'People.gender', 'People.m_id')
+                        ));
+                        if (count($childs)) {
+                            foreach ($childs as $childKey => $childValue) {
+                                $array['id'] = $value['People']['id'];
+                                $array['m_id'] = $parentId;
+                                $array['mother'] = $this->request->data['People']['first_name'];
+                                $this->People->updateChildrenDetails($array);
+                            }
+                        }
                         $message = 'Spouse has been added';
                         $peopleGroup = array();
                         $peopleGroup['PeopleGroup']['group_id'] = $getPeopleDetail[0]['People']['group_id'];
