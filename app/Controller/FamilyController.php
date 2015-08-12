@@ -1083,8 +1083,8 @@ Class FamilyController extends AppController {
                         ));
                         if (count($childs)) {
                             foreach ($childs as $childKey => $childValue) {
-                                $array['id'] = $value['People']['id'];
-                                $array['m_id'] = $parentId;
+                                $array['id'] = $childValue['People']['id'];
+                                $array['m_id'] = $partnerId;
                                 $array['mother'] = $this->request->data['People']['first_name'];
                                 $this->People->updateChildrenDetails($array);
                             }
