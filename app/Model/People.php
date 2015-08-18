@@ -87,7 +87,7 @@ Class People extends AppModel {
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "Male" AND p.first_name is not null and p.m_id IS NULL AND p.f_id IS NULL ';
+                    $sWhere .= ' p.gender = "Male" AND p.first_name is not null ';
                     break;
                 case 'addfather':
                     if ($sWhere == "") {
@@ -103,7 +103,7 @@ Class People extends AppModel {
                     } else {
                         $sWhere .= ' AND ';
                     }
-                    $sWhere .= ' p.gender = "Female"  AND p.first_name is not null and p.m_id IS NULL AND p.f_id IS NULL ';
+                    $sWhere .= ' p.gender = "Female"  AND p.first_name is not null';
                     break;
                 case 'addmother':
                     if ($sWhere == "") {
