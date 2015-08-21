@@ -219,8 +219,8 @@ Class FamilyController extends AppController {
         $hof_fullName = '';
         if (!empty($_REQUEST['gid'])) {
             $hof = $this->People->getHOF($_REQUEST['gid']);
-            if (isset($hof['people']))
-                $hof_fullName = $hof['people']['first_name'] . ' ' . $hof['people']['last_name'];
+            if (isset($hof[0]['people']))
+                $hof_fullName = $hof[0]['people']['first_name'] . ' ' . $hof[0]['people']['last_name'];
         }
 
         $this->set('hof', $hof_fullName);
